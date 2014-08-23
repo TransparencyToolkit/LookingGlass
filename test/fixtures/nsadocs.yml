@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  release_date: 
+  released_by: 
+  article_url: 
+  title: 
+  doc_path: 
+  type: 
+  legal_authority: 
+  records_collected: 
+  creation_date: 
+  doc_text: 
+  aclu_desc: 
+  sigads: 
+  codewords: 
+  programs: 
+  countries: 
+
+two:
+  release_date: 
+  released_by: 
+  article_url: 
+  title: 
+  doc_path: 
+  type: 
+  legal_authority: 
+  records_collected: 
+  creation_date: 
+  doc_text: 
+  aclu_desc: 
+  sigads: 
+  codewords: 
+  programs: 
+  countries: 

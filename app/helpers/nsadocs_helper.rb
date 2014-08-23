@@ -1,0 +1,2 @@
+module NsadocsHelper
+end

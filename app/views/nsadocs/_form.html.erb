@@ -1,0 +1,77 @@
+<%= form_for(@nsadoc) do |f| %>
+  <% if @nsadoc.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@nsadoc.errors.count, "error") %> prohibited this nsadoc from being saved:</h2>
+
+      <ul>
+      <% @nsadoc.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :release_date %><br>
+    <%= f.text_field :release_date %>
+  </div>
+  <div class="field">
+    <%= f.label :released_by %><br>
+    <%= f.text_field :released_by %>
+  </div>
+  <div class="field">
+    <%= f.label :article_url %><br>
+    <%= f.text_field :article_url %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :doc_path %><br>
+    <%= f.text_field :doc_path %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.text_field :type %>
+  </div>
+  <div class="field">
+    <%= f.label :legal_authority %><br>
+    <%= f.text_field :legal_authority %>
+  </div>
+  <div class="field">
+    <%= f.label :records_collected %><br>
+    <%= f.text_field :records_collected %>
+  </div>
+  <div class="field">
+    <%= f.label :creation_date %><br>
+    <%= f.text_field :creation_date %>
+  </div>
+  <div class="field">
+    <%= f.label :doc_text %><br>
+    <%= f.text_field :doc_text %>
+  </div>
+  <div class="field">
+    <%= f.label :aclu_desc %><br>
+    <%= f.text_field :aclu_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :sigads %><br>
+    <%= f.text_field :sigads %>
+  </div>
+  <div class="field">
+    <%= f.label :codewords %><br>
+    <%= f.text_field :codewords %>
+  </div>
+  <div class="field">
+    <%= f.label :programs %><br>
+    <%= f.text_field :programs %>
+  </div>
+  <div class="field">
+    <%= f.label :countries %><br>
+    <%= f.text_field :countries %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
