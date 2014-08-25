@@ -1,5 +1,9 @@
 class SearchController < ApplicationController
   def index
-    @nsadocs = Nsadoc.search(params[:q])
+    if params[:q]
+      @nsadocs = Nsadoc.search(params[:q])
+    elsif params[:title]
+      @nsadocs = Nsadoc.search query: { match: { title: params[:title] } }
+    end
   end
 end

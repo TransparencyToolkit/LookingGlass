@@ -10,3 +10,12 @@ $(document).ready ->
   ]
   return
 
+jQuery ->
+  $('#ftypes').change ->
+    chosen = $('#ftypes :selected').text()
+    if chosen == "Title"
+      $('#title').show()
+      $('#q').hide()
+    else if chosen == "All"
+      $('#q').show()
+      $('#title').hide()
