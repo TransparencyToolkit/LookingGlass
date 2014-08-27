@@ -20,3 +20,4 @@
 //= require dataTables/extras/dataTables.colVis
 //= require dataTables/extras/dataTables.colReorder
 //= require dataTables/extras/dataTables.responsive
+//= require bootstrap-datepicker

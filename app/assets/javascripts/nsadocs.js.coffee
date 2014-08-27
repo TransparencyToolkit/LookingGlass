@@ -31,3 +31,27 @@ jQuery ->
     else if chosen == "Codewords"
       $('.searchin').hide()
       $('#codewords').show()
+    else if chosen == "Creation Date"
+      $('.searchin').hide()
+      $('#creation_date').show()
+    else if chosen == "Document Type"
+      $('.searchin').hide()
+      $('#type').show()
+    else if chosen == "Records Collected"
+      $('.searchin').hide()
+      $('#records_collected').show()
+    else if chosen == "Legal Authority"
+      $('.searchin').hide()
+      $('#legal_authority').show()
+    else if chosen == "Countries"
+      $('.searchin').hide()
+      $('#countries').show()
+    else if chosen == "SIGADS"
+      $('.searchin').hide()
+      $('#sigads').show()
+    else if chosen == "Release Date"
+      $('.searchin').hide()
+      $('#release_date').show()
+    else if chosen == "Released By"
+      $('.searchin').hide()
+      $('#released_by').show()
