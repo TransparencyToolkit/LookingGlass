@@ -14,8 +14,20 @@ jQuery ->
   $('#ftypes').change ->
     chosen = $('#ftypes :selected').text()
     if chosen == "Title"
+      $('.searchin').hide()
       $('#title').show()
-      $('#q').hide()
     else if chosen == "All"
+      $('.searchin').hide()
       $('#q').show()
-      $('#title').hide()
+    else if chosen == "Description"
+      $('.searchin').hide()
+      $('#aclu_desc').show()
+    else if chosen == "Document"
+      $('.searchin').hide()
+      $('#doc_text').show()
+    else if chosen == "Programs"
+      $('.searchin').hide()
+      $('#programs').show()
+    else if chosen == "Codewords"
+      $('.searchin').hide()
+      $('#codewords').show()

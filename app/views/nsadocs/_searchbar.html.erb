@@ -3,9 +3,17 @@
   <select name="ftypes" id="ftypes">
     <option value="all" selected>All</option>
     <option value="title">Title</option>
+    <option value="aclu_desc">Description</option>
+    <option value="doc_text">Document</option>
+    <option value="programs">Programs</option>
+    <option value="codewords">Codewords</option>
   </select>
 </form>
 
 <%= render partial: 'nsadocs/allquery' %>
 <%= render partial: 'nsadocs/titlequery' %>
+<%= render partial: 'nsadocs/descquery' %>
+<%= render partial: 'nsadocs/docquery' %>
+<%= render partial: 'nsadocs/programquery' %>
+<%= render partial: 'nsadocs/codewordquery' %>
 </div>

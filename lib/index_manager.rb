@@ -8,7 +8,7 @@ class IndexManager
     client.indices.delete index: index_name rescue nil if options[:force]
 
     settings = Nsadoc.settings.to_hash
-    mappings = Nsadoc.settings.to_hash
+    mappings = Nsadoc.mappings.to_hash
 
     client.indices.create index: index_name,
     body: {
@@ -32,6 +32,8 @@ class IndexManager
     if nsadoc_hash[:creation_date] == "Unknown" || nsadoc_hash[:creation_date] == "Date unknown"
       nsadoc_hash[:creation_date] = "2014-01-01"
     end
+    nsadoc_hash[:programs_analyzed] = nsadoc_hash[:programs]
+    nsadoc_hash[:codewords_analyzed] = nsadoc_hash[:codewords]
     nsadoc_hash
   end
 end
