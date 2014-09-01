@@ -1,13 +1,12 @@
 curl -POST 'http://localhost:9200/nsadocs/_search?pretty=true' -d '{
-     "query": {"match": { "_all": "xkeyscore" }},
      "facets": { 
-       "programs": {"terms": {"field": "programs"}},
-       "codewords": {"terms": {"field": "codewords"}},
-       "type": {"terms": {"field": "type"}},
-       "records_collected": {"terms": {"field": "records_collected"}},
-       "legal_authority": {"terms": {"field": "legal_authority"}},
-       "countries": {"terms": {"field": "countries"}},
-       "sigads": {"terms": {"field": "sigads"}},
-       "released_by": {"terms": {"field": "released_by"}}
+       "programs": {"terms": {"field": "programs", size: 1000}},
+       "codewords": {"terms": {"field": "codewords", size: 1000}},
+       "type": {"terms": {"field": "type", size: 1000}},
+       "records_collected": {"terms": {"field": "records_collected", size: 1000}},
+       "legal_authority": {"terms": {"field": "legal_authority", size: 1000}},
+       "countries": {"terms": {"field": "countries", "size": 1000}},
+       "sigads": {"terms": {"field": "sigads", "size": 1000}},
+       "released_by": {"terms": {"field": "released_by", "size":1000}}
       }
 }'
