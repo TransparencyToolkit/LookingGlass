@@ -1,230 +1,79 @@
 class SearchController < ApplicationController
   def index
-    if params[:q]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { _all: {query: params[:q], fuzziness: "auto" }}},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:title]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { title: { query: params[:title], fuzziness: "auto" } } },
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:aclu_desc]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { aclu_desc: { query: params[:aclu_desc], fuzziness: "auto"} }},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:doc_text]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { doc_text: { query: params[:doc_text], fuzziness: "auto" } }},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:programs]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { programs_analyzed: { query: params[:programs].gsub(" ", ""), fuzziness: "auto"}}},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:codewords]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { codewords_analyzed: { query: params[:codewords].gsub(" ", ""), fuzziness: "auto"}}},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:creation_date]
-      parseddate = params[:creation_date].split("/")
-      dateclean = "#{parseddate[2]}-#{parseddate[0]}-#{parseddate[1]}"
-      
-      if !params[:end_create_date].empty?
-        parsed_end_date = params[:end_create_date].split("/")
-        enddateclean = "#{parsed_end_date[2]}-#{parsed_end_date[0]}-#{parsed_end_date[1]}"
-        
-        @nsadocs = Nsadoc.search size: 1000, query: {range: { creation_date: {gte: dateclean, lte: enddateclean} } },
-        facets: {
-          programs: {terms: {field: "programs"}},
-          codewords: {terms: {field: "codewords"}},
-          type: {terms: {field: "type"}},
-          records_collected: {terms: {field: "records_collected"}},
-          legal_authority: {terms: {field: "legal_authority"}},
-          countries: {terms: {field: "countries"}},
-          sigads: {terms: {field: "sigads"}},
-          released_by: {terms: {field: "released_by"}}
-        }
-      @facets = @nsadocs.response["facets"]
+    queryhash = Hash.new
+
+    # Set the input hash (field and value) for the appropriate field
+    if params[:q] then queryhash = {field: "_all", searchterm: params[:q]}
+    elsif params[:title] then queryhash = {field: :title, searchterm: params[:title]}
+    elsif params[:aclu_desc] then queryhash = {field: :aclu_desc, searchterm: params[:aclu_desc]}
+    elsif params[:doc_text] then queryhash = {field: :doc_text, searchterm: params[:doc_text]}
+    elsif params[:programs] then queryhash = {field: :programs_analyzed, searchterm: params[:programs]}
+    elsif params[:codewords] then queryhash = {field: :codewords_analyzed, searchterm: params[:codewords]}
+    elsif params[:creation_date] 
+      if !params[:end_create_date].empty? 
+        queryhash = {field: :creation_date, start_date: parse_date(params[:creation_date]), 
+          end_date: parse_date(params[:end_create_date])}
       else
-        @nsadocs = Nsadoc.search size: 1000, query: {term: { creation_date: dateclean}},
-        facets: {
-          programs: {terms: {field: "programs"}},
-          codewords: {terms: {field: "codewords"}},
-          type: {terms: {field: "type"}},
-          records_collected: {terms: {field: "records_collected"}},
-          legal_authority: {terms: {field: "legal_authority"}},
-          countries: {terms: {field: "countries"}},
-          sigads: {terms: {field: "sigads"}},
-          released_by: {terms: {field: "released_by"}}
-        }
-        @facets = @nsadocs.response["facets"]
+        queryhash = {field: :creation_date, searchterm: parse_date(params[:creation_date])}
       end
-    elsif params[:type]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { type_analyzed: { query: params[:type], fuzziness: "auto" } }},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:records_collected]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { records_collected_analyzed: { query: params[:records_collected], fuzziness: "auto" } }},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:legal_authority]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { legal_authority_analyzed: { query: params[:legal_authority], fuzziness: "auto" } }},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:countries]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { countries_analyzed: { query: params[:countries], fuzziness: "auto" } }},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
-    elsif params[:sigads]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { sigads_analyzed: { query: params[:sigads], fuzziness: "auto" } }},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
+    elsif params[:type] then queryhash = {field: :type_analyzed, searchterm: params[:type]}
+    elsif params[:records_collected] then queryhash = {field: :records_collected_analyzed, searchterm: params[:records_collected]}
+    elsif params[:legal_authority] then queryhash = {field: :legal_authority_analyzed, searchterm: params[:legal_authority]}
+    elsif params[:countries] then queryhash = {field: :countries_analyzed, searchterm: params[:countries]}
+    elsif params[:sigads] then queryhash = {field: :sigads_analyzed, searchterm: params[:sigads]}
     elsif params[:release_date]
-      parseddate = params[:release_date].split("/")
-      dateclean = "#{parseddate[2]}-#{parseddate[0]}-#{parseddate[1]}"
-
       if !params[:end_release_date].empty?
-        parsed_end_date = params[:end_release_date].split("/")
-        enddateclean = "#{parsed_end_date[2]}-#{parsed_end_date[0]}-#{parsed_end_date[1]}"
-
-        @nsadocs = Nsadoc.search size: 1000, query: {range: { release_date: {gte: dateclean, lte: enddateclean} } },
-        facets: {
-          programs: {terms: {field: "programs"}},
-          codewords: {terms: {field: "codewords"}},
-          type: {terms: {field: "type"}},
-          records_collected: {terms: {field: "records_collected"}},
-          legal_authority: {terms: {field: "legal_authority"}},
-          countries: {terms: {field: "countries"}},
-          sigads: {terms: {field: "sigads"}},
-          released_by: {terms: {field: "released_by"}}
-        }
-        @facets = @nsadocs.response["facets"]
+        queryhash = {field: :release_date, start_date: parse_date(params[:release_date]), 
+          end_date: parse_date(params[:end_release_date])}
       else
-        @nsadocs = Nsadoc.search size: 1000, query: {term: { release_date: dateclean}},
-        facets: {
-          programs: {terms: {field: "programs"}},
-          codewords: {terms: {field: "codewords"}},
-          type: {terms: {field: "type"}},
-          records_collected: {terms: {field: "records_collected"}},
-          legal_authority: {terms: {field: "legal_authority"}},
-          countries: {terms: {field: "countries"}},
-          sigads: {terms: {field: "sigads"}},
-          released_by: {terms: {field: "released_by"}}
-        }
-        @facets = @nsadocs.response["facets"]
+        queryhash = {field: :release_date, searchterm: parse_date(params[:release_date])}
       end
 
-    elsif params[:released_by]
-      @nsadocs = Nsadoc.search size: 1000, query: { match: { released_by_analyzed: { query: params[:released_by], fuzziness: "auto" } }},
-      facets: {
-        programs: {terms: {field: "programs"}},
-        codewords: {terms: {field: "codewords"}},
-        type: {terms: {field: "type"}},
-        records_collected: {terms: {field: "records_collected"}},
-        legal_authority: {terms: {field: "legal_authority"}},
-        countries: {terms: {field: "countries"}},
-        sigads: {terms: {field: "sigads"}},
-        released_by: {terms: {field: "released_by"}}
-      }
-      @facets = @nsadocs.response["facets"]
+    elsif params[:released_by] then queryhash = {field: :released_by_analyzed, searchterm: params[:released_by]}
     end
+
+    # Build query, get documents, get facets
+    @nsadocs = build_query(queryhash)
+    @facets = @nsadocs.response["facets"]
+  end
+
+  private
+
+  # Convert date into appropriate format for elasticsearch
+  def parse_date(date)
+    parseddate = date.split("/")
+    return "#{parseddate[2]}-#{parseddate[0]}-#{parseddate[1]}"
+  end
+
+  # Generate the query from query hash
+  def build_query(input)
+    fieldnames = [input[:field]]
+    queryhash = {}
+    
+    # Generate appropriate query hash
+    if input[:field] == :creation_date || input[:field] == :release_date
+      if input[:end_date]
+        queryhash = {range: { fieldnames[0] => {gte: input[:start_date], lte: input[:end_date]}}}
+      else
+        queryhash = {term: { fieldnames[0] => input[:searchterm]}}
+      end
+    else
+      queryhash = { match: { fieldnames[0] => {query: input[:searchterm], fuzziness: "auto" }}}
+    end
+
+    # Add facets                                                                  
+      query = {size: 1000, query: queryhash,
+        facets: {
+          programs: {terms: {field: "programs", size: 1000}},
+          codewords: {terms: {field: "codewords", size: 1000}},
+          type: {terms: {field: "type", size: 1000}},
+          records_collected: {terms: {field: "records_collected", size: 1000}},
+          legal_authority: {terms: {field: "legal_authority", size: 1000}},
+          countries: {terms: {field: "countries", size: 1000}},
+          sigads: {terms: {field: "sigads", size: 1000}},
+          released_by: {terms: {field: "released_by", size: 1000}}
+        }}
+
+    Nsadoc.search query
   end
 end
