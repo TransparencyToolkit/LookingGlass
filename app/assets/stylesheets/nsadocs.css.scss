@@ -2,12 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-label.tree-toggler.collapse
+label.plus:before
 {
     content: "+ Show More";
 }
 
-label.tree-toggler:before
+label.minus:before
 {
     content: "- Show Less";
+}
+
+label.just-minus:before
+{
+    content: "- ";
+}
+
+label.just-plus:before
+{
+    content: "+ ";
 }
