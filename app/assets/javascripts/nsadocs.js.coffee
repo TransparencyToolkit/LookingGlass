@@ -55,3 +55,4 @@ jQuery ->
     else if chosen == "Released By"
       $('.searchin').hide()
       $('#released_by').show()
+

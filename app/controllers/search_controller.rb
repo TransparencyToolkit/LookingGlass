@@ -30,10 +30,13 @@ class SearchController < ApplicationController
       end
 
     elsif params[:released_by] then queryhash = {field: :released_by_analyzed, searchterm: params[:released_by]}
+    else queryhash = nil
     end
 
+    facets = params.select { |i| i.include? "_facet" }
+    
     # Build query, get documents, get facets
-    @nsadocs = build_query(queryhash)
+    @nsadocs = build_query(queryhash, facets)
     @facets = @nsadocs.response["facets"]
   end
 
@@ -46,23 +49,47 @@ class SearchController < ApplicationController
   end
 
   # Generate the query from query hash
-  def build_query(input)
-    fieldnames = [input[:field]]
-    queryhash = {}
+  def build_query(input, filter_by)
+
+    # Generate query hash
+    if input
+      fieldnames = [input[:field]]
+      queryhash = {}
     
-    # Generate appropriate query hash
-    if input[:field] == :creation_date || input[:field] == :release_date
-      if input[:end_date]
-        queryhash = {range: { fieldnames[0] => {gte: input[:start_date], lte: input[:end_date]}}}
+      # Generate appropriate query hash
+      if input[:field] == :creation_date || input[:field] == :release_date
+        if input[:end_date]
+          queryhash = {range: { fieldnames[0] => {gte: input[:start_date], lte: input[:end_date]}}}
+        else
+          queryhash = {term: { fieldnames[0] => input[:searchterm]}}
+        end
       else
-        queryhash = {term: { fieldnames[0] => input[:searchterm]}}
+        queryhash = { match: { fieldnames[0] => {query: input[:searchterm], fuzziness: "auto" }}}
       end
-    else
-      queryhash = { match: { fieldnames[0] => {query: input[:searchterm], fuzziness: "auto" }}}
     end
 
-    # Add facets                                                                  
-      query = {size: 1000, query: queryhash,
+    # Generate filters for faceted browsing
+    hasharr = Array.new
+    filter_by.each do |k, v|
+      if v.is_a? Array
+        v.each { |j| hasharr.push({ term: { k.gsub("_facet", "") => j}})}
+      else
+        hasharr.push({ term: { k.gsub("_facet", "") => v}})
+      end
+    end
+    filterhash = { "and" => hasharr }
+
+    # Options based on if it is search and facets, just facets, just search
+    if !filter_by.empty? && queryhash
+      fullhash = { filtered: { query: queryhash, filter: filterhash }} 
+    elsif !queryhash
+      fullhash = { filtered: { filter: filterhash}}
+    else
+      fullhash = queryhash
+    end
+
+    # Put it all together                                                             
+      query = {size: 1000, query: fullhash,
         facets: {
           programs: {terms: {field: "programs", size: 1000}},
           codewords: {terms: {field: "codewords", size: 1000}},
@@ -73,7 +100,7 @@ class SearchController < ApplicationController
           sigads: {terms: {field: "sigads", size: 1000}},
           released_by: {terms: {field: "released_by", size: 1000}}
         }}
-
+    
     Nsadoc.search query
   end
 end
