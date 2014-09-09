@@ -16,9 +16,6 @@ class NsadocsController < ApplicationController
     @facets = results.response["facets"]
   end
 
-  def show
-  end
-
   def makedocview
     @docid = params[:docid]
     @docidfull = params[:docidfull]

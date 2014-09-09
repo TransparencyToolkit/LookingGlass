@@ -71,10 +71,11 @@
     });
    }
 
-  $('tr.docrow').click(function () {
+  $('body').on('click', '.docrow', function () {
+    console.log("clicked doc");
     $('.nav-tabs>li.active').removeClass('active');
     var docidfull = $(this).attr("id");
-    var docid = $(this).attr("id").replace(/[(]/g, "").replace(/[)]/g, "").replace(/[|]/g, "").replace(/[-]/g, "").replace(/[_]/g, "");
+    var docid = $(this).attr("id").replace(/[(]/g, "").replace(/[)]/g, "").replace(/[|]/g, "").replace(/[-]/g, "").replace(/[_]/g, "").replace(/[,]/g, "").replace(/[.]/g, "");
     var doctitle = $(this).attr("doctitle");
     if ($('#'+docid+'doc').length == 0){
       $('.nav-tabs>li.active').removeClass('active');

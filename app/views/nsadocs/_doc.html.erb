@@ -28,11 +28,6 @@
 </p>
 
 <p>
-  <strong>Doc path:</strong>
-  <%= @nsadoc.doc_path %>
-</p>
-
-<p>
   <strong>Type:</strong>
   <%= @nsadoc.type %>
 </p>
@@ -54,7 +49,7 @@
 
 <p>
   <strong>Doc text:</strong>
-  <%= @nsadoc.doc_text %>
+  <%= raw format_text(@nsadoc.doc_text) %>
 </p>
 
 <p>

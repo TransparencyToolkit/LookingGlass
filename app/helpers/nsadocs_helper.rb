@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 module NsadocsHelper
+  def format_text(text)
+    text.gsub("\n", "<br />")
+  end
+
   def facetFormat(facets)
     outhtml = ""
     facetNames = {"programs" => "Programs", "codewords" => "Codewords", "type" => "Document Type", 

@@ -4,7 +4,7 @@
 $(document).ready ->
   $("#docs").dataTable dom: 'C<"clear">Rlfrtip', bFilter: false, columnDefs: [
     {
-      targets: [4..12]
+      targets: [3..12]
       visible: false
     }
   ]
