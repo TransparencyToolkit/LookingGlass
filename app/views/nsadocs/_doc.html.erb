@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+<% @nsadoc = Nsadoc.find(docidfull) %>
+<p>
+  <strong>Release date:</strong>
+  <%= @nsadoc.release_date %>
+</p>
+
+<p>
+  <strong>Released by:</strong>
+  <%= @nsadoc.released_by %>
+</p>
+
+<p>
+  <strong>Article url:</strong>
+  <%= @nsadoc.article_url %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @nsadoc.title %>
+</p>
+
+<p>
+  <strong>Doc path:</strong>
+  <%= @nsadoc.doc_path %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @nsadoc.type %>
+</p>
+
+<p>
+  <strong>Legal authority:</strong>
+  <%= @nsadoc.legal_authority %>
+</p>
+
+<p>
+  <strong>Records collected:</strong>
+  <%= @nsadoc.records_collected %>
+</p>
+
+<p>
+  <strong>Creation date:</strong>
+  <%= @nsadoc.creation_date %>
+</p>
+
+<p>
+  <strong>Doc text:</strong>
+  <%= @nsadoc.doc_text %>
+</p>
+
+<p>
+  <strong>Aclu desc:</strong>
+  <%= @nsadoc.aclu_desc %>
+</p>
+
+<p>
+  <strong>Sigads:</strong>
+  <%= @nsadoc.sigads %>
+</p>
+
+<p>
+  <strong>Codewords:</strong>
+  <%= @nsadoc.codewords %>
+</p>
+
+<p>
+  <strong>Programs:</strong>
+  <%= @nsadoc.programs %>
+</p>
+
+<p>
+  <strong>Countries:</strong>
+  <%= @nsadoc.countries %>
+</p>
+
+<%= link_to 'Edit', edit_nsadoc_path(@nsadoc) %> |
+<%= link_to 'Back', nsadocs_path %>

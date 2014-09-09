@@ -1,0 +1,5 @@
+$(document).ready(function (){
+console.log("in JS");
+$('.tab-content').append('<div class="tab-pane active" id="'+@docid+'doc"><%= escape_javascript(render(:partial => "nsadocs/doc", :locals => {docidfull: @docidfull}))%></div>');
+});
+

@@ -1,8 +1,6 @@
 class NsadocsController < ApplicationController
-  before_action :set_nsadoc, only: [:show, :edit, :update, :destroy]
+  before_action :set_nsadoc, only: [:show]
 
-  # GET /nsadocs
-  # GET /nsadocs.json
   def index
     @nsadocs = Nsadoc.all
     results = Nsadoc.search facets: {
@@ -18,57 +16,15 @@ class NsadocsController < ApplicationController
     @facets = results.response["facets"]
   end
 
-  # GET /nsadocs/1
-  # GET /nsadocs/1.json
   def show
   end
 
-  # GET /nsadocs/new
-  def new
-    @nsadoc = Nsadoc.new
-  end
-
-  # GET /nsadocs/1/edit
-  def edit
-  end
-
-  # POST /nsadocs
-  # POST /nsadocs.json
-  def create
-    @nsadoc = Nsadoc.new(nsadoc_params)
-
+  def makedocview
+    @docid = params[:docid]
+    @docidfull = params[:docidfull]
+    
     respond_to do |format|
-      if @nsadoc.save
-        format.html { redirect_to @nsadoc, notice: 'Nsadoc was successfully created.' }
-        format.json { render :show, status: :created, location: @nsadoc }
-      else
-        format.html { render :new }
-        format.json { render json: @nsadoc.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /nsadocs/1
-  # PATCH/PUT /nsadocs/1.json
-  def update
-    respond_to do |format|
-      if @nsadoc.update(nsadoc_params)
-        format.html { redirect_to @nsadoc, notice: 'Nsadoc was successfully updated.' }
-        format.json { render :show, status: :ok, location: @nsadoc }
-      else
-        format.html { render :edit }
-        format.json { render json: @nsadoc.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /nsadocs/1
-  # DELETE /nsadocs/1.json
-  def destroy
-    @nsadoc.destroy
-    respond_to do |format|
-      format.html { redirect_to nsadocs_url, notice: 'Nsadoc was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js {render layout: false}
     end
   end
 

@@ -20,7 +20,7 @@
   </thead>
   <tbody>
     <% @nsadocs.each do |nsadoc| %>
-      <tr>
+      <tr class="docrow"  id="<%= nsadoc.id %>" doctitle="<%= nsadoc.title %>">
 	<td><%= nsadoc.title %></td>
 	<td><%= nsadoc.aclu_desc %></td>
 	<td><%= truncate(nsadoc.doc_text, :length => 200) %></td>
@@ -39,3 +39,37 @@
   </tbody>
 </table>
 
+<script>
+  $(document).ready(function () {
+  $('tr.docrow').click(function () {
+    $('.nav-tabs>li.active').removeClass('active');
+    var docidfull = $(this).attr("id");
+    var docid = $(this).attr("id").replace(/[(]/g, "").replace(/[)]/g, "").replace(/[|]/g, "").replace(/[-]/g, "").replace(/[_]/g, "");
+    var doctitle = $(this).attr("doctitle");
+    if ($('#'+docid+'doc').length == 0){
+      $('.nav-tabs>li.active').removeClass('active');
+      $('<li class="active" id="'+docid+'tab"><a href="#'+docid+'doc" class="tablink" data-toggle="tab">'+doctitle+'<span id="delete'+docid+'" class="removetab" style="color: red;"> <b><big>X</big></b></span></a></li>').appendTo('ul.nav-tabs');
+      $('.tab-content>div.active').removeClass('active');
+      $.ajax({
+        url: "nsadocs/makedocview", type: "GET",
+        data: { docid: docid, docidfull: docidfull },
+        dataType: "script"
+      });
+    } else {
+      $('.nav-tabs>li.active').removeClass('active');
+      $('a[href=#'+docid+'doc]').parent().addClass('active');
+      $('.tab-content>div.active').removeClass('active');
+      $('#'+docid+'doc').addClass('active');
+    }
+  });
+  
+  $('ul.nav-tabs').on('click', '.removetab', function () {
+    $('#'+$(this).attr("id").replace("delete", "")+'tab').remove();
+    $('#'+$(this).attr("id").replace("delete", "")+'doc').remove();
+    $('.nav-tabs>li.active').removeClass('active');
+    $('a[href=#searchtab]').parent().addClass('active');
+    $('.tab-content>div.active').removeClass('active');
+    $('#searchtab').addClass('active');
+  });
+ });
+</script>

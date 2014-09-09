@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 module NsadocsHelper
   def facetFormat(facets)
     outhtml = ""
