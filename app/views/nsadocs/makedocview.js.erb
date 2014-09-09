@@ -1,3 +1,38 @@
-$(document).ready(function() {
-$('.tab-content').append('<div class="tab-pane active" id="<%= @docid %>doc"><%= escape_javascript(render(:partial => "nsadocs/doc", :locals => {docidfull: @docidfull}))%></div>');
+$('.tab-content-bar').append('<div class="tab-pane-bar tab-pane tabp active" id="<%= @docid %>doc"><%= escape_javascript(render(:partial => "nsadocs/doc", :locals => {docidfull: @docidfull}))%></div>');
+
+localStorage.clear();
+
+var storetabs = $('<div id="tmp"></div>');
+var savetabli = $('.tabli').clone().removeClass('active');
+savetabli.appendTo(storetabs);
+localStorage.setItem("tabliData", escape(storetabs.html()));
+
+var store = $('<div id="tmp2"></div>');
+var savepane = $('.tab-pane-bar').clone().removeClass('active');
+savepane.splice("div#searchtab.tab-pane", 1);
+savepane.appendTo(store);
+localStorage.setItem("tabData", escape(store.html()));
+
+$("#<%= @docid %>doc").addClass('active');
+$("#<%= @docid %>tab").addClass('active');
+
+var duplicateChk = {};
+
+$('.tabli').each (function () {
+ if (duplicateChk.hasOwnProperty(this.id)) {
+   $(this).remove();
+} else {
+   duplicateChk[this.id] = 'true';
+}
 });
+
+var duplicateChk2 = {};
+
+$('.tab-pane-bar').each (function () {
+ if (duplicateChk2.hasOwnProperty(this.id)) {
+   $(this).remove();
+} else {
+   duplicateChk2[this.id] = 'true';
+}
+});
+

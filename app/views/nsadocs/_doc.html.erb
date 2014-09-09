@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 <% @nsadoc = Nsadoc.find(docidfull) %>
+<ul class="nav nav-pills" style="text-align:center;">
+  <li class="active" id="litext<%=@docid %>"><a href="#text<%= @docid %>" data-toggle="tab">Text</a></li>
+  <li id="lipdf<%= @docid %>"><a href="#pdf<%= @docid %>" data-toggle="tab">Document</a></li>
+</ul>
+<br />
+<div class="tab-content" id="div<%=@docid %>">
+<div class="tab-pane active" id="text<%= @docid %>">
 <p>
   <strong>Release date:</strong>
   <%= @nsadoc.release_date %>
@@ -74,6 +81,9 @@
   <strong>Countries:</strong>
   <%= @nsadoc.countries %>
 </p>
+</div>
 
-<%= link_to 'Edit', edit_nsadoc_path(@nsadoc) %> |
-<%= link_to 'Back', nsadocs_path %>
+<div class="tab-pane" id="pdf<%= @docid %>">
+<embed src="docs/<%= @nsadoc.doc_path %>" width="1000" height="750">
+</div>
+</div>
