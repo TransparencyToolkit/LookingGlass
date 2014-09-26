@@ -2,9 +2,13 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
-  $("#docs").dataTable dom: 'C<"clear">Rlfrtip', bFilter: false, columnDefs: [
+  $("#docs").dataTable dom: 'C<"clear">Rlfrtip', bFilter: false, order: [[0, "desc"]], columnDefs: [
     {
-      targets: [3..12]
+      targets: [0]
+      visible: false
+    },
+    {
+      targets: [4..13]
       visible: false
     }
   ]

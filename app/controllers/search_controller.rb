@@ -64,7 +64,10 @@ class SearchController < ApplicationController
           queryhash = {term: { fieldnames[0] => input[:searchterm]}}
         end
       else
-        queryhash = { match: { fieldnames[0] => {query: input[:searchterm], fuzziness: "auto" }}}
+        queryhash = { bool: { should: [
+                       { match: { fieldnames[0] => {query: input[:searchterm], type: "phrase", fuzziness: "auto" }}},
+                       { match: { fieldnames[0] => {query: input[:searchterm], fuzziness: "auto" }}}
+                    ]}}
       end
     end
 

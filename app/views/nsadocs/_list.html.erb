@@ -3,6 +3,7 @@
        cellspacing="0">
   <thead>
     <tr>
+      <th>Relevance</th>
       <th>Title</th>
       <th>Description</th>
       <th>Document</th>
@@ -19,8 +20,9 @@
     </tr>
   </thead>
   <tbody>
-    <% @nsadocs.each do |nsadoc| %>
+    <% @nsadocs.sort { |a, b| a.hit["_score"] <=> b.hit["_score"] }.reverse.each do |nsadoc| %>
       <tr class="docrow"  id="<%= nsadoc.id %>" doctitle="<%= nsadoc.title %>">
+	<td><%= nsadoc.hit["_score"] %> </td>
 	<td><%= nsadoc.title %></td>
 	<td><%= nsadoc.aclu_desc %></td>
 	<td><%= truncate(nsadoc.doc_text, :length => 200) %></td>
