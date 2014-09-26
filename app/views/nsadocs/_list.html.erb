@@ -46,7 +46,7 @@
    var storedtabli = unescape(localStorage.getItem("tabliData"));
    var storedtabs = unescape(localStorage.getItem("tabData"));
 
-   if (storedtabli){
+   if (storedtabli.length > 0){
      $('.tabli').remove();
      $('.nav-tabs').append(storedtabli);
      var duplicateChk = {};
