@@ -43,10 +43,10 @@
 
 <script>
   $(document).ready(function () {
-   var storedtabli = unescape(localStorage.getItem("tabliData"));
-   var storedtabs = unescape(localStorage.getItem("tabData"));
+   var storedtabli = unescape(sessionStorage.getItem("tabliData"));
+   var storedtabs = unescape(sessionStorage.getItem("tabData"));
 
-   if (storedtabli.length > 0){
+   if (storedtabli != "null"){
      $('.tabli').remove();
      $('.nav-tabs').append(storedtabli);
      var duplicateChk = {};
@@ -104,18 +104,18 @@
     $('.tab-content-bar>div.active').removeClass('active');
     $('#searchtab').addClass('active');
 
-    localStorage.clear();
+    sessionStorage.clear();
 
     var storetabs = $('<div id="tmp"></div>');
     var savetabli = $('.tabli').clone().removeClass('active');
     savetabli.appendTo(storetabs);
-    localStorage.setItem("tabliData", escape(storetabs.html()));
+    sessionStorage.setItem("tabliData", escape(storetabs.html()));
 
     var store = $('<div id="tmp2"></div>');
     var savepane = $('.tab-pane-bar').clone().removeClass('active');
     savepane.splice("div#searchtab.tab-pane", 1);
     savepane.appendTo(store);
-    localStorage.setItem("tabData", escape(store.html()));
+    sessionStorage.setItem("tabData", escape(store.html()));
   });
  });
 </script>

@@ -1,17 +1,17 @@
 $('.tab-content-bar').append('<div class="tab-pane-bar tab-pane tabp active" id="<%= @docid %>doc"><%= escape_javascript(render(:partial => "nsadocs/doc", :locals => {docidfull: @docidfull}))%></div>');
 
-localStorage.clear();
+sessionStorage.clear();
 
 var storetabs = $('<div id="tmp"></div>');
 var savetabli = $('.tabli').clone().removeClass('active');
 savetabli.appendTo(storetabs);
-localStorage.setItem("tabliData", escape(storetabs.html()));
+sessionStorage.setItem("tabliData", escape(storetabs.html()));
 
 var store = $('<div id="tmp2"></div>');
 var savepane = $('.tab-pane-bar').clone().removeClass('active');
 savepane.splice("div#searchtab.tab-pane", 1);
 savepane.appendTo(store);
-localStorage.setItem("tabData", escape(store.html()));
+sessionStorage.setItem("tabData", escape(store.html()));
 
 $("#<%= @docid %>doc").addClass('active');
 $("#<%= @docid %>tab").addClass('active');
