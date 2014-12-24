@@ -7,13 +7,13 @@ module NsadocsHelper
 
   def facetFormat(facets)
     outhtml = ""
-    facetNames = {"programs" => "Programs", "codewords" => "Codewords", "type" => "Document Type", 
-    "records_collected" => "Records Collected", "legal_authority" => "Legal Authority", "countries" => "Countries",
-    "sigads" => "SIGADS", "released_by" => "Released By"}
+    facetNames = JSON.parse(File.read("app/dataspec/nsadata.json"))
     
     # Go through all facets
     facetNames.each do |f|
-      outhtml += genFacet(facets, "", f) if facets[f[0]]["terms"].count > 0
+      if f["Facet?"] == "Yes"
+        outhtml += genFacet(facets, "", f) if facets[f["Field Name"]]["terms"].count > 0
+      end
     end
     return outhtml
   end
@@ -21,18 +21,18 @@ module NsadocsHelper
   # Gen html for list of links for each facet
   def genFacet(facets, outhtml, type)
     outhtml += '<ul class="nav nav-list">
-            <li><label class="tree-toggler nav-header just-minus">'+type[1]+'</label><ul class="nav nav-list tree">'
-    facetname = type[0]+"_facet"
+            <li><label class="tree-toggler nav-header just-minus">'+type["Human Readable Name"]+'</label><ul class="nav nav-list tree">'
+    facetname = type["Field Name"]+"_facet"
     facetval = params[facetname]
     
     # Overflow settings
-    totalnum = facets[type[0]]["terms"].count
+    totalnum = facets[type["Field Name"]]["terms"].count
     numshow = totalnum > 5 ? 5+totalnum*0.01 : totalnum
     overflow = '<li><label class="tree-toggler nav-header plus"></label><ul class="nav nav-list tree collapse">'
     counter = 0
 
     # Add each facet to output or overflow list
-    facets[type[0]]["terms"].each do |i|
+    facets[type["Field Name"]]["terms"].each do |i|
       if counter > numshow
         overflow += termLink(i, facetval, facetname)
       else
