@@ -10,7 +10,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "[\"release_date\", \"end_release_date\"]",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "11"
   },
   {
     "Field Name": "released_by",
@@ -23,7 +24,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "released_by",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "12"
   },
   {
     "Field Name": "article_url",
@@ -36,7 +38,8 @@
     "Searchable?": "No",
     "In doc?": "Yes",
     "Form Params": "",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "13"
   },
   {
     "Field Name": "title",
@@ -49,7 +52,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "title",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "0"
   },
   {
     "Field Name": "doc_path",
@@ -62,7 +66,8 @@
     "Searchable?": "No",
     "In doc?": "No",
     "Form Params": "",
-    "Size": ""
+    "Size": "",
+    "Location": "14"
   },
   {
     "Field Name": "type",
@@ -75,7 +80,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "type",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "6"
   },
   {
     "Field Name": "legal_authority",
@@ -88,7 +94,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "legal_authority",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "8"
   },
   {
     "Field Name": "records_collected",
@@ -101,7 +108,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "records_collected",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "7"
   },
   {
     "Field Name": "creation_date",
@@ -114,7 +122,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "[\"creation_date\", \"end_create_date\"]",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "5"
   },
   {
     "Field Name": "doc_text",
@@ -127,7 +136,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "doc_text",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "2"
   },
   {
     "Field Name": "aclu_desc",
@@ -140,7 +150,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "aclu_desc",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "1"
   },
   {
     "Field Name": "sigads",
@@ -153,7 +164,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "sigads",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "10"
   },
   {
     "Field Name": "codewords",
@@ -166,7 +178,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "codewords",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "4"
   },
   {
     "Field Name": "programs",
@@ -179,7 +192,8 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "programs",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "3"
   },
   {
     "Field Name": "countries",
@@ -192,6 +206,7 @@
     "Searchable?": "Yes",
     "In doc?": "Yes",
     "Form Params": "countries",
-    "Size": "1000"
+    "Size": "1000",
+    "Location": "9"
   }
 ]

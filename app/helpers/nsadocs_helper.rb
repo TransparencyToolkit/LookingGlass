@@ -10,7 +10,8 @@ module NsadocsHelper
     facetNames = JSON.parse(File.read("app/dataspec/nsadata.json"))
     
     # Go through all facets
-    facetNames.each do |f|
+    sortFacets = facetNames.sort_by{|facet| facet["Location"].to_i}
+    sortFacets.each do |f|
       if f["Facet?"] == "Yes"
         outhtml += genFacet(facets, "", f) if facets[f["Field Name"]]["terms"].count > 0
       end
@@ -21,7 +22,7 @@ module NsadocsHelper
   # Gen html for list of links for each facet
   def genFacet(facets, outhtml, type)
     outhtml += '<ul class="nav nav-list">
-            <li><label class="tree-toggler nav-header just-minus">'+type["Human Readable Name"]+'</label><ul class="nav nav-list tree">'
+            <li><label class="tree-toggler nav-header just-plus">'+type["Human Readable Name"]+'</label><ul class="nav nav-list tree collapse">'
     facetname = type["Field Name"]+"_facet"
     facetval = params[facetname]
     
