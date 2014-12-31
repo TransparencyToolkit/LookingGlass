@@ -137,7 +137,8 @@
     "In doc?": "Yes",
     "Form Params": "doc_text",
     "Size": "1000",
-    "Location": "2"
+    "Location": "2",
+    "Truncate": "200"
   },
   {
     "Field Name": "aclu_desc",

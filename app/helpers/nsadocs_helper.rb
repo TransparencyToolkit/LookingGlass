@@ -5,6 +5,21 @@ module NsadocsHelper
     text.gsub("\n", "<br />")
   end
 
+  # Get list of items in table and their names
+  def tableItems
+    itemarr = Array.new
+
+    items = JSON.parse(File.read("app/dataspec/nsadata.json"))
+    sortItems = items.sort_by{|item| item["Location"].to_i}
+    sortItems.each do |i|
+      if i["In Table?"] == "Yes"
+        itemarr.push(i)
+      end
+    end
+    
+    return itemarr
+  end
+
   def facetFormat(facets)
     outhtml = ""
     facetNames = JSON.parse(File.read("app/dataspec/nsadata.json"))

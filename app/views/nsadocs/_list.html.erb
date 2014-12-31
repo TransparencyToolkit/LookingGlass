@@ -1,41 +1,24 @@
-
 <table id="docs" class="display table table-hover table-condensed"
        cellspacing="0">
   <thead>
     <tr>
       <th>Relevance</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Document</th>
-      <th>Programs</th>
-      <th>Codewords</th>
-      <th>Creation Date</th>
-      <th>Document Type</th>
-      <th>Records Collected</th>
-      <th>Legal Authority</th>
-      <th>Countries</th>
-      <th>SIGADS</th>
-      <th>Release Date</th>
-      <th>Released By</th>
+      <% tableItems.each do |t| %>
+        <th><%= t["Human Readable Name"] %></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <% @nsadocs.sort { |a, b| a.hit["_score"] <=> b.hit["_score"] }.reverse.each do |nsadoc| %>
       <tr class="docrow"  id="<%= nsadoc.id %>" doctitle="<%= nsadoc.title %>">
 	<td><%= nsadoc.hit["_score"] %> </td>
-	<td><%= nsadoc.title %></td>
-	<td><%= nsadoc.aclu_desc %></td>
-	<td><%= truncate(nsadoc.doc_text, :length => 200) %></td>
-	<td><%= nsadoc.programs %></td>
-	<td><%= nsadoc.codewords %></td>
-	<td><%= nsadoc.creation_date %></td>
-	<td><%= nsadoc.type %></td>
-	<td><%= nsadoc.records_collected %></td>
-	<td><%= nsadoc.legal_authority %></td>
-	<td><%= nsadoc.countries %></td>
-	<td><%= nsadoc.sigads %></td>
-	<td><%= nsadoc.release_date %></td>
-	<td><%= nsadoc.released_by %></td>
+	<% tableItems.each do |t| %>
+	  <% if t["Truncate"] %>
+	  <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Trucate"].to_i) %></td>
+	  <% else %>
+          <td><%= nsadoc[t["Field Name"]] %></td>
+	  <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
