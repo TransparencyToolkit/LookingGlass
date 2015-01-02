@@ -14,7 +14,7 @@
 	<td><%= nsadoc.hit["_score"] %> </td>
 	<% tableItems.each do |t| %>
 	  <% if t["Truncate"] %>
-	  <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Trucate"].to_i) %></td>
+	  <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Truncate"].to_i) %></td>
 	  <% else %>
           <td><%= nsadoc[t["Field Name"]] %></td>
 	  <% end %>
