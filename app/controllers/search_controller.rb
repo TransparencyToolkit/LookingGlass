@@ -3,36 +3,53 @@ class SearchController < ApplicationController
     queryhash = Hash.new
 
     # Set the input hash (field and value) for the appropriate field
-    if params[:q] then queryhash = {field: "_all", searchterm: params[:q]}
-    elsif params[:title] then queryhash = {field: :title, searchterm: params[:title]}
-    elsif params[:aclu_desc] then queryhash = {field: :aclu_desc, searchterm: params[:aclu_desc]}
-    elsif params[:doc_text] then queryhash = {field: :doc_text, searchterm: params[:doc_text]}
-    elsif params[:programs] then queryhash = {field: :programs_analyzed, searchterm: params[:programs]}
-    elsif params[:codewords] then queryhash = {field: :codewords_analyzed, searchterm: params[:codewords]}
-    elsif params[:creation_date] 
-      if !params[:end_create_date].empty? 
-        queryhash = {field: :creation_date, start_date: parse_date(params[:creation_date]), 
-          end_date: parse_date(params[:end_create_date])}
-      else
-        queryhash = {field: :creation_date, searchterm: parse_date(params[:creation_date])}
+    fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
+    fieldhash = Hash.new
+    fieldList.each do |f|
+      if f["Searchable?"] == "Yes"
+        if params[f["Field Name"].to_sym]
+          fieldname = f["Facet?"] == "Yes" ? (f["Field Name"]+"_analyzed").to_sym: f["Field Name"].to_sym
+          searchinput = params[f["Field Name"].to_sym]
+          queryhash = {field: fieldname, searchterm: searchinput}
+          break
+        end
       end
-    elsif params[:type] then queryhash = {field: :type_analyzed, searchterm: params[:type]}
-    elsif params[:records_collected] then queryhash = {field: :records_collected_analyzed, searchterm: params[:records_collected]}
-    elsif params[:legal_authority] then queryhash = {field: :legal_authority_analyzed, searchterm: params[:legal_authority]}
-    elsif params[:countries] then queryhash = {field: :countries_analyzed, searchterm: params[:countries]}
-    elsif params[:sigads] then queryhash = {field: :sigads_analyzed, searchterm: params[:sigads]}
-    elsif params[:release_date]
-      if !params[:end_release_date].empty?
-        queryhash = {field: :release_date, start_date: parse_date(params[:release_date]), 
-          end_date: parse_date(params[:end_release_date])}
-      else
-        queryhash = {field: :release_date, searchterm: parse_date(params[:release_date])}
-      end
-
-    elsif params[:released_by] then queryhash = {field: :released_by_analyzed, searchterm: params[:released_by]}
-    else queryhash = nil
     end
+    # Handle q/all field queries
+    # Handle nil value (else)
+    # Handle dates
 
+    #if params[:q] then queryhash = {field: "_all", searchterm: params[:q]}
+    #elsif params[:title] then queryhash = {field: :title, searchterm: params[:title]}
+    #elsif params[:aclu_desc] then queryhash = {field: :aclu_desc, searchterm: params[:aclu_desc]}
+    #elsif params[:doc_text] then queryhash = {field: :doc_text, searchterm: params[:doc_text]}
+    #elsif params[:programs] then queryhash = {field: :programs_analyzed, searchterm: params[:programs]}
+    #elsif params[:codewords] then queryhash = {field: :codewords_analyzed, searchterm: params[:codewords]}
+    #elsif params[:creation_date] 
+     # if !params[:end_create_date].empty? 
+     #   queryhash = {field: :creation_date, start_date: parse_date(params[:creation_date]), 
+     #     end_date: parse_date(params[:end_create_date])}
+    #  else
+    #    queryhash = {field: :creation_date, searchterm: parse_date(params[:creation_date])}
+    #  end
+    #elsif params[:type] then queryhash = {field: :type_analyzed, searchterm: params[:type]}
+    #elsif params[:records_collected] then queryhash = {field: :records_collected_analyzed, searchterm: params[:records_collected]}
+    #elsif params[:legal_authority] then queryhash = {field: :legal_authority_analyzed, searchterm: params[:legal_authority]}
+    #elsif params[:countries] then queryhash = {field: :countries_analyzed, searchterm: params[:countries]}
+    #elsif params[:sigads] then queryhash = {field: :sigads_analyzed, searchterm: params[:sigads]}
+    #elsif params[:release_date]
+      #if !params[:end_release_date].empty?
+       # queryhash = {field: :release_date, start_date: parse_date(params[:release_date]), 
+       #   end_date: parse_date(params[:end_release_date])}
+      #else
+      #  queryhash = {field: :release_date, searchterm: parse_date(params[:release_date])}
+     # end
+
+    #elsif params[:released_by] then queryhash = {field: :released_by_analyzed, searchterm: params[:released_by]}
+    #else queryhash = nil
+    #end
+
+    # Maintains previously selected facets too
     facets = params.select { |i| i.include? "_facet" }
     
     # Build query, get documents, get facets
