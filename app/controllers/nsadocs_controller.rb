@@ -29,9 +29,4 @@ class NsadocsController < ApplicationController
     def set_nsadoc
       @nsadoc = Nsadoc.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def nsadoc_params
-      params.require(:nsadoc).permit(:release_date, :released_by, :article_url, :title, :doc_path, :type, :legal_authority, :records_collected, :creation_date, :doc_text, :aclu_desc, :sigads, :codewords, :programs, :countries)
-    end
 end

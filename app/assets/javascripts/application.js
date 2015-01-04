@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
@@ -21,4 +20,3 @@
 //= require dataTables/extras/dataTables.colReorder
 //= require dataTables/extras/dataTables.responsive
 //= require bootstrap-datepicker
-//= require turbolinks
