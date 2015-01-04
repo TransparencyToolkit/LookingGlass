@@ -1,35 +1,24 @@
+<% fieldList = JSON.parse(File.read("app/dataspec/nsadata.json")) %>
+<% sortFields = fieldList.sort_by{|field| field["Location"].to_i} %>
+
 <div class="input-group">
 <form action="" class="input-group-addon">
   <select name="ftypes" id="ftypes">
     <option value="all" selected>All</option>
-    <option value="title">Title</option>
-    <option value="aclu_desc">Description</option>
-    <option value="doc_text">Document</option>
-    <option value="programs">Programs</option>
-    <option value="codewords">Codewords</option>
-    <option value="creation_date">Creation Date</option>
-    <option value="type">Document Type</option>
-    <option value="records_collected">Records Collected</option>
-    <option value="legal_authority">Legal Authority</option>
-    <option value="countries">Countries</option>
-    <option value="sigads">SIGADS</option>
-    <option value="release_date">Release Date</option>
-    <option value="released_by">Released By</option>
+    <% sortFields.each do |f| %>
+      <% if f["Searchable?"] == "Yes" %>
+        <option value="<%= f["Field Name"] %>"><%= f["Human Readable Name"] %></option>
+      <% end %>
+    <% end %>
   </select>
 </form>
 
 <%= render partial: 'nsadocs/queries/allquery' %>
-<%= render partial: 'nsadocs/queries/titlequery' %>
-<%= render partial: 'nsadocs/queries/descquery' %>
-<%= render partial: 'nsadocs/queries/docquery' %>
-<%= render partial: 'nsadocs/queries/programquery' %>
-<%= render partial: 'nsadocs/queries/codewordquery' %>
-<%= render partial: 'nsadocs/queries/creationdatequery' %>
-<%= render partial: 'nsadocs/queries/typequery' %>
-<%= render partial: 'nsadocs/queries/recordsquery' %>
-<%= render partial: 'nsadocs/queries/legalquery' %>
-<%= render partial: 'nsadocs/queries/countriesquery' %>
-<%= render partial: 'nsadocs/queries/sigadsquery' %>
-<%= render partial: 'nsadocs/queries/releasedatequery' %>
-<%= render partial: 'nsadocs/queries/releasedbyquery' %>
+<% sortFields.each do |f| %>
+  <% if f["Type"] == "String" %>
+    <%= render partial: 'nsadocs/queries/stringquery', locals: {fieldname: f["Field Name"], hrname: f["Human Readable Name"]} %>
+  <% elsif f["Type"] == "Date" %>
+    <%= render partial: 'nsadocs/queries/datequery', locals: {fieldname: f["Field Name"], start_date: f["Form Params"][0], end_date: f["Form Params"][1] } %>
+  <% end %>
+<% end %>
 </div>
