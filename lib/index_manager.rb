@@ -19,7 +19,7 @@ class IndexManager
   def self.import_from_json(options={})
     create_index force: true if options[:force]
 
-    doc = JSON.parse(open("https://raw.githubusercontent.com/TransparencyToolkit/NSAAPI-Data/master/nsadocs.json").read, symbolize_names: true)
+    doc = JSON.parse(open(JSON.parse(File.read("app/dataspec/nsadata_url.json")).first["URL"]).read, symbolize_names: true)
     nsadocs = doc.map { |nsadoc_hash| process_nsadoc_info nsadoc_hash}
     inc = 1
     nsadocs.each do |d|
@@ -29,17 +29,21 @@ class IndexManager
   end
 
   def self.process_nsadoc_info(nsadoc_hash)
-    if nsadoc_hash[:creation_date] == "Unknown" || nsadoc_hash[:creation_date] == "Date unknown"
-      nsadoc_hash[:creation_date] = nil
+    fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
+    fieldhash = Hash.new
+    fieldList.each do |f|
+
+      # Handle unknown dates
+      if f["Type"] == "Date"
+        if nsadoc_hash[f["Field Name"].to_sym] == "Date unknown" || nsadoc_hash[f["Field Name"].to_sym] == "Unknown"
+          nsadoc_hash[f["Field Name"].to_sym] = nil 
+        end
+      end
+
+      # Make analyzed version for facet fields (with same data as not_analyzed version)
+      nsadoc_hash[(f["Field Name"]+"_analyzed").to_sym] = nsadoc_hash[f["Field Name"].to_sym] if f["Facet?"] == "Yes"
     end
-    nsadoc_hash[:programs_analyzed] = nsadoc_hash[:programs]
-    nsadoc_hash[:codewords_analyzed] = nsadoc_hash[:codewords]
-    nsadoc_hash[:type_analyzed] = nsadoc_hash[:type]
-    nsadoc_hash[:records_collected_analyzed] = nsadoc_hash[:records_collected]
-    nsadoc_hash[:legal_authority_analyzed] = nsadoc_hash[:legal_authority]
-    nsadoc_hash[:countries_analyzed] = nsadoc_hash[:countries]
-    nsadoc_hash[:sigads_analyzed] = nsadoc_hash[:sigads]
-    nsadoc_hash[:released_by_analyzed] = nsadoc_hash[:released_by]
+
     nsadoc_hash
   end
 end
