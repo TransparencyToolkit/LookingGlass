@@ -7,75 +7,21 @@
 <br />
 <div class="tab-content" id="div<%=@docid %>">
 <div class="tab-pane active" id="text<%= @docid %>">
-<p>
-  <strong>Release date:</strong>
-  <%= @nsadoc.release_date %>
-</p>
 
-<p>
-  <strong>Released by:</strong>
-  <%= @nsadoc.released_by %>
-</p>
-
-<p>
-  <strong>Article url:</strong>
-  <%= @nsadoc.article_url %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @nsadoc.title %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @nsadoc.type %>
-</p>
-
-<p>
-  <strong>Legal authority:</strong>
-  <%= @nsadoc.legal_authority %>
-</p>
-
-<p>
-  <strong>Records collected:</strong>
-  <%= @nsadoc.records_collected %>
-</p>
-
-<p>
-  <strong>Creation date:</strong>
-  <%= @nsadoc.creation_date %>
-</p>
-
-<p>
-  <strong>Doc text:</strong>
-  <%= raw format_text(@nsadoc.doc_text) %>
-</p>
-
-<p>
-  <strong>Aclu desc:</strong>
-  <%= @nsadoc.aclu_desc %>
-</p>
-
-<p>
-  <strong>Sigads:</strong>
-  <%= @nsadoc.sigads %>
-</p>
-
-<p>
-  <strong>Codewords:</strong>
-  <%= @nsadoc.codewords %>
-</p>
-
-<p>
-  <strong>Programs:</strong>
-  <%= @nsadoc.programs %>
-</p>
-
-<p>
-  <strong>Countries:</strong>
-  <%= @nsadoc.countries %>
-</p>
+  <% fieldList = JSON.parse(File.read("app/dataspec/nsadata.json")) %>
+  
+  <% fieldList.each do |f| %>
+    <% if f["In doc?"] == "Yes" %>
+    <p>
+      <strong><%= f["Human Readable Name"] %>:</strong>
+      <% if f["Truncate"] != nil %>
+        <%= raw format_text(@nsadoc[f["Field Name"]]) %>
+      <% else %>
+        <%= @nsadoc[f["Field Name"]] %>
+      <% end %>
+    </p>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="tab-pane" id="pdf<%= @docid %>">
