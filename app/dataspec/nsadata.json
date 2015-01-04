@@ -9,7 +9,7 @@
     "Show by default in table?": "No",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": "[\"release_date\", \"end_release_date\"]",
+    "Form Params": ["release_date", "end_release_date"],
     "Size": "1000",
     "Location": "11"
   },
@@ -121,7 +121,7 @@
     "Show by default in table?": "No",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": "[\"creation_date\", \"end_create_date\"]",
+    "Form Params": ["creation_date", "end_create_date"],
     "Size": "1000",
     "Location": "5"
   },
