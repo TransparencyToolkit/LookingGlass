@@ -30,7 +30,6 @@ class IndexManager
 
   def self.process_nsadoc_info(nsadoc_hash)
     fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
-    fieldhash = Hash.new
     fieldList.each do |f|
 
       # Handle unknown dates
