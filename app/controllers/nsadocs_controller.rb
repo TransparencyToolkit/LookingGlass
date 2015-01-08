@@ -18,9 +18,10 @@ class NsadocsController < ApplicationController
   def makedocview
     @docid = params[:docid]
     @docidfull = params[:docidfull]
-    
+    @nsadoc = Nsadoc.find(params[:docidfull])
+    binding.pry
     respond_to do |format|
-      format.js {render layout: false}
+      format.html
     end
   end
 

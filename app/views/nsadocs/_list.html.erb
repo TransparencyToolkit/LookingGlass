@@ -14,7 +14,8 @@
 	<td><%= nsadoc.hit["_score"] %> </td>
 	<% tableItems.each do |t| %>
 	  <% if t["Truncate"] %>
-	  <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Truncate"].to_i) %></td>
+	  <td><%= truncate(nsadoc[t["Field Name"]], :length =>
+	  t["Truncate"].to_i) %></td>
 	  <% else %>
           <td><%= nsadoc[t["Field Name"]] %></td>
 	  <% end %>
@@ -23,82 +24,3 @@
     <% end %>
   </tbody>
 </table>
-
-<script>
-  $(document).ready(function () {
-   var storedtabli = unescape(sessionStorage.getItem("tabliData"));
-   var storedtabs = unescape(sessionStorage.getItem("tabData"));
-
-   if (storedtabli != "null"){
-     $('.tabli').remove();
-     $('.nav-tabs').append(storedtabli);
-     var duplicateChk = {};
-
-     $('.tabli').each (function () {
-     if (duplicateChk.hasOwnProperty(this.id)) {
-       $(this).remove();
-     } else {
-       duplicateChk[this.id] = 'true';
-     }
-     });
-     
-     $('.tabp').remove();
-     $('.tab-content-bar').append(storedtabs);
-
-     var duplicateChk2 = {};
-
-     $('.tab-pane-bar').each (function () {
-     if (duplicateChk2.hasOwnProperty(this.id)) {
-      $(this).remove();
-     } else {
-      duplicateChk2[this.id] = 'true';
-     }
-    });
-   }
-
-  $('body').on('click', '.docrow', function () {
-    console.log("clicked doc");
-    $('.nav-tabs>li.active').removeClass('active');
-    var docidfull = $(this).attr("id");
-    var docid = $(this).attr("id").replace(/[(]/g, "").replace(/[)]/g, "").replace(/[|]/g, "").replace(/[-]/g, "").replace(/[_]/g, "").replace(/[,]/g, "").replace(/[.]/g, "");
-    var doctitle = $(this).attr("doctitle");
-    if ($('#'+docid+'doc').length == 0){
-      $('.nav-tabs>li.active').removeClass('active');
-      $('<li class="active tabli" id="'+docid+'tab"><a href="#'+docid+'doc" class="tablink" data-toggle="tab">'+doctitle+'<span id="delete'+docid+'" class="removetab" style="color: red;"> <b><big>X</big></b></span></a></li>').appendTo('ul.nav-tabs');
-      $('.tab-content-bar>div.active').removeClass('active');
-      $.ajax({
-        url: "nsadocs/makedocview", type: "GET",
-        data: { docid: docid, docidfull: docidfull },
-        dataType: "script"
-      });
-    } else {
-      $('.nav-tabs>li.active').removeClass('active');
-      $('a[href=#'+docid+'doc]').parent().addClass('active');
-      $('.tab-content-bar>div.active').removeClass('active');
-      $('#'+docid+'doc').addClass('active');
-    }
-  });
-  
-  $('ul.nav-tabs').on('click', '.removetab', function () {
-    $('#'+$(this).attr("id").replace("delete", "")+'tab').remove();
-    $('#'+$(this).attr("id").replace("delete", "")+'doc').remove();
-    $('.nav-tabs>li.active').removeClass('active');
-    $('a[href=#searchtab]').parent().addClass('active');
-    $('.tab-content-bar>div.active').removeClass('active');
-    $('#searchtab').addClass('active');
-
-    sessionStorage.clear();
-
-    var storetabs = $('<div id="tmp"></div>');
-    var savetabli = $('.tabli').clone().removeClass('active');
-    savetabli.appendTo(storetabs);
-    sessionStorage.setItem("tabliData", escape(storetabs.html()));
-
-    var store = $('<div id="tmp2"></div>');
-    var savepane = $('.tab-pane-bar').clone().removeClass('active');
-    savepane.splice("div#searchtab.tab-pane", 1);
-    savepane.appendTo(store);
-    sessionStorage.setItem("tabData", escape(store.html()));
-  });
- });
-</script>
