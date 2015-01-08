@@ -16,6 +16,8 @@
 	  <% if t["Truncate"] %>
 	  <td><%= truncate(nsadoc[t["Field Name"]], :length =>
 	  t["Truncate"].to_i) %></td>
+	  <% elsif t["Field Name"] == "title" %>
+	  <td><%= link_to nsadoc[t["Field Name"]], nsadoc, target: "_blank" %></td>
 	  <% else %>
           <td><%= nsadoc[t["Field Name"]] %></td>
 	  <% end %>

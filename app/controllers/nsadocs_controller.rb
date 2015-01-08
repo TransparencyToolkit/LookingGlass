@@ -15,13 +15,11 @@ class NsadocsController < ApplicationController
     @facets = results.response["facets"]
   end
 
-  def makedocview
-    @docid = params[:docid]
-    @docidfull = params[:docidfull]
-    @nsadoc = Nsadoc.find(params[:docidfull])
-    binding.pry
+  def show
+    @nsadoc = Nsadoc.find(params[:id])
+
     respond_to do |format|
-      format.html
+      format.html {render layout: false}
     end
   end
 
