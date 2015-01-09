@@ -58,10 +58,10 @@ class SearchController < ApplicationController
       fieldnames = [input[:field]]
       queryhash = {}
     
-      # Generate appropriate query hash
+      # Generate appropriate query hash (for single query)
       if input[:field] == :creation_date || input[:field] == :release_date
         queryhash = {range: { fieldnames[0] => {gte: input[:start_date], lte: input[:end_date]}}}
-      else
+      elsif fieldnames[0] != nil
         queryhash = { bool: { should: [
                        { match: { fieldnames[0] => {query: input[:searchterm], type: "phrase", fuzziness: "auto" }}},
                        { match: { fieldnames[0] => {query: input[:searchterm], fuzziness: "auto" }}}
@@ -80,10 +80,11 @@ class SearchController < ApplicationController
     end
     filterhash = { "and" => hasharr }
 
+    
     # Options based on if it is search and facets, just facets, just search
-    if !filter_by.empty? && queryhash
+    if !filter_by.empty? && !queryhash.empty?
       fullhash = { filtered: { query: queryhash, filter: filterhash }} 
-    elsif !queryhash
+    elsif queryhash.empty?
       fullhash = { filtered: { filter: filterhash}}
     else
       fullhash = queryhash
