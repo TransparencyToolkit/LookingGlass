@@ -1,17 +1,31 @@
-<p id="notice"><%= notice %></p>
+<% fieldList = JSON.parse(File.read("app/dataspec/nsadata.json")) %>
+<% sortItems = fieldList.sort_by{|item| item["Location"].to_i} %>
 
+<div class="container-fluid fill">
+<div class="row-fluid">
+<div class="span3 offset1 sidebar" id="sidebar">
+<% sortItems.each do |f| %>
+  <% if f["Facet?"] == "Yes" && @nsadoc[f["Field Name"]] %>
+    <% if !@nsadoc[f["Field Name"]].empty? %>
+    <p><strong><%= f["Human Readable Name"] %>: </strong>
+      <%= @nsadoc[f["Field Name"]].is_a?(Array)? @nsadoc[f["Field Name"]].join(", ") : @nsadoc[f["Field Name"]] %>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>
+</div>
+
+<div class="span7 offset5" id="maincontent">
 <ul class="nav nav-pills" style="text-align:center;">
-  <li class="active" id="litext<%=@docid %>"><a href="#text<%= @docid %>" data-toggle="tab">Text</a></li>
-  <li id="lipdf<%= @docid %>"><a href="#pdf<%= @docid %>" data-toggle="tab">Document</a></li>
+  <li class="active" id="litext"><a href="#text" data-toggle="tab">Text</a></li>
+  <li id="lipdf"><a href="#pdf" data-toggle="tab">Document</a></li>
 </ul>
 <br />
-<div class="tab-content" id="div<%=@docid %>">
-<div class="tab-pane active" id="text<%= @docid %>">
-
-  <% fieldList = JSON.parse(File.read("app/dataspec/nsadata.json")) %>
+<div class="tab-content" id="div">
+<div class="tab-pane active" id="text">
   
   <% fieldList.each do |f| %>
-    <% if f["In doc?"] == "Yes" %>
+    <% if f["In doc?"] == "Yes" && f["Facet?"] == "No" %>
     <p>
       <strong><%= f["Human Readable Name"] %>:</strong>
       <% if f["Truncate"] != nil %>
@@ -24,7 +38,9 @@
   <% end %>
 </div>
 
-<div class="tab-pane" id="pdf<%= @docid %>">
-<embed src="docs/<%= @nsadoc.doc_path %>" width="1000" height="750">
+<div class="tab-pane" id="pdf">
+<embed src="public/docs/<%= @nsadoc.doc_path %>" width="1000" height="750">
+</div>
+</div>
 </div>
 </div>
