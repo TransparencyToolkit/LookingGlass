@@ -99,7 +99,7 @@ class SearchController < ApplicationController
       end
     end
                                                                                               
-    query = {size: 1000, query: fullhash, facets: fieldhash}
+    query = {size: 1000, query: fullhash, facets: fieldhash, highlight: { fields: { doc_text: {} }}}
 
     Nsadoc.search query
   end
