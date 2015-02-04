@@ -52,7 +52,6 @@ class SearchController < ApplicationController
 
   # Generate the query from query hash
   def build_query(input, filter_by)
-
     # Generate query hash
     if input
       fieldnames = [input[:field]]
@@ -63,8 +62,8 @@ class SearchController < ApplicationController
         queryhash = {range: { fieldnames[0] => {gte: input[:start_date], lte: input[:end_date]}}}
       elsif fieldnames[0] != nil
         queryhash = { bool: { should: [
-                       { match: { fieldnames[0] => {query: input[:searchterm], type: "phrase", fuzziness: "auto" }}},
-                       { match: { fieldnames[0] => {query: input[:searchterm], fuzziness: "auto" }}}
+                       { match: { fieldnames[0] => {query: input[:searchterm], type: "phrase" }}},
+                       { match: { fieldnames[0] => {query: input[:searchterm]}}}
                     ]}}
       end
     end

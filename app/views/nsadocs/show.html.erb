@@ -8,7 +8,7 @@
   <% if f["Facet?"] == "Yes" && @nsadoc[f["Field Name"]] %>
     <% if !@nsadoc[f["Field Name"]].empty? %>
     <p><strong><%= f["Human Readable Name"] %>: </strong>
-      <%= @nsadoc[f["Field Name"]].is_a?(Array)? @nsadoc[f["Field Name"]].join(", ") : @nsadoc[f["Field Name"]] %>
+      <%= raw(linkedFacets(@nsadoc[f["Field Name"]], f["Field Name"])) %>
       </p>
     <% end %>
   <% end %>
@@ -39,7 +39,7 @@
 </div>
 
 <div class="tab-pane" id="pdf">
-<embed src="public/docs/<%= @nsadoc.doc_path %>" width="1000" height="750">
+<%= link_to "document",  "public/12333flowchart.pdf" %>
 </div>
 </div>
 </div>

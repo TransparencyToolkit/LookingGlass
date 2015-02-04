@@ -14,12 +14,18 @@
 	<td><%= nsadoc.hit["_score"] %> </td>
 	<% tableItems.each do |t| %>
 	  <% if t["Truncate"] %>
-	  <td><%= truncate(nsadoc[t["Field Name"]], :length =>
-	  t["Truncate"].to_i) %></td>
+	  
+	    <% if nsadoc.hit["highlight"] && !nsadoc.hit["highlight"].empty? %>
+	      <td><%= raw(nsadoc.hit["highlight"][t["Field Name"]].first.to_s.gsub("<em>", "<b>").gsub("</em>", "</b>")) %></td>
+	    <% else %>
+	      <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Truncate"].to_i) %>
+	    <% end %>
+	  <% elsif t["Facet?"] == "Yes" %>
+	    <td><%= raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %></td>
 	  <% elsif t["Field Name"] == "title" %>
-	  <td><%= link_to nsadoc[t["Field Name"]], nsadoc, target: "_blank" %></td>
+	    <td><%= link_to nsadoc[t["Field Name"]], nsadoc, target: "_blank" %></td>
 	  <% else %>
-          <td><%= nsadoc[t["Field Name"]] %></td>
+            <td><%= nsadoc[t["Field Name"]] %></td>
 	  <% end %>
         <% end %>
       </tr>
