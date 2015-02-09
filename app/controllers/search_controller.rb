@@ -1,4 +1,4 @@
-class SearchController < ApplicationController
+class SearchController < ApplicationController        
   def index
     queryhash = Hash.new
 
@@ -97,9 +97,33 @@ class SearchController < ApplicationController
         fieldhash[f["Field Name"].to_sym] = {terms: {field: f["Field Name"], size: f["Size"]}}
       end
     end
+   
+    # Specify which fields to highlight (based on which are searched)
+    highlighthash = Hash.new
+    fullhash[:bool][:should][0][:match].keys.each do |k|
+      if k == "_all"
+        fieldList.each {|f| highlighthash[f["Field Name"]] = highlightLength(f["Field Name"])}
+      else
+        highlighthash[k] = highlightLength(k.to_s)
+      end
+    end
                                                                                               
-    query = {size: 1000, query: fullhash, facets: fieldhash, highlight: { fields: { doc_text: {} }}}
-
+    query = {size: 1000, query: fullhash, facets: fieldhash, highlight: { pre_tags: ["<b>"], post_tags: ["</b>"], fields: highlighthash }}
+    
     Nsadoc.search query
+  end
+
+  # Truncate highlighted field only when needed
+  def highlightLength(fieldName)        
+    fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
+
+    fieldList.each do |f|
+      if f["Field Name"] == fieldName
+        if f["Truncate"] 
+          return {} 
+        else return {number_of_fragments: 0}
+        end
+      end
+    end
   end
 end

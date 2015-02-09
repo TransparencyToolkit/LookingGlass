@@ -13,20 +13,27 @@
       <tr class="docrow"  id="<%= nsadoc.id %>" doctitle="<%= nsadoc.title %>">
 	<td><%= nsadoc.hit["_score"] %> </td>
 	<% tableItems.each do |t| %>
-	  <% if t["Truncate"] %>
-	  
-	    <% if nsadoc.hit["highlight"] && !nsadoc.hit["highlight"].empty? %>
-	      <td><%= raw(nsadoc.hit["highlight"][t["Field Name"]].first.to_s.gsub("<em>", "<b>").gsub("</em>", "</b>")) %></td>
-	    <% else %>
-	      <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Truncate"].to_i) %>
-	    <% end %>
-	  <% elsif t["Facet?"] == "Yes" %>
-	    <td><%= raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %></td>
-	  <% elsif t["Field Name"] == "title" %>
-	    <td><%= link_to nsadoc[t["Field Name"]], nsadoc, target: "_blank" %></td>
-	  <% else %>
-            <td><%= nsadoc[t["Field Name"]] %></td>
-	  <% end %>
+	  <% if nsadoc.hit["highlight"] && nsadoc.hit["highlight"][t["Field Name"]] && !nsadoc.hit["highlight"][t["Field Name"]].empty? %>
+       	    <% text = raw(nsadoc.hit["highlight"][t["Field Name"]].first.to_s) %>
+	    <% if t["Facet?"] == "Yes" %>
+              <td><%= raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %></td>
+            <% elsif t["Field Name"] == "title" %>
+              <td><%= link_to text, nsadoc, target: "_blank" %></td>
+            <% else %>
+	     <td><%= text %></td>
+            <% end %>
+
+	   <% else %>
+	     <% if t["Truncate"] %>
+	       <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Truncate"].to_i) %>
+	     <% elsif t["Facet?"] == "Yes" %>
+ 	       <td><%= raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %></td>
+	     <% elsif t["Field Name"] == "title" %>
+               <td><%= link_to nsadoc[t["Field Name"]], nsadoc, target: "_blank" %></td>
+             <% else %>
+               <td><%= nsadoc[t["Field Name"]] %></td>
+	     <% end %>
+	   <% end %>
         <% end %>
       </tr>
     <% end %>
