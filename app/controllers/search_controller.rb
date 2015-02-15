@@ -101,11 +101,13 @@ class SearchController < ApplicationController
     # Specify which fields to highlight (based on which are searched)
     highlighthash = Hash.new
  
-    queryhash[:bool][:should][0][:match].keys.each do |k|
-      if k == "_all"
-        fieldList.each {|f| highlighthash[f["Field Name"]] = highlightLength(f["Field Name"])}
-      else
-        highlighthash[k] = highlightLength(k.to_s)
+    if !queryhash.empty?
+      queryhash[:bool][:should][0][:match].keys.each do |k|
+        if k == "_all"
+          fieldList.each {|f| highlighthash[f["Field Name"]] = highlightLength(f["Field Name"])}
+        else
+          highlighthash[k] = highlightLength(k.to_s)
+        end
       end
     end
                                                                                               

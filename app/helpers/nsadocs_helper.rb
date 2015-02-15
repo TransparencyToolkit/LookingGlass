@@ -5,6 +5,31 @@ module NsadocsHelper
     text.gsub("\n", "<br />")
   end
 
+  # Formats the link to remove the facet
+  def removeFormat(hrname, k, v, type)
+    outstr = '<span class="search-filter">'
+    outstr += hrname+": "+ v + " (" + type + ")"
+
+    # Either remove from search or go to index page
+    if params.length <= 4
+      outstr += link_to(raw('<b style="color: red" class="x"> X</b>'), nsadocs_path, :class => "remove-filter")
+    else
+      outstr += link_to(raw('<b style="color: red" class="x"> X</b>'), search_path(params.except(k)), :class => "remove-filter")
+    end
+
+    outstr += '</span>'
+  end
+
+  # Gets the human readable name of a facet
+  def getHR(name)
+    items = JSON.parse(File.read("app/dataspec/nsadata.json"))
+    items.each do |i|
+      if i["Field Name"] == name
+        return i["Human Readable Name"]
+      end
+    end
+  end
+
   # Generates links to data filtered by facet val
   def linkedFacets(field_vals, field_name)
     outstr = ""

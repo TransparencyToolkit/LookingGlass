@@ -1,0 +1,10 @@
+<% params.except("utf8", "action", "controller").each do |k, v| %>
+  <% if k.include? "_facet" %>
+    <%= raw(removeFormat(getHR(k.gsub("_facet", "")), k, v, "filter")) %>
+  <% elsif k == "q" %>
+    <%= raw(removeFormat("All Fields", k, v, "search")) %>
+  <% else %>
+    <%= raw(removeFormat(getHR(k), k, v, "search")) %>
+  <% end %>
+<% end %>
+
