@@ -39,7 +39,7 @@
 </div>
 
 <div class="tab-pane" id="pdf">
-<%= link_to "document",  "public/12333flowchart.pdf" %>
+  <iframe src="<%= asset_path('docs/'+@nsadoc.doc_path) %>" width="1000" height="750"></iframe>
 </div>
 </div>
 </div>
