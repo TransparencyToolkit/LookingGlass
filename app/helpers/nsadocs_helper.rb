@@ -120,7 +120,6 @@ module NsadocsHelper
     # Check if link is selected or not
     if facetval == i["term"] || (facetval.is_a?(Array) && facetval.include?(i["term"]))
       return ""
-      #return selected(i, facetval, facetname, linkname)
     else
       return notSelected(i, facetval, facetname, linkname)
     end
