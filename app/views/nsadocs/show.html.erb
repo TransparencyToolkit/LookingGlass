@@ -18,9 +18,9 @@
 <div class="span7 offset5" id="maincontent">
 <ul class="nav nav-pills" style="text-align:center;">
   <li class="active" id="litext"><a href="#text" data-toggle="tab">Text</a></li>
-  
+  <% if @importer["Show PDF?"] == "Yes" %>
   <li id="lipdf"><a href="#pdf" data-toggle="tab">Document</a></li>
-  
+  <% end %>
 </ul>
 <br />
 <div class="tab-content" id="div">
@@ -72,10 +72,11 @@
      <% end %>
 </div>
 
-
+<% if @importer["Show PDF?"] == "Yes" %>
 <div class="tab-pane" id="pdf">
-  
+  <iframe src="<%= asset_path(@importer['File Path Prefix']+first_doc[@importer['File Path Attr']]) %>" width="1000" height="750"></iframe>
 </div>
+<% end %>
 
 </div>
 </div>

@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   def get_field_info
     @importer = JSON.parse(File.read("app/dataspec/importer.json")).first
     @hide_columns_info = File.read(@importer["Hide Columns Template"])
-    #@field_info = JSON.parse(File.read("app/dataspec/nsadata.json"))
     @field_info = JSON.parse(File.read(@importer["Data Template"]))
     @field_info_sorted = @field_info.sort_by{|field| field["Location"].to_i}
   end
