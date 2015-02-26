@@ -1,0 +1,10 @@
+[
+    {
+      targets: [0]
+      visible: false
+    },
+    {
+      targets: [4..13]
+      visible: false
+    }
+]

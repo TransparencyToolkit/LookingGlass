@@ -1,14 +1,13 @@
-class SearchController < ApplicationController        
+class SearchController < ApplicationController
   def index
     queryhash = Hash.new
 
     # Set the input hash (field and value) for the appropriate field
-    fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
     fieldhash = Hash.new
 
     if params[:q] then queryhash = {field: "_all", searchterm: params[:q]} # Search all fields 
     else # For searching individual fields
-      fieldList.each do |f|
+      @field_info.each do |f|
         if f["Searchable?"] == "Yes"
           if params[f["Field Name"].to_sym]
             fieldname = f["Facet?"] == "Yes" ? (f["Field Name"]+"_analyzed").to_sym: f["Field Name"].to_sym
@@ -90,9 +89,8 @@ class SearchController < ApplicationController
     end
 
     # Put it all together
-    fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
     fieldhash = Hash.new
-    fieldList.each do |f|
+    @field_info.each do |f|
       if f["Facet?"] == "Yes"
         fieldhash[f["Field Name"].to_sym] = {terms: {field: f["Field Name"], size: f["Size"]}}
       end
@@ -104,7 +102,7 @@ class SearchController < ApplicationController
     if !queryhash.empty?
       queryhash[:bool][:should][0][:match].keys.each do |k|
         if k == "_all"
-          fieldList.each {|f| highlighthash[f["Field Name"]] = highlightLength(f["Field Name"])}
+          @field_info.each {|f| highlighthash[f["Field Name"]] = highlightLength(f["Field Name"])}
         else
           highlighthash[k] = highlightLength(k.to_s)
         end
@@ -118,9 +116,7 @@ class SearchController < ApplicationController
 
   # Truncate highlighted field only when needed
   def highlightLength(fieldName)        
-    fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
-
-    fieldList.each do |f|
+    @field_info.each do |f|
       if f["Field Name"] == fieldName
         if f["Truncate"] 
           return {} 

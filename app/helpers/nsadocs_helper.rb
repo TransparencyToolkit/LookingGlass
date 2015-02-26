@@ -30,8 +30,7 @@ module NsadocsHelper
 
   # Gets the human readable name of a facet
   def getHR(name)
-    items = JSON.parse(File.read("app/dataspec/nsadata.json"))
-    items.each do |i|
+    @field_info.each do |i|
       if i["Field Name"] == name
         return i["Human Readable Name"]
       end
@@ -58,9 +57,10 @@ module NsadocsHelper
   def tableItems
     itemarr = Array.new
 
-    items = JSON.parse(File.read("app/dataspec/nsadata.json"))
-    sortItems = items.sort_by{|item| item["Location"].to_i}
-    sortItems.each do |i|
+
+    #items = JSON.parse(File.read("app/dataspec/nsadata.json"))
+    #sortItems = items.sort_by{|item| item["Location"].to_i}
+    @field_info_sorted.each do |i|
       if i["In Table?"] == "Yes"
         itemarr.push(i)
       end
@@ -71,11 +71,9 @@ module NsadocsHelper
 
   def facetFormat(facets)
     outhtml = ""
-    facetNames = JSON.parse(File.read("app/dataspec/nsadata.json"))
-    
+       
     # Go through all facets
-    sortFacets = facetNames.sort_by{|facet| facet["Location"].to_i}
-    sortFacets.each do |f|
+    @field_info_sorted.each do |f|
       if f["Facet?"] == "Yes"
         outhtml += genFacet(facets, "", f) if facets[f["Field Name"]]["terms"].count > 0
       end

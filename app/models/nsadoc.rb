@@ -1,7 +1,8 @@
 class Nsadoc
   include Elasticsearch::Persistence::Model
 
-  fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
+  fieldList = JSON.parse(File.read(JSON.parse(File.read("app/dataspec/importer.json")).first["Data Template"]))
+  #fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
   fieldhash = Hash.new
   fieldList.each do |f|
     # Set mapping

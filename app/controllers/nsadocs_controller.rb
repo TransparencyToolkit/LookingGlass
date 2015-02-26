@@ -3,9 +3,9 @@ class NsadocsController < ApplicationController
 
   def index
     @nsadocs = Nsadoc.all
-    fieldList = JSON.parse(File.read("app/dataspec/nsadata.json"))
+    
     fieldhash = Hash.new
-    fieldList.each do |f|
+    @field_info.each do |f|
       if f["Facet?"] == "Yes"
         fieldhash[f["Field Name"].to_sym] = {terms: {field: f["Field Name"], size: f["Size"]}}
       end
@@ -16,8 +16,23 @@ class NsadocsController < ApplicationController
   end
 
   def show
-    @nsadoc = Nsadoc.find(params[:id])
+    @nsadoc = ""
+    @nsadocs = ""
+    @link_type = Hash.new
 
+    @field_info.each do |f|
+      if f["Link"]
+        @link_type["Link Field"] = f["Field Name"]
+        @link_type["Link Type"] = f["Link"]
+      end
+    end
+
+    if @link_type["Link Type"] == "mult_items"
+      @nsadocs = Nsadoc.search(query: { match: {name: Nsadoc.find(params[:id])[@link_type["Link Field"]] }})
+    else
+      @nsadoc = Nsadoc.find(params[:id])
+    end
+    
     respond_to do |format|
       format.html
     end

@@ -6,6 +6,7 @@ gem 'rails', '4.1.4'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem 'bootstrap-datepicker-rails'
 gem 'pry'
+gem 'rb-readline'
 
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'

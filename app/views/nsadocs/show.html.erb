@@ -1,14 +1,14 @@
-<% fieldList = JSON.parse(File.read("app/dataspec/nsadata.json")) %>
-<% sortItems = fieldList.sort_by{|item| item["Location"].to_i} %>
-
 <div class="container-fluid fill">
 <div class="row-fluid">
-<div class="span3 offset1 sidebar" id="sidebar">
-<% sortItems.each do |f| %>
-  <% if f["Facet?"] == "Yes" && @nsadoc[f["Field Name"]] %>
-    <% if !@nsadoc[f["Field Name"]].empty? %>
+  <div class="span3 offset1 sidebar" id="sidebar">
+
+  <% first_doc = @link_type["Link Type"] == "mult_items" ? @nsadocs.first : @nsadoc %>
+    
+<% @field_info_sorted.each do |f| %>
+  <% if f["Facet?"] == "Yes" && first_doc[f["Field Name"]] && f["Item_Field"]=="No" %>
+    <% if !first_doc[f["Field Name"]].empty? %>
     <p><strong><%= f["Human Readable Name"] %>: </strong>
-      <%= raw(linkedFacets(@nsadoc[f["Field Name"]], f["Field Name"])) %>
+      <%= raw(linkedFacets(first_doc[f["Field Name"]], f["Field Name"])) %>
       </p>
     <% end %>
   <% end %>
@@ -18,29 +18,65 @@
 <div class="span7 offset5" id="maincontent">
 <ul class="nav nav-pills" style="text-align:center;">
   <li class="active" id="litext"><a href="#text" data-toggle="tab">Text</a></li>
+  
   <li id="lipdf"><a href="#pdf" data-toggle="tab">Document</a></li>
+  
 </ul>
 <br />
 <div class="tab-content" id="div">
-<div class="tab-pane active" id="text">
-  
-  <% fieldList.each do |f| %>
-    <% if f["In doc?"] == "Yes" && f["Facet?"] == "No" %>
-    <p>
-      <strong><%= f["Human Readable Name"] %>:</strong>
-      <% if f["Truncate"] != nil %>
-        <%= raw format_text(@nsadoc[f["Field Name"]]) %>
-      <% else %>
-        <%= @nsadoc[f["Field Name"]] %>
-      <% end %>
-    </p>
-    <% end %>
-  <% end %>
+  <div class="tab-pane active" id="text">
+
+    <% if @link_type["Link Type"] != "mult_items" %> 
+      <% @field_info_sorted.each do |f| %>
+        <% if f["In doc?"] == "Yes" && f["Facet?"] == "No" %>
+         <p>
+          <strong><%= f["Human Readable Name"] %>:</strong>
+          <% if f["Truncate"] != nil %>
+            <%= raw format_text(@nsadoc[f["Field Name"]]) if @nsadoc[f["Field Name"]] %>
+          <% else %>
+            <%= @nsadoc[f["Field Name"]] %>
+          <% end %>
+         </p>
+        <% end %>
+	<% end %>
+	<% else %>
+	
+	<% @field_info_sorted.each do |f| %>
+	<% if f["In doc?"] == "Yes" && f["Facet?"] == "No" && f["Item_Field"]== "No" %>
+         <p>
+         <strong><%= f["Human Readable Name"] %>:</strong>
+         <% if f["Truncate"] != nil %>
+           <%= raw format_text(first_doc[f["Field Name"]]) %>
+         <% else %>
+           <%= first_doc[f["Field Name"]] %>
+         <% end %>
+         </p>
+       <% end %>
+       <% end %>
+       <hr /><hr />
+       <% @nsadocs.each do |d| %>
+         <% @field_info_sorted.each do |f| %>
+	 <% if f["Item_Field"] == "Yes" %>
+           <p>
+            <strong><%= f["Human Readable Name"] %>:</strong>
+            <% if f["Truncate"] != nil %>
+	      <%= raw format_text(d[f["Field Name"]]) if d[f["Field Name"]]%>
+	    <% else %>
+	      <%= d[f["Field Name"]] %>
+	    <% end %>
+	 </p>
+	 <% end %>
+         <% end %>
+	 <hr />
+       <% end %>
+     <% end %>
 </div>
 
+
 <div class="tab-pane" id="pdf">
-  <iframe src="<%= asset_path('docs/'+@nsadoc.doc_path) %>" width="1000" height="750"></iframe>
+  
 </div>
+
 </div>
 </div>
 </div>

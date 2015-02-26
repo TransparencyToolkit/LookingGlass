@@ -1,3 +1,4 @@
+<% link_field = "" %>
 <table id="docs" class="display table table-hover table-condensed"
        cellspacing="0">
   <thead>
@@ -5,19 +6,20 @@
       <th>Relevance</th>
       <% tableItems.each do |t| %>
         <th><%= t["Human Readable Name"] %></th>
+        <% link_field = t["Field Name"]  if t["Link"] %>
       <% end %>
     </tr>
   </thead>
   <tbody>
     <% @nsadocs.sort { |a, b| a.hit["_score"] <=> b.hit["_score"] }.reverse.each do |nsadoc| %>
       <tr class="docrow"  id="<%= nsadoc.id %>" doctitle="<%= nsadoc.title %>">
-	<td><%= nsadoc.hit["_score"] %> </td>
+	<td><%= nsadoc.hit["_score"] %></td>
 	<% tableItems.each do |t| %>
 	  <% if nsadoc.hit["highlight"] && nsadoc.hit["highlight"][t["Field Name"]] && !nsadoc.hit["highlight"][t["Field Name"]].empty? %>
        	    <% text = raw(nsadoc.hit["highlight"][t["Field Name"]].first.to_s) %>
 	    <% if t["Facet?"] == "Yes" %>
               <td><%= raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %></td>
-            <% elsif t["Field Name"] == "title" %>
+            <% elsif t["Field Name"] == link_field %>
               <td><%= link_to text, nsadoc, target: "_blank" %></td>
             <% else %>
 	     <td><%= text %></td>
@@ -28,7 +30,7 @@
 	       <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Truncate"].to_i) %>
 	     <% elsif t["Facet?"] == "Yes" %>
  	       <td><%= raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %></td>
-	     <% elsif t["Field Name"] == "title" %>
+	     <% elsif t["Field Name"] == link_field %>
                <td><%= link_to nsadoc[t["Field Name"]], nsadoc, target: "_blank" %></td>
              <% else %>
                <td><%= nsadoc[t["Field Name"]] %></td>
