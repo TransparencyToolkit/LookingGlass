@@ -5,6 +5,17 @@ module NsadocsHelper
     text.gsub("\n", "<br />")
   end
 
+  # Prepares the field for showing in the doc view
+  def prepareField(field, doc)
+    outstr = '<p><strong>'+field["Human Readable Name"]+': </strong>'
+    if field["Truncate"] != nil
+      outstr += raw format_text(doc[field["Field Name"]]) if doc[field["Field Name"]]
+    else
+      outstr += doc[field["Field Name"]].to_s
+    end
+    outstr += '</p>'
+  end
+
   # Formats the link to remove the facet
   def removeFormat(hrname, k, v, type)
     outstr = '<span class="search-filter">'
