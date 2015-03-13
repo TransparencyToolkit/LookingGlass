@@ -7,7 +7,8 @@ To run-
 2. Clone git repo and run bundle install
 3. Start elasticsearch (on debian this is /etc/init.d/elasticsearch start)
 4. rails runner 'IndexManager.import_from_json(force: true)'
-5. rails server
+5. rake assets:precompile (in production)
+6. rails server
 
 
 This search should work for any dataset. If you want to use a different

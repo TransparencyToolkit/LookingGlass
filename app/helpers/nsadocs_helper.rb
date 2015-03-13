@@ -68,9 +68,6 @@ module NsadocsHelper
   def tableItems
     itemarr = Array.new
 
-
-    #items = JSON.parse(File.read("app/dataspec/nsadata.json"))
-    #sortItems = items.sort_by{|item| item["Location"].to_i}
     @field_info_sorted.each do |i|
       if i["In Table?"] == "Yes"
         itemarr.push(i)
