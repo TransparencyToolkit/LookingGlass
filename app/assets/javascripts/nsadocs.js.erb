@@ -4,6 +4,8 @@ jQuery(document).ready(function(){
     bFilter: false,
     order: [[0, "desc"]],
     destroy: true,
+    bProcessing: true,
+    bDeferRender: true,
     columnDefs: <%= File.read(JSON.parse(File.read("app/dataspec/importer.json")).first["Hide Columns Template"]) %>
   });
 });
