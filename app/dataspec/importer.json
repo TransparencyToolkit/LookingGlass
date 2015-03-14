@@ -4,7 +4,7 @@
       "Path": "https://raw.githubusercontent.com/TransparencyToolkit/NSAAPI-Data/master/nsadocs.json",
       "Data Template": "app/dataspec/templates/nsadata.json",
       "Hide Columns Template": "app/dataspec/templates/nsadata_hidecolumns.json",
-      "Show PDF?": "No",
+      "Show PDF?": "Yes",
       "File Path Prefix": "docs/",
       "File Path Attr": "doc_path",
       "Ignore Dir Import Ext": "N/A"
