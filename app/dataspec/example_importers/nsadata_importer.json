@@ -5,8 +5,8 @@
       "Data Template": "app/dataspec/templates/nsadata.json",
       "Hide Columns Template": "app/dataspec/templates/nsadata_hidecolumns.json",
       "Show PDF?": "Yes",
-      "File Path Prefix": "docs/",
-      "File Path Attr": "doc_path",
+      "File Path Prefix": "",
+      "File Path Attr": "pdf",
       "Ignore Dir Import Ext": "N/A"
   }
 ]

@@ -52,7 +52,13 @@
 
 <% if @importer["Show PDF?"] == "Yes" %>
 <div class="tab-pane" id="pdf">
-  <iframe src="<%= asset_path(@importer['File Path Prefix']+first_doc[@importer['File Path Attr']]) %>" width="1000" height="750"></iframe>
+  <% if first_doc[@importer['File Path Attr']].is_a?(Array) %>
+     <% first_doc[@importer['File Path Attr']].each do |doc_path| %>
+         <iframe src="<%= asset_path(@importer['File Path Prefix']+doc_path) %>" width="1000" height="750"></iframe>
+     <% end %>
+  <% else %>
+    <iframe src="<%= asset_path(@importer['File Path Prefix']+first_doc[@importer['File Path Attr']]) %>" width="1000" height="750"></iframe>
+  <% end %>
 </div>
 <% end %>
 

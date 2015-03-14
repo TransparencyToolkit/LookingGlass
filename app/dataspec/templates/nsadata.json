@@ -46,7 +46,7 @@
     "Item_Field": "No"
   },
   {
-    "Field Name": "pdf_paths",
+    "Field Name": "pdf",
     "Human Readable Name": "Document Path",
     "Type": "String",
     "Mapping": "not_analyzed",
