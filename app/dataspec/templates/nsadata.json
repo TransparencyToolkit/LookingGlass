@@ -1,6 +1,6 @@
 [
   {
-    "Field Name": "release_date",
+    "Field Name": "released_date",
     "Human Readable Name": "Release Date",
     "Type": "Date",
     "Mapping": "not_analyzed",
@@ -11,27 +11,12 @@
     "In doc?": "Yes",
     "Form Params": ["release_date", "end_release_date"],
     "Size": "1000",
-    "Location": "11",
+    "Location": "9",
     "Item_Field": "No"
   },
   {
-    "Field Name": "released_by",
-    "Human Readable Name": "Released By",
-    "Type": "String",
-    "Mapping": "english",
-    "Facet?": "Yes",
-    "In Table?": "Yes",
-    "Show by default in table?": "No",
-    "Searchable?": "Yes",
-    "In doc?": "Yes",
-    "Form Params": "released_by",
-    "Size": "1000",
-    "Location": "12",
-    "Item_Field": "No"
-  },
-  {
-    "Field Name": "article_url",
-    "Human Readable Name": "Article URL",
+    "Field Name": "link",
+    "Human Readable Name": "Link",
     "Type": "String",
     "Mapping": "not_analyzed",
     "Facet?": "No",
@@ -41,7 +26,7 @@
     "In doc?": "Yes",
     "Form Params": "",
     "Size": "1000",
-    "Location": "13",
+    "Location": "10",
     "Item_Field": "No"
   },
   {
@@ -61,7 +46,7 @@
     "Item_Field": "No"
   },
   {
-    "Field Name": "doc_path",
+    "Field Name": "pdf_paths",
     "Human Readable Name": "Document Path",
     "Type": "String",
     "Mapping": "not_analyzed",
@@ -72,12 +57,12 @@
     "In doc?": "No",
     "Form Params": "",
     "Size": "",
-    "Location": "14",
+    "Location": "11",
     "Item_Field": "No"
   },
   {
-    "Field Name": "type",
-    "Human Readable Name": "Document Type",
+    "Field Name": "document_topic",
+    "Human Readable Name": "Document Topic",
     "Type": "String",
     "Mapping": "english",
     "Facet?": "Yes",
@@ -85,44 +70,14 @@
     "Show by default in table?": "No",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": "type",
+    "Form Params": "document_topic",
     "Size": "1000",
     "Location": "6",
     "Item_Field": "No"
   },
   {
-    "Field Name": "legal_authority",
-    "Human Readable Name": "Legal Authority",
-    "Type": "String",
-    "Mapping": "english",
-    "Facet?": "Yes",
-    "In Table?": "Yes",
-    "Show by default in table?": "No",
-    "Searchable?": "Yes",
-    "In doc?": "Yes",
-    "Form Params": "legal_authority",
-    "Size": "1000",
-    "Location": "8",
-    "Item_Field": "No"
-  },
-  {
-    "Field Name": "records_collected",
-    "Human Readable Name": "Records Collected",
-    "Type": "String",
-    "Mapping": "english",
-    "Facet?": "Yes",
-    "In Table?": "Yes",
-    "Show by default in table?": "No",
-    "Searchable?": "Yes",
-    "In doc?": "Yes",
-    "Form Params": "records_collected",
-    "Size": "1000",
-    "Location": "7",
-    "Item_Field": "No"
-  },
-  {
-    "Field Name": "creation_date",
-    "Human Readable Name": "Creation Date",
+    "Field Name": "document_date",
+    "Human Readable Name": "Document Date",
     "Type": "Date",
     "Mapping": "not_analyzed",
     "Facet?": "No",
@@ -130,7 +85,7 @@
     "Show by default in table?": "No",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": ["creation_date", "end_create_date"],
+    "Form Params": ["document_date", "end_document_date"],
     "Size": "1000",
     "Location": "5",
     "Item_Field": "No"
@@ -152,7 +107,7 @@
     "Item_Field": "No"
   },
   {
-    "Field Name": "aclu_desc",
+    "Field Name": "description",
     "Human Readable Name": "Description",
     "Type": "String",
     "Mapping": "english",
@@ -161,7 +116,7 @@
     "Show by default in table?": "Yes",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": "aclu_desc",
+    "Form Params": "description",
     "Size": "1000",
     "Location": "1",
     "Item_Field": "No"
@@ -178,7 +133,7 @@
     "In doc?": "Yes",
     "Form Params": "sigads",
     "Size": "1000",
-    "Location": "10",
+    "Location": "8",
     "Item_Field": "No"
   },
   {
@@ -197,8 +152,8 @@
     "Item_Field": "No"
   },
   {
-    "Field Name": "programs",
-    "Human Readable Name": "Programs",
+    "Field Name": "agency",
+    "Human Readable Name": "Agency",
     "Type": "String",
     "Mapping": "english",
     "Facet?": "Yes",
@@ -206,13 +161,13 @@
     "Show by default in table?": "No",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": "programs",
+    "Form Params": "agency",
     "Size": "1000",
     "Location": "3",
     "Item_Field": "No"
   },
   {
-    "Field Name": "countries",
+    "Field Name": "countries_mentioned",
     "Human Readable Name": "Countries Mentioned",
     "Type": "String",
     "Mapping": "english",
@@ -221,9 +176,9 @@
     "Show by default in table?": "No",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": "countries",
+    "Form Params": "countries_mentioned",
     "Size": "1000",
-    "Location": "9",
+    "Location": "7",
     "Item_Field": "No"
   }
 ]
