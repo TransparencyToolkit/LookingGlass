@@ -9,7 +9,10 @@
     "Show by default in table?": "No",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": ["release_date", "end_release_date"],
+    "Form Params": [
+      "release_date",
+      "end_release_date"
+    ],
     "Size": "1000",
     "Location": "9",
     "Item_Field": "No"
@@ -85,7 +88,10 @@
     "Show by default in table?": "No",
     "Searchable?": "Yes",
     "In doc?": "Yes",
-    "Form Params": ["document_date", "end_document_date"],
+    "Form Params": [
+      "document_date",
+      "end_document_date"
+    ],
     "Size": "1000",
     "Location": "5",
     "Item_Field": "No"
@@ -179,6 +185,36 @@
     "Form Params": "countries_mentioned",
     "Size": "1000",
     "Location": "7",
+    "Item_Field": "No"
+  },
+  {
+    "Field Name": "overall_classification",
+    "Human Readable Name": "Classification",
+    "Type": "String",
+    "Mapping": "english",
+    "Facet?": "Yes",
+    "In Table?": "Yes",
+    "Show by default in table?": "No",
+    "Searchable?": "Yes",
+    "In doc?": "Yes",
+    "Form Params": "overall_classification",
+    "Size": "1000",
+    "Location": "12",
+    "Item_Field": "No"
+  },
+  {
+    "Field Name": "overall_relto",
+    "Human Readable Name": "Countries Shared With",
+    "Type": "String",
+    "Mapping": "english",
+    "Facet?": "Yes",
+    "In Table?": "Yes",
+    "Show by default in table?": "No",
+    "Searchable?": "Yes",
+    "In doc?": "Yes",
+    "Form Params": "overall_relto",
+    "Size": "1000",
+    "Location": "13",
     "Item_Field": "No"
   }
 ]
