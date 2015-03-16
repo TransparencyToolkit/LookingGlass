@@ -4,7 +4,8 @@ require 'pry'
 class IndexManager
   def self.create_index(options={})
     client = Nsadoc.gateway.client
-    index_name = JSON.parse(File.read("app/dataspec/importer.json")).first["Index Name"]
+    Nsadoc.index_name = JSON.parse(File.read("app/dataspec/importer.json")).first["Index Name"]
+    index_name = Nsadoc.index_name
 
     client.indices.delete index: index_name rescue nil if options[:force]
 
