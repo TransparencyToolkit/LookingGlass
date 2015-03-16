@@ -46,7 +46,7 @@ class IndexManager
     nsadocs = doc.map { |nsadoc_hash| process_nsadoc_info(nsadoc_hash, import_info)}
     inc = 1
     nsadocs.each do |d|
-      Nsadoc.create d, id: inc
+      Nsadoc.create d, id: inc, index: import_info["Index Name"]
       inc += 1
     end
   end
