@@ -2,6 +2,7 @@
   {
       "Path Type": "Directory", 
       "Path": "../../data/disk/small_test_data",
+      "Index Name": "lidata",
       "Data Template": "app/dataspec/templates/lidata_dir.json",
       "Hide Columns Template": "app/dataspec/templates/lidata_dir_hidecolumns.json",
       "Show PDF?": "No",

@@ -2,6 +2,7 @@
   {
       "Path Type": "File", 
       "Path": "../data.json",
+      "Index Name": "lidata",
       "Data Template": "app/dataspec/templates/lidata.json",
       "Hide Columns Template": "app/dataspec/templates/lidata_hidecolumns.json",
       "Show PDF?": "No",

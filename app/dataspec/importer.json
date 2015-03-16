@@ -1,12 +1,12 @@
 [
   {
-      "Path Type": "url", 
-      "Path": "https://raw.githubusercontent.com/TransparencyToolkit/NSAAPI-Data/master/nsadocs.json",
-      "Data Template": "app/dataspec/templates/nsadata.json",
-      "Hide Columns Template": "app/dataspec/templates/nsadata_hidecolumns.json",
-      "Show PDF?": "Yes",
-      "File Path Prefix": "",
-      "File Path Attr": "pdf",
-      "Ignore Dir Import Ext": "N/A"
+      "Path Type": "Directory", 
+      "Path": "../data",
+      "Index Name": "lidata",
+      "Data Template": "app/dataspec/templates/lidata_dir.json",
+      "Hide Columns Template": "app/dataspec/templates/lidata_dir_hidecolumns.json",
+      "Show PDF?": "No",
+      "File Paths": "N/A",
+      "Ignore Dir Import Ext": "_terms.json"
   }
 ]
