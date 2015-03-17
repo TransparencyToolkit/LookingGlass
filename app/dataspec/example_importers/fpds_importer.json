@@ -1,7 +1,7 @@
 [
   {
       "Path Type": "Directory", 
-      "Path": "../data",
+      "Path": "/data",
       "Index Name": "fpdsdata",
       "Data Template": "app/dataspec/templates/fpdsdata.json",
       "Hide Columns Template": "app/dataspec/templates/fpdsdata_hidecolumns.json",

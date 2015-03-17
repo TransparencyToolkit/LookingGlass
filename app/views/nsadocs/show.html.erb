@@ -6,7 +6,7 @@
     
 <% @field_info_sorted.each do |f| %>
   <% if f["Facet?"] == "Yes" && first_doc[f["Field Name"]] && f["Item_Field"]=="No" %>
-    <% if !first_doc[f["Field Name"]].empty? %>
+    <% if !first_doc[f["Field Name"]].to_s.empty? %>
     <p><strong><%= f["Human Readable Name"] %>: </strong>
       <%= raw(linkedFacets(first_doc[f["Field Name"]], f["Field Name"])) %>
       </p>
