@@ -16,15 +16,21 @@ progress.
 - Clone repo `git clone git@github.com:TransparencyToolkit/NSADoc-Search.git`
 - Then cd into directory `cd NSADoc-Search`
 - Install dependencies `bundle install`
-- Then start up elasticsearch
-	- On debian type `/etc/init.d/elasticsearch start`
-- Then type `rails runner 'IndexManager.import_from_json(force: true)'`
-- If running production, compile assets `rake assets:precompile`
+- Generate simple form data `rails generate simple_form:install` 
+- Browse to dataspec directory `cd app/dataspec/`
+- Copy importer for example data `cp example_importers/nsadata_importer.json importer.json`
+
+**For Running In Production**
+- Compile your assets `rake assets:precompile`
 
 ### Run App
 
-1. Start up the app `rails server`
-2. Then access [http://localhost:5000](http://localhost:)
+- Then start up elasticsearch
+	- On Mac Os type `elasticsearch`
+	- On debian type `/etc/init.d/elasticsearch start`
+- Then type `rails runner 'IndexManager.import_from_json(force: true)'` when importing / updating new dataset 
+- Start up the app `rails server`
+- Then access [http://0.0.0.0:3000](http://0.0.0.0:3000)
 
 ### Using App
 
