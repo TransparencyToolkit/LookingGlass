@@ -42,7 +42,7 @@ module NsadocsHelper
   # Gets the human readable name of a facet
   def getHR(name)
     @field_info.each do |i|
-      if i["Field Name"] == name
+      if i["Field Name"] == name || i["Form Params"][1] == name
         return i["Human Readable Name"]
       end
     end

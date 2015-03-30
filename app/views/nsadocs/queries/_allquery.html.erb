@@ -1,4 +1,9 @@
 <%= form_tag search_path, method: 'get' do %>
+  <% params.each do |p| %>
+    <% if p[0] != "q" && p[0] != "action" && p[0] != "controller" %>
+      <%= hidden_field_tag(p[0], p[1]) %>
+    <% end %>
+  <% end %>
   <input type="text" name="q" value="<%= params[:q] %>" id="q"
   autofocus="autofocus" class="form-control searchin" placeholder="Search all fields" />
 <% end %>
