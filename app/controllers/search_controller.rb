@@ -65,7 +65,8 @@ class SearchController < ApplicationController
           field_type = f["Type"]
         end
       end
-      
+
+      # Date fix TODO:
       # Get query working for both release and doc
       # Add hidden fields to dates
       # Test mult, gt, lt, range
@@ -80,7 +81,6 @@ class SearchController < ApplicationController
                     ]}}
       end
     end
-    binding.pry
 
     # Generate filters for faceted browsing
     hasharr = Array.new
