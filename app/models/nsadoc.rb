@@ -12,7 +12,7 @@ class Nsadoc
     if f["Mapping"] == "not_analyzed"
       map[:index] = f["Mapping"]
     elsif f["Mapping"] == "english"
-      map[:analyzer] == f["Mapping"]
+      map[:analyzer] == "english"
     end
     
     # If facet, make separate analyzed version. 

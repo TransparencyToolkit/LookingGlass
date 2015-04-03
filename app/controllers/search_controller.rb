@@ -17,7 +17,9 @@ class SearchController < ApplicationController
               startd = parse_date(params[f["Form Params"][0].to_sym])
 
               # Check if there is an end date or just a start date
-              params[f["Form Params"][1].to_sym].empty? ? endd = Time.now : endd = parse_date(params[f["Form Params"][1].to_sym]) 
+              if params[f["Form Params"]]
+                        params[f["Form Params"][1].to_sym].empty? ? endd = Time.now : endd = parse_date(params[f["Form Params"][1].to_sym]) 
+              end
               queryhash = {field: fieldname, start_date: startd, end_date: endd}
 
             # If not a date
@@ -55,9 +57,22 @@ class SearchController < ApplicationController
     if input
       fieldnames = [input[:field]]
       queryhash = {}
-    
+
+      # Get the field type
+      field_type = ""
+      @field_info.each do |f| 
+        if input[:field].to_s == f["Field Name"] 
+          field_type = f["Type"]
+        end
+      end
+
+      # Date fix TODO:
+      # Get query working for both release and doc
+      # Add hidden fields to dates
+      # Test mult, gt, lt, range
+
       # Generate appropriate query hash (for single query)
-      if input[:field] == :creation_date || input[:field] == :release_date
+      if field_type == "Date"
         queryhash = {range: { fieldnames[0] => {gte: input[:start_date], lte: input[:end_date]}}}
       elsif fieldnames[0] != nil
         queryhash = { bool: { should: [
@@ -96,10 +111,10 @@ class SearchController < ApplicationController
       end
     end
    
-    # Specify which fields to highlight (based on which are searched)
+    # Specify which fields to highlight (based on which are searched) if not just date
     highlighthash = Hash.new
  
-    if !queryhash.empty?
+    if !queryhash.empty? && queryhash[:bool]
       queryhash[:bool][:should][0][:match].keys.each do |k|
         if k == "_all"
           @field_info.each {|f| highlighthash[f["Field Name"]] = highlightLength(f["Field Name"])}

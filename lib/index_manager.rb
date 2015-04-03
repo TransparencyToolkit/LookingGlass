@@ -8,10 +8,10 @@ class IndexManager
     index_name = Nsadoc.index_name
 
     client.indices.delete index: index_name rescue nil if options[:force]
-
+    
     settings = Nsadoc.settings.to_hash
     mappings = Nsadoc.mappings.to_hash
-
+    
     client.indices.create index: index_name,
     body: {
       settings: settings.to_hash,
