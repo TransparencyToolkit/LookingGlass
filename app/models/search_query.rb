@@ -1,11 +1,55 @@
 class SearchQuery
   include AllFacetsQuery
 
-  def initialize(input, filter_by, field_info)
-    @input = input
-    @filter_by = filter_by
+  def initialize(params, field_info)
+    @params = params
+    # @input = input
+    @filter_by
+    # @filter_by = filter_by
     @field_info = field_info
   end
+
+  # Process search parameters
+  def process_params
+    queryhash = Hash.new
+    if @params[:q] then queryhash = {field: "_all", searchterm: @params[:q]} # Search all fields  
+    else # For searching individual fields
+      @field_info.each do |f|
+        if f["Searchable?"] == "Yes"
+          if @params[f["Field Name"].to_sym]
+            fieldname = f["Facet?"] == "Yes" ? (f["Field Name"]+"_analyzed").to_sym: f["Field Name"].to_sym
+
+            # Check if it is a date and handle input differently if so
+            if f["Type"] == "Date"
+              queryhash = process_date_params
+
+            # If not a date
+            else
+              searchinput = @params[f["Field Name"].to_sym]
+              queryhash = {field: fieldname, searchterm: searchinput}
+            end
+            break
+          end
+        end
+      end
+    end
+
+    queryhash == {} if queryhash.empty?
+    return queryhash
+  end
+
+  # Process parameters for date query into form needed for build_search_query
+  def process_date_params(params)
+    startd = parse_date(params[f["Form Params"][0].to_sym])
+
+    # Check if there is an end date or just a start date 
+    if params[f["Form Params"]]
+      params[f["Form Params"][1].to_sym].empty? ? endd = Time.now : endd = parse_date(params[f["Form Params"][1].to_sym])
+    end
+
+    return {field: fieldname, start_date: startd, end_date: endd}
+  end
+
 
   # Builds the query based on input to search fields
   def build_search_query
@@ -19,7 +63,11 @@ class SearchQuery
                               { match: { @fieldnames[0] => {query: @input[:searchterm], type: "phrase" }}},
                               { match: { @fieldnames[0] => {query: @input[:searchterm]}}}
                             ]}}
+    else
+      queryhash = {}
     end
+    
+    return queryhash
   end
 
   # Date fix TODO:
@@ -82,25 +130,27 @@ class SearchQuery
   end
   
   def build_query
-    if @input
-      @fieldnames = [@input[:field]]
-      queryhash = {}
-      highlighthash = Hash.new
+    # Initial processing of query and facet parameters
+    @input = process_params                                
+    @filter_by = @params.select { |i| i.include? "_facet" }
+    
+    @fieldnames = [@input[:field]]
+    queryhash = {}
+    highlighthash = Hash.new
 
-      # Form specific query for parameters passed
-      queryhash = build_search_query
-      filterhash = build_facet_filters
-      fullhash = combine_search_and_facet_queries(queryhash, filterhash)
+    # Form specific query for parameters passed
+    queryhash = build_search_query
+    filterhash = build_facet_filters
+    fullhash = combine_search_and_facet_queries(queryhash, filterhash)
+    
+    # Get information needed to display results nicely
+    fieldhash = AllFacetsQuery.get_all_categories(@field_info)
+    highlighthash = specify_fields_to_highlight(queryhash, highlighthash)
 
-      # Get information needed to display results nicely
-      fieldhash = AllFacetsQuery.get_all_categories(@field_info)
-      highlighthash = specify_fields_to_highlight(queryhash, highlighthash)
-
-      query = {size: 1000, query: fullhash, facets: fieldhash,
+    query = {size: 1000, query: fullhash, facets: fieldhash,
                highlight: { pre_tags: ["<b>"], post_tags: ["</b>"], fields: highlighthash}}
-
-      Nsadoc.search query
-    end
+    
+    Nsadoc.search query
   end
 
   # Convert date into appropriate format for elasticsearch
