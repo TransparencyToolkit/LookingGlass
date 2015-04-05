@@ -1,4 +1,6 @@
 class SearchQuery
+  include AllFacetsQuery
+
   def initialize(input, filter_by, field_info)
     @input = input
     @filter_by = filter_by
@@ -64,18 +66,6 @@ class SearchQuery
     return fullhash
   end
 
-  # Specify which categories/facets to get info for on the sidebar- all of them
-  def get_all_categories
-    fieldhash = Hash.new
-    @field_info.each do |f|
-      if f["Facet?"] == "Yes"
-        fieldhash[f["Field Name"].to_sym] = {terms: {field: f["Field Name"], size: f["Size"]}}
-      end
-    end
-
-    return fieldhash
-  end
-
   # Figure out which fields to highlight based on which ones were searched for
   def specify_fields_to_highlight(queryhash, highlighthash)
     if !queryhash.empty? && queryhash[:bool]
@@ -103,7 +93,7 @@ class SearchQuery
       fullhash = combine_search_and_facet_queries(queryhash, filterhash)
 
       # Get information needed to display results nicely
-      fieldhash = get_all_categories
+      fieldhash = AllFacetsQuery.get_all_categories(@field_info)
       highlighthash = specify_fields_to_highlight(queryhash, highlighthash)
 
       query = {size: 1000, query: fullhash, facets: fieldhash,
