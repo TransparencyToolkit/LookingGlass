@@ -3,48 +3,55 @@ class SearchQuery
 
   def initialize(params, field_info)
     @params = params
-    # @input = input
-    @filter_by
-    # @filter_by = filter_by
     @field_info = field_info
   end
 
-  # Process search parameters
   def process_params
-    queryhash = Hash.new
-    if @params[:q] then queryhash = {field: "_all", searchterm: @params[:q]} # Search all fields  
+    processed_params = Hash.new
+    if @params[:q] then processed_params = {field: "_all", searchterm: @params[:q]} # Search all fields   
     else # For searching individual fields
       @field_info.each do |f|
         if f["Searchable?"] == "Yes"
           if @params[f["Field Name"].to_sym]
-            fieldname = f["Facet?"] == "Yes" ? (f["Field Name"]+"_analyzed").to_sym: f["Field Name"].to_sym
-
-            # Check if it is a date and handle input differently if so
-            if f["Type"] == "Date"
-              queryhash = process_date_params
-
-            # If not a date
-            else
-              searchinput = @params[f["Field Name"].to_sym]
-              queryhash = {field: fieldname, searchterm: searchinput}
-            end
+            processed_params = process_param_by_type(f)
             break
           end
         end
       end
     end
 
-    queryhash == {} if queryhash.empty?
-    return queryhash
+    processed_params == {} if processed_params.empty?
+    return processed_params
+  end
+
+  # Split each field into field name and search terms for query processing
+  def process_param_by_type(search_item)
+    fieldname = search_item["Facet?"] == "Yes" ? (search_item["Field Name"]+"_analyzed").to_sym : search_item["Field Name"].to_sym
+
+    # Check if it is a date and handle input differently if so                                                                  
+    if search_item["Type"] == "Date"
+      processed_params = process_date_params(fieldname, search_item)
+      
+    # If not a date                                                                                                             
+    else
+      searchinput = @params[search_item["Field Name"].to_sym]
+      processed_params = {field: fieldname, searchterm: searchinput}
+    end
+    
+    return processed_params
   end
 
   # Process parameters for date query into form needed for build_search_query
-  def process_date_params(params)
-    startd = parse_date(params[f["Form Params"][0].to_sym])
+  def process_date_params(fieldname, search_item)
+    startd = parse_date(@params[search_item["Form Params"][0].to_sym])
 
     # Check if there is an end date or just a start date 
-    if params[f["Form Params"]]
-      params[f["Form Params"][1].to_sym].empty? ? endd = Time.now : endd = parse_date(params[f["Form Params"][1].to_sym])
+    if @params[search_item["Form Params"]]
+      if @params[search_item["Form Params"][1].to_sym].empty? 
+        endd = Time.now
+      else 
+        endd = parse_date(@params[search_item["Form Params"][1].to_sym])
+      end
     end
 
     return {field: fieldname, start_date: startd, end_date: endd}
@@ -72,7 +79,7 @@ class SearchQuery
 
   # Date fix TODO:
   # Get query working for both release and doc
-  # Add hidden fields to dates
+  # Add hidden fields to dates (and also maintain other search terms)
   # Test mult, gt, lt, range
 
   # Gets the type of a field
