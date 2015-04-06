@@ -13,7 +13,7 @@ class SearchQuery
     else # For searching individual fields
       @field_info.each do |f|
         if f["Searchable?"] == "Yes"
-          if @params[f["Field Name"].to_sym]
+          if @params.include?(f["Form Params"][0]) || @params.include?(f["Form Params"][1])
             processed_params = process_param_by_type(f)
             break
           end
@@ -28,7 +28,7 @@ class SearchQuery
   # Split each field into field name and search terms for query processing
   def process_param_by_type(search_item)
     fieldname = search_item["Facet?"] == "Yes" ? (search_item["Field Name"]+"_analyzed").to_sym : search_item["Field Name"].to_sym
-
+    
     # Check if it is a date and handle input differently if so                                                                  
     if search_item["Type"] == "Date"
       processed_params = process_date_params(fieldname, search_item)
@@ -44,19 +44,22 @@ class SearchQuery
 
   # Process parameters for date query into form needed for build_search_query
   def process_date_params(fieldname, search_item)
-    startd = parse_date(@params[search_item["Form Params"][0].to_sym])
-
-    # Check if there is an end date or just a start date 
-    if @params[search_item["Form Params"]]
-      if @params[search_item["Form Params"][1].to_sym].empty? 
-        endd = Time.now
-      else 
-        endd = parse_date(@params[search_item["Form Params"][1].to_sym])
-      end
-    end
-
-    return {field: fieldname, start_date: startd, end_date: endd}
+    start_date_val = @params[search_item["Form Params"][0]]
+    end_date_val = @params[search_item["Form Params"][1]]
+   
+    return {
+      field: fieldname, 
+      start_date: start_date_val ? parse_date(start_date_val) : "0001-01-01", 
+      end_date: end_date_val ? parse_date(end_date_val) : Time.now
+    }
   end
+
+  # Convert date into appropriate format for elasticsearch   
+  def parse_date(date)
+    parseddate = date.split("/")
+    return "#{parseddate[2]}-#{parseddate[0]}-#{parseddate[1]}"
+  end
+
 
 
   # Builds the query based on input to search fields
@@ -64,7 +67,7 @@ class SearchQuery
     # If searching by date
     if get_field_type == "Date"
       queryhash = {range: { @fieldnames[0] => {gte: @input[:start_date], lte: @input[:end_date]}}}
-
+      
     # If searching by any other field
     elsif @fieldnames[0] != nil
       queryhash = { bool: { should: [
@@ -78,8 +81,9 @@ class SearchQuery
     return queryhash
   end
 
+ 
   # Date fix TODO:
-  # Get query working for both release and doc
+  # Get query working for release date
   # Add hidden fields to dates (and also maintain other search terms)
   # Test mult, gt, lt, range
   # Test with other datasets
@@ -161,12 +165,6 @@ class SearchQuery
                highlight: { pre_tags: ["<b>"], post_tags: ["</b>"], fields: highlighthash}}
     
     Nsadoc.search query
-  end
-
-  # Convert date into appropriate format for elasticsearch
-  def parse_date(date)
-    parseddate = date.split("/")
-    return "#{parseddate[2]}-#{parseddate[0]}-#{parseddate[1]}"
   end
 
   # Truncate highlighted field only when needed
