@@ -1,9 +1,5 @@
 <%= form_tag search_path, method: 'get' do %>
-   <% params.each do |p| %>
-    <% if p[0] != fieldname && p[0] != "action" && p[0] != "controller" %>
-      <%= hidden_field_tag(p[0], p[1]) %>
-    <% end %>
-  <% end %>
+  <%= render partial: 'nsadocs/queries/save_existing_fields', locals:  {fieldname: fieldname} %>
   <input type="text" name="<%= fieldname %>" value="<%= params[fieldname.to_sym]%>" id="<%= fieldname %>"
   autofocus="autofocus" class="form-control searchin" placeholder="Search <%= hrname.pluralize %>" style="display:none" />
 <% end %>

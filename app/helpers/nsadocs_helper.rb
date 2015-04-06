@@ -26,7 +26,7 @@ module NsadocsHelper
       outstr += link_to(raw('<b style="color: red" class="x"> X</b>'), nsadocs_path, :class => "remove-filter")
     else
       # If there are multiple vals chosen for category, just remove one
-      if params[k].is_a? Array
+      if params[k].is_a? Array 
         saveparams = params[k]
         params[k] = params[k] - [v] # Remove value from array
         outstr += link_to(raw('<b style="color: red" class="x"> X</b>'), search_path(params), :class => "remove-filter")
@@ -42,7 +42,7 @@ module NsadocsHelper
   # Gets the human readable name of a facet
   def getHR(name)
     @field_info.each do |i|
-      if i["Field Name"] == name || i["Form Params"][1] == name
+      if i["Form Params"] == name || i["Form Params"][0] == name || i["Form Params"][1] == name
         return i["Human Readable Name"]
       end
     end

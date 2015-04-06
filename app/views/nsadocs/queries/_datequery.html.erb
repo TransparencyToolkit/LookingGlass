@@ -7,6 +7,8 @@
 
 
 <%= form_tag search_path, method: 'get' do %>
+<%= render partial: 'nsadocs/queries/save_existing_fields', locals:
+    {fieldname: [field_names[0], field_names[1]]} %>
 <div class="searchin" style="display: none" id="<%= fieldname %>">
 <input type="text" data-behaviour='datepicker' name="<%= field_names[0] %>">
  - 

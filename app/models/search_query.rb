@@ -9,11 +9,12 @@ class SearchQuery
   # Processes parameters for search query generation
   def process_params
     processed_params = Hash.new
+    
     if @params[:q] then processed_params = {field: "_all", searchterm: @params[:q]} # Search all fields   
     else # For searching individual fields
       @field_info.each do |f|
         if f["Searchable?"] == "Yes"
-          if @params.include?(f["Form Params"][0]) || @params.include?(f["Form Params"][1])
+          if @params.include?(f["Form Params"]) || @params.include?(f["Form Params"][0]) || @params.include?(f["Form Params"][1])
             processed_params = process_param_by_type(f)
             break
           end
@@ -32,11 +33,12 @@ class SearchQuery
     # Check if it is a date and handle input differently if so                                                                  
     if search_item["Type"] == "Date"
       processed_params = process_date_params(fieldname, search_item)
-      
     # If not a date                                                                                                             
     else
-      searchinput = @params[search_item["Field Name"].to_sym]
-      processed_params = {field: fieldname, searchterm: searchinput}
+      processed_params = {
+        field: fieldname, 
+        searchterm: @params[search_item["Field Name"]]
+      }
     end
     
     return processed_params
@@ -46,11 +48,11 @@ class SearchQuery
   def process_date_params(fieldname, search_item)
     start_date_val = @params[search_item["Form Params"][0]]
     end_date_val = @params[search_item["Form Params"][1]]
-   
+    
     return {
       field: fieldname, 
-      start_date: start_date_val ? parse_date(start_date_val) : "0001-01-01", 
-      end_date: end_date_val ? parse_date(end_date_val) : Time.now
+      start_date: start_date_val && !start_date_val.empty? ? parse_date(start_date_val) : "0001-01-01", 
+      end_date: end_date_val && !end_date_val.empty? ? parse_date(end_date_val) : Time.now
     }
   end
 
@@ -81,12 +83,6 @@ class SearchQuery
     return queryhash
   end
 
- 
-  # Date fix TODO:
-  # Get query working for release date
-  # Add hidden fields to dates (and also maintain other search terms)
-  # Test mult, gt, lt, range
-  # Test with other datasets
 
   # Gets the type of a field
   def get_field_type
@@ -160,7 +156,7 @@ class SearchQuery
     # Get information needed to display results nicely
     fieldhash = AllFacetsQuery.get_all_categories(@field_info)
     highlighthash = specify_fields_to_highlight(queryhash, highlighthash)
-
+    
     query = {size: 1000, query: fullhash, facets: fieldhash,
                highlight: { pre_tags: ["<b>"], post_tags: ["</b>"], fields: highlighthash}}
     

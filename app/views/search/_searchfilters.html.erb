@@ -9,7 +9,7 @@
     <% end %>
   <% elsif k == "q" %>
     <%= raw(removeFormat("All Fields", k, v, "search")) %>
-  <% else %>
+  <% elsif params[k] != "" %>
     <%= raw(removeFormat(getHR(k), k, v, "search")) %>
   <% end %>
 <% end %>
