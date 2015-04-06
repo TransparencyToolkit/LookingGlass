@@ -6,6 +6,7 @@ class SearchQuery
     @field_info = field_info
   end
 
+  # Processes parameters for search query generation
   def process_params
     processed_params = Hash.new
     if @params[:q] then processed_params = {field: "_all", searchterm: @params[:q]} # Search all fields   
@@ -68,7 +69,7 @@ class SearchQuery
     elsif @fieldnames[0] != nil
       queryhash = { bool: { should: [
                               { match: { @fieldnames[0] => {query: @input[:searchterm], type: "phrase" }}},
-                              { match: { @fieldnames[0] => {query: @input[:searchterm]}}}
+                              { match: { @fieldnames[0] => {query: @input[:searchterm], operator: "and"}}}
                             ]}}
     else
       queryhash = {}
@@ -81,6 +82,7 @@ class SearchQuery
   # Get query working for both release and doc
   # Add hidden fields to dates (and also maintain other search terms)
   # Test mult, gt, lt, range
+  # Test with other datasets
 
   # Gets the type of a field
   def get_field_type
@@ -120,6 +122,7 @@ class SearchQuery
     end
     return fullhash
   end
+
 
   # Figure out which fields to highlight based on which ones were searched for
   def specify_fields_to_highlight(queryhash, highlighthash)
