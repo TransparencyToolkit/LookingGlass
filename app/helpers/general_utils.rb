@@ -2,10 +2,15 @@ module GeneralUtils
   # Gets the human readable name of a field
   def getHR(name)
     @field_info.each do |i|
-      if i["Form Params"] == name || i["Form Params"][0] == name || i["Form Params"][1] == name
+      if paramMatch?(i)
         return i["Human Readable Name"]
       end
     end
+  end
+
+  # Checks params for form params of all types
+  def paramMatch?(p_item)
+    return p_item["Form Params"] == name || p_item["Form Params"][0] == name || p_item["Form Params"][1] == name
   end
 
   # Generate link html 
