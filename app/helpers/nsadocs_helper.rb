@@ -6,4 +6,5 @@ module NsadocsHelper
   include GeneralUtils
   include TableFormat
   include CategoryFormat
+  include CategoryLink
 end
