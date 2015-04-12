@@ -29,11 +29,16 @@ module CategoryFormat
     numshow = totalnum > 5 ? 5+totalnum*0.01 : totalnum
                                             
     # Divides list of terms
-    sorted_results = categories[field_spec["Field Name"]]["terms"].sort {|a,b| b["count"] <=> a["count"]}
+    sorted_results = sortResults(categories, field_spec)
     top_results = sorted_results[0..numshow]
     overflow_results = sorted_results[numshow+1..sorted_results.length-1]
 
     return top_results, overflow_results
+  end
+
+  # Sorts facets by number of results
+  def sortResults(categories, field_spec)
+    return categories[field_spec["Field Name"]]["terms"].sort {|a,b| b["count"] <=> a["count"]}
   end
 
   # Generates HTML for category
@@ -77,22 +82,29 @@ module CategoryFormat
     end
   end
 
+  # MAYBE RENAME facetval, facetname, linkname, i THROUGHOUT
+
   # Generate link for selected facet     
   def selected(i, facetval, facetname, linkname)
     # Check if there are other facets selected (in this category or others)                                  
     if params.except("controller", "action", "utf8", facetname).length > 0 || facetval.is_a?(Array)
       # Are there other facets selected in this category?
       if facetval.is_a?(Array)
-        outval = facetval.dup
-        outval.delete(i["term"])
-        outval = outval[0] if facetval.count <= 2
-        return genLink(linkname, search_path(params.except(facetname).merge(facetname => outval)), true)
+        genMultSelected(i, facetval, linkname, facetname)
       else # If no others in category selected    
         return genLink(linkname, search_path(params.except(facetname)), true)
       end
     else # If no others selected  
       return genLink(linkname, root_path, true)
     end
+  end
+
+  # Handles generation of links for facets when multiple values are selected
+  def genMultSelected(i, facetval, linkname, facetname)
+    outval = facetval.dup
+    outval.delete(i["term"])
+    outval = outval[0] if facetval.count <= 2
+    return genLink(linkname, search_path(params.except(facetname).merge(facetname => outval)), true)
   end
 
 
