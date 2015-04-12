@@ -1,25 +1,40 @@
 module SearchedFormat
-  # Formats the link to remove the facet 
+  # Formats the x link for search terms (link removes term from search) 
   def removeFormat(hrname, k, v, type)
     outstr = '<span class="search-filter">'
     outstr += hrname+": "+ v + " (" + type + ")"
 
-    # Either remove from search or go to index page                                                                    
-    if params.length <= 4 && (!params[k].is_a?(Array) || params[k].length <= 1)
-      outstr += link_to(raw('<b style="color: red" class="x"> X</b>'), nsadocs_path, :class => "remove-filter")
+    # Generate appropriate link 
+    if lastSearchTerm?(k)
+      outstr += genXLink(nsadocs_path)
     else
-      # If there are multiple vals chosen for category, just remove one                                    
+      # Check if one or more vals are chosen
       if params[k].is_a? Array
-        saveparams = params[k]
-        params[k] = params[k] - [v] # Remove value from array                                                                        
-        outstr += link_to(raw('<b style="color: red" class="x"> X</b>'), search_path(params), :class => "remove-filter")
-        params[k] = saveparams # Set it back to normal                                                    
-      else # For single vals per category                                                   
-        outstr += link_to(raw('<b style="color: red" class="x"> X</b>'), search_path(params.except(k)), :class => "remove-filter")
+        outstr += multValsSelected(k, v)
+      else # For single vals per category                                           
+        outstr += genXLink(search_path(params.except(k)))
       end
     end
 
     outstr += '</span>'
   end
 
+  # Checks if it is the last search term or not
+  def lastSearchTerm?(k)
+    return params.length <= 4 && (!params[k].is_a?(Array) || params[k].length <= 1)
+  end
+
+  # Generates the x link with the appropriate path
+  def genXLink(path)
+    return link_to(raw('<b style="color: red" class="x"> X</b>'), path, :class => "remove-filter")
+  end
+
+  # Link removes just one val if multiple are chosen
+  def multValsSelected(k, v)
+    saveparams = params[k]
+    params[k] = params[k] - [v] # Remove value from array                                                 
+    link = genXLink(search_path(params))
+    params[k] = saveparams # Set it back to normal
+    return link
+  end
 end
