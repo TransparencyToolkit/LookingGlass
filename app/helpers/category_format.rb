@@ -13,32 +13,45 @@ module CategoryFormat
   end
 
   # Gen html for list of links for each facet                                                 
-  def genFacet(facets, outhtml, type)
-    outhtml += '<ul class="nav nav-list">
-            <li><label class="tree-toggler nav-header just-plus">'+type["Human Readable Name"]+'</label><ul class="nav nav-list tree collapse">'
-    facetname = type["Field Name"]+"_facet"
-    facetval = params[facetname]
-
+  def genFacet(categories, outhtml, field_spec)
+    category_name = field_spec["Field Name"]+"_facet" 
+    categories_chosen = params[category_name] 
 
     # Overflow settings                                                                   
-    totalnum = facets[type["Field Name"]]["terms"].count
-    numshow = totalnum > 5 ? 5+totalnum*0.01 : totalnum
-    overflow = '<li><label class="tree-toggler nav-header plus"></label><ul class="nav nav-list tree collapse">'
-    counter = 0
+    totalnum = categories[field_spec["Field Name"]]["terms"].count 
+    numshow = totalnum > 5 ? 5+totalnum*0.01 : totalnum 
+   
+    # Split results into top and overflow
+    sorted_results = categories[field_spec["Field Name"]]["terms"].sort {|a,b| b["count"] <=> a["count"]}
+    top_results = sorted_results[0..numshow]
+    overflow_results = sorted_results[numshow+1..sorted_results.length-1]
 
-    # Add each facet to output or overflow list                               
-    facets[type["Field Name"]]["terms"].each do |i|
-      if counter > numshow
-        overflow += termLink(i, facetval, facetname)
-      else
-        outhtml += termLink(i, facetval, facetname)
-      end
-      counter += 1
-    end
-    overflow += "</li></ul>"
-    outhtml += "#{overflow}" if counter > numshow
+    # Generate output html
+    outhtml = genCategoryList(top_results, false, categories_chosen, category_name, field_spec)
+    outhtml += genCategoryList(overflow_results, true, categories_chosen, category_name, field_spec) if overflow_results
     outhtml += "</ul></li></ul><br />"
     return outhtml
+  end
+
+  # Generates the html for a list of categories
+  def genCategoryList(items, is_overflow, categories_chosen, category_name, field_spec)
+    if is_overflow
+      list_html = '<li><label class="tree-toggler nav-header plus"></label>
+                        <ul class="nav nav-list tree collapse">'
+    else
+      list_html = '<ul class="nav nav-list">
+                     <li><label class="tree-toggler nav-header just-plus">'+field_spec["Human Readable Name"]+'</label>
+                      <ul class="nav nav-list tree collapse">'
+    end
+
+    # Generate link text for each item
+    items.each do |i|
+      list_html += termLink(i, categories_chosen, category_name)
+    end
+
+    list_html += "</li></ul>" if is_overflow
+    
+    return list_html
   end
 
   # Generate link html for each term in facet list
@@ -72,7 +85,7 @@ module CategoryFormat
   end
 
 
-    # If facet is not selected, generate link                                                                                             
+    # If facet is not selected, generate link   
   def notSelected(i, facetval, facetname, linkname)
     retstr = ""
     if facetval # Check if another facet in the same category is selected                                              
