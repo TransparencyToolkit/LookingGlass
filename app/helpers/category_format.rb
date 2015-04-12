@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 module CategoryFormat
+  # Format all facets on sidebar
   def facetFormat(facets)
     outhtml = ""
 
@@ -17,24 +18,34 @@ module CategoryFormat
     category_name = field_spec["Field Name"]+"_facet" 
     categories_chosen = params[category_name] 
 
-    # Overflow settings                                                                   
-    totalnum = categories[field_spec["Field Name"]]["terms"].count 
-    numshow = totalnum > 5 ? 5+totalnum*0.01 : totalnum 
-   
-    # Split results into top and overflow
+    top_results, overflow_results = splitResults(categories, field_spec)
+    return combinedHTML(top_results, overflow_results, categories_chosen, category_name, field_spec)
+  end
+
+  # Splits the results into overflow/not overflow
+  def splitResults(categories, field_spec)
+    # Overflow calculation settings                             
+    totalnum = categories[field_spec["Field Name"]]["terms"].count
+    numshow = totalnum > 5 ? 5+totalnum*0.01 : totalnum
+                                            
+    # Divides list of terms
     sorted_results = categories[field_spec["Field Name"]]["terms"].sort {|a,b| b["count"] <=> a["count"]}
     top_results = sorted_results[0..numshow]
     overflow_results = sorted_results[numshow+1..sorted_results.length-1]
 
-    # Generate output html
-    outhtml = genCategoryList(top_results, false, categories_chosen, category_name, field_spec)
-    outhtml += genCategoryList(overflow_results, true, categories_chosen, category_name, field_spec) if overflow_results
+    return top_results, overflow_results
+  end
+
+  # Generates HTML for category
+  def combinedHTML(top_results, overflow_results, categories_chosen, category_name, field_spec)
+    outhtml = genPartialHTML(top_results, false, categories_chosen, category_name, field_spec)
+    outhtml += genPartialHTML(overflow_results, true, categories_chosen, category_name, field_spec) if overflow_results
     outhtml += "</ul></li></ul><br />"
     return outhtml
   end
 
-  # Generates the html for a list of categories
-  def genCategoryList(items, is_overflow, categories_chosen, category_name, field_spec)
+  # Generates the html for single category
+  def genPartialHTML(items, is_overflow, categories_chosen, category_name, field_spec)
     if is_overflow
       list_html = '<li><label class="tree-toggler nav-header plus"></label>
                         <ul class="nav nav-list tree collapse">'
@@ -54,7 +65,7 @@ module CategoryFormat
     return list_html
   end
 
-  # Generate link html for each term in facet list
+  # Generate link html for single term
   def termLink(i, facetval, facetname)
     linkname = "#{i["term"]} (#{i["count"].to_s})"
 
