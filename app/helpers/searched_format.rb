@@ -3,20 +3,23 @@ module SearchedFormat
   def removeFormat(hrname, k, v, type)
     outstr = '<span class="search-filter">'
     outstr += hrname+": "+ v + " (" + type + ")"
+    outstr += getRemoveLink(k, v)
+    outstr += '</span>'
+  end
 
-    # Generate appropriate link 
+  # Generates the appropriate remove link for the situation
+  def getRemoveLink(k, v)
+    # If it's the last search term, go back to main page
     if lastSearchTerm?(k)
-      outstr += genXLink(nsadocs_path)
+      return genXLink(nsadocs_path)
     else
       # Check if one or more vals are chosen
       if params[k].is_a? Array
-        outstr += multValsSelected(k, v)
-      else # For single vals per category                                           
-        outstr += genXLink(search_path(params.except(k)))
+        return multValsSelected(k, v)
+      else # For single vals per category
+        return genXLink(search_path(params.except(k)))
       end
     end
-
-    outstr += '</span>'
   end
 
   # Checks if it is the last search term or not
