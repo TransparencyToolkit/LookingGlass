@@ -1,0 +1,87 @@
+// Use this file to override Twitter Bootstrap mixins or define own mixins.
+
+html, body {
+  height: 100%;
+}
+
+a.navbar-brand {
+  font-family: 'League Spartan';
+  font-size: 21px;
+}
+
+.nav-tabs>li>a {
+  background-color: #CCCCCC;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+  background-color: #A3A3A3;
+}
+
+.nav-tabs>li>a:hover {
+  background-color: #A8A8A8;
+}
+
+@media (min-width: 0px) {
+  .sidebar {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    min-height: 100%;
+    width: 15%;
+    padding: 1%;
+    background-color: $base-white;
+    color: $base-black;
+
+  }
+
+  .sidebar label.nav-header {
+    font-size: 21px;
+    font-family: 'SourceSansPro-Bold';
+  } 
+
+}
+
+#maincontent {
+  margin-left: 12%;
+  width: 93% !important;
+  padding: 20px;
+  padding-bottom: 40px;
+  margin-bottom: 3%;
+  background: $base-white;
+  color: $base-black;
+}
+
+a.remove-filter:hover {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+#searchtags {
+  margin-left: 12%;
+  width: 95% !important;
+  padding-left: 20px;
+  font-size: 10px;
+}
+
+.search-filter {
+  padding: 10px;
+  margin: 10px 10px 0px 0px;
+  background-color: $base-white;
+  font-size: 16px;
+  font-family: 'SourceSansPro-Bold';
+  color: $base-black;
+}
+
+.input-group {
+  margin-left: 13%;
+  margin-right: 2px;
+  width: 92% !important;
+  height: 80% !important;
+  border: 2px solid #CCCCCC;
+  background-color: #CCCCCC;
+}
+
+.searchin {
+  margin-top: 2px;
+}
+
