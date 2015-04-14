@@ -8,12 +8,12 @@ module FieldQuery
     # If searching by any other field
     elsif @fieldnames[0] != nil
       queryhash = {
-        query_string: {
+        simple_query_string: {
           query: @input[:searchterm],
           fields: [@fieldnames[0]],
-          default_operator: "AND"
+          default_operator: "AND",
+          flags: "AND|OR|PHRASE|PREFIX|NOT|FUZZY|SLOP|NEAR"
         }}
-        #  flags: "AND|OR|PHRASE|PREFIX|NOT|FUZZY|SLOP|NEAR",
     else
       queryhash = {}
     end
