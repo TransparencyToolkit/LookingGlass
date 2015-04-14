@@ -2,11 +2,13 @@ require 'open-uri'
 require 'pry'
 
 class IndexManager
+  include IndexMethods
+  
   def self.create_index(options={})
     client = Nsadoc.gateway.client
     Nsadoc.index_name = JSON.parse(File.read("app/dataspec/importer.json")).first["Index Name"]
     index_name = Nsadoc.index_name
-
+    
     client.indices.delete index: index_name rescue nil if options[:force]
     
     settings = Nsadoc.settings.to_hash
@@ -24,7 +26,18 @@ class IndexManager
     import_info = JSON.parse(File.read("app/dataspec/importer.json")).first
     doc = Array.new
     
-    # Import files, files from links, and directories of files
+    doc = handleDifferentImports(doc, import_info)
+    
+    nsadocs = doc.map { |nsadoc_hash| process_nsadoc_info(nsadoc_hash, import_info)}
+    inc = 1
+    nsadocs.each do |d|
+      Nsadoc.create d, id: inc, index: import_info["Index Name"]
+      inc += 1
+    end
+  end
+
+  def self.handleDifferentImports(doc, import_info)
+    # Import files, files from links, and directories of files              
     if import_info["Path Type"] == "File"
       doc = JSON.parse(File.read(import_info["Path"]), symbolize_names: true)
     elsif import_info["Path Type"] == "url"
@@ -34,8 +47,8 @@ class IndexManager
         if !file.include? import_info["Ignore Dir Import Ext"]
           dataset_name = file.split("/").last.gsub("_", " ").gsub(".json", "")
           categories = file.gsub(import_info["Path"], "").gsub(file.split("/").last, "").split("/").reject(&:empty?)
-          
-          # Add the dataset_name and categories to each item
+
+          # Add the dataset_name and categories to each item                                                                          
           file_items = JSON.parse(File.read(file))
           file_items.each do |i|
             doc.push(i.merge(dataset_name: dataset_name, categories: categories))
@@ -43,13 +56,8 @@ class IndexManager
         end
       end
     end
-    
-    nsadocs = doc.map { |nsadoc_hash| process_nsadoc_info(nsadoc_hash, import_info)}
-    inc = 1
-    nsadocs.each do |d|
-      Nsadoc.create d, id: inc, index: import_info["Index Name"]
-      inc += 1
-    end
+
+    return doc
   end
 
   def self.process_nsadoc_info(nsadoc_hash, import_info)
