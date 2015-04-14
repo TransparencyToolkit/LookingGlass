@@ -3,91 +3,144 @@ require 'pry'
 
 class IndexManager
   include IndexMethods
-  
+
+  # Index creation
   def self.create_index(options={})
+    # Make client, get settings, set name
     client = Nsadoc.gateway.client
-    Nsadoc.index_name = JSON.parse(File.read("app/dataspec/importer.json")).first["Index Name"]
-    index_name = Nsadoc.index_name
-    
-    client.indices.delete index: index_name rescue nil if options[:force]
+    get_index_settings
+    Nsadoc.index_name = @index_name
+
+    # Delete index if it already exists
+    client.indices.delete index: @index_name rescue nil if options[:force]
     
     settings = Nsadoc.settings.to_hash
     mappings = Nsadoc.mappings.to_hash
     
-    client.indices.create index: index_name,
+    # Create index with appropriate settings and mappings
+    client.indices.create index: @index_name,
     body: {
       settings: settings.to_hash,
       mappings: mappings.to_hash }
   end
 
-  def self.import_from_json(options={})
-    create_index force: true if options[:force]
+  # Gets index settings from importer file
+  def self.get_index_settings
+    settings = JSON.parse(File.read("app/dataspec/importer.json")).first
 
-    import_info = JSON.parse(File.read("app/dataspec/importer.json")).first
-    doc = Array.new
-    
-    doc = handleDifferentImports(doc, import_info)
-    
-    nsadocs = doc.map { |nsadoc_hash| process_nsadoc_info(nsadoc_hash, import_info)}
-    inc = 1
-    nsadocs.each do |d|
-      Nsadoc.create d, id: inc, index: import_info["Index Name"]
-      inc += 1
-    end
+    # Get index name
+    @index_name = settings["Index Name"]
+
+    # Get data path info
+    @data_path_type = settings["Path Type"]
+    @data_path = settings["Path"]
+
+    # Get field info from template file
+    @field_info = JSON.parse(File.read(settings["Data Template"]))
+
+    # Files to ignore when doing directory import
+    @ignore_ext = settings["Ignore Dir Import Ext"]
   end
 
-  def self.handleDifferentImports(doc, import_info)
-    # Import files, files from links, and directories of files              
-    if import_info["Path Type"] == "File"
-      doc = JSON.parse(File.read(import_info["Path"]), symbolize_names: true)
-    elsif import_info["Path Type"] == "url"
-      doc = JSON.parse(URI.parse(import_info["Path"]).read, symbolize_names: true)
-    elsif import_info["Path Type"] == "Directory"
-      Dir.glob(import_info["Path"]+"/**/*.json") do |file|
-        if !file.include? import_info["Ignore Dir Import Ext"]
-          importFileInDir(doc, file)
+  # TODO:
+  # Refactor dir creation more (both dir and file processing
+  # Set settings and mappings
+  # Split into multiple files
+  # Organize methods (client creation, get data, item processing and creation)
+
+  # Import data from different formats
+  def self.import_data(options={})
+    create_index force: true if options[:force]
+
+    # Import from file, link, or dir
+    case @data_path_type
+    when "File"
+      importFromFile
+    when "url"
+      importFromURL
+    when "Directory"
+      Dir.glob(@data_path+"/**/*.json") do |file|
+        if !file.include? @ignore_ext
+          importFileInDir(file)
         end
       end
     end
+  end
 
-    return doc
+  # Gets data from a link and imports it
+  def self.importFromURL
+    createFromFile(JSON.parse(URI.parse(@data_path).read, symbolize_names: true))
+  end
+
+  # Gets data from file and imports it
+  def self.importFromFile
+    createFromFile(JSON.parse(File.read(@data_path), symbolize_names: true))  
+  end
+
+  # Processes and creates items in single file
+  def self.createFromFile(data)
+    unique_id = 0
+    data.each do |item|
+      createItem(processItem(item), unique_id)
+      unique_id += 1
+    end
+  end
+
+  # Preprocesses documents for loading into ES
+  def self.processItem(item)
+    # Go through each field in item
+    @field_info.each do |f|
+      item = process_date(f, item)
+      item = make_facet_version(f, item)
+    end
+
+    return item
+  end
+
+  # Creates a new item in the index
+  def self.createItem(item, unique_id)
+    Nsadoc.create item, id: unique_id, index: @index_name
   end
 
   # Handles the processing of each item in a file in a directory import
-  def self.importFileInDir(doc, file)
+  def self.importFileInDir(file)
+    # Get dataset name (file name) and categories (directory names)
     dataset_name = file.split("/").last.gsub("_", " ").gsub(".json", "")
-    categories = file.gsub(import_info["Path"], "").gsub(file.split("/").last, "").split("/").reject(&:empty?)
+    categories = file.gsub(@data_path, "").gsub(file.split("/").last, "").split("/").reject(&:empty?)
 
-    # Add the dataset_name and categories to each item
+    # Add the dataset_name and categories to each item, do any extra processing, then create
+    count = 0
     file_items = JSON.parse(File.read(file))
     file_items.each do |i|
-      doc.push(i.merge(dataset_name: dataset_name, categories: categories))
+      i.merge(dataset_name: dataset_name, categories: categories) 
+      createItem(processItem(i), dataset_name.gsub(" ", "")+count.to_s)
+      count += 1
     end
-
-    return doc
   end
 
   # Processes dates and handles unknowns
-  def self.process_date(f, nsadoc_hash)
+  def self.process_date(f, item)
     if f["Type"] == "Date"
-      if nsadoc_hash[f["Field Name"].to_sym] == "Date unknown" || nsadoc_hash[f["Field Name"].to_sym] == "Unknown"
-        nsadoc_hash[f["Field Name"].to_sym] = nil
+      date_field = f["Field Name"].to_sym
+      
+      # Normalize unknown vals
+      if item[date_field] == "Date unknown" || item[date_field] == "Unknown"
+        item[date_field] = nil
       end
     end
 
-    return nsadoc_hash
+    return item
   end
 
-  def self.process_nsadoc_info(nsadoc_hash, import_info)
-    fieldList = JSON.parse(File.read(import_info["Data Template"]))
-    fieldList.each do |f|
+  # Creates a facet version with the same value for field
+  def self.make_facet_version(f, item)
+    if f["Facet?"] == "Yes"
+      field_name = f["Field Name"]
+      facet_field_name = f["Field Name"]+"_analyzed"
 
-      nsadoc_hash = process_date(f, nsadoc_hash)
-
-      # Make analyzed version for facet fields (with same data as not_analyzed version)
-      nsadoc_hash[(f["Field Name"]+"_analyzed").to_sym] = nsadoc_hash[f["Field Name"].to_sym] if f["Facet?"] == "Yes"
+      item[facet_field_name.to_sym] = item[field_name.to_sym]
     end
 
-    nsadoc_hash
+    return item
   end
 end

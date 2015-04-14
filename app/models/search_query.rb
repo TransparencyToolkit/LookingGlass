@@ -29,7 +29,7 @@ class SearchQuery
     fieldhash = get_all_categories(@field_info)
     highlighthash = specify_fields_to_highlight(queryhash, highlighthash)
     
-    query = {size: 1000, query: fullhash, facets: fieldhash,
+    query = {size: Nsadoc.count, query: fullhash, facets: fieldhash,
                highlight: { pre_tags: ["<b>"], post_tags: ["</b>"], fields: highlighthash}}
     
     Nsadoc.search query

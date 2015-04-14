@@ -2,18 +2,18 @@ class Nsadoc
   extend IndexMethods
   include Elasticsearch::Persistence::Model
 
-  # Get working with stopwords, synonyms, asciifolding
-  # Synonym lists in separate files (and import in spec)
-  # Split out mapping setting
-  # Change import from JSON/split out (and change index name setting)
+  # Settings in other file
+  # Synonyms in other file
+  # List of fields from other file
+  # Split out mapping setting into own method
 
-  # Split out file/url/dir creation
-  # Split out date parsing
-  # Split out creation
-  # Make sure each doc is only gone through once
+  # Get working with stopwords
+  # Get synonyms working
+
 
   settings = JSON.parse(File.read("app/dataspec/importer.json")).first
   fieldList = JSON.parse(File.read(settings["Data Template"]))
+  index_name settings["Index Name"]
 
   self.settings = {
     index: {
