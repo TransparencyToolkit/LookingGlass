@@ -1,5 +1,7 @@
 module ParamParser
-  # Processes parameters for search query generation                                         
+  include GeneralUtils
+
+  # Processes parameters for search query generation                           
   def process_params
     processed_params = Hash.new
 
@@ -7,7 +9,7 @@ module ParamParser
     else # For searching individual fields 
       @field_info.each do |f|
         if f["Searchable?"] == "Yes"
-          if @params.include?(f["Form Params"]) || @params.include?(f["Form Params"][0]) || @params.include?(f["Form Params"][1])
+          if paramMatch?(f, @params)
             processed_params = process_param_by_type(f)
             break
           end
