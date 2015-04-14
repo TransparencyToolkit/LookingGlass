@@ -45,14 +45,7 @@ class IndexManager
     elsif import_info["Path Type"] == "Directory"
       Dir.glob(import_info["Path"]+"/**/*.json") do |file|
         if !file.include? import_info["Ignore Dir Import Ext"]
-          dataset_name = file.split("/").last.gsub("_", " ").gsub(".json", "")
-          categories = file.gsub(import_info["Path"], "").gsub(file.split("/").last, "").split("/").reject(&:empty?)
-
-          # Add the dataset_name and categories to each item                                                                          
-          file_items = JSON.parse(File.read(file))
-          file_items.each do |i|
-            doc.push(i.merge(dataset_name: dataset_name, categories: categories))
-          end
+          importFileInDir(doc, file)
         end
       end
     end
@@ -60,16 +53,36 @@ class IndexManager
     return doc
   end
 
+  # Handles the processing of each item in a file in a directory import
+  def self.importFileInDir(doc, file)
+    dataset_name = file.split("/").last.gsub("_", " ").gsub(".json", "")
+    categories = file.gsub(import_info["Path"], "").gsub(file.split("/").last, "").split("/").reject(&:empty?)
+
+    # Add the dataset_name and categories to each item
+    file_items = JSON.parse(File.read(file))
+    file_items.each do |i|
+      doc.push(i.merge(dataset_name: dataset_name, categories: categories))
+    end
+
+    return doc
+  end
+
+  # Processes dates and handles unknowns
+  def self.process_date(f, nsadoc_hash)
+    if f["Type"] == "Date"
+      if nsadoc_hash[f["Field Name"].to_sym] == "Date unknown" || nsadoc_hash[f["Field Name"].to_sym] == "Unknown"
+        nsadoc_hash[f["Field Name"].to_sym] = nil
+      end
+    end
+
+    return nsadoc_hash
+  end
+
   def self.process_nsadoc_info(nsadoc_hash, import_info)
     fieldList = JSON.parse(File.read(import_info["Data Template"]))
     fieldList.each do |f|
 
-      # Handle unknown dates
-      if f["Type"] == "Date"
-        if nsadoc_hash[f["Field Name"].to_sym] == "Date unknown" || nsadoc_hash[f["Field Name"].to_sym] == "Unknown"
-          nsadoc_hash[f["Field Name"].to_sym] = nil
-        end
-      end
+      nsadoc_hash = process_date(f, nsadoc_hash)
 
       # Make analyzed version for facet fields (with same data as not_analyzed version)
       nsadoc_hash[(f["Field Name"]+"_analyzed").to_sym] = nsadoc_hash[f["Field Name"].to_sym] if f["Facet?"] == "Yes"
