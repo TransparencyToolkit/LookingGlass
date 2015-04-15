@@ -1,16 +1,10 @@
 class NsadocsController < ApplicationController
   before_action :set_nsadoc, only: [:show]
+  include FacetsQuery
 
   def index
     @nsadocs = Nsadoc.all
-    
-    fieldhash = Hash.new
-    @field_info.each do |f|
-      if f["Facet?"] == "Yes"
-        fieldhash[f["Field Name"].to_sym] = {terms: {field: f["Field Name"], size: f["Size"]}}
-      end
-    end
- 
+    fieldhash = get_all_categories(@field_info)
     results = Nsadoc.search facets: fieldhash
     @facets = results.response["facets"]
   end
