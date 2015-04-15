@@ -1,13 +1,18 @@
-// Use this file to override Twitter Bootstrap mixins or define own mixins.
+@import "bootstrap-variables";
+@import "bootstrap/mixins";
 
-html, body {
-  height: 100%;
-}
+// Use this file to override Twitter Bootstrap mixins or define own mixins.
 
 a.navbar-brand {
   font-family: 'League Spartan';
   font-size: 21px;
 }
+
+a.navbar-brand img {
+  display: inline-block;
+  margin-right: 10px;
+}
+
 
 .nav-tabs>li>a {
   background-color: #CCCCCC;
