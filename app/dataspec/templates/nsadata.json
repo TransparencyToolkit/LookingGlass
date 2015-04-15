@@ -15,7 +15,8 @@
     ],
     "Size": "1000",
     "Location": "9",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "link",
@@ -30,7 +31,8 @@
     "Form Params": "",
     "Size": "1000",
     "Location": "10",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "title",
@@ -46,7 +48,8 @@
     "Size": "1000",
     "Location": "0",
     "Link": "single",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "pdf",
@@ -61,7 +64,8 @@
     "Form Params": "",
     "Size": "",
     "Location": "11",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "document_topic",
@@ -76,7 +80,8 @@
     "Form Params": "document_topic",
     "Size": "1000",
     "Location": "6",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": "document-topic"
   },
   {
     "Field Name": "document_date",
@@ -94,7 +99,8 @@
     ],
     "Size": "1000",
     "Location": "5",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "doc_text",
@@ -110,7 +116,8 @@
     "Size": "1000",
     "Location": "2",
     "Truncate": "200",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "description",
@@ -125,7 +132,8 @@
     "Form Params": "description",
     "Size": "1000",
     "Location": "1",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "sigads",
@@ -140,7 +148,8 @@
     "Form Params": "sigads",
     "Size": "1000",
     "Location": "8",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": "bookmark"
   },
   {
     "Field Name": "codewords",
@@ -155,7 +164,8 @@
     "Form Params": "codewords",
     "Size": "1000",
     "Location": "4",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": "codewords"
   },
   {
     "Field Name": "agency",
@@ -170,7 +180,8 @@
     "Form Params": "agency",
     "Size": "1000",
     "Location": "3",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": "agencies"
   },
   {
     "Field Name": "countries_mentioned",
@@ -185,7 +196,8 @@
     "Form Params": "countries_mentioned",
     "Size": "1000",
     "Location": "7",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": "countries"
   },
   {
     "Field Name": "overall_classification",
@@ -200,7 +212,8 @@
     "Form Params": "overall_classification",
     "Size": "1000",
     "Location": "12",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": "classification"
   },
   {
     "Field Name": "overall_relto",
@@ -215,6 +228,7 @@
     "Form Params": "overall_relto",
     "Size": "1000",
     "Location": "13",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": "shared-with"
   }
 ]

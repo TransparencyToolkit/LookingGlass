@@ -13,7 +13,8 @@
     "Size": "1000",
     "Location": "0",
     "Item_Field": "No",  
-    "Link": "mult_items"
+    "Link": "mult_items",
+    "Icon": ""
   },
   {
     "Field Name": "company",
@@ -28,7 +29,8 @@
     "Form Params": "company",
     "Size": "1000",
     "Location": "1",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "title",
@@ -43,7 +45,8 @@
     "Form Params": "title",
     "Size": "1000",
     "Location": "2",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "start_date",
@@ -58,7 +61,8 @@
     "Form Params": ["start_date", "end_start_date"],
     "Size": "1000",
     "Location": "3",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "end_date",
@@ -73,7 +77,8 @@
     "Form Params": ["end_date", "end_end_date"],
     "Size": "1000",
     "Location": "4",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "location",
@@ -88,7 +93,8 @@
     "Form Params": "location",
     "Size": "1000",
     "Location": "5",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "area",
@@ -103,7 +109,8 @@
     "Form Params": "area",
     "Size": "1000",
     "Location": "6",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "industry",
@@ -118,7 +125,8 @@
     "Form Params": "industry",
     "Size": "1000",
     "Location": "7",
-    "Item_Field": "No" 
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "description",
@@ -134,7 +142,8 @@
     "Size": "1000",
     "Location": "8",
     "Truncate": "200",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "skills",
@@ -149,7 +158,8 @@
     "Form Params": "skills",
     "Size": "1000",
     "Location": "9",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "certifications",
@@ -164,7 +174,8 @@
     "Form Params": "certifications",
     "Size": "1000",
     "Location": "11",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "picture",
@@ -179,7 +190,8 @@
     "Form Params": "picture",
     "Size": "1000",
     "Location": "15",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "websites",
@@ -194,7 +206,8 @@
     "Form Params": "websites",
     "Size": "1000",
     "Location": "16",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "profile_url",
@@ -209,7 +222,8 @@
     "Form Params": "profile_url",
     "Size": "1000",
     "Location": "17",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "current",
@@ -224,7 +238,8 @@
     "Form Params": "current",
     "Size": "1000",
     "Location": "18",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "linkedin_company_url",
@@ -239,7 +254,8 @@
     "Form Params": "linkedin_company_url",
     "Size": "1000",
     "Location": "19",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "url",
@@ -254,7 +270,8 @@
     "Form Params": "url",
     "Size": "1000",
     "Location": "20",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "website",
@@ -269,7 +286,8 @@
     "Form Params": "website",
     "Size": "1000",
     "Location": "21",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "type",
@@ -284,7 +302,8 @@
     "Form Params": "type",
     "Size": "1000",
     "Location": "22",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "company_size",
@@ -299,7 +318,8 @@
     "Form Params": "company_size",
     "Size": "1000",
     "Location": "23",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "address",
@@ -314,7 +334,8 @@
     "Form Params": "address",
     "Size": "1000",
     "Location": "24",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "founded",
@@ -329,7 +350,8 @@
     "Form Params": ["founded_start_date", "founded_end"],
     "Size": "1000",
     "Location": "25",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "timestamp",
@@ -344,7 +366,8 @@
     "Form Params": ["timestamp_start", "timestamp_end"],
     "Size": "1000",
     "Location": "26",
-    "Item_Field": "Yes"
+    "Item_Field": "Yes",
+    "Icon": ""
   },
   {
     "Field Name": "degree",
@@ -359,7 +382,8 @@
     "Form Params": "degree",
     "Size": "1000",
     "Location": "28",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   },
   {
     "Field Name": "score",
@@ -374,6 +398,7 @@
     "Form Params": "score",
     "Size": "1000",
     "Location": "29",
-    "Item_Field": "No"
+    "Item_Field": "No",
+    "Icon": ""
   }
 ]
