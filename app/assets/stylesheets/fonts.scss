@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'League Spartan';
+  src: url('leaguespartan-bold.eot');
+  src: url('leaguespartan-bold.eot?#iefix') format('embedded-opentype'),
+       url('leaguespartan-bold.woff2') format('woff2'),
+       url('leaguespartan-bold.woff') format('woff'),
+       url('leaguespartan-bold.ttf') format('truetype'),
+       url('leaguespartan-bold.svg#league_spartanbold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'SourceSansPro-Bold';
+  src: url('SourceSansPro-Bold.eot');
+  src: url('SourceSansPro-Bold.eot?#iefix') format('embedded-opentype'),
+       url('SourceSansPro-Bold.woff2') format('woff2'),
+       url('SourceSansPro-Bold.woff') format('woff'),
+       url('SourceSansPro-Bold.ttf') format('truetype'),
+       url('SourceSansPro-Bold.svg#league_spartanbold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+$fontAwesomeEotPath: font-url("fontawesome-webfont.eot");
+$fontAwesomeEotPath_iefix: font-url("fontawesome-webfont.eot?#iefix");
+$fontAwesomeWoffPath: font-url("fontawesome-webfont.woff");
+$fontAwesomeTtfPath: font-url("fontawesome-webfont.ttf");
+$fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");

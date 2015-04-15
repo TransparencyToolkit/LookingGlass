@@ -81,12 +81,18 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (5.1.8.1)
+      execjs
+      json
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bootstrap-datepicker-rails (1.4.0)
       railties (>= 3.0)
+    bootstrap-sass (3.3.4.1)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     builder (3.2.2)
     coderay (1.1.0)
     coercible (1.0.0)
@@ -221,6 +227,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-datepicker-rails
+  bootstrap-sass
   coffee-rails (~> 4.0.0)
   elasticsearch!
   elasticsearch-persistence!
@@ -229,7 +236,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-datatables-rails!
   jquery-rails
-  less-rails
   pry
   quiet_assets
   rails (= 4.1.4)
