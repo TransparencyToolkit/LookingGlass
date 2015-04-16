@@ -53,7 +53,7 @@
     left: 0px;
     min-height: 100%;
     width: 250px;
-    padding: 20px;
+    padding: 20px 20px 54px 20px;
     background-color: $base-white;
     color: $base-black;
     overflow-x: scroll;
@@ -117,8 +117,7 @@
     position: absolute;
     top: 54px;
     left: 250px;
-    padding: 20px;
-    padding-bottom: 40px;
+    padding: 20px 25px 40px 25px;
     margin-bottom: 3%;
     overflow-x: scroll;
   }
@@ -168,9 +167,71 @@
   #search-result {
     background: $base-white;
     color: $base-black;
+    padding: 20px;
   }
 
   .searchin {
     margin-top: 2px;
   }
 
+
+  .search-item {
+    border-bottom: 1px solid $gray-light;
+  }
+
+  .search-item h3.title,
+  .search-item h3.title a {
+    font-size: 24px;
+    font-family: 'SourceSansPro-Bold';
+    line-height: 30px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: $base-black;
+  }
+
+  .search-item h3.title a:hover {
+    color: $brand-primary;
+    text-decoration: none;
+    background: transparent;
+  }
+
+  .search-item a.release-date {
+    color: $gray-light;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .search-item div.description,
+  .search-item div.document {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: Helvetica, arial, sans-serif;
+    line-height: 16px;
+    color: $gray-darker;
+  }
+
+  .search-item div.description b,
+  .search-item div.document b {
+    background: $brand-warning;
+    padding: 2px;
+    border-radius: 3px;
+    color: $gray-darker;
+  }
+
+  .search-item div.facet {
+    margin: 0px 15px 10px 0;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    display: inline-block;
+  }
+
+  .search-item div.facet a {
+    display: inline-block;
+    margin: 0px 5px;
+  }
+
+  .search-item div.facet a:hover {
+    background: transparent;
+    color: $brand-success;
+    text-decoration: none;
+  }
