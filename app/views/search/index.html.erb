@@ -1,20 +1,15 @@
-<div class="row-fluid">
-<div class="span7 offset5" id="searchtags">
-<%= render partial: 'search/searchfilters' %>
-</div>
-</div>
 
-<br />
-<div class="container-fluid fill">
-<div class="row-fluid">
-<div class="span3 offset1 sidebar" id="sidebar">
+    <div id="sidebar">
+      <%= render partial: 'nsadocs/sidebar' %>
+    </div>
 
-<%= render partial: 'nsadocs/sidebar' %>
-</div>
-<div class="span7 offset5" id="maincontent">
+    <div id="maincontent">
+      <div id="searchtags">
+        <div class="detail-heading">Filtered By</div>
+        <%= render partial: 'search/searchfilters' %>
+      </div>
 
-<%= render partial: 'nsadocs/list' %>
-</div>
-</div>
-</div>
-
+      <div id="search-result">
+        <%= render partial: 'nsadocs/list' %>
+      </div>
+    </div>

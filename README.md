@@ -28,7 +28,7 @@ progress.
 - Then start up elasticsearch
 	- On Mac Os type `elasticsearch`
 	- On debian type `/etc/init.d/elasticsearch start`
-- Then type `rails runner 'IndexManager.import_from_json(force: true)'` when importing / updating new dataset 
+- Then type `rails runner 'IndexManager.import_data(force: true)'` when importing / updating datasets
 - Start up the app `rails server`
 - Then access [http://0.0.0.0:3000](http://0.0.0.0:3000)
 

@@ -56,7 +56,7 @@ module CategoryFormat
                         <ul class="nav nav-list tree collapse">'
     else
       list_html = '<ul class="nav nav-list">
-                     <li><label class="tree-toggler nav-header just-plus">'+field_spec["Human Readable Name"]+'</label>
+                     <li><label class="tree-toggler nav-header just-plus"><img src="/assets/'+field_spec["Icon"]+'-24.png">'+field_spec["Human Readable Name"]+'</label>
                       <ul class="nav nav-list tree collapse">'
     end
 

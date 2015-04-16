@@ -1,10 +1,10 @@
 module SearchedFormat
   # Formats the x link for search terms (link removes term from search) 
   def removeFormat(hrname, k, v, type)
-    outstr = '<span class="search-filter">'
-    outstr += hrname+": "+ v + " (" + type + ")"
+    outstr = '<div class="search-filter">'
+    outstr += '<span class="category">' + hrname + "</span><br> "+ v + ""
     outstr += getRemoveLink(k, v)
-    outstr += '</span>'
+    outstr += '</div>'
   end
 
   # Generates the appropriate remove link for the situation

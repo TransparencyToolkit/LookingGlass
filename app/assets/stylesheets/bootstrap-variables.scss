@@ -12,7 +12,7 @@ $base-black:         #000000;
 $base-white:         #FFFFFF;
 
 $gray-base:          #222222;
-$gray-darker:        #444444;
+$gray-darker:        #555555;
 $gray-dark:          #666666;
 $gray:               #8F8F8F;
 $gray-light:         #CFCFCF;
@@ -21,8 +21,8 @@ $gray-lighter:       #eeeeee;
 $brand-primary:      #3C88D7;
 $brand-success:      #62C947;
 $brand-info:         #FFFFFF;
-$brand-warning:      #FFC31C;
-$brand-danger:       #A62020;
+$brand-warning:      #FFDB75;
+$brand-danger:       #C61C1C;
 
 
 //== Scaffolding
@@ -196,11 +196,11 @@ $input-border:                   #ccc !default;
 // TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
 //** Default `.form-control` border radius
 // This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
-$input-border-radius:            $border-radius-base !default;
+$input-border-radius:            0px !default;
 //** Large `.form-control` border radius
-$input-border-radius-large:      $border-radius-large !default;
+$input-border-radius-large:      0px !default;
 //** Small `.form-control` border radius
-$input-border-radius-small:      $border-radius-small !default;
+$input-border-radius-small:      0px !default;
 
 //** Border color for inputs on focus
 $input-border-focus:             #66afe9 !default;
