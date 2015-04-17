@@ -1,43 +1,38 @@
 <% link_field = "" %>
-<table id="docs" class="display table table-hover table-condensed"
-       cellspacing="0">
-  <thead>
-    <tr>
-      <th>Relevance</th>
-      <% tableItems.each do |t| %>
-        <th><%= t["Human Readable Name"] %></th>
-        <% link_field = t["Field Name"]  if t["Link"] %>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @nsadocs.sort { |a, b| a.hit["_score"] <=> b.hit["_score"] }.reverse.each do |nsadoc| %>
-      <tr class="docrow"  id="<%= nsadoc.id %>" doctitle="<%= nsadoc.title %>">
-	<td><%= nsadoc.hit["_score"] %></td>
-	<% tableItems.each do |t| %>
-	  <% if nsadoc.hit["highlight"] && nsadoc.hit["highlight"][t["Field Name"]] && !nsadoc.hit["highlight"][t["Field Name"]].empty? %>
-       	    <% text = raw(nsadoc.hit["highlight"][t["Field Name"]].first.to_s) %>
-	    <% if t["Facet?"] == "Yes" %>
-              <td><%= raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %></td>
-            <% elsif t["Field Name"] == link_field %>
-              <td><%= link_to text, nsadoc, target: "_blank" %></td>
-            <% else %>
-	     <td><%= text %></td>
-            <% end %>
 
-	   <% else %>
-	     <% if t["Truncate"] %>
-	       <td><%= truncate(nsadoc[t["Field Name"]], :length => t["Truncate"].to_i) %>
-	     <% elsif t["Facet?"] == "Yes" %>
- 	       <td><%= raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %></td>
-	     <% elsif t["Field Name"] == link_field %>
-               <td><%= link_to nsadoc[t["Field Name"]], nsadoc, target: "_blank" %></td>
-             <% else %>
-               <td><%= nsadoc[t["Field Name"]] %></td>
-	     <% end %>
-	   <% end %>
+  <% @nsadocs.sort { |a, b| a.hit["_score"] <=> b.hit["_score"] }.reverse.each do |nsadoc| %>
+
+  <div class="search-item"  id="<%= nsadoc.id %>" doctitle="<%= nsadoc.title %>">
+    <div class="hide"><%= nsadoc.hit["_score"] %></div>
+    <h3 class="title"><%= link_to nsadoc.title, nsadoc, target: "_blank" %></a></h3>
+    <div class="row">
+      <div class="col-md-6 description">
+        <a class="date">Published on <%= nsadoc.released_date %></a><br>
+        <%= truncate(nsadoc.description, :length => 600) %>
+      </div> 
+      <div class="col-md-6 doc_text">
+        <span class="date">Document <%= nsadoc.document_date %></span><br>
+        <%= truncate(nsadoc.doc_text, :length => 200) %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 facets">
+        <% tableItems.each do |t| %>
+        <% if t["Facet?"] == "Yes" %>
+        <% facet_links = raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %>
+        <% if facet_links != "" %>
+        <div class="facet <%= t["Field Name"] %>">
+          <img src="/assets/<%= t["Icon"] %>-24.png" alt="<%= t["Human Readable Name"] %>" title="<%= t["Human Readable Name"] %>"> <%= facet_links %>
+        </div>
         <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <% end %>
+
+
