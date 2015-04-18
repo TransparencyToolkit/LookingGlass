@@ -251,9 +251,21 @@
     color: $base-white;
   }
 
+  #maincontent ul.nav > li > a img {
+    height: 18px;
+    margin-right: 5px;
+    -webkit-filter:invert(100%);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(invert='1');
+  }  
+
   #maincontent ul.nav > li.active > a {
     background: $base-white;
     color: $gray-base;
+  }
+
+  #maincontent ul.nav > li.active > a img {
+    -webkit-filter:invert(0%);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(invert='0');
   }
 
   #maincontent div.tab-content {

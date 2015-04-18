@@ -14,9 +14,13 @@
 
 <div id="maincontent">
   <ul class="nav nav-pills" style="text-align:center;">
-    <li class="active" id="litext"><a href="#text" data-toggle="tab">Text</a></li>
+    <li class="active" id="litext">
+      <a href="#text" data-toggle="tab"><img src="/assets/text-24.png"> Text</a>
+    </li>
     <% if @importer["Show PDF?"] == "Yes" %>
-    <li id="lipdf"><a href="#pdf" data-toggle="tab">Document</a></li>
+    <li id="lipdf">
+      <a href="#pdf" data-toggle="tab"><img src="/assets/document-24.png"> Document</a>
+    </li>
     <% end %>
   </ul>
   <div class="tab-content" id="div">
