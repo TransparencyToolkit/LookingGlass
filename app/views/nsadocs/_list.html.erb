@@ -3,9 +3,10 @@
 
 <% @nsadocs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |nsadoc| %>
 
-  <div class="search-item"  id="<%= nsadoc.id %>" doctitle='<%= nsadoc["_source"].title %>'>
+  <div class="search-item"  id='<%= nsadoc["_id"] %>' doctitle='<%= nsadoc["_source"].title %>'>
     <div class="hide"><%= nsadoc["_score"] %></div>
-    <h3 class="title"><%= link_to nsadoc["_source"].title, nsadoc, target: "_blank" %></a></h3>
+    
+    <h3 class="title"><%= link_to nsadoc["_source"].title, nsadoc_path(nsadoc["_id"]), target: "_blank" %></a></h3>
     <div class="row">
       <div class="col-md-6 description">
         <a class="date">Published on <%= nsadoc["_source"].released_date %></a><br>
