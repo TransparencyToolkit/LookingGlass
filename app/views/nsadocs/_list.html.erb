@@ -22,7 +22,8 @@
         <% tableItems.each do |t| %>
         <% if t["Facet?"] == "Yes" %>
         <% facet_links = raw(linkedFacets(nsadoc["_source"][t["Field Name"]], t["Field Name"])) %>
-        <% if facet_links != "" %>
+        <% if facet_links != "" && !facet_links.empty? %>
+
         <div class="facet <%= t["Field Name"] %>">
           <img src="/assets/<%= t["Icon"] %>-24.png" alt="<%= t["Human Readable Name"] %>" title="<%= t["Human Readable Name"] %>"> <%= facet_links %>
         </div>

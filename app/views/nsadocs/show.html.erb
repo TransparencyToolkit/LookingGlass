@@ -1,67 +1,68 @@
-<div class="container-fluid fill">
-<div class="row-fluid">
-  <div class="span3 offset1 sidebar" id="sidebar">
-
+<div id="sidebar">
+  <h4>Document Details</h4>
   <% first_doc = @link_type["Link Type"] == "mult_items" ? @nsadocs.first : @nsadoc %>
-    
-<% @field_info_sorted.each do |f| %>
-  <% if f["Facet?"] == "Yes" && first_doc[f["Field Name"]] && f["Item_Field"]=="No" %>
-    <% if !first_doc[f["Field Name"]].to_s.empty? %>
-    <p><strong><%= f["Human Readable Name"] %>: </strong>
-      <%= raw(linkedFacets(first_doc[f["Field Name"]], f["Field Name"])) %>
+  <% @field_info_sorted.each do |f| %>
+    <% if f["Facet?"] == "Yes" && first_doc[f["Field Name"]] && f["Item_Field"]=="No" %>
+      <% if !first_doc[f["Field Name"]].to_s.empty? %>
+      <p><img src="/assets/<%= f["Icon"] %>-24.png" alt="<%= f["Human Readable Name"] %>" title="<%= f["Human Readable Name"] %>"> <strong><%= f["Human Readable Name"] %>: </strong>
+        <%= raw(linkedFacets(first_doc[f["Field Name"]], f["Field Name"])) %>
       </p>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
 </div>
 
-<div class="span7 offset5" id="maincontent">
-<ul class="nav nav-pills" style="text-align:center;">
-  <li class="active" id="litext"><a href="#text" data-toggle="tab">Text</a></li>
-  <% if @importer["Show PDF?"] == "Yes" %>
-  <li id="lipdf"><a href="#pdf" data-toggle="tab">Document</a></li>
-  <% end %>
-</ul>
-<br />
-<div class="tab-content" id="div">
-  <div class="tab-pane active" id="text">
-
+<div id="maincontent">
+  <ul class="nav nav-pills" style="text-align:center;">
+    <li class="active" id="litext">
+      <a href="#text" data-toggle="tab"><img src="/assets/text-24.png"> Text</a>
+    </li>
+    <% if @importer["Show PDF?"] == "Yes" %>
+    <li id="lipdf">
+      <a href="#pdf" data-toggle="tab"><img src="/assets/document-24.png"> Document</a>
+    </li>
+    <% end %>
+  </ul>
+  <div class="tab-content" id="div">
+    <!-- Pane Text -->
+    <div class="tab-pane active" id="text">
     <% if @link_type["Link Type"] != "mult_items" %> 
       <% @field_info_sorted.each do |f| %>
         <% if f["In doc?"] == "Yes" && f["Facet?"] == "No" %>
-	 <%= raw prepareField(f, @nsadoc) %>
+        <%= raw prepareField(f, @nsadoc) %>
         <% end %>
        <% end %>
     <% else %>	
       <% @field_info_sorted.each do |f| %>
-	<% if f["In doc?"] == "Yes" && f["Facet?"] == "No" && f["Item_Field"]== "No" %>
-	  <%= raw prepareField(f, first_doc) %>
-        <% end %>
+      <% if f["In doc?"] == "Yes" && f["Facet?"] == "No" && f["Item_Field"]== "No" %>
+      <%= raw prepareField(f, first_doc) %>
+      <% end %>
       <% end %>
       <hr /><hr />
       <% @nsadocs.each do |d| %>
-       <% @field_info_sorted.each do |f| %>
-	<% if f["Item_Field"] == "Yes" %>
-	   <%= raw prepareField(f, d) %>
-	<% end %>
-       <% end %>
-       <hr />
+        <% @field_info_sorted.each do |f| %>
+        <% if f["Item_Field"] == "Yes" %>
+        <%= raw prepareField(f, d) %>
+        <% end %>
+      <% end %>
+      <hr />
+      <% end %>
     <% end %>
-   <% end %>
 </div>
 
-<% if @importer["Show PDF?"] == "Yes" %>
-<div class="tab-pane" id="pdf">
-  <% if first_doc[@importer['File Path Attr']].is_a?(Array) %>
-     <% first_doc[@importer['File Path Attr']].each do |doc_path| %>
-         <iframe src="<%= asset_path(@importer['File Path Prefix']+doc_path) %>" width="1000" height="750"></iframe>
-     <% end %>
-  <% else %>
-    <iframe src="<%= asset_path(@importer['File Path Prefix']+first_doc[@importer['File Path Attr']]) %>" width="1000" height="750"></iframe>
-  <% end %>
-</div>
-<% end %>
+    <!-- Pane PDF -->
+    <% if @importer["Show PDF?"] == "Yes" %>
+    <div class="tab-pane" id="pdf">
+      <% if first_doc[@importer['File Path Attr']].is_a?(Array) %>
+         <% first_doc[@importer['File Path Attr']].each do |doc_path| %>
+             <iframe src="<%= asset_path(@importer['File Path Prefix']+doc_path) %>" width="1000" height="750"></iframe>
+         <% end %>
+      <% else %>
+        <iframe src="<%= asset_path(@importer['File Path Prefix']+first_doc[@importer['File Path Attr']]) %>" width="1000" height="750"></iframe>
+      <% end %>
+    </div>
+    <% end %>
 
+  </div>
 </div>
-</div>
-</div>
+
