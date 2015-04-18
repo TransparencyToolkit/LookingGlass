@@ -117,7 +117,7 @@ $border-radius-small:       3px !default;
 //** Global color for active items (e.g., navs or dropdowns).
 $component-active-color:    #fff !default;
 //** Global background color for active items (e.g., navs or dropdowns).
-$component-active-bg:       $brand-primary !default;
+$component-active-bg:       $base-black !default; //(default: $brand-primary)
 
 //** Width of the `border` for generating carets that indicator dropdowns.
 $caret-width-base:          4px !default;
@@ -441,7 +441,7 @@ $nav-tabs-justified-link-border-color:            #ddd !default;
 $nav-tabs-justified-active-link-border-color:     $body-bg !default;
 
 //== Pills
-$nav-pills-border-radius:                   $border-radius-base !default;
+$nav-pills-border-radius:                   0px !default;
 $nav-pills-active-link-hover-bg:            $component-active-bg !default;
 $nav-pills-active-link-hover-color:         $component-active-color !default;
 

@@ -58,6 +58,12 @@
     color: $base-black;
     overflow-x: scroll;
   }
+
+  #sidebar h2,
+  #sidebar h3,
+  #sidebar h4 {
+    font-family: 'League Spartan';
+  }
   
   #sidebar label.nav-header {
     font-size: 21px;
@@ -235,4 +241,22 @@
     background: transparent;
     color: $brand-success;
     text-decoration: none;
+  }
+
+
+/*** Document View ***/
+
+  #maincontent ul.nav > li > a {
+    background: $base-black;
+    color: $base-white;
+  }
+
+  #maincontent ul.nav > li.active > a {
+    background: $base-white;
+    color: $gray-base;
+  }
+
+  #maincontent div.tab-content {
+    background: $base-white;
+    padding: 20px;
   }
