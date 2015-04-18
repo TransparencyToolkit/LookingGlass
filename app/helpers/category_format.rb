@@ -27,7 +27,7 @@ module CategoryFormat
     # Overflow calculation settings                             
     totalnum = categories[field_spec["Field Name"]]["terms"].count
     numshow = totalnum > 5 ? 5+totalnum*0.01 : totalnum
-                                            
+    
     # Divides list of terms
     sorted_results = sortResults(categories, field_spec)
     top_results = sorted_results[0..numshow]

@@ -4,10 +4,10 @@ module FacetsQuery
     fieldhash = Hash.new
     field_info.each do |f|
       if f["Facet?"] == "Yes"
-        fieldhash[f["Field Name"].to_sym] = {terms: {field: f["Field Name"]}, size: Nsadoc.count}
+        fieldhash[f["Field Name"].to_sym] = {terms: {field: f["Field Name"], size: 2147483647}}
       end
     end
-
+    
     return fieldhash
   end
 
