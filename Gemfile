@@ -6,6 +6,7 @@ gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-ra
 gem 'bootstrap-datepicker-rails'
 gem 'pry'
 gem 'rb-readline'
+gem 'will_paginate'
 
 gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'bootstrap-sass'
@@ -55,3 +56,4 @@ gem "simple_form"
 gem "elasticsearch", git: "git://github.com/elasticsearch/elasticsearch-ruby.git"
 gem "elasticsearch-persistence", git: "git://github.com/elasticsearch/elasticsearch-rails.git", branch: "persistence-model", require: "elasticsearch/persistence/model"
 gem "elasticsearch-rails", git: "git://github.com/elasticsearch/elasticsearch-rails.git"
+

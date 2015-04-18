@@ -1,5 +1,5 @@
 module IndexMethods
-  attr_accessor :settings, :index_name, :importPath
+  attr_accessor :settings, :mappings, :index_name, :importPath
 
   # Set index name and other attributes
   def getSettings

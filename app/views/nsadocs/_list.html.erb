@@ -1,18 +1,19 @@
 <% link_field = "" %>
+<%= @nsadocs.total_entries %> Results
 
-  <% @nsadocs.sort { |a, b| a.hit["_score"] <=> b.hit["_score"] }.reverse.each do |nsadoc| %>
+<% @nsadocs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |nsadoc| %>
 
-  <div class="search-item"  id="<%= nsadoc.id %>" doctitle="<%= nsadoc.title %>">
-    <div class="hide"><%= nsadoc.hit["_score"] %></div>
-    <h3 class="title"><%= link_to nsadoc.title, nsadoc, target: "_blank" %></a></h3>
+  <div class="search-item"  id="<%= nsadoc.id %>" doctitle='<%= nsadoc["_source"].title %>'>
+    <div class="hide"><%= nsadoc["_score"] %></div>
+    <h3 class="title"><%= link_to nsadoc["_source"].title, nsadoc, target: "_blank" %></a></h3>
     <div class="row">
       <div class="col-md-6 description">
-        <a class="date">Published on <%= nsadoc.released_date %></a><br>
-        <%= truncate(nsadoc.description, :length => 600) %>
+        <a class="date">Published on <%= nsadoc["_source"].released_date %></a><br>
+        <%= truncate(nsadoc["_source"].description, :length => 600) %>
       </div> 
       <div class="col-md-6 doc_text">
-        <span class="date">Document <%= nsadoc.document_date %></span><br>
-        <%= truncate(nsadoc.doc_text, :length => 200) %>
+        <span class="date">Document <%= nsadoc["_source"].document_date %></span><br>
+        <%= truncate(nsadoc["_source"].doc_text, :length => 200) %>
       </div>
     </div>
 
@@ -20,7 +21,7 @@
       <div class="col-md-12 facets">
         <% tableItems.each do |t| %>
         <% if t["Facet?"] == "Yes" %>
-        <% facet_links = raw(linkedFacets(nsadoc[t["Field Name"]], t["Field Name"])) %>
+        <% facet_links = raw(linkedFacets(nsadoc["_source"][t["Field Name"]], t["Field Name"])) %>
         <% if facet_links != "" %>
         <div class="facet <%= t["Field Name"] %>">
           <img src="/assets/<%= t["Icon"] %>-24.png" alt="<%= t["Human Readable Name"] %>" title="<%= t["Human Readable Name"] %>"> <%= facet_links %>
@@ -34,5 +35,5 @@
   </div>
 
   <% end %>
-
+<%= will_paginate @nsadocs %>
 

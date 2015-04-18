@@ -24,7 +24,7 @@ module SearchedFormat
 
   # Checks if it is the last search term or not
   def lastSearchTerm?(k)
-    return params.length <= 4 && (!params[k].is_a?(Array) || params[k].length <= 1)
+    return params.except("page").length <= 4 && (!params[k].is_a?(Array) || params[k].length <= 1)
   end
 
   # Generates the x link with the appropriate path

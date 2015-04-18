@@ -41,6 +41,7 @@ class Nsadoc
         },
         analyzer: { 
           custom_en_analyzer: {
+            type: 'custom',
             tokenizer: 'standard',
             filter: [
                      "english_possessive_stemmer",
@@ -55,23 +56,28 @@ class Nsadoc
       },
     },
   }.freeze
-  
-  fieldhash = Hash.new
-  fieldList.each do |f|
-    # Set mapping
-    map = Hash.new
-    if f["Mapping"] == "not_analyzed"
-      map[:index] = f["Mapping"]
-    elsif f["Mapping"] == "english"
-      map[:analyzer] == "custom_en_analyzer"
-    end
+ 
+
+  def self.genMapping(fieldList, settings)
+    fieldhash = Hash.new
+    fieldList.each do |f|
+      # Set mapping
+      map = Hash.new
+      if f["Mapping"] == "not_analyzed"
+        map[:index] = f["Mapping"]
+      elsif f["Mapping"] == "english"
+        map[:analyzer] = "english"
+      end
     
-    # If facet, make separate analyzed version. 
-    if f["Facet?"] == "Yes"
-      attribute (f["Field Name"]+"_analyzed").to_sym, f["Type"], mapping: map
-      attribute f["Field Name"].to_sym, f["Type"], mapping: {index: "not_analyzed"}
-    else # For non-facets                    
-      attribute f["Field Name"].to_sym, f["Type"], mapping: map
+      # If facet, make separate analyzed version. 
+      if f["Facet?"] == "Yes"
+        attribute (f["Field Name"]+"_analyzed").to_sym, f["Type"], mapping: map
+        attribute f["Field Name"].to_sym, f["Type"], mapping: {index: "not_analyzed"}
+      else # For non-facets                    
+        attribute f["Field Name"].to_sym, f["Type"], mapping: map
+      end
     end
   end
+
+  genMapping(fieldList, settings)
 end

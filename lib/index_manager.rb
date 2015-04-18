@@ -2,7 +2,7 @@ require 'open-uri'
 require 'pry'
 
 class IndexManager
-  include IndexMethods
+#  include IndexMethods
 
   # Index creation
   def self.create_index(options={})

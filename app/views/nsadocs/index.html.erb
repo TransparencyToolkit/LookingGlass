@@ -2,12 +2,10 @@
     <div id="sidebar">
       <%= render partial: 'nsadocs/sidebar' %>
     </div>
+
     <div id="maincontent">
+
       <div id="search-result">
-        <div class="search-item">
-          <h3 class="title">No Results</h3>
-          <p>No search results found, try removing some of your filters or a different search term</p>
-        </div>
+        <%= render partial: 'nsadocs/list' %>
       </div>
     </div>
-

@@ -7,6 +7,7 @@ class NsadocsController < ApplicationController
     fieldhash = get_all_categories(@field_info)
     results = Nsadoc.search facets: fieldhash
     @facets = results.response["facets"]
+    @nsadocs = @nsadocs.response["hits"]["hits"].paginate(page: params[:page])
   end
 
   def show

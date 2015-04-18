@@ -1,7 +1,7 @@
-<% params.except("utf8", "action", "controller").each do |k, v| %>
+<% params.except("utf8", "action", "controller", "page").each do |k, v| %>
   <% if k.include? "_facet" %>
     <% if v.is_a?(Array) %>
-        <% v.each do |v1| %> 
+        <% v.each do |v1| %>
          <%= raw(removeFormat(getHR(k.gsub("_facet", "")), k, v1, "filter")) %>
 	 <% end %>
     <% else %>
