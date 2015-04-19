@@ -2,7 +2,8 @@ require 'open-uri'
 require 'pry'
 
 class IndexManager
-#  include IndexMethods
+  include IndexMethods
+  include ENAnalyzer
 
   # Index creation
   def self.create_index(options={})
@@ -14,7 +15,7 @@ class IndexManager
     # Delete index if it already exists
     client.indices.delete index: @index_name rescue nil if options[:force]
     
-    settings = Nsadoc.settings.to_hash
+    settings = ENAnalyzer.analyzerSettings
     mappings = Nsadoc.mappings.to_hash
     
     # Create index with appropriate settings and mappings
