@@ -5,6 +5,7 @@
       "Index Name": "nsadocs",
       "Data Template": "app/dataspec/templates/nsadata.json",
       "Hide Columns Template": "app/dataspec/templates/nsadata_hidecolumns.json",
+      "Synonym List": "app/synonyms/ic_synonyms",
       "Show PDF?": "Yes",
       "File Path Prefix": "",
       "File Path Attr": "pdf",

@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'pry'
+load 'index_methods.rb'
 
 class IndexManager
   include IndexMethods
@@ -9,9 +10,10 @@ class IndexManager
   def self.create_index(options={})
     # Make client, get settings, set name
     client = Nsadoc.gateway.client
+    
     get_index_settings
     Nsadoc.index_name = @index_name
-
+    
     # Delete index if it already exists
     client.indices.delete index: @index_name rescue nil if options[:force]
     

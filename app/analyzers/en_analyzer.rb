@@ -19,10 +19,7 @@ module ENAnalyzer
             },
             synonyms: {
               type: 'synonym',
-              synonyms: [
-                         "SIGINT,Signals Intelligence",
-                         "xkeyscore,xks"
-                        ]
+              synonyms: File.read(JSON.parse(File.read("app/dataspec/importer.json")).first["Synonym List"]).split("\n")
             }
           },       
           analyzer: {

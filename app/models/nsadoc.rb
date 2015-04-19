@@ -3,10 +3,9 @@ class Nsadoc
   include Elasticsearch::Persistence::Model
   include ENAnalyzer
 
-  # Synonyms in other file
-  # List of fields from other file
+  # List of fields from other file (and question index methods and synonyms)
   # Split out mapping setting into own method
-
+ 
   config = JSON.parse(File.read("app/dataspec/importer.json")).first
   fieldList = JSON.parse(File.read(config["Data Template"]))
   index_name config["Index Name"]
@@ -14,7 +13,7 @@ class Nsadoc
   self.settings = ENAnalyzer::analyzerSettings
  
 
-  def self.genMapping(fieldList, settings)
+  def self.genMapping(settings, fieldList)
     fieldhash = Hash.new
     fieldList.each do |f|
       # Set mapping
@@ -35,5 +34,5 @@ class Nsadoc
     end
   end
 
-  genMapping(fieldList, settings)
+  genMapping(settings, fieldList)
 end
