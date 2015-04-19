@@ -31,7 +31,6 @@ class SearchQuery
     
     query = {size: Nsadoc.count, query: fullhash, facets: fieldhash,
                highlight: { pre_tags: ["<b>"], post_tags: ["</b>"], fields: highlighthash}}
-    
     return query
   end
 

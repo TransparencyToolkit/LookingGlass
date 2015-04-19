@@ -2,19 +2,19 @@
 <%= @nsadocs.total_entries %> Results
 
 <% @nsadocs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |nsadoc| %>
-
   <div class="search-item"  id='<%= nsadoc["_id"] %>' doctitle='<%= nsadoc["_source"].title %>'>
     <div class="hide"><%= nsadoc["_score"] %></div>
     
-    <h3 class="title"><%= link_to nsadoc["_source"].title, nsadoc_path(nsadoc["_id"]), target: "_blank" %></a></h3>
+    <h3 class="title"><%= link_to getText(nsadoc, "title"), nsadoc_path(nsadoc["_id"]), target: "_blank" %></a></h3>
     <div class="row">
       <div class="col-md-6 description">
         <a class="date">Published on <%= nsadoc["_source"].released_date %></a><br>
-        <%= truncate(nsadoc["_source"].description, :length => 600) %>
+	<%= getText(nsadoc, "description") %>
+
       </div> 
       <div class="col-md-6 doc_text">
         <span class="date">Document <%= nsadoc["_source"].document_date %></span><br>
-        <%= truncate(nsadoc["_source"].doc_text, :length => 200) %>
+        <%= truncate(getText(nsadoc, "doc_text"), :length => 200) %>
       </div>
     </div>
 

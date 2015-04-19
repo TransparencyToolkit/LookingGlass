@@ -10,7 +10,7 @@ module HighlightQuery
         end
       end
     end
-
+   
     return highlighthash
   end
 

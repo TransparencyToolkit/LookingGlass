@@ -6,6 +6,7 @@ class SearchController < ApplicationController
     query = s.build_query
     @nsadocs = Nsadoc.search(query)
     @facets = @nsadocs.response["facets"]
+    
     @nsadocs = @nsadocs.response["hits"]["hits"].paginate(page: params[:page])
   end
 end
