@@ -9,7 +9,18 @@
         <%= render partial: 'search/searchfilters' %>
       </div>
 
+      <div id="search-details">
+        <div class="detail">
+          <%= @nsadocs.total_entries %> Documents Found
+        </div>
+      </div>
+
       <div id="search-result">
         <%= render partial: 'nsadocs/list' %>
       </div>
+
+      <div id="search-pagination">
+        <%= will_paginate @nsadocs %>
+      </div>
+
     </div>
