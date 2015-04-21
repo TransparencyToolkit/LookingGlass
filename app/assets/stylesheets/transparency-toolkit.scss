@@ -170,6 +170,52 @@
 
 /*** Search Result ***/
 
+  #search-details {
+    margin-bottom: 20px;
+  }
+
+  #search-details div.detail {
+    display: inline-block;
+    background: $base-white;
+    padding: 10px 15px;
+    font-family: 'SourceSansPro-Bold';
+    font-size: 18px;
+  }
+
+  #search-pagination {
+    display: inline-block;
+    margin-top: 20px;
+    background: $base-white;
+    padding: 15px 10px;
+    font-family: 'SourceSansPro-Bold';
+    font-size: 18px;
+  }
+
+  #search-pagination .pagination {
+    margin: 0px;
+  }
+
+  #search-pagination .pagination span,
+  #search-pagination .pagination em,
+  #search-pagination .pagination a {
+    padding: 3px 8px;
+  }
+
+  #search-pagination .pagination em {
+    font-style: normal;
+    background: $gray;
+  }
+
+  #search-pagination .pagination a:visited {
+    color: $base-black;
+  }
+
+  #search-pagination .pagination a:hover {
+    text-decoration: none;
+    color: $base-white;
+  }
+
+
   #search-result {
     background: $base-white;
     color: $base-black;
@@ -216,6 +262,7 @@
     color: $gray-darker;
   }
 
+  div.search-item h3.title a b,
   div.search-item div.description b,
   div.search-item div.doc_text b {
     background: $brand-warning;
