@@ -1,5 +1,4 @@
 <% link_field = "" %>
-<%= @nsadocs.total_entries %> Results
 
 <% @nsadocs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |nsadoc| %>
   <div class="search-item"  id='<%= nsadoc["_id"] %>' doctitle='<%= nsadoc["_source"].title %>'>
@@ -37,5 +36,4 @@
   </div>
 
   <% end %>
-<%= will_paginate @nsadocs %>
 
