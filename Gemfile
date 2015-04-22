@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.4'
+gem 'rails'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem 'bootstrap-datepicker-rails'
 gem 'pry'
@@ -26,6 +26,7 @@ gem 'font-awesome-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'underscore-rails'
 
 # Use underscore JS lib
 gem 'underscore-rails'

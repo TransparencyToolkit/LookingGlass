@@ -25,7 +25,7 @@
         <% if facet_links != "" && !facet_links.empty? %>
 
         <div class="facet <%= t["Field Name"] %>">
-          <img src="/assets/<%= t["Icon"] %>-24.png" alt="<%= t["Human Readable Name"] %>" title="<%= t["Human Readable Name"] %>"> <%= facet_links %>
+          <%= image_tag t["Icon"]+"-24.png" %> <%= facet_links %>
         </div>
         <% end %>
         <% end %>
