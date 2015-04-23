@@ -271,12 +271,26 @@
     color: $gray-darker;
   }
 
+  div.search-item div.pictures {
+    margin: 20px 0px; 
+  }
+
+  div.search-item img.picture {
+    width: 150px;
+    margin-right: 15px;
+  }
+
+
   div.search-item div.facet {
     float: left;
     margin: 0px 15px 10px 0;
     font-size: 12px;
     font-family: Helvetica, Arial, sans-serif;
     display: inline-block;
+  }
+
+  div.search-item div.facet img {
+    height: 18px;
   }
 
   div.search-item div.facet a {
