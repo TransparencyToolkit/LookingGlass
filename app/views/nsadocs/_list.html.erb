@@ -3,16 +3,42 @@
 <% @nsadocs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |nsadoc| %>
   <div class="search-item"  id='<%= nsadoc["_id"] %>' doctitle='<%= nsadoc["_source"].title %>'>
     <div class="hide"><%= nsadoc["_score"] %></div>
-    
-    <h3 class="title"><%= link_to getText(nsadoc, "title"), nsadoc_path(nsadoc["_id"]), target: "_blank" %></a></h3>
+
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Title" %>
+    <h3 class="title">
+      <%= link_to getText(nsadoc, t["Field Name"]), nsadoc_path(nsadoc["_id"]), target: "_blank" %></a>
+    </h3>
+    <% end %>
+    <% end %>
+
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Short Text" %>
+      <%= getText(nsadoc, t["Field Name"]) %>
+    <% end %>
+    <% end %>
+
+    <div class="pictures">
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Picture" %>
+      <%= image_tag(nsadoc["_source"][t["Field Name"]], :class => "picture") %>
+    <% end %>
+    <% end %>
+    </div>
+
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Date" %>
+      <% if nsadoc["_source"][t["Field Name"]] %>
+      <span class="date"><strong><%= t["Human Readable Name"] %>:</strong> <%= nsadoc["_source"][t["Field Name"]] %></span><br>
+      <% end %>
+    <% end %>
+    <% end %>
+
     <div class="row">
       <div class="col-md-6 description">
-        <a class="date">Published on <%= nsadoc["_source"].released_date %></a><br>
-	<%= getText(nsadoc, "description") %>
-
+        <%= getText(nsadoc, "description") %>
       </div> 
       <div class="col-md-6 doc_text">
-        <span class="date">Document <%= nsadoc["_source"].document_date %></span><br>
         <%= truncate(getText(nsadoc, "doc_text"), :length => 200) %>
       </div>
     </div>
@@ -23,7 +49,6 @@
         <% if t["Facet?"] == "Yes" %>
         <% facet_links = raw(linkedFacets(nsadoc["_source"][t["Field Name"]], t["Field Name"])) %>
         <% if facet_links != "" && !facet_links.empty? %>
-
         <div class="facet <%= t["Field Name"] %>">
           <%= image_tag t["Icon"]+"-24.png" %> <%= facet_links %>
         </div>
@@ -31,6 +56,14 @@
         <% end %>
         <% end %>
       </div>
+    </div>
+
+    <div class="row">
+      <% tableItems.each do |t| %>
+      <% if t["Display Type"] == "Link" %>
+      <%= t["Field Name"] %>
+      <% end %>
+      <% end %>
     </div>
 
   </div>
