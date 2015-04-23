@@ -195,7 +195,7 @@
     "Display Type": "Picture",
     "Mapping": "not_analyzed",
     "Facet?": "No",
-    "In Table?": "No",
+    "In Table?": "Yes",
     "Show by default in table?": "No",
     "Searchable?": "No",
     "In doc?": "Yes",
