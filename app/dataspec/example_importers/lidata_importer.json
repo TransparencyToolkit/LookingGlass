@@ -4,6 +4,7 @@
       "Path": "/home/gh/data/disk/sigint/li_data/rerun_first/Pinwale.json",
       "Synonym List": "app/synonyms/ic_synonyms",
       "Index Name": "lidata",
+      "Search Title": "ICWATCH",
       "Data Template": "app/dataspec/templates/lidata.json",
       "Hide Columns Template": "app/dataspec/templates/lidata_hidecolumns.json",
       "Show PDF?": "No",

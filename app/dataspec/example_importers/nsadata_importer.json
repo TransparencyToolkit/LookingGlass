@@ -3,6 +3,7 @@
       "Path Type": "url", 
       "Path": "https://raw.githubusercontent.com/TransparencyToolkit/NSAAPI-Data/master/nsadocs.json",
       "Index Name": "nsadocs",
+      "Search Title": "NSA Doc Search",
       "Data Template": "app/dataspec/templates/nsadata.json",
       "Hide Columns Template": "app/dataspec/templates/nsadata_hidecolumns.json",
       "Synonym List": "app/synonyms/ic_synonyms",

@@ -3,6 +3,7 @@
       "Path Type": "Directory", 
       "Path": "/home/gh/data/disk/sigint/li_data",
       "Index Name": "lidata",
+      "Search Title": "ICWATCH",
       "Data Template": "app/dataspec/templates/lidata_dir.json",
       "Hide Columns Template": "app/dataspec/templates/lidata_dir_hidecolumns.json",
       "Synonym List": "app/synonyms/ic_synonyms",
