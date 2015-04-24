@@ -42,7 +42,7 @@
       <% @nsadocs.each do |d| %>
         <% @field_info_sorted.each do |f| %>
         <% if f["Item_Field"] == "Yes" %>
-        <%= raw prepareField(f, d) %>
+        <%= raw prepareField(f, d) %><br />
         <% end %>
       <% end %>
       <hr />

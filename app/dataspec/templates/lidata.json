@@ -150,7 +150,7 @@
     "Form Params": "description",
     "Size": "1000",
     "Location": "8",
-    "Truncate": "200",
+    "Truncate": "200",  
     "Item_Field": "Yes",
     "Icon": ""
   },
@@ -407,7 +407,7 @@
     "Size": "1000",
     "Location": "28",
     "Item_Field": "No",
-    "Icon": "education"
+    "Icon": "shared-with"
   },
   {
     "Field Name": "score",

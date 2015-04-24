@@ -1,13 +1,13 @@
 [
   {
-      "Path Type": "File", 
-      "Path": "../data/Pinwale.json",
-      "Synonym List": "app/synonyms/ic_synonyms",
+      "Path Type": "Directory", 
+      "Path": "/home/gh/data/disk/sigint/li_data",
       "Index Name": "lidata",
-      "Data Template": "app/dataspec/templates/lidata.json",
-      "Hide Columns Template": "app/dataspec/templates/lidata_hidecolumns.json",
+      "Data Template": "app/dataspec/templates/lidata_dir.json",
+      "Hide Columns Template": "app/dataspec/templates/lidata_dir_hidecolumns.json",
+      "Synonym List": "app/synonyms/ic_synonyms",
       "Show PDF?": "No",
       "File Paths": "N/A",
-      "Ignore Dir Import Ext": "N/A"
+      "Ignore Dir Import Ext": "_terms.json"
   }
 ]
