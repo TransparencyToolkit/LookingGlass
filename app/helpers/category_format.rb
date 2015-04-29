@@ -33,7 +33,9 @@ module CategoryFormat
     top_results = sorted_results[0..numshow]
     overflow_results = sorted_results[numshow+1..sorted_results.length-1]
 
-    return top_results, overflow_results
+    # Don't allow crazy long facet lists
+    processed_overflow = overflow_results[0..500] if overflow_results
+    return top_results, processed_overflow
   end
 
   # Sorts facets by number of results
@@ -62,7 +64,7 @@ module CategoryFormat
 
     # Generate link text for each item
     items.each do |i|
-      list_html += termLink(i, categories_chosen, category_name)
+     list_html += termLink(i, categories_chosen, category_name)
     end
 
     list_html += "</li></ul>" if is_overflow
