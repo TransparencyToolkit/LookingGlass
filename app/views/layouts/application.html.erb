@@ -35,6 +35,7 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <script>
+      var search_query = <%= raw(params.to_json) %>;
       var dataspec = <%= raw(File.read(JSON.parse(File.read("app/dataspec/importer.json")).first["Data Template"])) %>;
     </script>
     <%= javascript_include_tag "application" %>
@@ -108,7 +109,7 @@
 
     <%= bootstrap_flash %>
 
-    <div class="container">
+    <div id="container">
 	    <%= yield %>
     </div>
 
