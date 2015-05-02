@@ -56,8 +56,8 @@
     padding: 20px 20px 54px 20px;
     background-color: $base-white;
     color: $base-black;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   #sidebar h2,
@@ -126,8 +126,8 @@
     left: 250px;
     padding: 20px 25px 40px 25px;
     margin-bottom: 3%;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   a.remove-filter:hover {
