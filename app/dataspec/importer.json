@@ -1,7 +1,7 @@
 [
   {
       "Path Type": "Directory", 
-      "Path": "/home/gh/tools/RESUMINT-Data/analyze/",
+      "Path": "/Users/brennannovak/TransparencyToolkit/data/",
       "Index Name": "lidata",
       "Search Title": "ICWATCH",
       "Data Template": "app/dataspec/templates/sigintlidata_dir.json",
