@@ -393,23 +393,6 @@
     "Icon": ""
   },
   {
-    "Field Name": "degree",
-    "Human Readable Name": "Degree",
-    "Type": "String",
-    "Display Type": "Category",
-    "Mapping": "not_analyzed",
-    "Facet?": "Yes",
-    "In Table?": "Yes",
-    "Show by default in table?": "No",
-    "Searchable?": "No",
-    "In doc?": "Yes",
-    "Form Params": "degree",
-    "Size": "1000",
-    "Location": "28",
-    "Item_Field": "No",
-    "Icon": "shared-with"
-  },
-  {
     "Field Name": "score",
     "Human Readable Name": "Score",
     "Type": "String",
@@ -425,5 +408,22 @@
     "Location": "29",
     "Item_Field": "No",
     "Icon": ""
+  },
+  {
+      "Field Name": "categories",
+      "Human Readable Name": "Categories",
+      "Type": "String",
+      "Display Type": "Category",
+      "Mapping": "english",
+      "Facet?": "Yes",
+      "In Table?": "Yes",
+      "Show by default in table?": "No",
+      "Searchable?": "Yes",
+      "In Doc?": "Yes",
+      "Form Params": "categories",
+      "Size": "1000",
+      "Location": "30",
+      "Item_Field": "Yes",
+      "Icon": "document-topic"
   }
 ]
