@@ -151,6 +151,8 @@ GEM
       sprockets (> 2, < 4)
       tilt
     libv8 (3.16.14.7)
+    listjs-rails (1.1.1)
+      railties (>= 3.1.0)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -261,6 +263,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-datatables-rails!
   jquery-rails
+  listjs-rails
   pry
   quiet_assets
   rails
