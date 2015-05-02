@@ -377,7 +377,7 @@
   },
   {
     "Field Name": "timestamp",
-    "Human Readable Name": "Scraped Timestamp",
+    "Human Readable Name": "Timestamp",
     "Type": "Date",
     "Display Type": "Date",
     "Mapping": "not_analyzed",
