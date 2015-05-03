@@ -7,19 +7,20 @@ module CategoryFormat
     # Go through all facets 
     @field_info_sorted.each do |f|
       if f["Facet?"] == "Yes"
-        outhtml += genFacet(facets, "", f) if facets[f["Field Name"]]["terms"].count > 0
+        total_count = facets[f["Field Name"]]["terms"].count.to_s;
+        outhtml += genFacet(facets, "", f, total_count) if facets[f["Field Name"]]["terms"].count > 0
       end
     end
     return outhtml
   end
 
   # Gen html for list of links for each facet                                                 
-  def genFacet(categories, outhtml, field_spec)
+  def genFacet(categories, outhtml, field_spec, total_count)
     category_name = field_spec["Field Name"]+"_facet" 
     categories_chosen = params[category_name] 
 
     top_results, overflow_results = splitResults(categories, field_spec)
-    return combinedHTML(top_results, overflow_results, categories_chosen, category_name, field_spec)
+    return combinedHTML(top_results, overflow_results, categories_chosen, category_name, field_spec, total_count)
   end
 
   # Splits the results into overflow/not overflow
@@ -44,27 +45,30 @@ module CategoryFormat
   end
 
   # Generates HTML for category
-  def combinedHTML(top_results, overflow_results, categories_chosen, category_name, field_spec)
-    outhtml = genPartialHTML(top_results, false, categories_chosen, category_name, field_spec)
-    outhtml += genPartialHTML(overflow_results, true, categories_chosen, category_name, field_spec) if overflow_results
+  def combinedHTML(top_results, overflow_results, categories_chosen, category_name, field_spec, total_count)
+    outhtml = genPartialHTML(top_results, false, categories_chosen, category_name, field_spec, total_count)
+    outhtml += genPartialHTML(overflow_results, true, categories_chosen, category_name, field_spec, total_count) if overflow_results
     outhtml += "</ul></li></ul><br />"
     return outhtml
   end
 
   # Generates the html for single category
-  def genPartialHTML(items, is_overflow, categories_chosen, category_name, field_spec)
+  def genPartialHTML(items, is_overflow, categories_chosen, category_name, field_spec, total_count)
     if is_overflow
       list_html = '<li><label class="tree-toggler nav-header plus"></label>
                         <ul class="nav nav-list tree collapse">'
     else
       list_html = '<ul class="nav nav-list">
-                     <li><label class="tree-toggler nav-header just-plus">'+image_tag(field_spec["Icon"]+"-24.png")+field_spec["Human Readable Name"]+'</label>
-                      <ul class="nav nav-list tree collapse">'
+                     <li>
+                        <label class="tree-toggler nav-header just-plus" title="' + total_count + ' Filters">
+                          ' + image_tag(field_spec["Icon"]+"-24.png") + field_spec["Human Readable Name"] + '
+                        </label>
+                        <ul class="nav nav-list tree collapse">'
     end
 
     # Generate link text for each item
     items.each do |i|
-     list_html += termLink(i, categories_chosen, category_name)
+      list_html += termLink(i, categories_chosen, category_name)
     end
 
     list_html += "</li></ul>" if is_overflow

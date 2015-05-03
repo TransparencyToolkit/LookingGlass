@@ -26,10 +26,12 @@ gem 'font-awesome-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'underscore-rails'
 
 # Use underscore JS lib
 gem 'underscore-rails'
+
+# Use list http://listjs.com
+gem 'listjs-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'jquery-turbolinks'

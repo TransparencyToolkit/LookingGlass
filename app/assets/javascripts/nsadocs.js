@@ -27,6 +27,21 @@ $(document).ready(function() {
         .find('input[type=text]')
         .attr('name', item['Form Params'])
         .attr('placeholder', 'Search ' + item['Human Readable Name'])
+
+      // Style & Fill Form Field
+      var form_field = $('#form-search-' + type).find('input[type=text]')
+
+      if (search_query[value] !== undefined) {
+        form_field
+          .attr('name', item['Form Params'])
+          .attr('placeholder', 'Search ' + item['Human Readable Name'])
+          .val(search_query[value] + ' ')
+      } else {
+        form_field
+          .attr('name', item['Form Params'])
+          .attr('placeholder', 'Search ' + item['Human Readable Name'])
+          .val('')
+      }
     }
 
     // Show Form
