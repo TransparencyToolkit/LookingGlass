@@ -408,22 +408,5 @@
     "Location": "29",
     "Item_Field": "No",
     "Icon": ""
-  },
-  {
-      "Field Name": "categories",
-      "Human Readable Name": "Categories",
-      "Type": "String",
-      "Display Type": "Category",
-      "Mapping": "english",
-      "Facet?": "Yes",
-      "In Table?": "Yes",
-      "Show by default in table?": "No",
-      "Searchable?": "Yes",
-      "In Doc?": "Yes",
-      "Form Params": "categories",
-      "Size": "1000",
-      "Location": "30",
-      "Item_Field": "Yes",
-      "Icon": "document-topic"
   }
 ]

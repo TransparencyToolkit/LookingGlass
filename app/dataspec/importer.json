@@ -1,7 +1,7 @@
 [
   {
       "Path Type": "Directory", 
-      "Path": "/Users/brennannovak/TransparencyToolkit/data/",
+      "Path": "/home/gh/data/disk/sigint/li_data",
       "Index Name": "lidata",
       "Search Title": "ICWATCH",
       "Data Template": "app/dataspec/templates/sigintlidata_dir.json",
@@ -9,6 +9,11 @@
       "Synonym List": "app/synonyms/ic_synonyms",
       "Show PDF?": "No",
       "File Paths": "N/A",
-      "Ignore Dir Import Ext": "_terms.json"
+      "Ignore Dir Import Ext": "_terms.json",
+      "ID Field": "profile_url",
+      "Get ID After": "linkedin.com/pub",
+      "Secondary ID": ["company", "title", "start_date"],
+      "Deduplicate Ignore": ["timestamp", "categories", "dataspec_name", "summary", "score", "degree"],
+      "Deduplicate Prioritize": "timestamp"
   }
 ]
