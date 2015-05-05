@@ -4,14 +4,8 @@
   <% tableItems.each do |t| %>
   <% if t["Display Type"] == "Title" %>
   <h3 class="title">
-    <%= link_to getText(nsadoc, t["Field Name"]), nsadoc_path(nsadoc["_id"]), class: "list_title", target: "_blank" %></a>
+    <%= link_to getText(nsadoc["_source"], t["Field Name"]), nsadoc_path(nsadoc["_id"]), class: "list_title", target: "_blank" %></a>
   </h3>
-  <% end %>
-  <% end %>
-
-  <% tableItems.each do |t| %>
-  <% if t["Display Type"] == "Short Text" %>
-    <%= getText(nsadoc, t["Field Name"]) %>
   <% end %>
   <% end %>
 
@@ -24,9 +18,15 @@
   </div>
 
   <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Short Text" %>
+    <h4 class="title-sub"><%= getText(nsadoc["_source"], t["Field Name"]) %></h4>
+  <% end %>
+  <% end %>
+
+  <% tableItems.each do |t| %>
   <% if t["Display Type"] == "Date" %>
     <% if nsadoc["_source"][t["Field Name"]] %>
-    <span class="date"><strong><%= t["Human Readable Name"] %>:</strong> <span class="list_date"><%= nsadoc["_source"][t["Field Name"]] %></span></span><br>
+    <span class="date"><%= t["Human Readable Name"] %>: <span class="list_date"><%= nsadoc["_source"][t["Field Name"]] %></span></span>
     <% end %>
   <% end %>
   <% end %>
@@ -36,16 +36,9 @@
       <%= getText(nsadoc, "description") %>
     </div> 
     <div class="col-md-6 doc_text">
-      <%= truncate(getText(nsadoc, "doc_text")) %>
+      <%= truncate(getText(nsadoc["_source"], "doc_text")) %>
     </div>
   </div>
-
-  <% # This is needed if we want to print any values from field items %>
-  <% # nsadoc["item_fields"].each do |item| %>
-    <% # item_fields.each do |field| %>
-      <% # item[field] %>
-    <% # end %>
-  <% # end %>
 
   <div class="row">
     <div class="col-md-12 facets">
@@ -61,6 +54,56 @@
       <% end %>
     </div>
   </div>
+
+  <% # If duplicate entries %>
+  <% nsadoc["item_fields"].each do |item| %>
+  <hr>
+
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Short Text" %>
+      <h4 class="title-sub"><%= getText(item, t["Field Name"]) %></h4>
+    <% end %>
+    <% end %>
+
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Date" %>
+      <% if nsadoc["_source"][t["Field Name"]] %>
+      <span class="date"><%= t["Human Readable Name"] %>: <span class="list_date"><%= nsadoc["_source"][t["Field Name"]] %></span></span>
+      <% end %>
+    <% end %>
+    <% end %>
+  
+    <div class="row">
+      <% if item["doc_text"] %>
+      <div class="col-md-6 description">
+        <%= getText(item, "description") %>
+      </div> 
+      <div class="col-md-6 doc_text">
+        <%= truncate(getText(item, "doc_text")) %>
+      </div>
+      <% else %>
+      <div class="col-md-10 description">
+        <%= getText(item, "description") %>
+      </div> 
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 facets">
+        <% tableItems.each do |t| %>
+        <% if t["Facet?"] == "Yes" %>
+        <% facet_links = raw(linkedFacets(item[t["Field Name"]], t["Field Name"])) %>
+        <% if facet_links != "" && !facet_links.empty? %>
+        <div class="facet <%= t["Field Name"] %>">
+          <%= image_tag t["Icon"]+"-24.png" %> <%= facet_links %>
+        </div>
+        <% end %>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+
+  <% end %>
 
   <div class="row">
     <% tableItems.each do |t| %>
