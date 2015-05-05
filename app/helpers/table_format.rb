@@ -9,7 +9,7 @@ module TableFormat
     if isHighlighted?(nsadoc, field)
       return raw(nsadoc["highlight"][field].first.to_s)
     else
-      return nsadoc["_source"][field]
+      return nsadoc[field]
     end
   end
 
