@@ -9,7 +9,7 @@ module TableFormat
     if isHighlighted?(nsadoc, field)
       return raw(nsadoc["highlight"][field].first.to_s)
     else
-      return nsadoc["_source"][field]
+      return nsadoc[field]
     end
   end
 
@@ -20,13 +20,13 @@ module TableFormat
     # Generate links for each value in list of facet vals
     if field_vals.is_a?(Array)
       field_vals.each do |i|
-        outstr += link_to(i, search_path((field_name+"_facet").to_sym => i))
+        outstr += link_to(i.strip, search_path((field_name+"_facet").to_sym => i))
         outstr += ", " if i != field_vals.last
       end
     # For single values
     else
       if field_vals 
-        outstr += link_to(field_vals, search_path((field_name+"_facet").to_sym => field_vals))
+        outstr += link_to(field_vals.strip, search_path((field_name+"_facet").to_sym => field_vals))
       end
     end
     return outstr

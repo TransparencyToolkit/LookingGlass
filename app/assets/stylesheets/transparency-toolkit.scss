@@ -19,6 +19,10 @@
 
 /*** Navbar ***/
 
+  .navbar-form input[type="text"] {
+    color: #000;
+  }
+
   a.navbar-brand {
     font-family: 'League Spartan';
     font-size: 21px;
@@ -45,11 +49,26 @@
   }
 
 
+/*** Container ***/
+
+  #container {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+  }
+  
+
+
 /*** Sidebar ***/
 
   #sidebar {
     position: absolute;
-    top: 52px;
+    top: 0px;
     left: 0px;
     min-height: 100%;
     width: 250px;
@@ -122,7 +141,7 @@
   
   #maincontent {
     position: absolute;
-    top: 52px;
+    top: 0px;
     left: 250px;
     padding: 20px 25px 40px 25px;
     margin-bottom: 3%;
@@ -139,7 +158,7 @@
 /*** Search Filters ***/
 
   #searchtags {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
   }
 
   div.search-filter {
@@ -219,15 +238,16 @@
 
 
   #search-result {
-    background: $base-white;
-    color: $base-black;
-    padding: 0px 20px;
+    padding: 0px;
   }
 
 
   div.search-item {
+    background: $base-white;
     border-bottom: 1px solid $gray-light;
-    padding: 15px 0px 10px 0px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    color: $base-black;
   }
 
   div.search-item h3.title,
@@ -248,9 +268,21 @@
     background: transparent;
   }
 
+  div.search-item h4.title-sub {
+    font-size: 18px;
+    font-family: 'SourceSansPro-Bold';
+    line-height: 21px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+  }
+
   div.search-item .date,
   div.search-item .date:visited {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 5px;
     color: $gray;
+    font-size: 13px;
     font-weight: bold;
     font-family: Helvetica, Arial, sans-serif;
   }
@@ -285,7 +317,7 @@
 
   div.search-item div.facet {
     float: left;
-    margin: 0px 15px 10px 0;
+    margin: 0px 15px 5px 0;
     font-size: 12px;
     font-family: Helvetica, Arial, sans-serif;
     display: inline-block;
@@ -297,7 +329,7 @@
 
   div.search-item div.facet a {
     display: inline-block;
-    margin: 0px 5px;
+    margin: 0px 0px 0px 5px;
   }
 
   div.search-item div.facet a:hover {

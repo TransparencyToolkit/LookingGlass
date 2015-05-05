@@ -389,7 +389,7 @@
     "Form Params": ["timestamp_start", "timestamp_end"],
     "Size": "1000",
     "Location": "26",
-    "Item_Field": "Yes",
+    "Item_Field": "No",
     "Icon": ""
   },
   {
