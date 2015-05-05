@@ -1,71 +1,73 @@
-<% link_field = "" %>
+<div class="search-item"  id='<%= nsadoc["_id"] %>' doctitle='<%= nsadoc["_source"].title %>'>
+  <div class="hide"><%= nsadoc["_score"] %></div>
 
-<% @nsadocs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |nsadoc| %>
-  <div class="search-item"  id='<%= nsadoc["_id"] %>' doctitle='<%= nsadoc["_source"].title %>'>
-    <div class="hide"><%= nsadoc["_score"] %></div>
+  <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Title" %>
+  <h3 class="title">
+    <%= link_to getText(nsadoc, t["Field Name"]), nsadoc_path(nsadoc["_id"]), class: "list_title", target: "_blank" %></a>
+  </h3>
+  <% end %>
+  <% end %>
 
-    <% tableItems.each do |t| %>
-    <% if t["Display Type"] == "Title" %>
-    <h3 class="title">
-      <%= link_to getText(nsadoc, t["Field Name"]), nsadoc_path(nsadoc["_id"]), target: "_blank" %></a>
-    </h3>
-    <% end %>
-    <% end %>
+  <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Short Text" %>
+    <%= getText(nsadoc, t["Field Name"]) %>
+  <% end %>
+  <% end %>
 
-    <% tableItems.each do |t| %>
-    <% if t["Display Type"] == "Short Text" %>
-      <%= getText(nsadoc, t["Field Name"]) %>
-    <% end %>
-    <% end %>
-
-    <div class="pictures">
-    <% tableItems.each do |t| %>
-    <% if t["Display Type"] == "Picture" %>
-      <%= image_tag(nsadoc["_source"][t["Field Name"]], :class => "picture") %>
-    <% end %>
-    <% end %>
-    </div>
-
-    <% tableItems.each do |t| %>
-    <% if t["Display Type"] == "Date" %>
-      <% if nsadoc["_source"][t["Field Name"]] %>
-      <span class="date"><strong><%= t["Human Readable Name"] %>:</strong> <%= nsadoc["_source"][t["Field Name"]] %></span><br>
-      <% end %>
-    <% end %>
-    <% end %>
-
-    <div class="row">
-      <div class="col-md-6 description">
-        <%= getText(nsadoc, "description") %>
-      </div> 
-      <div class="col-md-6 doc_text">
-        <%= truncate(getText(nsadoc, "doc_text")) %>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-md-12 facets">
-        <% tableItems.each do |t| %>
-        <% if t["Facet?"] == "Yes" %>
-        <% facet_links = raw(linkedFacets(nsadoc["_source"][t["Field Name"]], t["Field Name"])) %>
-        <% if facet_links != "" && !facet_links.empty? %>
-        <div class="facet <%= t["Field Name"] %>">
-          <%= image_tag t["Icon"]+"-24.png" %> <%= facet_links %>
-        </div>
-        <% end %>
-        <% end %>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="row">
-      <% tableItems.each do |t| %>
-      <% if t["Display Type"] == "Link" %>
-      <%= t["Field Name"] %>
-      <% end %>
-      <% end %>
-    </div>
-
+  <div class="pictures">
+  <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Picture" %>
+    <%= image_tag(nsadoc["_source"][t["Field Name"]], :class => "picture") %>
+  <% end %>
+  <% end %>
   </div>
 
-<% end %>
+  <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Date" %>
+    <% if nsadoc["_source"][t["Field Name"]] %>
+    <span class="date"><strong><%= t["Human Readable Name"] %>:</strong> <span class="list_date"><%= nsadoc["_source"][t["Field Name"]] %></span></span><br>
+    <% end %>
+  <% end %>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 description">
+      <%= getText(nsadoc, "description") %>
+    </div> 
+    <div class="col-md-6 doc_text">
+      <%= truncate(getText(nsadoc, "doc_text")) %>
+    </div>
+  </div>
+
+  <% # This is needed if we want to print any values from field items %>
+  <% # nsadoc["item_fields"].each do |item| %>
+    <% # item_fields.each do |field| %>
+      <% # item[field] %>
+    <% # end %>
+  <% # end %>
+
+  <div class="row">
+    <div class="col-md-12 facets">
+      <% tableItems.each do |t| %>
+      <% if t["Facet?"] == "Yes" %>
+      <% facet_links = raw(linkedFacets(nsadoc["_source"][t["Field Name"]], t["Field Name"])) %>
+      <% if facet_links != "" && !facet_links.empty? %>
+      <div class="facet <%= t["Field Name"] %>">
+        <%= image_tag t["Icon"]+"-24.png" %> <%= facet_links %>
+      </div>
+      <% end %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Link" %>
+    <%= t["Field Name"] %>
+    <% end %>
+    <% end %>
+  </div>
+
+</div>

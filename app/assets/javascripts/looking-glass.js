@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+  // Search Forms
   $('#ftypes').on('change', function() {
 
     var chosen = $('#ftypes option:selected');

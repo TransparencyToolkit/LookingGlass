@@ -16,7 +16,17 @@
       </div>
 
       <div id="search-result">
-        <%= render partial: 'nsadocs/list' %>
+      <% link_field = "" %>
+      <% item_fields = getItemFields(tableItems) %>
+      <% if item_fields.count > 0 # Check for duplicates on ID Field %>
+        <% genUniqueResults(@nsadocs, item_fields, @importer["ID Field"]).each do |item| %>
+          <%= render partial: 'nsadocs/list', locals: { nsadoc: item[1], item_fields: item_fields } %>
+        <% end %>
+      <% else # Normal rendering (no Item Fields) %>
+        <% @nsadocs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |nsadoc| %>
+          <%= render partial: 'nsadocs/list', locals: { nsadoc: nsadoc } %>
+        <% end %>
+      <% end %>
       </div>
 
       <div id="search-pagination">
