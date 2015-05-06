@@ -1,7 +1,7 @@
 [
   {
       "Path Type": "Directory", 
-      "Path": "/home/gh/data/disk/sigint/li_data",
+      "Path": "/home/gh/smalldata",
       "Index Name": "lidata",
       "Search Title": "ICWATCH",
       "Data Template": "app/dataspec/templates/sigintlidata_dir.json",
