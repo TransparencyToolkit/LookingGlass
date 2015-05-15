@@ -5,9 +5,10 @@ class SearchQuery
   include DateParser
   include ParamParser
 
-  def initialize(params, field_info)
+  def initialize(params, field_info, start)
     @params = params
     @field_info = field_info
+    @start = start
   end
 
   # Calls methods to process params and put together query
@@ -29,7 +30,7 @@ class SearchQuery
     fieldhash = get_all_categories(@field_info)
     highlighthash = specify_fields_to_highlight(queryhash, highlighthash)
     
-    query = {size: Nsadoc.count, query: fullhash, facets: fieldhash,
+    query = {from: @start, size: 30, query: fullhash, facets: fieldhash,
                highlight: { pre_tags: ["<b>"], post_tags: ["</b>"], fields: highlighthash}}
     
     return query

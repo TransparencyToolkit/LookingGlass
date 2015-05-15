@@ -4,15 +4,14 @@ class NsadocsController < ApplicationController
 
   def index
     fieldhash = get_all_categories(@field_info)
-    results = Nsadoc.search facets: fieldhash
-    @facets = results.response["facets"]
 
     pagenum = params[:page] ? params[:page].to_i : 1
     start = pagenum*30-30
-    @nsadocs = Nsadoc.search(from: start, size: 30)
+    @nsadocs = Nsadoc.search(from: start, size: 30, facets: fieldhash)
     @pagination = WillPaginate::Collection.create(pagenum, 30, Nsadoc.count) do |pager|
       pager.replace @nsadocs
     end
+    @facets = @nsadocs.response["facets"]
     @nsadocs = @nsadocs.response["hits"]["hits"]
   end
 
