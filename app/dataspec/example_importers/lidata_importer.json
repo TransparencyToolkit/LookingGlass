@@ -1,14 +1,19 @@
 [
   {
       "Path Type": "File", 
-      "Path": "/home/gh/data/disk/sigint/li_data/rerun_first/Pinwale.json",
-      "Synonym List": "app/synonyms/ic_synonyms",
+      "Path": "/home/gh/smalldata/pinwale.json",
       "Index Name": "lidata",
-      "Search Title": "ICWATCH",
+      "Search Title": "LookingGlass",
       "Data Template": "app/dataspec/templates/lidata.json",
-      "Hide Columns Template": "app/dataspec/templates/lidata_hidecolumns.json",
+      "Hide Columns Template": "app/dataspec/templates/lidata_dir_hidecolumns.json",
+      "Synonym List": "app/synonyms/ic_synonyms",
       "Show PDF?": "No",
       "File Paths": "N/A",
-      "Ignore Dir Import Ext": "N/A"
+      "ID Field": "profile_url",
+      "Get ID After": "linkedin.com/pub",
+      "Secondary ID": ["company", "title", "start_date"],
+      "Deduplicate Ignore": ["timestamp", "categories", "dataspec_name", "summary", "score", "degree"],
+      "Deduplicate Prioritize": "timestamp",
+      "Show Sort Field": "start_date"
   }
 ]

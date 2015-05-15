@@ -39,7 +39,8 @@
       <% end %>
       <% end %>
       <hr /><hr />
-      <% @nsadocs.each do |d| %>
+      <% sort_field = @importer["Show Sort Field"].to_s %>
+      <% @nsadocs.sort{|a,b| b[sort_field] <=> a[sort_field]}.each do |d| %>
         <% @field_info_sorted.each do |f| %>
         <% if f["Item_Field"] == "Yes" %>
         <%= raw prepareField(f, d) %><br />
@@ -49,7 +50,6 @@
       <% end %>
     <% end %>
 </div>
-
     <!-- Pane PDF -->
     <% if @importer["Show PDF?"] == "Yes" %>
     <div class="tab-pane" id="pdf">

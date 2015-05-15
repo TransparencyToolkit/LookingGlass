@@ -27,8 +27,9 @@ class NsadocsController < ApplicationController
       end
     end
 
+    # Match items by link field
     if @link_type["Link Type"] == "mult_items"
-      @nsadocs = Nsadoc.search(query: { match: {name: Nsadoc.find(params[:id])[@link_type["Link Field"]] }})
+      @nsadocs = Nsadoc.search(query: { match: {@link_type["Link Field"].to_sym => Nsadoc.find(params[:id])[@link_type["Link Field"]] }})
     else
       @nsadoc = Nsadoc.find(params[:id])
     end

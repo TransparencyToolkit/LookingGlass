@@ -14,6 +14,7 @@
       "Get ID After": "linkedin.com/pub",
       "Secondary ID": ["company", "title", "start_date"],
       "Deduplicate Ignore": ["timestamp", "categories", "dataspec_name", "summary", "score", "degree"],
-      "Deduplicate Prioritize": "timestamp"
+      "Deduplicate Prioritize": "timestamp",
+      "Show Sort Field": "start_date"
   }
 ]

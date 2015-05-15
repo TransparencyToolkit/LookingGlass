@@ -13,8 +13,7 @@
     "Form Params": "name",
     "Size": "1000",
     "Location": "0",
-    "Item_Field": "No",  
-    "Link": "mult_items",
+    "Item_Field": "No",
     "Icon": ""
   },
   {
@@ -237,6 +236,7 @@
     "Size": "1000",
     "Location": "17",
     "Item_Field": "No",
+    "Link": "mult_items",
     "Icon": ""
   },
   {
