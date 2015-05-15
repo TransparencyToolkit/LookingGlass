@@ -7,7 +7,7 @@ class NsadocsController < ApplicationController
     results = Nsadoc.search facets: fieldhash
     @facets = results.response["facets"]
 
-    pagenum = params[:page].to_i ? params[:page].to_i : 1
+    pagenum = params[:page] ? params[:page].to_i : 1
     start = pagenum*30-30
     @nsadocs = Nsadoc.search(from: start, size: 30)
     @pagination = WillPaginate::Collection.create(pagenum, 30, Nsadoc.count) do |pager|

@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     s = SearchQuery.new(params, @field_info)
     query = s.build_query
     
-    pagenum = params[:page].to_i ? params[:page].to_i : 1
+    pagenum = params[:page] ? params[:page].to_i : 1
     start = pagenum*30-30
     @nsadocs = Nsadoc.search(query, from: start, size: 30)
     @facets = @nsadocs.response["facets"]
