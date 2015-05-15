@@ -27,7 +27,7 @@ class Nsadoc
       # If facet, make separate analyzed version. 
       if f["Facet?"] == "Yes"
         attribute (f["Field Name"]+"_analyzed").to_sym, f["Type"], mapping: map
-        attribute f["Field Name"].to_sym, f["Type"], mapping: {index: "not_analyzed"}
+        attribute f["Field Name"].to_sym, f["Type"], mapping: {index: "not_analyzed", fielddata: {format: "doc_values"}}
       else # For non-facets                    
         attribute f["Field Name"].to_sym, f["Type"], mapping: map
       end
