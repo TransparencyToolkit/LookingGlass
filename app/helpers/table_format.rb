@@ -6,11 +6,12 @@ module TableFormat
 
   # Gets text for the field (highlighted if it should be)
   def getText(nsadoc, field)
-    if isHighlighted?(nsadoc, field)
+   if isHighlighted?(nsadoc, field)
       return raw(nsadoc["highlight"][field].first.to_s)
-    else
+   else
+    
       return nsadoc[field]
-    end
+   end
   end
 
   # Generates links to data filtered by facet val

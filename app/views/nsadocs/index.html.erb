@@ -14,6 +14,7 @@
       <div id="search-result">
       <% link_field = "" %>
       <% item_fields = getItemFields(tableItems) %>
+      
       <% if item_fields.count > 0 # Check for duplicates on ID Field %>
         <% genUniqueResults(@nsadocs, item_fields, @importer["ID Field"]).each do |item| %>
           <%= render partial: 'nsadocs/list', locals: { nsadoc: item[1], item_fields: item_fields } %>
@@ -26,7 +27,7 @@
       </div>
 
       <div id="search-pagination">
-        <%= will_paginate @nsadocs %>
+        <%= will_paginate @pagination %>
       </div>
 
     </div>

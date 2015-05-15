@@ -4,9 +4,15 @@ class SearchController < ApplicationController
     params.delete_if { |k, v| v.empty? }
     s = SearchQuery.new(params, @field_info)
     query = s.build_query
-    @nsadocs = Nsadoc.search(query)
+    
+    pagenum = params[:page].to_i | 1
+    start = pagenum*30-30
+    @nsadocs = Nsadoc.search(query, from: start, size: 30)
     @facets = @nsadocs.response["facets"]
     
-    @nsadocs = @nsadocs.response["hits"]["hits"].paginate(page: params[:page])
+    @pagination = WillPaginate::Collection.create(pagenum, 30, @nsadocs.response.hits.total) do |pager|
+      pager.replace @nsadocs
+    end
+    @nsadocs = @nsadocs.response["hits"]["hits"]
   end
 end

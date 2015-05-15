@@ -109,16 +109,16 @@ class IndexManager
 
   # Creates a new item in the index
   def self.createItem(item, unique_id)
-    if deduplicate(item)
+   if deduplicate(item)
       Nsadoc.create item.merge(id: getID(item)), index: @index_name
-    end
+   end
   end
 
   # Deduplicate Items
   def self.deduplicate(item)
     # Check if any item from same profile has been added
     potential_dups = Nsadoc.search(query: { match: { @id_field => item[@id_field] }}).results
-
+    
     # Check if there are any entries for that item
     if !potential_dups.empty?
       potential_dups.each do |dup_i|

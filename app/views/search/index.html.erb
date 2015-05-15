@@ -11,7 +11,7 @@
 
       <div id="search-details">
         <div class="detail">
-          <%= @nsadocs.total_entries %> Results Found
+          <%= @pagination.total_entries %> Results Found
         </div>
       </div>
 
@@ -30,7 +30,7 @@
       </div>
 
       <div id="search-pagination">
-        <%= will_paginate @nsadocs %>
+        <%= will_paginate @pagination %>
       </div>
 
     </div>
