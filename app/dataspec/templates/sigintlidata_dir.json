@@ -17,6 +17,23 @@
     "Icon": ""
   },
   {
+      "Field Name": "dataset_name",
+      "Human Readable Name": "Search Term",
+      "Type": "String",
+      "Display Type": "Category",
+      "Mapping": "english",
+      "Facet?": "Yes",
+      "In Table?": "Yes",
+      "Show by default in table?": "No",
+      "Searchable?": "Yes",
+      "In doc?": "Yes",
+      "Form Params": "dataset_name",
+      "Size": "1000",
+      "Location": "29",
+      "Item_Field": "No",
+      "Icon": "document-topic"
+  },
+  {
     "Field Name": "company",
     "Human Readable Name": "Company",
     "Type": "String",
