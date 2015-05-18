@@ -101,6 +101,7 @@ class IndexManager
     # Go through each field in item
     @field_info.each do |f|
       item = process_date(f, item)
+      item = process_pic(f, item)
       item = make_facet_version(f, item)
     end
 
@@ -226,6 +227,20 @@ class IndexManager
 
     return item
   end
+
+  # Makes links https
+  def self.process_pic(f, item)
+    if f["Field Name"] == "picture"
+      pic_field = f["Field Name"]
+
+      if !item[pic_field].include?("https://")
+        item[pic_field] = item[pic_field].gsub!("http://m.c.lnkd", "https://media")
+      end
+    end
+
+    return item
+  end
+  
   
   # Creates a facet version with the same value for field
   def self.make_facet_version(f, item)
