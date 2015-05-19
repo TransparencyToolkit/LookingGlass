@@ -4,6 +4,13 @@ module DocFormat
     text.gsub("\n", "<br />")
   end
 
+  # Sorts item field by creation date
+  def item_field_sort(items, sort_field)
+    return sorted = items.sort do |b, a|
+      a[sort_field] && b[sort_field] ? a[sort_field] <=> b[sort_field] : a[sort_field] ? -1 : 1
+    end
+  end
+
   # Wraps field name in tags and gets doc text for showing in doc   
   def prepareField(field, doc)
     outstr = ''
