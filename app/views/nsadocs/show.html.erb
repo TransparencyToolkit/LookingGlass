@@ -1,4 +1,4 @@
-<div id="sidebar">
+<div id="sidebar" class="col-sm-3 col-md-2 sidebar">
   <h4>Document Details</h4>
   <% first_doc = @link_type["Link Type"] == "mult_items" ? @nsadocs.first : @nsadoc %>
   <% @field_info_sorted.each do |f| %>
@@ -12,7 +12,7 @@
   <% end %>
 </div>
 
-<div id="maincontent">
+<div id="maincontent" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <ul class="nav nav-pills" style="text-align:center;">
     <li class="active" id="litext">
       <a href="#text" data-toggle="tab"><%= image_tag "text-24.png" %> Text</a>
