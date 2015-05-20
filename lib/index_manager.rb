@@ -101,6 +101,7 @@ class IndexManager
     # Go through each field in item
     @field_info.each do |f|
       item = process_date(f, item)
+      item = process_pic(f, item)
       item = make_facet_version(f, item)
     end
 
@@ -109,16 +110,16 @@ class IndexManager
 
   # Creates a new item in the index
   def self.createItem(item, unique_id)
-    if deduplicate(item)
+   if deduplicate(item)
       Nsadoc.create item.merge(id: getID(item)), index: @index_name
-    end
+   end
   end
 
   # Deduplicate Items
   def self.deduplicate(item)
     # Check if any item from same profile has been added
     potential_dups = Nsadoc.search(query: { match: { @id_field => item[@id_field] }}).results
-
+    
     # Check if there are any entries for that item
     if !potential_dups.empty?
       potential_dups.each do |dup_i|
@@ -226,6 +227,20 @@ class IndexManager
 
     return item
   end
+
+  # Makes links https
+  def self.process_pic(f, item)
+    if f["Field Name"] == "picture"
+      pic_field = f["Field Name"]
+
+      if !item[pic_field].include?("https://")
+        item[pic_field] = item[pic_field].gsub!("http://m.c.lnkd", "https://media")
+      end
+    end
+
+    return item
+  end
+  
   
   # Creates a facet version with the same value for field
   def self.make_facet_version(f, item)

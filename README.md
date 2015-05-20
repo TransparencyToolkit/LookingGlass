@@ -1,8 +1,6 @@
-# NSA Doc Search
+# LookingGlass
 
-Search, filter, and browse all the NSA documents. Includes full documents and
-extracted text and search interface with **elasticsearch** backend. Work in
-progress.
+Search, filter, and browse any JSON data. Includes full text, categorical data,  and search interface with **elasticsearch** backend. Work in progress.
 
 ## Installing
 
@@ -13,12 +11,12 @@ progress.
 	- On debian / ubuntu
 		- Install Elasticsearch `sudo apt-get install elasticsearch` 
 		- ...to be added by shidash...
-- Clone repo `git clone git@github.com:TransparencyToolkit/NSADoc-Search.git`
-- Then cd into directory `cd NSADoc-Search`
+- Clone repo `git clone git@github.com:TransparencyToolkit/LookingGlass.git`
+- Then cd into directory `cd LookingGlass`
 - Install dependencies `bundle install`
 - Generate simple form data `rails generate simple_form:install` 
 - Browse to dataspec directory `cd app/dataspec/`
-- Copy importer for example data `cp example_importers/nsadata_importer.json importer.json`
+- Copy importer for example data `cp example_importers/lidata_importer.json importer.json`
 
 **For Running In Production**
 - Compile your assets `rake assets:precompile`
@@ -36,9 +34,9 @@ progress.
 
 This search should work for any dataset. If you want to use a different dataset with this search, see the app/dataspec folder for the necessary files. You will need to create your own `dataspec` sheet such as this current file:
 
-1. `nsadata.json` A data spec with the name of each field and details about how
+1. `lidata.json` A data spec with the name of each field and details about how
 it is used/where it should show up.
-2. `nsadata_url.json` The URL to download the raw data.
+2. `importer.json` A JSON with various import settings
 3. `hidecolumns.json` The indices of the columns to hide by default in the table.
 
 

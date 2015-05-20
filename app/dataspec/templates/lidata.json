@@ -13,8 +13,7 @@
     "Form Params": "name",
     "Size": "1000",
     "Location": "0",
-    "Item_Field": "No",  
-    "Link": "mult_items",
+    "Item_Field": "No",
     "Icon": ""
   },
   {
@@ -236,6 +235,7 @@
     "Form Params": "profile_url",
     "Size": "1000",
     "Location": "17",
+    "Link": "mult_items",
     "Item_Field": "No",
     "Icon": ""
   },

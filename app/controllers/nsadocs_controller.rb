@@ -3,12 +3,16 @@ class NsadocsController < ApplicationController
   include FacetsQuery
 
   def index
-    @nsadocs = Nsadoc.all
     fieldhash = get_all_categories(@field_info)
-    results = Nsadoc.search facets: fieldhash
-    @facets = results.response["facets"]
-    
-    @nsadocs = @nsadocs.response["hits"]["hits"].paginate(page: params[:page])
+
+    pagenum = params[:page] ? params[:page].to_i : 1
+    start = pagenum*30-30
+    @nsadocs = Nsadoc.search(from: start, size: 30, facets: fieldhash)
+    @pagination = WillPaginate::Collection.create(pagenum, 30, Nsadoc.count) do |pager|
+      pager.replace @nsadocs
+    end
+    @facets = @nsadocs.response["facets"]
+    @nsadocs = @nsadocs.response["hits"]["hits"]
   end
 
   def show
@@ -23,8 +27,9 @@ class NsadocsController < ApplicationController
       end
     end
 
+    # Match items by link field
     if @link_type["Link Type"] == "mult_items"
-      @nsadocs = Nsadoc.search(query: { match: {name: Nsadoc.find(params[:id])[@link_type["Link Field"]] }})
+      @nsadocs = Nsadoc.search(query: { match: {@link_type["Link Field"].to_sym => Nsadoc.find(params[:id])[@link_type["Link Field"]] }}, size: 999999)
     else
       @nsadoc = Nsadoc.find(params[:id])
     end

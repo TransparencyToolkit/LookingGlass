@@ -1,7 +1,7 @@
 [
   {
       "Path Type": "Directory", 
-      "Path": "/home/gh/data/disk/sigint/li_data",
+      "Path": "/home/gh/smalldata",
       "Index Name": "lidata",
       "Search Title": "ICWATCH",
       "Data Template": "app/dataspec/templates/sigintlidata_dir.json",
@@ -13,7 +13,8 @@
       "ID Field": "profile_url",
       "Get ID After": "linkedin.com/pub",
       "Secondary ID": ["company", "title", "start_date"],
-      "Deduplicate Ignore": ["timestamp", "categories", "dataspec_name", "summary", "score", "degree"],
-      "Deduplicate Prioritize": "timestamp"
+      "Deduplicate Ignore": ["timestamp", "categories", "picture", "dataspec_name", "summary", "score", "degree"],
+      "Deduplicate Prioritize": "timestamp",
+      "Show Sort Field": "start_date"
   }
 ]

@@ -67,8 +67,8 @@
 
     <% tableItems.each do |t| %>
     <% if t["Display Type"] == "Date" %>
-      <% if nsadoc["_source"][t["Field Name"]] %>
-      <span class="date"><%= t["Human Readable Name"] %>: <span class="list_date"><%= nsadoc["_source"][t["Field Name"]] %></span></span>
+    <% if item[t["Field Name"]] %>
+      <span class="date"><%= t["Human Readable Name"] %>: <span class="list_date"><%= item[t["Field Name"]] %></span></span>
       <% end %>
     <% end %>
     <% end %>

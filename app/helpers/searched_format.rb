@@ -58,10 +58,10 @@ module SearchedFormat
 
     item_ids = []
     items = Hash.new
-
+    
     dataItems.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |item|
       uid = item["_source"][unique_id.to_s]
-
+      
       # Does item already exist by unique_id?
       if item_ids.include? uid
 
