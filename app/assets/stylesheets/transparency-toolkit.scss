@@ -89,8 +89,8 @@ body {
 }
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 30px;
+    padding-left: 30px;
   }
 }
 .main .page-header {
@@ -100,13 +100,17 @@ body {
 
 /*** Navbar ***/
 
-  .navbar-form input[type="text"] {
-    color: #000;
+  a.navbar-brand {
+    position: relative;
+    top: -5px;
+    font-family: 'League Spartan';
+    font-size: 24px;
+    line-height: 24px;
   }
 
-  a.navbar-brand {
-    font-family: 'League Spartan';
-    font-size: 21px;
+  a.navbar-brand span {
+    position: relative;
+    top: 3px;
   }
   
   a.navbar-brand img {
@@ -114,6 +118,9 @@ body {
     margin-right: 10px;
   }
   
+  .navbar-form input[type="text"] {
+    color: #000;
+  }
   
   .nav-tabs > li > a {
     background-color: #CCCCCC;
