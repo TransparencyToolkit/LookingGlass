@@ -9,6 +9,8 @@
       "Synonym List": "app/synonyms/ic_synonyms",
       "Show PDF?": "Yes",
       "File Path Prefix": "",
+      "ID Field": "title",
+      "Secondary ID": ["released_date"],
       "File Path Attr": "pdf",
       "Ignore Dir Import Ext": "N/A"
   }

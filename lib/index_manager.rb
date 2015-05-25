@@ -110,9 +110,13 @@ class IndexManager
 
   # Creates a new item in the index
   def self.createItem(item, unique_id)
-   if deduplicate(item)
+    begin
+      if deduplicate(item)
+        Nsadoc.create item.merge(id: getID(item)), index: @index_name
+      end
+    rescue
       Nsadoc.create item.merge(id: getID(item)), index: @index_name
-   end
+    end
   end
 
   # Deduplicate Items
@@ -184,7 +188,13 @@ class IndexManager
 
   # Get unique ID
   def self.getID(item)
-    clean_id = cleanID(item[@id_field].split(@get_after)[1])
+    # If some part should be removed from the ID field
+    if @get_after != nil && !@get_after.empty?
+      clean_id = cleanID(item[@id_field].split(@get_after)[1])
+    else
+      clean_id = cleanID(item[@id_field])
+    end
+
     @id_secondary.each do |f|
       clean_id += cleanID(item[f]) if item[f] != nil
     end
@@ -194,7 +204,9 @@ class IndexManager
 
   # Removes non-urlsafe chars from ID
   def self.cleanID(str)
-    return str.gsub("/", "").gsub(" ", "").gsub(",", "").gsub(":", "").gsub(";", "").gsub("'", "").gsub(".", "")
+    if str
+      return str.gsub("/", "").gsub(" ", "").gsub(",", "").gsub(":", "").gsub(";", "").gsub("'", "").gsub(".", "")
+    end
   end
   
   # Handles the processing of each item in a file in a directory import
