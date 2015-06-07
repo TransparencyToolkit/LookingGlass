@@ -1,5 +1,9 @@
+//@import "bootstrap-variables-snowden";
 @import "bootstrap-variables";
 @import "bootstrap/mixins";
+
+
+$lg-sidebar-bg-color: #fff;
 
 
 /* Move down content because we have a fixed navbar that is 50px tall */
