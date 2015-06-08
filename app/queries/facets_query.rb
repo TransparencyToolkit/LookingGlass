@@ -1,11 +1,14 @@
 module FacetsQuery
+  include GeneralUtils
+  include DataspecUtils
+
   # Specify which categories/facets to get info for on the sidebar- all of them 
-  def get_all_categories(field_info)
+  def get_all_categories
     fieldhash = Hash.new
-    field_info.each do |f|
-      if f["Facet?"] == "Yes"
-        fieldhash[f["Field Name"].to_sym] = {terms: {field: f["Field Name"], size: 500}}
-      end
+    
+    # Generate queries to get each facet
+    @facet_fields.each do |field|
+      fieldhash[field.to_sym] = {terms: {field: field, size: 500}}
     end
     
     return fieldhash

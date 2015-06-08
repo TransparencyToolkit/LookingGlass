@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class NsadocsHelperTest < ActionView::TestCase
+class DocsHelperTest < ActionView::TestCase
 end

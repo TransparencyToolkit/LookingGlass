@@ -1,0 +1,117 @@
+<div class="search-item"  id='<%= doc["_id"] %>' doctitle='<%= doc["_source"].title %>'>
+  <div class="hide"><%= doc["_score"] %></div>
+
+  <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Title" %>
+  <h3 class="title">
+    <%= link_to getText(doc["_source"], t["Field Name"]), doc_path(doc["_id"]), class: "list_title", target: "_blank" %></a>
+  </h3>
+  <% end %>
+  <% end %>
+
+  <div class="pictures">
+  <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Picture" %>
+    <%= image_tag(doc["_source"][t["Field Name"]], :class => "picture") %>
+  <% end %>
+  <% end %>
+  </div>
+
+  <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Short Text" %>
+    <h4 class="title-sub"><%= getText(doc["_source"], t["Field Name"]) %></h4>
+  <% end %>
+  <% end %>
+
+  <% tableItems.each do |t| %>
+  <% if t["Display Type"] == "Date" %>
+    <% if doc["_source"][t["Field Name"]] %>
+    <span class="date"><%= t["Human Readable Name"] %>: <span class="list_date"><%= doc["_source"][t["Field Name"]] %></span></span>
+    <% end %>
+  <% end %>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 description">
+      <%= getText(doc, "description") %>
+    </div> 
+    <div class="col-md-6 doc_text">
+      <%= truncate(getText(doc["_source"], "doc_text"), length: 200) %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 facets">
+      <% tableItems.each do |t| %>
+      <% if @facet_fields.include?(t["Field Name"]) %>
+      <% facet_links = raw(linkedFacets(doc["_source"][t["Field Name"]], t["Field Name"])) %>
+      <% if facet_links != "" && !facet_links.empty? %>
+      <div class="facet <%= t["Field Name"] %>">
+        <%= image_tag t["Icon"]+"-24.png" %> <%= facet_links %>
+      </div>
+      <% end %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <% # If duplicate entries %>
+  <% if doc["item_fields"] %>
+  <% doc["item_fields"].each do |item| %>
+  <hr>
+
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Short Text" %>
+      <h4 class="title-sub"><%= getText(item, t["Field Name"]) %></h4>
+    <% end %>
+    <% end %>
+
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Date" %>
+    <% if item[t["Field Name"]] %>
+      <span class="date"><%= t["Human Readable Name"] %>: <span class="list_date"><%= item[t["Field Name"]] %></span></span>
+      <% end %>
+    <% end %>
+    <% end %>
+  
+    <div class="row">
+      <% if item["doc_text"] %>
+      <div class="col-md-6 description">
+        <%= getText(item, "description") %>
+      </div> 
+      <div class="col-md-6 doc_text">
+        <%= truncate(getText(item, "doc_text"), length: 200) %>
+      </div>
+      <% else %>
+      <div class="col-md-10 description">
+        <%= getText(item, "description") %>
+      </div> 
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 facets">
+        <% tableItems.each do |t| %>
+        <% if @facet_fields.include?(t["Field Name"]) %>
+        <% facet_links = raw(linkedFacets(item[t["Field Name"]], t["Field Name"])) %>
+        <% if facet_links != "" && !facet_links.empty? %>
+        <div class="facet <%= t["Field Name"] %>">
+          <%= image_tag t["Icon"]+"-24.png" %> <%= facet_links %>
+        </div>
+        <% end %>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
+
+  <div class="row">
+    <% tableItems.each do |t| %>
+    <% if t["Display Type"] == "Link" %>
+    <%= t["Field Name"] %>
+    <% end %>
+    <% end %>
+  </div>
+
+</div>

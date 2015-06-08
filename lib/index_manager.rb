@@ -3,22 +3,23 @@ require 'pry'
 load 'index_methods.rb'
 
 class IndexManager
-  include IndexMethods
+  extend IndexMethods
   include ENAnalyzer
 
   # Index creation
   def self.create_index(options={})
     # Make client, get settings, set name
-    client = Nsadoc.gateway.client
+    client = Doc.gateway.client
     
+    loadDataspec
     get_index_settings
-    Nsadoc.index_name = @index_name
+    Doc.index_name = @index_name
     
     # Delete index if it already exists
     client.indices.delete index: @index_name rescue nil if options[:force]
     
     settings = ENAnalyzer.analyzerSettings
-    mappings = Nsadoc.mappings.to_hash
+    mappings = Doc.mappings.to_hash
     
     # Create index with appropriate settings and mappings
     client.indices.create index: @index_name,
@@ -39,7 +40,7 @@ class IndexManager
     @data_path = settings["Path"]
 
     # Get field info from template file
-    @field_info = JSON.parse(File.read(settings["Data Template"]))
+    # @field_info = JSON.parse(File.read(settings["Data Template"]))
 
     # Files to ignore when doing directory import
     @ignore_ext = settings["Ignore Dir Import Ext"]
@@ -51,12 +52,6 @@ class IndexManager
     @get_after = settings["Get ID After"]
     @id_secondary = settings["Secondary ID"]
   end
-
-  # TODO:
-  # Refactor dir creation more (both dir and file processing
-  # Set settings and mappings
-  # Split into multiple files
-  # Organize methods (client creation, get data, item processing and creation)
 
   # Import data from different formats
   def self.import_data(options={})
@@ -112,17 +107,17 @@ class IndexManager
   def self.createItem(item, unique_id)
     begin
       if deduplicate(item)
-        Nsadoc.create item.merge(id: getID(item)), index: @index_name
+        Doc.create item.merge(id: getID(item)), index: @index_name
       end
     rescue
-      Nsadoc.create item.merge(id: getID(item)), index: @index_name
+      Doc.create item.merge(id: getID(item)), index: @index_name
     end
   end
 
   # Deduplicate Items
   def self.deduplicate(item)
     # Check if any item from same profile has been added
-    potential_dups = Nsadoc.search(query: { match: { @id_field => item[@id_field] }}).results
+    potential_dups = Doc.search(query: { match: { @id_field => item[@id_field] }}).results
     
     # Check if there are any entries for that item
     if !potential_dups.empty?
@@ -256,7 +251,7 @@ class IndexManager
   
   # Creates a facet version with the same value for field
   def self.make_facet_version(f, item)
-    if f["Facet?"] == "Yes"
+    if @facet_fields.include?(f["Field Name"])
       field_name = f["Field Name"]
       facet_field_name = f["Field Name"]+"_analyzed"
 

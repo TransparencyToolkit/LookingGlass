@@ -64,37 +64,8 @@
   
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <% if ['index'].include?(action_name) %>
-        <form action="" class="navbar-form navbar-left input-group-addon">
-          <select name="ftypes" id="ftypes">
-            <option data-type="all" value="all" selected>All</option>
-            <% options_text = "" %>
-            <% options_date = "" %>
-            <% options_category = "" %>
-            <% @field_info_sorted.each do |f| %>
-            <% if f["Searchable?"] == "Yes" && ['Title', 'Description', 'Short Text', 'Medium Text', 'Long Text'].include?(f["Display Type"]) %>
-              <% options_text += raw('<option data-type="' + f["Type"] + '" value="' + f["Field Name"] + '">' + f["Human Readable Name"] + '</option>') %>
-            <% elsif f["Searchable?"] == "Yes" && f["Display Type"] == "Date" %>
-              <% options_date += raw('<option data-type="' + f["Type"] + '" value="' + f["Field Name"] + '">' + f["Human Readable Name"] + '</option>') %>
-            <% elsif f["Searchable?"] == "Yes" && f["Display Type"] == "Category" %>
-              <% options_category += raw('<option data-type="' + f["Type"] + '" value="' + f["Field Name"] + '">' + f["Human Readable Name"] + '</option>') %> 
-            <% end %>
-            <% end %>
-            <optgroup label="Text">
-              <%= raw(options_text) %>
-            </optgroup>
-            <optgroup label="Date">
-              <%= raw(options_date) %>
-            </optgroup>
-            <optgroup label="Categories">
-              <%= raw(options_category) %>
-            </optgroup>
-          </select>
-        </form>
-        <%= render partial: 'nsadocs/queries/allquery' %>
-        <%= render partial: 'nsadocs/queries/stringquery', locals: { fieldname: 'stringquery', hrname: 'Query' } %>
-        <%= render partial: 'nsadocs/queries/datequery', locals: { fieldname: 'datequery', start_date: 'start_date', end_date: 'end_date' } %>
-        <% end %>
+	<%= render partial: 'layouts/searchbar' %> <!-- Render searchbar at top -->
+       
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

@@ -5,21 +5,17 @@
 
     <div id="maincontent" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-      <div id="searchtags">
-        <div class="detail-heading">Filtered By</div>
-        <%= render partial: 'search/searchfilters' %>
-      </div>
-
       <div id="search-details">
         <div class="detail">
-          <%= @pagination.total_entries %> Results Found
+	  <%= Doc.count %> Results
         </div>
       </div>
 
       <div id="search-result">
       <% link_field = "" %>
       <% item_fields = @item_fields %>
-      <% if item_fields.count > 0 # Check for duplicates on ID Field %>
+      
+      <% if item_fields # Check for duplicates on ID Field %>
         <% genUniqueResults(@docs, item_fields, @importer["ID Field"]).each do |item| %>
           <%= render partial: 'docs/list', locals: { doc: item[1], item_fields: item_fields } %>
         <% end %>
