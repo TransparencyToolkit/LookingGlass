@@ -6,15 +6,15 @@ class SearchController < ApplicationController
     
     # Pass params to SearchQuery model (which builds query and gets results)
     params.delete_if { |k, v| v.empty? }
-    s = SearchQuery.new(params, @field_info, start)
+    s = SearchQuery.new(params, start)
     query = s.build_query
     
-    @nsadocs = Nsadoc.search(query)
-    @facets = @nsadocs.response["facets"]
+    @docs = Doc.search(query)
+    @facets = @docs.response["facets"]
     
-    @pagination = WillPaginate::Collection.create(pagenum, 30, @nsadocs.response.hits.total) do |pager|
-      pager.replace @nsadocs
+    @pagination = WillPaginate::Collection.create(pagenum, 30, @docs.response.hits.total) do |pager|
+      pager.replace @docs
     end
-    @nsadocs = @nsadocs.response["hits"]["hits"]
+    @docs = @docs.response["hits"]["hits"]
   end
 end

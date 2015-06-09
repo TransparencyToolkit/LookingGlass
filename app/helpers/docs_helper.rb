@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-module NsadocsHelper
+module DocsHelper
   include DocFormat
   include SearchedFormat
   include GeneralUtils
   include TableFormat
   include CategoryFormat
   include CategoryLink
+  include QueryFormat
+  include DataspecUtils
 end

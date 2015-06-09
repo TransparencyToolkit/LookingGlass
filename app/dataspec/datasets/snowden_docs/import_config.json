@@ -1,0 +1,9 @@
+{
+  "Synonym List": "app/synonyms/ic_synonyms",
+  "Ignore List": "",
+  "ID Field": "title",
+  "Secondary ID": ["released_date"],
+  "Deduplicate Ignore": [],
+  "Deduplicate Prioritize": "released_date",
+  "Get ID After": ""
+}

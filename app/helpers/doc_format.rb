@@ -18,7 +18,7 @@ module DocFormat
       outstr += image_tag(doc[field["Field Name"]], :class => "picture")
     else
       outstr += '<strong>'+field["Human Readable Name"]+': </strong>'
-      if field["Truncate"] != nil
+      if checkIfX(field, @truncated_fields)
         outstr += raw format_text(doc[field["Field Name"]]) if doc[field["Field Name"]]
       elsif field["Display Type"] == "Link"
         this_url = doc[field["Field Name"]].to_s

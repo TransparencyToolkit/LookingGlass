@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   get 'search', to: 'search#index'
-  get 'nsadocs/makedocview', to: 'nsadocs#makedocview'
-  root to: 'nsadocs#index'
-  resources :nsadocs
+  get 'docs/makedocview', to: 'docs#makedocview'
+  root to: 'docs#index'
+  resources :docs
+  resources :nsadocs, controller: 'docs'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

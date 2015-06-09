@@ -16,13 +16,10 @@ module HighlightQuery
 
   # Truncate highlighted field only when needed
   def highlightLength(fieldName)
-    @field_info.each do |f|
-      if f["Field Name"] == fieldName
-        if f["Truncate"]
-          return {}
-        else return {number_of_fragments: 0}
-        end
-      end
+    if @truncated_fields.include?(fieldName)
+      return {}
+    else
+      return {number_of_fragments: 0}
     end
   end
 end

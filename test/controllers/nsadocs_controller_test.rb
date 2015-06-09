@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class NsadocsControllerTest < ActionController::TestCase
+class DocsControllerTest < ActionController::TestCase
   setup do
-    @nsadoc = nsadocs(:one)
+    @doc = docs(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:nsadocs)
+    assert_not_nil assigns(:docs)
   end
 
   test "should get new" do
@@ -16,34 +16,34 @@ class NsadocsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create nsadoc" do
-    assert_difference('Nsadoc.count') do
-      post :create, nsadoc: { aclu_desc: @nsadoc.aclu_desc, article_url: @nsadoc.article_url, codewords: @nsadoc.codewords, countries: @nsadoc.countries, creation_date: @nsadoc.creation_date, doc_path: @nsadoc.doc_path, doc_text: @nsadoc.doc_text, legal_authority: @nsadoc.legal_authority, programs: @nsadoc.programs, records_collected: @nsadoc.records_collected, release_date: @nsadoc.release_date, released_by: @nsadoc.released_by, sigads: @nsadoc.sigads, title: @nsadoc.title, type: @nsadoc.type }
+  test "should create doc" do
+    assert_difference('Doc.count') do
+      post :create, doc: { aclu_desc: @doc.aclu_desc, article_url: @doc.article_url, codewords: @doc.codewords, countries: @doc.countries, creation_date: @doc.creation_date, doc_path: @doc.doc_path, doc_text: @doc.doc_text, legal_authority: @doc.legal_authority, programs: @doc.programs, records_collected: @doc.records_collected, release_date: @doc.release_date, released_by: @doc.released_by, sigads: @doc.sigads, title: @doc.title, type: @doc.type }
     end
 
-    assert_redirected_to nsadoc_path(assigns(:nsadoc))
+    assert_redirected_to doc_path(assigns(:doc))
   end
 
-  test "should show nsadoc" do
-    get :show, id: @nsadoc
+  test "should show doc" do
+    get :show, id: @doc
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @nsadoc
+    get :edit, id: @doc
     assert_response :success
   end
 
-  test "should update nsadoc" do
-    patch :update, id: @nsadoc, nsadoc: { aclu_desc: @nsadoc.aclu_desc, article_url: @nsadoc.article_url, codewords: @nsadoc.codewords, countries: @nsadoc.countries, creation_date: @nsadoc.creation_date, doc_path: @nsadoc.doc_path, doc_text: @nsadoc.doc_text, legal_authority: @nsadoc.legal_authority, programs: @nsadoc.programs, records_collected: @nsadoc.records_collected, release_date: @nsadoc.release_date, released_by: @nsadoc.released_by, sigads: @nsadoc.sigads, title: @nsadoc.title, type: @nsadoc.type }
-    assert_redirected_to nsadoc_path(assigns(:nsadoc))
+  test "should update doc" do
+    patch :update, id: @doc, doc: { aclu_desc: @doc.aclu_desc, article_url: @doc.article_url, codewords: @doc.codewords, countries: @doc.countries, creation_date: @doc.creation_date, doc_path: @doc.doc_path, doc_text: @doc.doc_text, legal_authority: @doc.legal_authority, programs: @doc.programs, records_collected: @doc.records_collected, release_date: @doc.release_date, released_by: @doc.released_by, sigads: @doc.sigads, title: @doc.title, type: @doc.type }
+    assert_redirected_to doc_path(assigns(:doc))
   end
 
-  test "should destroy nsadoc" do
-    assert_difference('Nsadoc.count', -1) do
-      delete :destroy, id: @nsadoc
+  test "should destroy doc" do
+    assert_difference('Doc.count', -1) do
+      delete :destroy, id: @doc
     end
 
-    assert_redirected_to nsadocs_path
+    assert_redirected_to docs_path
   end
 end

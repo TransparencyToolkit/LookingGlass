@@ -1,8 +1,8 @@
 [
   {
       "Path Type": "url", 
-      "Path": "https://raw.githubusercontent.com/TransparencyToolkit/NSAAPI-Data/master/nsadocs.json",
-      "Index Name": "nsadocs",
+      "Path": "https://raw.githubusercontent.com/TransparencyToolkit/NSAAPI-Data/master/docs.json",
+      "Index Name": "docs",
       "Search Title": "NSA Doc Search",
       "Data Template": "app/dataspec/templates/nsadata.json",
       "Hide Columns Template": "app/dataspec/templates/nsadata_hidecolumns.json",

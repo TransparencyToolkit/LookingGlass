@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NsadocTest < ActiveSupport::TestCase
+class DocTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

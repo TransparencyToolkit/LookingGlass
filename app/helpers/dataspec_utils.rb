@@ -1,5 +1,4 @@
-module IndexMethods
-  attr_accessor :settings, :mappings
+module DataspecUtils
   # Load all dataspec info
   def loadDataspec
     getFieldInfo
@@ -9,7 +8,7 @@ module IndexMethods
     getAttachConfig
   end
 
-  # Gets the details for each field                                                                     
+  # Gets the details for each field
   def getFieldInfo
     @importer = JSON.parse(File.read("app/dataspec/importer.json")).first
     @config_dir = @importer["Dataset Config"]
@@ -17,7 +16,7 @@ module IndexMethods
     @field_info_sorted = @field_info.sort_by{|field| field["Location"].to_i}
   end
 
-  # Get where each field should show up                                                                       
+  # Get where each field should show up                                                                           
   def getDisplayPrefs
     display_prefs = JSON.parse(File.read(@config_dir+"display_prefs.json"))
     @facet_fields = display_prefs["Facet"]
@@ -29,7 +28,7 @@ module IndexMethods
     @truncated_fields = display_prefs["Truncate Text"]
   end
 
-  # Gets where the dataset is and how it is structured                                                             
+  # Gets where the dataset is and how it is structured
   def getDatasetDetails
     dataset_details = JSON.parse(File.read(@config_dir+"dataset_details.json"))
     @index_name = dataset_details["Index Name"]
@@ -56,5 +55,39 @@ module IndexMethods
     @pdf_tab = attach_config["Show PDF?"]
     @attach_prefix = attach_config["File Path Prefix"]
     @attach_attr = attach_config["File Path Attr"]
+  end
+
+  # Takes name and gets field details
+  def getFieldDetails(name)
+    @field_info.each do |i|
+      if name == i["Field Name"]
+        return i
+      end
+    end
+  end
+
+  # Takes a field and list to check it against                                                   
+  def checkIfX(field, list)
+    if list == nil
+      return false
+    else
+      return list.include?(field["Field Name"]) ? true : false
+    end
+  end
+
+  # Sorts lists of fields                                                                                                  
+  def sortFields(field_list)
+    filtered_fields = Hash.new
+
+    # Go through each field in field list and find in field_info json                                                                  
+    field_list.each do |field|
+      @field_info.each do |field_info|
+        # Save field name and location                                                                                                 
+        filtered_fields[field] = field_info["Location"].to_i if field_info["Field Name"] == field
+      end
+    end
+
+    # Sort by values and then return list of just keys                                                                                
+    return filtered_fields.sort_by{|k, v| v}.collect{|i| i[0]}
   end
 end
