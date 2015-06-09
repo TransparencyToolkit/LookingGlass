@@ -6,6 +6,7 @@ module IndexMethods
     getDisplayPrefs
     getDatasetDetails
     getImportConfig
+    getAttachConfig
   end
 
   # Gets the details for each field                                                                     
@@ -47,5 +48,13 @@ module IndexMethods
     @ignore_list = dataset_details["Ignore List"]
     @dedup_ignore = dataset_details["Deduplicate Ignore"]
     @dedup_prioritize = dataset_details["Deduplicate Prioritize"]
+  end
+
+  # Get config settings for attachments (pdfs and images)
+  def getAttachConfig
+    attach_config = JSON.parse(File.read(@config_dir+"attach_config.json"))
+    @pdf_tab = attach_config["Show PDF?"]
+    @attach_prefix = attach_config["File Path Prefix"]
+    @attach_attr = attach_config["File Path Attr"]
   end
 end

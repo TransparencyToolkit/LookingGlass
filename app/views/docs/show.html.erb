@@ -18,7 +18,7 @@
     <li class="active" id="litext">
       <a href="#text" data-toggle="tab"><%= image_tag "text-24.png" %> Text</a>
     </li>
-    <% if @importer["Show PDF?"] == "Yes" %>
+    <% if @pdf_tab == "Yes" %>
     <li id="lipdf">
       <a href="#pdf" data-toggle="tab"><%= image_tag "document-24.png" %> Document</a>
     </li>
@@ -52,14 +52,14 @@
     <% end %>
 </div>
     <!-- Pane PDF -->
-    <% if @importer["Show PDF?"] == "Yes" %>
+    <% if @pdf_tab == "Yes" %>
     <div class="tab-pane" id="pdf">
-      <% if first_doc[@importer['File Path Attr']].is_a?(Array) %>
-         <% first_doc[@importer['File Path Attr']].each do |doc_path| %>
-             <iframe src="<%= asset_path(@importer['File Path Prefix']+doc_path) %>" width="1000" height="750"></iframe>
+      <% if first_doc[@attach_attr].is_a?(Array) %>
+         <% first_doc[@attach_attr].each do |doc_path| %>
+             <iframe src="<%= asset_path(@attach_prefix+doc_path) %>" width="1000" height="750"></iframe>
          <% end %>
       <% else %>
-        <iframe src="<%= asset_path(@importer['File Path Prefix']+first_doc[@importer['File Path Attr']]) %>" width="1000" height="750"></iframe>
+        <iframe src="<%= asset_path(@attach_prefix+first_doc[@attach_attr]) %>" width="1000" height="750"></iframe>
       <% end %>
     </div>
     <% end %>

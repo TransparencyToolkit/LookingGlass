@@ -5,6 +5,7 @@ module DataspecUtils
     getDisplayPrefs
     getDatasetDetails
     getImportConfig
+    getAttachConfig
   end
 
   # Gets the details for each field
@@ -48,6 +49,14 @@ module DataspecUtils
     @dedup_prioritize = dataset_details["Deduplicate Prioritize"]
   end
 
+  # Get config settings for attachments (pdfs and images)
+  def getAttachConfig
+    attach_config = JSON.parse(File.read(@config_dir+"attach_config.json"))
+    @pdf_tab = attach_config["Show PDF?"]
+    @attach_prefix = attach_config["File Path Prefix"]
+    @attach_attr = attach_config["File Path Attr"]
+  end
+
   # Takes name and gets field details
   def getFieldDetails(name)
     @field_info.each do |i|
@@ -57,7 +66,7 @@ module DataspecUtils
     end
   end
 
-  # Takes a field and list to check it against                                                                           
+  # Takes a field and list to check it against                                                   
   def checkIfX(field, list)
     if list == nil
       return false

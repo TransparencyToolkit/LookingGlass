@@ -1,9 +1,6 @@
 [
   {
       "Dataset Config": "app/dataspec/datasets/snowden_docs/",
-      "Search Title": "NSA Doc Search",
-      "Show PDF?": "Yes",
-      "File Path Prefix": "",
-      "File Path Attr": "pdf"
+      "Search Title": "NSA Doc Search"
   }
 ]
