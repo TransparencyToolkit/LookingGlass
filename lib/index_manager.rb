@@ -12,7 +12,6 @@ class IndexManager
     client = Doc.gateway.client
     
     loadDataspec
-    get_index_settings
     Doc.index_name = @index_name
     
     # Delete index if it already exists
@@ -26,31 +25,6 @@ class IndexManager
     body: {
       settings: settings.to_hash,
       mappings: mappings.to_hash }
-  end
-
-  # Gets index settings from importer file
-  def self.get_index_settings
-    settings = JSON.parse(File.read("app/dataspec/importer.json")).first
-
-    # Get index name
-    # @index_name = settings["Index Name"]
-
-    # Get data path info
-    # @data_path_type = settings["Path Type"]
-    # @data_path = settings["Path"]
-
-    # Get field info from template file
-    # @field_info = JSON.parse(File.read(settings["Data Template"]))
-
-    # Files to ignore when doing directory import
-    # @ignore_ext = settings["Ignore Dir Import Ext"]
-
-    # Deduplication settings
-    @id_field = settings["ID Field"]
-    @dedup_ignore = settings["Deduplicate Ignore"]
-    @dedup_prioritize = settings["Deduplicate Prioritize"]
-    @get_after = settings["Get ID After"]
-    @id_secondary = settings["Secondary ID"]
   end
 
   # Import data from different formats
@@ -185,13 +159,13 @@ class IndexManager
   def self.getID(item)
     # If some part should be removed from the ID field
     if @get_after != nil && !@get_after.empty?
-      clean_id = cleanID(item[@id_field].split(@get_after)[1])
+      clean_id = cleanID(item[@id_field.to_sym].split(@get_after)[1])
     else
-      clean_id = cleanID(item[@id_field])
+      clean_id = cleanID(item[@id_field.to_sym])
     end
 
     @id_secondary.each do |f|
-      clean_id += cleanID(item[f]) if item[f] != nil
+      clean_id += cleanID(item[f.to_sym]) if item[f.to_sym] != nil
     end
     
     return clean_id

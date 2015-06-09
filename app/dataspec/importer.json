@@ -2,11 +2,8 @@
   {
       "Dataset Config": "app/dataspec/datasets/snowden_docs/",
       "Search Title": "NSA Doc Search",
-      "Synonym List": "app/synonyms/ic_synonyms",
       "Show PDF?": "Yes",
       "File Path Prefix": "",
-      "ID Field": "title",
-      "Secondary ID": ["released_date"],
       "File Path Attr": "pdf"
   }
 ]

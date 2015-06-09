@@ -4,6 +4,7 @@ module DataspecUtils
     getFieldInfo
     getDisplayPrefs
     getDatasetDetails
+    getImportConfig
   end
 
   # Gets the details for each field
@@ -33,6 +34,18 @@ module DataspecUtils
     @data_path_type = dataset_details["Path Type"]
     @data_path = dataset_details["Path"]
     @ignore_ext = dataset_details["Ignore Dir Import Ext"]
+  end
+
+  # Get import config details
+  def getImportConfig
+    dataset_details = JSON.parse(File.read(@config_dir+"import_config.json"))
+    @id_field = dataset_details["ID Field"]
+    @id_secondary = dataset_details["Secondary ID"]
+    @get_after = dataset_details["Get ID After"]
+    @synonym_list = dataset_details["Synonym List"]
+    @ignore_list = dataset_details["Ignore List"]
+    @dedup_ignore = dataset_details["Deduplicate Ignore"]
+    @dedup_prioritize = dataset_details["Deduplicate Prioritize"]
   end
 
   # Takes name and gets field details

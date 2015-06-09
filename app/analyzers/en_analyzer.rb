@@ -1,6 +1,8 @@
 module ENAnalyzer
+  extend IndexMethods
   
   def self.analyzerSettings
+    loadDataspec
     return {
       index: {
         analysis: {
@@ -19,7 +21,7 @@ module ENAnalyzer
             },
             synonyms: {
               type: 'synonym',
-              synonyms: File.read(JSON.parse(File.read("app/dataspec/importer.json")).first["Synonym List"]).split("\n")
+              synonyms: File.read(@synonym_list).split("\n")
             }
           },       
           analyzer: {
