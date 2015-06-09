@@ -19,7 +19,7 @@
       <div id="search-result">
       <% link_field = "" %>
       <% item_fields = @item_fields %>
-      <% if item_fields.count > 0 # Check for duplicates on ID Field %>
+      <% if item_fields # Check for duplicates on ID Field %>
         <% genUniqueResults(@docs, item_fields, @importer["ID Field"]).each do |item| %>
           <%= render partial: 'docs/list', locals: { doc: item[1], item_fields: item_fields } %>
         <% end %>

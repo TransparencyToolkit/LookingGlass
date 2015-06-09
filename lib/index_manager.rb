@@ -33,17 +33,17 @@ class IndexManager
     settings = JSON.parse(File.read("app/dataspec/importer.json")).first
 
     # Get index name
-    @index_name = settings["Index Name"]
+    # @index_name = settings["Index Name"]
 
     # Get data path info
-    @data_path_type = settings["Path Type"]
-    @data_path = settings["Path"]
+    # @data_path_type = settings["Path Type"]
+    # @data_path = settings["Path"]
 
     # Get field info from template file
     # @field_info = JSON.parse(File.read(settings["Data Template"]))
 
     # Files to ignore when doing directory import
-    @ignore_ext = settings["Ignore Dir Import Ext"]
+    # @ignore_ext = settings["Ignore Dir Import Ext"]
 
     # Deduplication settings
     @id_field = settings["ID Field"]
