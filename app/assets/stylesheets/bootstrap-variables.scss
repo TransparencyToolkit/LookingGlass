@@ -880,11 +880,15 @@ $lg-tiny-heading-font:        'SourceSansPro-Bold';
 $lg-tiny-heading-color:       $gray-light;
 
 $lg-sidebar-background-color: #FFF;
+$lg-sidebar-border-right:     0px;
 $lg-sidebar-text-color:       #000;
 $lg-sidebar-link-color:       #000;
 $lg-sidebar-link-color-hover: #999;
 $lg-sidebar-link-font:        'SourceSansPro-Bold';
 $lg-sidebar-link-hover-background-color: red;
+$lg-sidebar-link-size:        21px;
+$lg-sidebar-link-weight:      bold;
+$lg-sidebar-link-spacing:     0px;
 
 $lg-search-background-color:  #FFF;
 $lg-search-text-color:        #000;
@@ -895,17 +899,30 @@ $lg-search-light-text-color:  $gray-light;
 
 $lg-search-filter-color:      #000;
 $lg-search-filter-font:       'SourceSansPro-Bold';
+$lg-search-filter-weight:     normal;
 
 $lg-search-details-font:      'SourceSansPro-Bold';
+$lg-search-details-weight:    normal;
 
+$lg-search-item-border-top:   0px;
+$lg-search-item-border-right: 0px;
+$lg-search-item-border-bottom: 1px solid $gray-light;
+$lg-search-item-border-left:  0px;
 $lg-search-item-title-color:  #000;
 $lg-search-item-title-font:   'SourceSansPro-Bold';
 $lg-search-item-title-hover-color: $brand-danger;
+$lg-search-item-title-size:   24px;
+$lg-search-item-title-weight: 500;
 
 $lg-search-pagination-hover-bg: #000;
 $lg-search-pagination-font:   'SourceSansPro-Bold';
+$lg-search-pagination-on-bg:  #000;
+$lg-search-pagination-on-color: $base-black;
 
 $lg-show-background-color:    $base-white;
 $lg-show-color:               #000;
 $lg-show-link-color:          $brand-danger;
 $lg-show-link-color-hover:    darken($brand-danger, 15%);
+
+$lg-show-tab-background-color: $base-black;
+$lg-show-tab-active-background-color: $base-white;

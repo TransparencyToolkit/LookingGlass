@@ -9,12 +9,12 @@ $bootstrap-sass-asset-helper: false !default;
 //
 //## Gray and brand colors for use across Bootstrap.
 $base-black:         #181818;
-$base-white:         #fafafa;
+$base-white:         #fff;
 
 $gray-base:          #222222;
 $gray-darker:        #555555;
 $gray-dark:          #6c6c6c;
-$gray:               #8F8F8F;
+$gray:               #383838;
 $gray-light:         #cdcdcd;
 $gray-lighter:       #eeeeee;
 
@@ -39,7 +39,7 @@ $cs-red-dark:        #800000;
 //** Background color for `<body>`.
 $body-bg:            $gray-lighter;
 //** Global text color on `<body>`.
-$text-color:         #FFF;
+$text-color:         $gray;
 
 //** Global textual link color.
 $link-color:            $brand-primary;
@@ -405,7 +405,7 @@ $navbar-inverse-bg:                         $cs-blue !default;
 $navbar-inverse-border:                     $cs-blue-outline !default;
 
 // Inverted navbar links
-$navbar-inverse-link-color:                 $text-color !default;
+$navbar-inverse-link-color:                 $base-white !default;
 $navbar-inverse-link-hover-color:           $gray-lighter !default;
 $navbar-inverse-link-hover-bg:              transparent !default;
 $navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
@@ -885,14 +885,18 @@ $hr-border:                   $gray-light !default;
 $lg-navbar-brand-font:        $font-family-sans-serif;
 
 $lg-tiny-heading-font:        $font-family-sans-serif;
-$lg-tiny-heading-color:       $gray;
+$lg-tiny-heading-color:       $gray-light;
 
 $lg-sidebar-background-color: #FFF;
-$lg-sidebar-text-color:       #000;
-$lg-sidebar-link-color:       #000;
+$lg-sidebar-border-right:     1px solid $gray-light;
+$lg-sidebar-text-color:       $gray;
+$lg-sidebar-link-color:       $gray;
 $lg-sidebar-link-color-hover: #999;
 $lg-sidebar-link-font:        $font-family-sans-serif;
 $lg-sidebar-link-hover-background-color: red;
+$lg-sidebar-link-size:        18px;
+$lg-sidebar-link-weight:      normal;
+$lg-sidebar-link-spacing:     -1px;
 
 $lg-search-background-color:  #FFF;
 $lg-search-text-color:        #000;
@@ -903,17 +907,30 @@ $lg-search-light-text-color:  $gray-light;
 
 $lg-search-filter-color:      #000;
 $lg-search-filter-font:       $font-family-sans-serif;
+$lg-search-filter-weight:     bold;
 
 $lg-search-details-font:      $font-family-sans-serif;
+$lg-search-details-weight:    bold;
 
+$lg-search-item-border-top:   0px;
+$lg-search-item-border-right: 1px solid $gray-light;
+$lg-search-item-border-bottom: 1px solid $gray-light;
+$lg-search-item-border-left:  0px;
 $lg-search-item-title-color:  $brand-danger;
 $lg-search-item-title-font:   $font-family-sans-serif;
 $lg-search-item-title-hover-color: $gray-dark;
+$lg-search-item-title-size:   24px;
+$lg-search-item-title-weight: bold;
 
-$lg-search-pagination-hover-bg: #000;
+$lg-search-pagination-hover-bg: $cs-blue-on;
 $lg-search-pagination-font:   $font-family-sans-serif;
+$lg-search-pagination-on-bg:  $brand-primary;
+$lg-search-pagination-on-color: $base-white;
 
 $lg-show-background-color:    $base-white;
 $lg-show-color:               #000;
 $lg-show-link-color:          $brand-danger;
 $lg-show-link-color-hover:    darken($brand-danger, 15%);
+
+$lg-show-tab-background-color: $cs-blue-on;
+$lg-show-tab-active-background-color: $base-white;
