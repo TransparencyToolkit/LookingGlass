@@ -46,6 +46,7 @@
 		 "link",
 		 "title",
 		 "pdf",
+		 "article_links",
 		 "document_topic",
                  "document_date",
                  "doc_text",
