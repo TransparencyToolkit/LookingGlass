@@ -8,21 +8,28 @@ $bootstrap-sass-asset-helper: false !default;
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
-$base-black:         #000000;
-$base-white:         #FFFFFF;
+$base-black:         #181818;
+$base-white:         #fafafa;
 
 $gray-base:          #222222;
 $gray-darker:        #555555;
-$gray-dark:          #666666;
+$gray-dark:          #6c6c6c;
 $gray:               #8F8F8F;
-$gray-light:         #CFCFCF;
+$gray-light:         #cdcdcd;
 $gray-lighter:       #eeeeee;
 
-$brand-primary:      #3C88D7;
+$brand-primary:      #00578c;
 $brand-success:      #62C947;
 $brand-info:         #FFFFFF;
-$brand-warning:      #FFDB75;
-$brand-danger:       #C61C1C;
+$brand-warning:      #f0573d;
+$brand-danger:       #800000;
+
+
+$cs-orange:          #f0573d;
+$cs-blue:            #00578c;
+$cs-blue-on:         #48677e;
+$cs-blue-outline:    #355066;
+$cs-red-dark:        #800000;
 
 
 //== Scaffolding
@@ -30,7 +37,7 @@ $brand-danger:       #C61C1C;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:            #5B5B5B;
+$body-bg:            $gray-lighter;
 //** Global text color on `<body>`.
 $text-color:         #FFF;
 
@@ -46,7 +53,7 @@ $link-hover-decoration: underline;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-sans-serif:  Ubuntu, 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !default;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
@@ -393,9 +400,9 @@ $navbar-default-toggle-border-color:       #ddd !default;
 
 // Inverted navbar
 // Reset inverted navbar basics
-$navbar-inverse-color:                      $text-color !default;
-$navbar-inverse-bg:                         $base-black !default;
-$navbar-inverse-border:                     $navbar-inverse-bg !default;
+$navbar-inverse-color:                      $base-white !default;
+$navbar-inverse-bg:                         $cs-blue !default;
+$navbar-inverse-border:                     $cs-blue-outline !default;
 
 // Inverted navbar links
 $navbar-inverse-link-color:                 $text-color !default;
@@ -874,36 +881,37 @@ $hr-border:                   $gray-light !default;
 // Specific things needed for Looking Glass app that can be customized
 //##
 
-$lg-navbar-brand-font:        'League Spartan';
 
-$lg-tiny-heading-font:        'SourceSansPro-Bold';
-$lg-tiny-heading-color:       $gray-light;
+$lg-navbar-brand-font:        $font-family-sans-serif;
+
+$lg-tiny-heading-font:        $font-family-sans-serif;
+$lg-tiny-heading-color:       $gray;
 
 $lg-sidebar-background-color: #FFF;
 $lg-sidebar-text-color:       #000;
 $lg-sidebar-link-color:       #000;
 $lg-sidebar-link-color-hover: #999;
-$lg-sidebar-link-font:        'SourceSansPro-Bold';
+$lg-sidebar-link-font:        $font-family-sans-serif;
 $lg-sidebar-link-hover-background-color: red;
 
 $lg-search-background-color:  #FFF;
 $lg-search-text-color:        #000;
 $lg-search-facet-color:       #000;
-$lg-search-facet-hover-color: $brand-danger;
+$lg-search-facet-hover-color: $brand-primary;
 
 $lg-search-light-text-color:  $gray-light;
 
 $lg-search-filter-color:      #000;
-$lg-search-filter-font:       'SourceSansPro-Bold';
+$lg-search-filter-font:       $font-family-sans-serif;
 
-$lg-search-details-font:      'SourceSansPro-Bold';
+$lg-search-details-font:      $font-family-sans-serif;
 
-$lg-search-item-title-color:  #000;
-$lg-search-item-title-font:   'SourceSansPro-Bold';
-$lg-search-item-title-hover-color: $brand-danger;
+$lg-search-item-title-color:  $brand-danger;
+$lg-search-item-title-font:   $font-family-sans-serif;
+$lg-search-item-title-hover-color: $gray-dark;
 
 $lg-search-pagination-hover-bg: #000;
-$lg-search-pagination-font:   'SourceSansPro-Bold';
+$lg-search-pagination-font:   $font-family-sans-serif;
 
 $lg-show-background-color:    $base-white;
 $lg-show-color:               #000;

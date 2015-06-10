@@ -1,10 +1,9 @@
-@import "bootstrap-variables";
+@import "bootstrap-variables-snowden";
 @import "bootstrap/mixins";
 
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  background: $body-bg;
   padding-top: 50px;
 }
 
@@ -29,13 +28,12 @@ body {
 
 .detail-heading {
   margin-bottom: 15px;
-  color: $gray-light;
+  color: $lg-tiny-heading-color;
   text-transform: uppercase;
   font-size: 13px;
-  font-family: 'SourceSansPro-Bold';
+  font-family: $lg-tiny-heading-font;
   font-weight: normal;
 }
-
 
 
 /*
@@ -46,6 +44,17 @@ body {
 .sidebar {
   display: none;
 }
+
+.sidebar a,
+.sidebar a:visited {
+  color: $lg-sidebar-link-color;
+}
+
+.sidebar a:hover {
+  color: $lg-sidebar-link-color-hover;
+  text-decoration: none;
+}
+
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
@@ -57,26 +66,8 @@ body {
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
-    border-right: 1px solid #eee;
+    background-color: $lg-sidebar-background-color;
   }
-}
-
-/* Sidebar navigation */
-.nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
-}
-.nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-  color: #fff;
-  background-color: #555;
 }
 
 
@@ -103,7 +94,7 @@ body {
   a.navbar-brand {
     position: relative;
     top: -5px;
-    font-family: 'League Spartan';
+    font-family: $lg-navbar-brand-font;
     font-size: 24px;
     line-height: 24px;
   }
@@ -130,33 +121,35 @@ body {
   .nav-tabs > li.active > a:hover,
   .nav-tabs > li.active > a:focus {
     background-color: #A3A3A3;
+    color: $base-black;
   }
   
   .nav-tabs > li > a:hover {
     background-color: #A8A8A8;
+    color: $base-black;
   }
   
 
 /*** Sidebar ***/
 
   #sidebar {
-    background-color: $base-white;
-    color: $base-black;
+    background-color: $lg-sidebar-background-color;
+    color: $lg-sidebar-text-color;
   }
 
   #sidebar h2,
   #sidebar h3,
   #sidebar h4 {
-    font-family: 'League Spartan';
+    font-family: $lg-sidebar-link-font;
   }
   
   #sidebar label.nav-header {
     font-size: 21px;
-    font-family: 'SourceSansPro-Bold';
+    font-family: $lg-sidebar-link-font;
   }
 
   #sidebar label.nav-header:hover {
-    color: $gray-light;
+    color: $lg-search-light-text-color;
     cursor: pointer;
   }
 
@@ -177,13 +170,13 @@ body {
   }
   
   #sidebar label.just-minus:after {
-    color: $gray-light;
+    color: $lg-search-light-text-color;
     padding-left: 3px;
     content: " -";
   }
   
   #sidebar label.just-plus:after {
-    color: $gray-light;
+    color: $lg-search-light-text-color;
     padding-left: 3px;
     content: " +";
   }
@@ -191,10 +184,15 @@ body {
   #sidebar ul.nav-list li em {
     width: 100%;
     display: block;
-    background: $gray-lighter;
+    background: $gray-light;
     padding: 10px 15px;
     font-style: normal;
   }
+
+  #sidebar ul.nav > li > a {
+    color: $lg-sidebar-link-color;
+  }
+
 
   #sidebar ul.nav > li > a:hover,
   #sidebar ul.nav > li > a:focus {
@@ -219,19 +217,19 @@ body {
   div.search-filter {
     padding: 5px 10px 8px 10px;
     margin: 0px 15px 0px 0px;
-    background-color: $base-white;
+    background-color: $lg-search-background-color;
     font-size: 16px;
-    font-family: 'SourceSansPro-Bold';
-    color: $base-black;
+    font-family: $lg-search-filter-font;
+    color: $lg-search-filter-color;
     display: inline-block;
   }
   
   div.search-filter span.category {
     font-size: 12px;
-    font-family: 'SourceSansPro-Bold';
+    font-family: $lg-search-filter-font;
     text-transform: uppercase;
     line-height: 12px;
-    color: $gray-light;
+    color: $lg-search-light-text-color;
   }
 
   .input-group {
@@ -252,18 +250,19 @@ body {
 
   #search-details div.detail {
     display: inline-block;
-    background: $base-white;
+    background: $lg-search-background-color;
     padding: 10px 15px;
-    font-family: 'SourceSansPro-Bold';
+    font-family: $lg-search-details-font;
     font-size: 18px;
+    color: $lg-search-text-color;
   }
 
   #search-pagination {
     display: inline-block;
     margin-top: 20px;
-    background: $base-white;
+    background: $lg-search-background-color;
     padding: 15px 10px;
-    font-family: 'SourceSansPro-Bold';
+    font-family: $lg-search-pagination-font;
     font-size: 18px;
   }
 
@@ -280,15 +279,18 @@ body {
   #search-pagination .pagination em {
     font-style: normal;
     background: $gray;
+    color: $lg-search-text-color;
   }
 
+  #search-pagination .pagination a,
   #search-pagination .pagination a:visited {
-    color: $base-black;
+    color: $lg-search-text-color;
   }
 
   #search-pagination .pagination a:hover {
     text-decoration: none;
     color: $base-white;
+    background-color: $lg-search-pagination-hover-bg;
   }
 
 
@@ -298,37 +300,38 @@ body {
 
 
   div.search-item {
-    background: $base-white;
+    background: $lg-search-background-color;
     border-bottom: 1px solid $gray-light;
     padding: 15px 20px;
     margin-bottom: 20px;
-    color: $base-black;
+    color: $lg-search-text-color;
   }
 
   div.search-item h3.title,
   div.search-item h3.title a,
   div.search-item h3.title a:visited {
     font-size: 24px;
-    font-family: 'SourceSansPro-Bold';
+    font-family: $lg-search-item-title-font;
     line-height: 30px;
     margin-top: 0px;
     margin-bottom: 5px;
-    color: $base-black;
+    color: $lg-search-item-title-color;
     text-decoration: none;
   }
 
   div.search-item h3.title a:hover {
-    color: $brand-primary;
+    color: $lg-search-item-title-hover-color;
     text-decoration: none;
     background: transparent;
   }
 
   div.search-item h4.title-sub {
     font-size: 18px;
-    font-family: 'SourceSansPro-Bold';
+    font-family: $lg-search-item-title-font;
     line-height: 21px;
     margin-top: 0px;
     margin-bottom: 5px;
+    color: $lg-search-item-title-color;
   }
 
   div.search-item .date,
@@ -385,11 +388,12 @@ body {
   div.search-item div.facet a {
     display: inline-block;
     margin: 0px 0px 0px 5px;
+    color: $lg-search-facet-color;
   }
 
   div.search-item div.facet a:hover {
     background: transparent;
-    color: $brand-success;
+    color: $lg-search-facet-hover-color;
     text-decoration: none;
   }
 
@@ -419,6 +423,18 @@ body {
   }
 
   #maincontent div.tab-content {
-    background: $base-white;
+    background: $lg-show-background-color;
+    color: $lg-show-color;
     padding: 20px;
+  }
+
+  #maincontent div.tab-content a,
+  #maincontent div.tab-content a:visited {
+    font-weight: bold;
+    color: $lg-show-link-color;
+  }
+
+  #maincontent div.tab-content a:hover {
+    color: $lg-show-link-color-hover;
+    text-decoration: none;
   }
