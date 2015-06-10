@@ -30,7 +30,7 @@ body {
   margin-bottom: 15px;
   color: $lg-tiny-heading-color;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: $lg-tiny-heading-size;
   font-family: $lg-tiny-heading-font;
   font-weight: normal;
 }
@@ -132,9 +132,11 @@ body {
 
 /*** Sidebar ***/
 
-  #sidebar {
+  #sidebar {  
     background-color: $lg-sidebar-background-color;
     color: $lg-sidebar-text-color;
+    border-right: $lg-sidebar-border-right;
+;
   }
 
   #sidebar h2,
@@ -144,8 +146,10 @@ body {
   }
   
   #sidebar label.nav-header {
-    font-size: 21px;
+    font-size: $lg-sidebar-link-size;
     font-family: $lg-sidebar-link-font;
+    font-weight: $lg-sidebar-link-weight;
+    letter-spacing: $lg-sidebar-link-spacing;
   }
 
   #sidebar label.nav-header:hover {
@@ -154,42 +158,48 @@ body {
   }
 
   #sidebar label.nav-header img {
-    margin-right: 10px;
+    margin-right: 7px;
   }
 
   #sidebar label.plus:after {
-    padding-left: 3px;
-    font-size: 16px;
+    padding-left: 2px;
+    font-size: ($lg-sidebar-link-size * .75);
     content: "+ Show More";
   }
   
   #sidebar label.minus:after {
-    padding-left: 3px;
-    font-size: 16px;
+    padding-left: 2px;
+    font-size: ($lg-sidebar-link-size * .75);
     content: "- Show Less";
   }
   
   #sidebar label.just-minus:after {
     color: $lg-search-light-text-color;
-    padding-left: 3px;
+    padding-left: 0px;
     content: " -";
   }
   
   #sidebar label.just-plus:after {
     color: $lg-search-light-text-color;
-    padding-left: 3px;
+    padding-left: 0px;
     content: " +";
   }
 
   #sidebar ul.nav-list li em {
     width: 100%;
     display: block;
-    background: $gray-light;
+    background: $lg-sidebar-term-on-bg;
     padding: 10px 15px;
     font-style: normal;
   }
 
+  #sidebar ul.nav-list li em a {
+    font-size: $lg-sidebar-link-size * .75;
+    color: $lg-sidebar-term-on-color;
+  }
+
   #sidebar ul.nav > li > a {
+    font-size: $lg-sidebar-link-size * .75;
     color: $lg-sidebar-link-color;
   }
 
@@ -220,6 +230,7 @@ body {
     background-color: $lg-search-background-color;
     font-size: 16px;
     font-family: $lg-search-filter-font;
+    font-weight: $lg-search-filter-weight;
     color: $lg-search-filter-color;
     display: inline-block;
   }
@@ -254,6 +265,7 @@ body {
     padding: 10px 15px;
     font-family: $lg-search-details-font;
     font-size: 18px;
+    font-weight: $lg-search-details-weight;
     color: $lg-search-text-color;
   }
 
@@ -278,8 +290,8 @@ body {
 
   #search-pagination .pagination em {
     font-style: normal;
-    background: $gray;
-    color: $lg-search-text-color;
+    background: $lg-search-pagination-on-bg;
+    color: $lg-search-pagination-on-color;
   }
 
   #search-pagination .pagination a,
@@ -301,7 +313,10 @@ body {
 
   div.search-item {
     background: $lg-search-background-color;
-    border-bottom: 1px solid $gray-light;
+    border-top: $lg-search-item-border-top;
+    border-right: $lg-search-item-border-right;
+    border-bottom: $lg-search-item-border-bottom;
+    border-left: $lg-search-item-border-left;
     padding: 15px 20px;
     margin-bottom: 20px;
     color: $lg-search-text-color;
@@ -310,9 +325,10 @@ body {
   div.search-item h3.title,
   div.search-item h3.title a,
   div.search-item h3.title a:visited {
-    font-size: 24px;
+    font-size: $lg-search-item-title-size;
     font-family: $lg-search-item-title-font;
-    line-height: 30px;
+    font-weight: $lg-search-item-title-weight;
+    line-height: 1.25em;
     margin-top: 0px;
     margin-bottom: 5px;
     color: $lg-search-item-title-color;
@@ -401,7 +417,7 @@ body {
 /*** Document View ***/
 
   #maincontent ul.nav > li > a {
-    background: $base-black;
+    background: $lg-show-tab-background-color;
     color: $base-white;
   }
 
@@ -413,7 +429,7 @@ body {
   }  
 
   #maincontent ul.nav > li.active > a {
-    background: $base-white;
+    background: $lg-show-tab-active-background-color;
     color: $gray-base;
   }
 
@@ -424,6 +440,10 @@ body {
 
   #maincontent div.tab-content {
     background: $lg-show-background-color;
+    border-top: $lg-show-tab-border-top;
+    border-right: $lg-show-tab-border-right;
+    border-bottom: $lg-show-tab-border-bottom;
+    border-left: $lg-search-item-border-left;
     color: $lg-show-color;
     padding: 20px;
   }
