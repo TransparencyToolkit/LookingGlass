@@ -37,7 +37,7 @@ $cs-red-dark:        #800000;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:            #FFFFFF;
+$body-bg:            $gray-lighter;
 //** Global text color on `<body>`.
 $text-color:         #FFF;
 
@@ -882,10 +882,10 @@ $hr-border:                   $gray-light !default;
 //##
 
 
-$lg-navbar-brand-font:        'League Spartan';
+$lg-navbar-brand-font:        $font-family-sans-serif;
 
 $lg-tiny-heading-font:        $font-family-sans-serif;
-$lg-tiny-heading-color:       $gray-light;
+$lg-tiny-heading-color:       $gray;
 
 $lg-sidebar-background-color: #FFF;
 $lg-sidebar-text-color:       #000;
@@ -897,7 +897,7 @@ $lg-sidebar-link-hover-background-color: red;
 $lg-search-background-color:  #FFF;
 $lg-search-text-color:        #000;
 $lg-search-facet-color:       #000;
-$lg-search-facet-hover-color: $brand-danger;
+$lg-search-facet-hover-color: $brand-primary;
 
 $lg-search-light-text-color:  $gray-light;
 
@@ -906,9 +906,9 @@ $lg-search-filter-font:       $font-family-sans-serif;
 
 $lg-search-details-font:      $font-family-sans-serif;
 
-$lg-search-item-title-color:  #000;
+$lg-search-item-title-color:  $brand-danger;
 $lg-search-item-title-font:   $font-family-sans-serif;
-$lg-search-item-title-hover-color: $brand-danger;
+$lg-search-item-title-hover-color: $gray-dark;
 
 $lg-search-pagination-hover-bg: #000;
 $lg-search-pagination-font:   $font-family-sans-serif;
