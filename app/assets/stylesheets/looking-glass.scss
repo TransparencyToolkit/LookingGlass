@@ -30,7 +30,7 @@ body {
   margin-bottom: 15px;
   color: $lg-tiny-heading-color;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: $lg-tiny-heading-size;
   font-family: $lg-tiny-heading-font;
   font-weight: normal;
 }
@@ -158,7 +158,7 @@ body {
   }
 
   #sidebar label.nav-header img {
-    margin-right: 10px;
+    margin-right: 7px;
   }
 
   #sidebar label.plus:after {
@@ -188,12 +188,18 @@ body {
   #sidebar ul.nav-list li em {
     width: 100%;
     display: block;
-    background: $gray-light;
+    background: $lg-sidebar-term-on-bg;
     padding: 10px 15px;
     font-style: normal;
   }
 
+  #sidebar ul.nav-list li em a {
+    font-size: $lg-sidebar-link-size * .75;
+    color: $lg-sidebar-term-on-color;
+  }
+
   #sidebar ul.nav > li > a {
+    font-size: $lg-sidebar-link-size * .75;
     color: $lg-sidebar-link-color;
   }
 
@@ -434,6 +440,10 @@ body {
 
   #maincontent div.tab-content {
     background: $lg-show-background-color;
+    border-top: $lg-show-tab-border-top;
+    border-right: $lg-show-tab-border-right;
+    border-bottom: $lg-show-tab-border-bottom;
+    border-left: $lg-search-item-border-left;
     color: $lg-show-color;
     padding: 20px;
   }

@@ -878,6 +878,7 @@ $lg-navbar-brand-font:        'League Spartan';
 
 $lg-tiny-heading-font:        'SourceSansPro-Bold';
 $lg-tiny-heading-color:       $gray-light;
+$lg-tiny-heading-size:        13px;
 
 $lg-sidebar-background-color: #FFF;
 $lg-sidebar-border-right:     0px;
@@ -889,6 +890,8 @@ $lg-sidebar-link-hover-background-color: red;
 $lg-sidebar-link-size:        21px;
 $lg-sidebar-link-weight:      bold;
 $lg-sidebar-link-spacing:     0px;
+$lg-sidebar-term-on-bg:       $gray-light;
+$lg-sidebar-term-on-color:    $lg-sidebar-text-color;
 
 $lg-search-background-color:  #FFF;
 $lg-search-text-color:        #000;
@@ -926,3 +929,7 @@ $lg-show-link-color-hover:    darken($brand-danger, 15%);
 
 $lg-show-tab-background-color: $base-black;
 $lg-show-tab-active-background-color: $base-white;
+$lg-show-tab-border-top:      0px;
+$lg-show-tab-border-right:    1px solid $gray-light;
+$lg-show-tab-border-bottom:   1px solid $gray-light;
+$lg-search-item-border-left:  0px;
