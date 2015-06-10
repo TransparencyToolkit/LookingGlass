@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Search" %></title>
+
+    <title><%= content_for?(:title) ? yield(:title) : @site_config["Page Title"] %></title>
 
     <!--  Icons for Mobile Devices, Favicon -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +38,7 @@
 
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
-    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+    <%= favicon_link_tag @importer["Favicon"], :rel => 'shortcut icon' %>
 
     <script>
       var search_query = <%= raw(params.to_json) %>;
@@ -58,13 +59,13 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <%= image_tag "logo-32.png" %> <span><%= @importer["Search Title"] %></span>
+          <%= image_tag @site_config["Logo"] %> <span><%= @importer["Search Title"] %></span>
         </a>
       </div>
   
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	<%= render partial: 'layouts/searchbar' %> <!-- Render searchbar at top -->
+        <%= render partial: 'layouts/searchbar' %> <!-- Render searchbar at top -->
        
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
@@ -72,8 +73,8 @@
               <i class="fa fa-info-circle"></i> Info<span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="https://transparencytoolkit.org/project/icwatch/">Description</a></li>
-              <li><a href="https://github.com/TransparencyToolkit/ICWATCH-Data">Raw Dataset</a></li>
+              <li><a href="<%= @importer["Description URL"] %>">Description</a></li>
+              <li><a href="<%= @importer["Dataset URL"] %>">Raw Dataset</a></li>
               <li class="divider"></li>
               <li><a href="https://github.com/TransparencyToolkit/LookingGlass" target="_blank">Codebase</a></li>
               <li><a href="https://transparencytoolkit.org" target="_blank">Transparency Toolkit</a></li>

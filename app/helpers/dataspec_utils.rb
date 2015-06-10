@@ -6,6 +6,7 @@ module DataspecUtils
     getDatasetDetails
     getImportConfig
     getAttachConfig
+    getSiteConfig
   end
 
   # Gets the details for each field
@@ -57,6 +58,11 @@ module DataspecUtils
     @attach_attr = attach_config["File Path Attr"]
     @web_tab = attach_config["Show Webpage?"]
     @web_url = attach_config["Web URL"]
+  end
+
+  # Get site config (logo, name, info urls)
+  def getSiteConfig
+    @site_config = JSON.parse(File.read(@config_dir+"site_config.json"))
   end
 
   # Takes name and gets field details
