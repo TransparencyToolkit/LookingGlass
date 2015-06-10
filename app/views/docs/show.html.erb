@@ -1,5 +1,5 @@
 <div id="sidebar" class="col-sm-3 col-md-2 sidebar">
-  <h4>Document Details</h4>
+  <div class="detail-heading">Document Details</div>
 
   <% first_doc = @link_type["Link Type"] == "mult_items" ? @docs.first : @doc %>
   <% @field_info_sorted.each do |f| %>
