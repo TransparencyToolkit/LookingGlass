@@ -2,11 +2,9 @@
 @import "bootstrap-variables";
 @import "bootstrap/mixins";
 
-
 // Reset and dependencies
 @import "bootstrap/normalize";
 @import "bootstrap/print";
-//@import "bootstrap/glyphicons";
 @import "fonts";
 
 // Core CSS
@@ -30,7 +28,6 @@
 @import "bootstrap/pager";
 @import "bootstrap/labels";
 @import "bootstrap/badges";
-//@import "bootstrap/jumbotron";
 @import "bootstrap/thumbnails";
 @import "bootstrap/alerts";
 @import "bootstrap/progress-bars";
@@ -38,18 +35,14 @@
 @import "bootstrap/list-group";
 @import "bootstrap/panels";
 @import "bootstrap/responsive-embed";
-//@import "bootstrap/wells";
 @import "bootstrap/close";
 
 // Components w/ JavaScript
 @import "bootstrap/modals";
 @import "bootstrap/tooltip";
 @import "bootstrap/popovers";
-//@import "bootstrap/carousel";
 
 // Utility classes
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
 
-// App
-@import "transparency-toolkit";
