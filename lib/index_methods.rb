@@ -56,5 +56,7 @@ module IndexMethods
     @pdf_tab = attach_config["Show PDF?"]
     @attach_prefix = attach_config["File Path Prefix"]
     @attach_attr = attach_config["File Path Attr"]
+    @web_tab = attach_config["Show Webpage?"]
+    @web_url = attach_config["Web URL"]
   end
 end

@@ -1,5 +1,7 @@
 {
   "Show PDF?": "Yes",
   "File Path Prefix": "https://transparencytoolkit.org/NSA-Data/docs/",
-  "File Path Attr": "pdf_paths"
+  "File Path Attr": "pdf_paths",
+  "Show Webpage?": "Yes",
+  "Web URL": "article_links"
 }
