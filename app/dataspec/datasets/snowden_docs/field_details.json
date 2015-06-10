@@ -43,6 +43,16 @@
     "Mapping": "not_analyzed"
   },
   {
+    "Field Name": "pdf_paths",
+    "Human Readable Name": "File Path",
+    "Form Params": "",
+    "Location": "11",
+    "Icon": "",
+    "Display Type": "Link",
+    "Type": "String",
+    "Mapping": "not_analyzed"
+  },
+  {
     "Field Name": "document_topic",
     "Human Readable Name": "Document Topic",
     "Form Params": "document_topic",

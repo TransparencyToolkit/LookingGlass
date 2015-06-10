@@ -1,5 +1,5 @@
 {
   "Show PDF?": "Yes",
-  "File Path Prefix": "",
-  "File Path Attr": "pdf"
+  "File Path Prefix": "https://transparencytoolkit.org/NSA-Data/docs/",
+  "File Path Attr": "pdf_paths"
 }
