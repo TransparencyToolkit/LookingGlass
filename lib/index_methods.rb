@@ -7,6 +7,7 @@ module IndexMethods
     getDatasetDetails
     getImportConfig
     getAttachConfig
+    getSiteConfig
   end
 
   # Gets the details for each field                                                                     
@@ -57,4 +58,10 @@ module IndexMethods
     @attach_prefix = attach_config["File Path Prefix"]
     @attach_attr = attach_config["File Path Attr"]
   end
+
+  # Get site config (logo, name, info urls)
+  def getSiteConfig
+    @site_config = JSON.parse(File.read(@config_dir+"site_config.json"))
+  end
+
 end
