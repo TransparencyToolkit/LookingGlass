@@ -13,7 +13,7 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Nsadocs
+module Docs
   class Application < Rails::Application
     config.autoload_paths += %W(#{config.root}/lib)
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')

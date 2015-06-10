@@ -13,7 +13,7 @@ module SearchedFormat
   def getRemoveLink(k, v)
     # If it's the last search term, go back to main page
     if lastSearchTerm?(k)
-      return genXLink(nsadocs_path)
+      return genXLink(docs_path)
     else
       # Check if one or more vals are chosen
       if params[k].is_a? Array
@@ -41,17 +41,6 @@ module SearchedFormat
     link = genXLink(search_path(params))
     params[k] = saveparams # Set it back to normal
     return link
-  end
-
-  # Builds list of "Item_Field" that exist- check if there's duplicates
-  def getItemFields(dataspec)
-    item_fields = [];
-    dataspec.each do |t|
-      if t["Item_Field"] == "Yes"
-        item_fields.to_a.push t["Field Name"]
-      end
-    end
-    return item_fields
   end
 
   def genUniqueResults(dataItems, item_fields, unique_id)

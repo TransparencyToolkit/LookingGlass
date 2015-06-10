@@ -8,17 +8,6 @@ module GeneralUtils
     end
   end
 
-  # Get number of unique profiles
-  def getCount
-    list = Nsadoc.all
-    profilearr = Array.new
-    list.each do |l|
-      profilearr.push(l["profile_url"])
-    end
-    
-    return profilearr.uniq.length
-  end
-
   # Checks params for form params of all types
   def paramMatch?(pl_item, compare)
     form_params = pl_item["Form Params"]

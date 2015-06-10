@@ -1,17 +1,21 @@
 module TableFormat
   # Checks if field is highlighted in restuls
-  def isHighlighted?(nsadoc, field)
-    return nsadoc["highlight"] && nsadoc["highlight"][field] && !nsadoc["highlight"][field].empty?
+  def isHighlighted?(doc, field)
+    return doc["highlight"] && doc["highlight"][field] && !doc["highlight"][field].empty?
   end
 
   # Gets text for the field (highlighted if it should be)
-  def getText(nsadoc, field)
-   if isHighlighted?(nsadoc, field)
-      return raw(nsadoc["highlight"][field].first.to_s)
-   else
-    
-      return nsadoc[field]
-   end
+  def getText(doc, field)
+    if isHighlighted?(doc, field)
+      return raw(doc["highlight"][field].first.to_s)
+    else
+      # Handles both with _source and without
+      begin
+        return doc["_source"][field]
+      rescue
+        return doc[field]
+      end
+    end
   end
 
   # Generates links to data filtered by facet val
@@ -33,14 +37,14 @@ module TableFormat
     return outstr
   end
 
-  # Get list of items in table and their names
+  # Get list of items in results and their names
   def tableItems
     itemarr = Array.new
 
-    @field_info_sorted.each do |i|
-      if i["In Table?"] == "Yes"
-        itemarr.push(i)
-      end
+    # Get list of all fields in results
+    sortFields(@fields_in_results).each do |i|
+      # Get details (HR name, field name, etc) for field
+      itemarr.push(getFieldDetails(i))
     end
 
     return itemarr
