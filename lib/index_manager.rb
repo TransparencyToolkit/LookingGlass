@@ -201,7 +201,7 @@ class IndexManager
       date_field = f["Field Name"].to_sym
       
       # Normalize unknown vals
-      if item[date_field] == "Date unknown" || item[date_field] == "Unknown"
+      if item[date_field] == "Date unknown" || item[date_field] == "Unknown" || item[date_field] == "nodate" || item[date_field].to_s == "0000-00-00 00:00:00"
         item[date_field] = nil
       end
     end
