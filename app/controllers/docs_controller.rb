@@ -7,7 +7,8 @@ class DocsController < ApplicationController
 
     pagenum = params[:page] ? params[:page].to_i : 1
     start = pagenum*30-30
-    @docs = Doc.search(from: start, size: 30, facets: fieldhash)
+    @docs = Doc.search(sort: {@sort_field => "desc"}, from: start, size: 30, facets: fieldhash)
+    
     @pagination = WillPaginate::Collection.create(pagenum, 30, Doc.count) do |pager|
       pager.replace @docs
     end
