@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get 'search', to: 'search#index'
   get 'docs/makedocview', to: 'docs#makedocview'
+
+  get 'description', to: 'docs#description'
+  get 'advancedsearch', to: 'docs#advanced'
   root to: 'docs#index'
   resources :docs
   resources :nsadocs, controller: 'docs'
