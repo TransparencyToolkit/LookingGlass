@@ -61,16 +61,10 @@
     <div class="tab-pane" id="pdf">
       <% if first_doc[@attach_attr].is_a?(Array) %>
         <% first_doc[@attach_attr].each do |doc_path| %>
-        <object class="show-document" data="<%= asset_path(@attach_prefix+doc_path) %>" type="application/pdf">
-          <embed src="<%= asset_path(@attach_prefix+doc_path) %>" type="application/pdf" />
-        </object>
-<!--    <iframe src="<%= asset_path(@attach_prefix+doc_path) %>" width="1000" height="750"></iframe> -->
+        <%= render partial: 'docs/document', locals: { path: @attach_prefix+doc_path } %>
          <% end %>
       <% else %>
-<!--    <iframe src="<%= asset_path(@attach_prefix+first_doc[@attach_attr]) %>" width="1000" height="750"></iframe> -->
-        <object class="show-document" data="<%= asset_path(@attach_prefix+first_doc[@attach_attr]) %>" type="application/pdf">
-          <embed src="<%= asset_path(@attach_prefix+first_doc[@attach_attr]) %>" type="application/pdf" />
-        </object>
+        <%= render partial: 'docs/document', locals: { path: @attach_prefix+first_doc[@attach_attr] } %>
       <% end %>
     </div>
     <% end %>
