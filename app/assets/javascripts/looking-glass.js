@@ -61,15 +61,18 @@ $(document).ready(function() {
     $(this).data('index');
     var new_tab_id = 'article-' + $(this).data('index');
 
-    $('#maincontent').find('.nav-pills').append('<li id="li' + new_tab_id + '">\
-      <a href="#' + new_tab_id + '" data-toggle="tab"> Article #' + $(this).data('index') + '</a>\
-    </li>');
-
-    $('#maincontent').find('.tab-content').append('<div class="tab-pane" id="' + new_tab_id + '">\
-      <iframe class="show-iframe" src="' + $(this).attr('href') + '" width="100%" height="700" sandbox="allow-same-origin"></iframe>\
-    </div>');
+    if ($('#' + new_tab_id).length == 0) {
+      $('#maincontent').find('.nav-pills').append('<li id="li' + new_tab_id + '">\
+        <a href="#' + new_tab_id + '" data-toggle="tab"> Article #' + $(this).data('index') + '</a>\
+      </li>');
+  
+      $('#maincontent').find('.tab-content').append('<div class="tab-pane" id="' + new_tab_id + '">\
+        <iframe class="show-iframe" src="' + $(this).attr('href') + '" width="100%" height="700" sandbox="allow-same-origin"></iframe>\
+      </div>');
+    }
 
     $('#li' + new_tab_id + ' a[href="#' + new_tab_id + '"]').tab('show');
+
   });
 
 
