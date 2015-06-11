@@ -74,11 +74,11 @@
             </a>
             <ul class="dropdown-menu" role="menu">
              <% @site_config["URL 1"].each do |url| %>
-              <li><a href="<%= url["URL"] %>"><%= url["Name"] %></a></li>
+              <li><a href="<%= url["URL"] %>" target="_blank"><%= url["Name"] %></a></li>
               <% end %>
               <li class="divider"></li>
               <% @site_config["URL 2"].each do |url| %>
-              <li><a href="<%= url["URL"] %>"><%= url["Name"] %></a></li>
+              <li><a href="<%= url["URL"] %>" target="_blank"><%= url["Name"] %></a></li>
               <% end %>
             </ul>
           </li>
