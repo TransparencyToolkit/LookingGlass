@@ -510,3 +510,20 @@ body {
   #maincontent div.show-article-item a {
     margin-right: 10px;
   }
+
+
+/* Static Pages */
+
+  .static-page {
+    background: $lg-static-background-color;
+    border-top: $lg-static-border-top;
+    border-right: $lg-static-border-right;
+    border-bottom: $lg-static-border-bottom;
+    border-left: $lg-static-item-border-left;
+    padding: 10px 25px;
+    margin-top: 30px;
+  }
+
+  .static-page h1 {
+    color: $lg-static-title-color;
+  }

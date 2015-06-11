@@ -4,7 +4,21 @@
     "Favicon": "courage-favicon.ico",
     "Logo": "courage-logo.png",
     "Description URL": "https://edwardsnowden.com",
-    "Dataset URL": "",
-    "Show Codebase": "No",
-    "Show TT": "Yes"
+    "URL 1": [
+      {
+        "Name":"Description",
+        "URL": "/description/"
+      },{
+        "Name":"Advanced Search",
+        "URL": "/advancedsearch/"
+      }
+    ],
+    "URL 2": [{
+        "Name": "Courage Foundation",
+        "URL": "https://couragefound.org"
+      },{
+        "Name": "Transparency Toolkit",
+        "URL": "https://transparencytoolkit.org"
+      }
+    ]
 }
