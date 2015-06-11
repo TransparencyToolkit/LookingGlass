@@ -1,0 +1,11 @@
+<% file_type = File.extname(URI.parse(path).path) %>
+<% if ['.jpg', '.jpeg', '.gif', '.png'].include? file_type %>
+<img src="<%= asset_path(path) %>">
+<% elsif file_type == '.pdf' %>
+<object class="show-document" data="<%= asset_path(path) %>" type="application/pdf">
+  <embed src="<%= asset_path(path) %>" type="application/pdf" />
+</object>
+<% else %>
+<h3>Could not load document</h3>
+<p>The document requested is a <strong><%= file_type %></strong> and LookingGlass cannot currently view that format!</p>
+<% end %>
