@@ -895,7 +895,7 @@ $lg-sidebar-link-color:       $gray;
 $lg-sidebar-link-color-hover: #999;
 $lg-sidebar-link-font:        $font-family-sans-serif;
 $lg-sidebar-link-hover-background-color: red;
-$lg-sidebar-link-size:        16px;
+$lg-sidebar-link-size:        18px;
 $lg-sidebar-link-weight:      bold;
 $lg-sidebar-link-spacing:     -1px;
 $lg-sidebar-term-on-bg:       $cs-blue-on;
@@ -941,3 +941,11 @@ $lg-show-tab-border-top:      0px;
 $lg-show-tab-border-right:    1px solid $gray-light;
 $lg-show-tab-border-bottom:   1px solid $gray-light;
 $lg-search-item-border-left:  0px;
+
+$lg-show-embed-border:        1px solid $gray-light;
+
+$lg-show-article-color:       $cs-blue;
+$lg-show-article-text-size:   18px;
+$lg-show-article-text-weight: bold;
+$lg-show-article-item-border: 1px solid $gray-light;
+$lg-show-article-number:      $gray-light;

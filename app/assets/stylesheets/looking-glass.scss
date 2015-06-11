@@ -234,6 +234,10 @@ body {
     font-weight: $lg-search-filter-weight;
     color: $lg-search-filter-color;
     display: inline-block;
+    border-top: $lg-search-item-border-top;
+    border-right: $lg-search-item-border-right;
+    border-bottom: $lg-search-item-border-bottom;
+    border-left: $lg-search-item-border-left;
   }
   
   div.search-filter span.category {
@@ -268,6 +272,10 @@ body {
     font-size: 18px;
     font-weight: $lg-search-details-weight;
     color: $lg-search-text-color;
+    border-top: $lg-search-item-border-top;
+    border-right: $lg-search-item-border-right;
+    border-bottom: $lg-search-item-border-bottom;
+    border-left: $lg-search-item-border-left;
   }
 
   #search-pagination {
@@ -277,6 +285,10 @@ body {
     padding: 15px 10px;
     font-family: $lg-search-pagination-font;
     font-size: 18px;
+    border-top: $lg-search-item-border-top;
+    border-right: $lg-search-item-border-right;
+    border-bottom: $lg-search-item-border-bottom;
+    border-left: $lg-search-item-border-left;
   }
 
   #search-pagination .pagination {
@@ -458,4 +470,41 @@ body {
   #maincontent div.tab-content a:hover {
     color: $lg-show-link-color-hover;
     text-decoration: none;
+  }
+
+
+  #maincontent object.show-document {
+    width: 100%;
+    min-height: 700px;
+    border: $lg-show-embed-border;
+    background: transparent;
+  }
+
+
+  #maincontent iframe.show-iframe {
+    background: transparent;
+    border: $lg-show-embed-border;
+  }
+
+  #maincontent div.show-article-item {
+    padding: 25px 0px;
+    margin: 0px 0px;
+    border-top: $lg-show-article-item-border;
+  }
+
+  #maincontent div.show-article-item span.article {
+    display: block;
+    margin-bottom: 15px;
+    font-size: $lg-show-article-text-size;
+    font-weight: $lg-show-article-text-weight;
+    color: $lg-show-article-color;
+  }
+
+  #maincontent div.show-article-item span.article em {
+    font-style: normal;
+    color: $lg-show-article-number;
+  }
+
+  #maincontent div.show-article-item a {
+    margin-right: 10px;
   }

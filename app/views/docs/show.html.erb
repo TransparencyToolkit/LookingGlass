@@ -1,4 +1,4 @@
-<div id="sidebar" class="col-sm-3 col-md-2 sidebar">
+<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
   <div class="detail-heading">Document Details</div>
 
   <% first_doc = @link_type["Link Type"] == "mult_items" ? @docs.first : @doc %>
@@ -13,7 +13,7 @@
   <% end %>
 </div>
 
-<div id="maincontent" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
   <ul class="nav nav-pills" style="text-align:center;">
     <li class="active" id="litext">
       <a href="#text" data-toggle="tab"><%= image_tag "text-24.png" %> Text</a>
@@ -23,8 +23,12 @@
       <a href="#pdf" data-toggle="tab"><%= image_tag "document-24.png" %> Document</a>
     </li>
     <% end %>
+    <li id="liarticles">
+      <a href="#articles" data-toggle="tab"><%= image_tag "link-24.png" %> Articles</a>
+    </li>
   </ul>
-  <div class="tab-content" id="div">
+  <div class="tab-content" id="tab-contents">
+
     <!-- Pane Text -->
     <div class="tab-pane active" id="text">
     <% if @link_type["Link Type"] != "mult_items" %> 
@@ -33,7 +37,7 @@
         <p><%= raw prepareField(f, @doc) %></p>
         <% end %>
        <% end %>
-    <% else %>	
+    <% else %>
       <% @field_info_sorted.each do |f| %>
       <% if checkIfX(f, @doc_page_fields) && !checkIfX(f, @facet_fields) && !checkIfX(f, @item_fields) %>
       <p><%= raw prepareField(f, first_doc) %></p>
@@ -50,19 +54,37 @@
       <hr />
       <% end %>
     <% end %>
-</div>
+    </div>
+
     <!-- Pane PDF -->
     <% if @pdf_tab == "Yes" %>
     <div class="tab-pane" id="pdf">
       <% if first_doc[@attach_attr].is_a?(Array) %>
-         <% first_doc[@attach_attr].each do |doc_path| %>
-             <iframe src="<%= asset_path(@attach_prefix+doc_path) %>" width="1000" height="750"></iframe>
+        <% first_doc[@attach_attr].each do |doc_path| %>
+        <object class="show-document" data="<%= asset_path(@attach_prefix+doc_path) %>" type="application/pdf">
+          <embed src="<%= asset_path(@attach_prefix+doc_path) %>" type="application/pdf" />
+        </object>
+<!--    <iframe src="<%= asset_path(@attach_prefix+doc_path) %>" width="1000" height="750"></iframe> -->
          <% end %>
       <% else %>
-        <iframe src="<%= asset_path(@attach_prefix+first_doc[@attach_attr]) %>" width="1000" height="750"></iframe>
+<!--    <iframe src="<%= asset_path(@attach_prefix+first_doc[@attach_attr]) %>" width="1000" height="750"></iframe> -->
+        <object class="show-document" data="<%= asset_path(@attach_prefix+first_doc[@attach_attr]) %>" type="application/pdf">
+          <embed src="<%= asset_path(@attach_prefix+first_doc[@attach_attr]) %>" type="application/pdf" />
+        </object>
       <% end %>
     </div>
     <% end %>
+
+    <div class="tab-pane" id="articles">
+      <h3>Articles featuring this document</h3>
+      <% @doc["article_links"].each.with_index do |link, index| %>      
+        <div class="show-article-item">
+          <span class="article"><em>#<%= index + 1 %></em> <%= link %></span>
+          <a href="<%= link %>" data-index="<%= index + 1 %>" class="btn btn-default btn-sm show-article-tab" target="_blank">Show in Doc Search</a>
+          <a href="<%= link %>" class="btn btn-default btn-sm" target="_blank">Show in New Window</a>
+        </div>
+      <% end %>
+    </div>
 
   </div>
 </div>
