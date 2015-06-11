@@ -73,18 +73,12 @@
               Info<span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-              <% if @site_config["Description URL"] and @site_config["Description URL"] != "" %>
-              <li><a href="<%= @site_config["Description URL"] %>">Description</a></li>
-              <% end %>
-              <% if @site_config["Dataset URL"] and @site_config["Dataset URL"] != "" %>
-              <li><a href="<%= @site_config["Dataset URL"] %>">Raw Dataset</a></li>
+             <% @site_config["URL 1"].each do |url| %>
+              <li><a href="<%= url["URL"] %>"><%= url["Name"] %></a></li>
               <% end %>
               <li class="divider"></li>
-              <% if @site_config["Show Codebase"] and @site_config["Show Codebase"] == "Yes" %>
-              <li><a href="https://github.com/TransparencyToolkit/LookingGlass" target="_blank">Codebase</a></li>
-              <% end %>
-              <% if @site_config["Show TT"] and @site_config["Show TT"] == "Yes" %>
-              <li><a href="https://transparencytoolkit.org" target="_blank">Transparency Toolkit</a></li>
+              <% @site_config["URL 2"].each do |url| %>
+              <li><a href="<%= url["URL"] %>"><%= url["Name"] %></a></li>
               <% end %>
             </ul>
           </li>
