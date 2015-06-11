@@ -1,1 +1,25 @@
-Advanced search
+  <div class="container">
+    <div class="col-md-10 col-md-offset-1 static-page">
+
+      <h1>Advanced Search</h1>
+      
+      <p>The default search functionality will be to search for all terms included in the search bar, e.g. a search for <em>phone metadata</em> will yield results which have both <em>phone</em> and <em>metadata</em> terms within the document text and/or description. This is the same as entering <em>phone+metadata</em> into the search bar. Further options
+      for specific matches are explained below.</p>
+      
+      <strong>Exact matches:</strong>
+      <p>Double quotes around search terms will give exact matches, e.g. a search for "POISON NUT" will yield results which have the term POISON, followed by the term NUT.</p>
+      
+      <strong>Either/or matches:</strong>
+      <p>A pipe between two terms will give matches with either term in the document text or description, e.g. a search for CSE|CSEC will yield results which have either CSE or CSEC within the document text or description.</p>
+      
+      <strong>Combinations:</strong>
+      <p>A combination of the above search functionalities may be used. For example, a search for "Der Spiegel"|"The Intercept" will yield results which have either precisely "Der Spiegel" or "The Intercept" within the document text or description.</p>
+      
+      <strong>Levenshtein distance:</strong>
+      <p>A tilde and a number n following a term will provide results matching the term or after n single-character changes to the term. For example, a search for Olympia~1 will pick up documents with the term Olympia, but also those with the term Olympic (one character change from the original term).</p>
+      
+      <strong>Terms within n distance:</strong>
+      <p>Quotations around two terms followed by a tilde and and number n shows any instances of terms within n words of each other. For example, a search for "UK Belgium"~10 will yield results that contain the terms UK and Belgium within 10 words of each other.</p>
+
+    </div>
+  </div>

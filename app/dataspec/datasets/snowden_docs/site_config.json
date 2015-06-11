@@ -7,10 +7,10 @@
     "URL 1": [
       {
         "Name":"Description",
-        "URL": "/pages/description/"
+        "URL": "/description/"
       },{
         "Name":"Advanced Search",
-        "URL": "/pages/search/"
+        "URL": "/advancedsearch/"
       }
     ],
     "URL 2": [{
