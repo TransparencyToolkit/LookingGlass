@@ -37,6 +37,7 @@ module IndexMethods
     @data_path_type = dataset_details["Path Type"]
     @data_path = dataset_details["Path"]
     @ignore_ext = dataset_details["Ignore Dir Import Ext"]
+    @sort_field = dataset_details["Sort Field"]
   end
 
   # Get import config details
@@ -64,6 +65,7 @@ module IndexMethods
   # Get site config (logo, name, info urls)
   def getSiteConfig
     @site_config = JSON.parse(File.read(@config_dir+"site_config.json"))
+    @search_title = @site_config["Search Title"]
   end
 
 end

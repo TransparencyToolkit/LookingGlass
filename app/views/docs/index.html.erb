@@ -20,7 +20,7 @@
           <%= render partial: 'docs/list', locals: { doc: item[1], item_fields: item_fields } %>
         <% end %>
       <% else # Normal rendering (no Item Fields) %>
-        <% @docs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |doc| %>
+        <% @docs.each do |doc| %>
           <%= render partial: 'docs/list', locals: { doc: doc } %>
         <% end %>
       <% end %>
