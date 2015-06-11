@@ -63,6 +63,7 @@ module DataspecUtils
   # Get site config (logo, name, info urls)
   def getSiteConfig
     @site_config = JSON.parse(File.read(@config_dir+"site_config.json"))
+    @search_title = @site_config["Search Title"]
   end
 
   # Takes name and gets field details

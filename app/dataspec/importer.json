@@ -1,6 +1,5 @@
 [
   {
-      "Dataset Config": "app/dataspec/datasets/snowden_docs/",
-      "Search Title": "NSA Doc Search"
+      "Dataset Config": "app/dataspec/datasets/snowden_docs/"
   }
 ]
