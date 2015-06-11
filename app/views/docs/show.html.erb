@@ -23,8 +23,12 @@
       <a href="#pdf" data-toggle="tab"><%= image_tag "document-24.png" %> Document</a>
     </li>
     <% end %>
+    <li id="liarticles">
+      <a href="#article" data-toggle="tab"><%= image_tag "link-24.png" %> Articles</a>
+    </li>
   </ul>
   <div class="tab-content" id="div">
+
     <!-- Pane Text -->
     <div class="tab-pane active" id="text">
     <% if @link_type["Link Type"] != "mult_items" %> 
@@ -33,7 +37,7 @@
         <p><%= raw prepareField(f, @doc) %></p>
         <% end %>
        <% end %>
-    <% else %>	
+    <% else %>
       <% @field_info_sorted.each do |f| %>
       <% if checkIfX(f, @doc_page_fields) && !checkIfX(f, @facet_fields) && !checkIfX(f, @item_fields) %>
       <p><%= raw prepareField(f, first_doc) %></p>
@@ -63,6 +67,15 @@
       <% end %>
     </div>
     <% end %>
+
+    <div class="tab-pane" id="article">
+      <h3>Articles featuring this document</h3>
+
+      <% @doc["article_links"].each do |link| %>      
+        <a href="<%= link %>" target="_blank"><%= link %></a>
+      <% end %>
+
+    </div>
 
   </div>
 </div>
