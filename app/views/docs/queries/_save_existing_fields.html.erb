@@ -1,5 +1,5 @@
 <% params.each do |p| %>
-  <% if p[0] != "action" && p[0] != "controller" %>
+  <% if p[0] != "action" && p[0] != "controller" && p[0] != "page" %>
     <% if fieldname.is_a?(Array) && p[0] != fieldname[0] && p[0] != fieldname[1] %>
       <%= hidden_field_tag(p[0], p[1]) %>
     <% elsif p[0] != fieldname %>
