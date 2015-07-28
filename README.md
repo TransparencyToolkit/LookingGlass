@@ -12,7 +12,7 @@ Search, filter, and browse any JSON data. Includes full text, categorical data, 
 		- Install Elasticsearch `sudo apt-get install elasticsearch` 
 	- On Fedora
 	- 	- Install Elasticsearch via the [Fedora Yum instructions](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
-	- 	- Install dependencies  `sudo yum install make automake gcc gcc-c++ kernel-devel ruby-devel`
+	- 	- Install dependencies  `sudo yum install make automake gcc gcc-c++ kernel-devel ruby-devel rubygem-railties`
 - Clone repo `git clone git@github.com:TransparencyToolkit/LookingGlass.git`
 - Then cd into directory `cd LookingGlass`
 - Install dependencies `bundle install`
