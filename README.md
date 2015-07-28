@@ -8,9 +8,11 @@ Search, filter, and browse any JSON data. Includes full text, categorical data, 
 	- On Mac OS do the following
 		- Go install [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) using homebrew `brew install elasticsearch`
 		- Install [RubyOnRails](http://rubyonrails.org/download/) by typing `gem install rails`
-	- On debian / ubuntu
+	- On Debian / Ubuntu
 		- Install Elasticsearch `sudo apt-get install elasticsearch` 
-		- ...to be added by shidash...
+	- On Fedora
+	- 	- Install Elasticsearch via the [Fedora Yum instructions](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
+	- 	- Install dependencies  `sudo yum install make automake gcc gcc-c++ kernel-devel ruby-devel`
 - Clone repo `git clone git@github.com:TransparencyToolkit/LookingGlass.git`
 - Then cd into directory `cd LookingGlass`
 - Install dependencies `bundle install`
