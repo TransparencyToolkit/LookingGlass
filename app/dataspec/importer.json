@@ -1,5 +1,5 @@
 [
   {
-      "Dataset Config": "app/dataspec/datasets/snowden_docs/"
+      "Dataset Config": "app/dataspec/snowden_docs/"
   }
 ]

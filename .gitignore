@@ -7,3 +7,4 @@ config/initializers/simple_form.rb
 config/locales/simple_form.en.yml
 lib/templates/
 /public/assets/
+/app/dataspec/
