@@ -25,9 +25,10 @@ Search, filter, and browse any JSON data. Includes full text, categorical data, 
 
 ## Running App
 
-- Then start up elasticsearch
+- Then start up ElasticSearch
 	- On Mac Os type `elasticsearch`
-	- On debian type `/etc/init.d/elasticsearch start`
+	- On Debian / Ubuntu type `/etc/init.d/elasticsearch start`
+	- On Fedora type `sudo systemctl start elasticsearch.service`
 - Then type `rails runner 'IndexManager.import_data(force: true)'` when importing / updating datasets
 - Start up the app `rails server`
 - Then access [http://0.0.0.0:3000](http://0.0.0.0:3000) in your browser
