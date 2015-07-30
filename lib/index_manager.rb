@@ -30,7 +30,7 @@ class IndexManager
   # Import data from different formats
   def self.import_data(options={})
     create_index force: true if options[:force]
-
+    
     # Import from file, link, or dir
     case @data_path_type
     when "File"
@@ -158,16 +158,18 @@ class IndexManager
   # Get unique ID
   def self.getID(item)
     # If some part should be removed from the ID field
+    id_initial = item[@id_field.to_sym] == nil ? item[@id_field] : item[@id_field.to_sym]
     if @get_after != nil && !@get_after.empty?
-      clean_id = cleanID(item[@id_field.to_sym].split(@get_after)[1])
+      clean_id = cleanID(id_initial.split(@get_after)[1])
     else
-      clean_id = cleanID(item[@id_field.to_sym])
+      clean_id = cleanID(id_initial)
     end
 
     @id_secondary.each do |f|
-      clean_id += cleanID(item[f.to_sym]) if item[f.to_sym] != nil
+      secondary_field = item[f.to_sym] == nil ? item[f] : item[f.to_sym]
+      clean_id += cleanID(secondary_field) if secondary_field != nil
     end
-    
+
     return clean_id
   end
 

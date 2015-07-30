@@ -37,6 +37,7 @@ module DataspecUtils
     @data_path = dataset_details["Path"]
     @ignore_ext = dataset_details["Ignore Dir Import Ext"]
     @sort_field = dataset_details["Sort Field"]
+    @show_sort_field = dataset_details["Show Sort Field"]
   end
 
   # Get import config details
