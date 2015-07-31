@@ -4,13 +4,16 @@ module FieldQuery
     # If searching by date
     if get_field_type == "Date"
       queryhash = {range: { @fieldnames[0] => {gte: @input[:start_date], lte: @input[:end_date]}}}
-
+      
     # If searching by any other field
     elsif @fieldnames[0] != nil
+      # Exclude fields that shouldn't be searchable from query
+      fields_to_search = @fieldnames[0] == "_all" ? @searchable_fields : @fieldnames[0]
+     
       queryhash = {
         simple_query_string: {
           query: @input[:searchterm],
-          fields: [@fieldnames[0]],
+          fields: fields_to_search,
           default_operator: "AND",
           flags: "AND|OR|PHRASE|PREFIX|NOT|FUZZY|SLOP|NEAR"
         }}
