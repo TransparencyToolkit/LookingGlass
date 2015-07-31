@@ -60,6 +60,7 @@ module IndexMethods
     @attach_attr = attach_config["File Path Attr"]
     @web_tab = attach_config["Show Webpage?"]
     @web_url = attach_config["Web URL"]
+    @image_prefix = attach_config["Image Path Prefix"]
   end
 
   # Get site config (logo, name, info urls)

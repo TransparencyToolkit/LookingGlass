@@ -216,8 +216,8 @@ class IndexManager
     if f["Field Name"] == "picture"
       pic_field = f["Field Name"]
 
-      if !item[pic_field].include?("https://")
-        item[pic_field] = item[pic_field].gsub!("http://m.c.lnkd", "https://media")
+      if !@image_prefix.empty?
+        item[pic_field] = @image_prefix+item[pic_field].split("/").last
       end
     end
 
