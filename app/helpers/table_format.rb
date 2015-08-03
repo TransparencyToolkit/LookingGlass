@@ -37,6 +37,47 @@ module TableFormat
     return outstr
   end
 
+  # Display the item in the appropriate way for the display type
+  def showByType(display_type, doc)
+    output = ""
+    
+    
+    tableItems.each do |t|
+      # Get fields of appropriate type
+      if t["Display Type"] == display_type
+        # Slight variations by type
+        if display_type == "Title"
+          output += link_to getText(doc["_source"], t["Field Name"]), doc_path(doc["_id"]), class: "list_title", target: "_blank"
+        elsif display_type == "Short Text" || display_type == "Description"
+          output += getText(doc["_source"], t["Field Name"]) + '<br />'
+        elsif display_type == "Date"
+          output += '<span class="date">'+ t["Human Readable Name"]+ ': <span class="list_date">'+doc["_source"][t["Field Name"]]+'</span></span>'
+        elsif display_type == "Long Text"
+          output += truncate(getText(doc["_source"], "doc_text"), length: 200)
+        elsif display_type == "Picture"
+          output += image_tag(doc["_source"][t["Field Name"]], :class => "picture")
+        elsif display_type == "Category"
+          categoryView(t, doc)
+        end
+      end
+    end
+
+    return raw(output)
+  end
+
+  # Prepares facet view
+  def categoryView(t, doc)
+    output = ""
+    if @facet_fields.include?(t["Field Name"])
+      facet_links = linkedFacets(doc["_source"][t["Field Name"]], t["Field Name"])
+      if facet_links != "" && !facet_links.empty?
+        output += '<div class="facet'+ t["Field Name"] +'">'+ image_tag(t["Icon"]+"-24.png") + facet_links +' </div>'
+      end
+    end
+
+    return output
+  end
+
   # Get list of items in results and their names
   def tableItems
     itemarr = Array.new

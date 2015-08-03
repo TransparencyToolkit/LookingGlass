@@ -189,11 +189,16 @@ class IndexManager
     
     # Add the dataset_name and categories to each item, do any extra processing, then create
     count = 0
-    file_items = JSON.parse(File.read(file))
-    file_items.each do |i|
-      i.merge!(dataset_name: dataset_name, categories: categories)
-      createItem(processItem(i), dataset_name.gsub(" ", "")+count.to_s)
-      count += 1
+    # Handle null values instead of JSON
+    file_text = File.read(file)
+    file_items = JSON.parse(file_text) if file_text != "null"
+   
+    if file_items != nil && !file_items.empty?
+      file_items.each do |i|
+        i.merge!(dataset_name: dataset_name, categories: categories)
+        createItem(processItem(i), dataset_name.gsub(" ", "")+count.to_s)
+        count += 1
+      end
     end
   end
 
