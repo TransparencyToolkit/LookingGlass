@@ -1,0 +1,9 @@
+{
+  "Synonym List": "app/synonyms/ic_synonyms",
+  "Ignore List": "",
+  "ID Field": "name",
+  "Secondary ID": ["company", "job_title", "start_date"],
+  "Deduplicate Ignore": ["time_scraped", "categories", "dataset_name"],
+  "Deduplicate Prioritize": "time_scraped",
+  "Get ID After": ""
+}

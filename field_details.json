@@ -1,0 +1,167 @@
+[
+  {
+    "Field Name": "name",
+    "Human Readable Name": "Name",
+    "Type": "String",
+    "Form Params": "name",
+    "Location": "0",
+    "Display Type": "Title",
+    "Icon": ""
+  },{
+    "Field Name": "company",
+    "Human Readable Name": "Company",
+    "Type": "String",
+    "Form Params": "company",
+    "Display Type": "Category",
+    "Mapping": "english",
+    "Location": "1",
+    "Icon": "building"
+  },{
+    "Field Name": "job_title",
+    "Human Readable Name": "Job Title",
+    "Type": "String",
+    "Form Params": "job_title",
+    "Display Type": "Short Text",
+    "Mapping": "english",
+    "Location": "2",
+    "Icon": ""
+  },{
+    "Field Name": "start_date",
+    "Human Readable Name": "Start Date",
+    "Type": "Date",
+    "Display Type": "Date",
+    "Mapping": "not_analyzed",
+    "Form Params": [
+      "start_date",
+      "end_start_date"
+    ],
+    "Location": "3",
+    "Icon": ""
+  },{
+    "Field Name": "end_date",
+    "Human Readable Name": "End Date",
+    "Type": "Date",
+    "Display Type": "Date",
+    "Mapping": "not_analyzed",
+    "Form Params": [
+      "end_date",
+      "end_end_date"
+    ],
+    "Location": "4",
+    "Icon": ""
+  },{
+    "Field Name": "location",
+    "Human Readable Name": "Location",
+    "Type": "String",
+    "Display Type": "Category",
+    "Mapping": "english",
+    "Form Params": "location",
+    "Location": "5",
+    "Icon": "countries"
+  },{
+    "Field Name": "company_location",
+    "Human Readable Name": "Company Location",
+    "Type": "String",
+    "Display Type": "Category",
+    "Mapping": "english",
+    "Form Params": "company_location",
+    "Location": "6",
+    "Icon": "countries"
+  },{
+    "Field Name": "job_description",
+    "Human Readable Name": "Description",
+    "Type": "String",
+    "Display Type": "Description",
+    "Mapping": "english",
+    "Form Params": "job_description",
+    "Location": "8",
+    "Truncate": "200",
+    "Icon": ""
+  },{
+    "Field Name": "skills",
+    "Human Readable Name": "Skills",
+    "Type": "String",
+    "Display Type": "Category",
+    "Mapping": "english",
+    "Form Params": "skills",
+    "Location": "9",
+    "Icon": "work"
+  },{
+    "Field Name": "certifications",
+    "Human Readable Name": "Certifications",
+    "Type": "String",
+    "Display Type": "Category",
+    "Mapping": "english",
+    "Form Params": "certifications",
+    "Location": "11",
+    "Icon": "certificate"
+  },{
+    "Field Name": "additional_info",
+    "Human Readable Name": "Additional Info",
+    "Type": "String",
+    "Display Type": "Description",
+    "Mapping": "not_analyzed",
+    "Form Params": "additional_info",
+    "Location": "15",
+    "Icon": ""
+  },{
+    "Field Name": "links",
+    "Human Readable Name": "Links",
+    "Type": "String",
+    "Display Type": "Link",
+    "Mapping": "not_analyzed",
+    "Form Params": "links",
+    "Location": "16",
+    "Icon": ""
+  },{
+    "Field Name": "url",
+    "Human Readable Name": "Profile URL",
+    "Type": "String",
+    "Display Type": "Link",
+    "Mapping": "not_analyzed",
+    "Form Params": "url",
+    "Location": "17",
+    "Link": "mult_items",
+    "Icon": ""
+  },{
+    "Field Name": "current_title",
+    "Human Readable Name": "Current Title",
+    "Type": "String",
+    "Display Type": "Short Text",
+    "Mapping": "english",
+    "Form Params": "current_title",
+    "Location": "18",
+    "Icon": "briefcase"
+  },{
+    "Field Name": "time_scraped",
+    "Human Readable Name": "Timestamp",
+    "Type": "Date",
+    "Display Type": "Date",
+    "Mapping": "not_analyzed",
+    "Form Params": [
+      "time_scraped_start",
+      "time_scraped_end"
+    ],
+    "Location": "26",
+    "Icon": ""
+  },{
+      "Field Name": "summary",
+      "Human Readable Name": "Summary",
+      "Type": "String",
+      "Display Type": "Description",
+      "Mapping": "english",
+      "Form Params": "summary",
+      "Location": "28",
+      "Icon": "document-topic"
+  },
+    {
+      "Field Name": "dataset_name",
+      "Human Readable Name": "Search Terms",
+      "Type": "String",
+      "Display Type": "Category",
+      "Mapping": "not_analyzed",
+      "Form Params": "dataset_name",
+      "Location": "28",
+      "Icon": "document-topic"
+  } 
+]

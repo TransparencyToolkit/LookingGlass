@@ -1,0 +1,87 @@
+{
+  "Facet": [
+    "company",
+    "location",
+    "company_location",
+    "dataset_name"
+	],
+  "Searchable": [
+    "name",
+    "company",
+    "job_title",
+    "start_date",
+    "end_date",
+    "location",
+    "company_location",
+    "summary",
+    "description",
+      "skills",
+      "current_title",
+    "certifications",
+    "additional_info"
+	],
+  "In Search Results": [
+    "name",
+    "company",
+    "job_title",
+    "start_date",
+    "end_date",
+    "location",
+    "company_location",
+    "summary",
+    "description",
+    "skills",
+    "certifications",
+    "additional_info",
+    "current_title",
+    "time_scraped",
+      "dataset_name"
+	],
+    "In Search Results by Default": [
+	"name",
+	"company",
+	"job_title",
+	"start_date",
+	"end_date",
+	"location",
+	"company_location",
+	"summary",
+	"description",
+	"skills",
+	"certifications",
+	"additional_info",
+	"current_title",
+	"time_scraped",
+	"dataset_name"
+  ],
+    "On Doc Page": [
+	"name",
+	"url",
+	"company",
+	"job_title",
+	"start_date",
+	"end_date",
+	"location",
+	"company_location",
+	"summary",
+	"description",
+	"skills",
+	"certifications",
+	"additional_info",
+	"current_title",
+	"time_scraped",
+	"dataset_name",
+	"links"
+  ],
+  "Item Field": [
+    "company",
+    "job_title",
+    "start_date",
+    "end_date",
+    "job_description",
+    "company_location",
+    "linkedin_company_url"
+  ],
+  "Truncate Text": [
+  ]
+}
