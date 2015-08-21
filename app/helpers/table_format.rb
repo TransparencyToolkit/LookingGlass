@@ -43,17 +43,17 @@ module TableFormat
   end
 
   # Display the item in the appropriate way for the display type
-  def showByType(display_type, doc)
+  def showByType(display_type, doc, full_doc, is_item_field)
     output = ""
     
     tableItems.each do |t|
-      # Get fields of appropriate type
-      if t["Display Type"] == display_type
+      # Get fields of appropriate display and item field type
+      if (t["Display Type"] == display_type) && (is_item_field == @item_fields.include?(t["Field Name"]))
         # Get processed value
-        processed_value = processType(t, display_type, doc)
+        processed_value = processType(t, display_type, doc, full_doc)
 
         # Add to output if it is not nil or a category type
-        output += processed_value if processed_value != nil && display_type != "Category"
+        output += processed_value if processed_value != nil
       end
     end
 
@@ -61,10 +61,10 @@ module TableFormat
   end
 
   # Processes type appropriately using case statement
-  def processType(t, display_type, doc)
+  def processType(t, display_type, doc, full_doc)
     case display_type
     when "Title"
-      return titleView(t, doc)
+      return titleView(t, doc, full_doc)
     when "Short Text", "Description"
       return shortTextView(t, doc)
     when "Date"
@@ -80,34 +80,37 @@ module TableFormat
 
   # Prepares picture view
   def pictureView(t, doc)
-    return image_tag(doc["_source"][t["Field Name"]], :class => "picture")
+    return image_tag(doc[t["Field Name"]], :class => "picture")
   end
   
   # Prepares date view
   def dateView(t, doc)
-    return '<span class="date">'+ t["Human Readable Name"]+ ': <span class="list_date">'+doc["_source"][t["Field Name"]]+'</span></span>'
+    return '<span class="date">'+ t["Human Readable Name"]+ ': <span class="list_date">'+doc[t["Field Name"]]+'</span></span>'
   end
   
   # Prepares title view
-  def titleView(t, doc)
-    return link_to getText(doc["_source"], t["Field Name"]), doc_path(doc["_id"]), class: "list_title", target: "_blank"
+  def titleView(t, doc, full_doc)
+    return link_to getText(doc, t["Field Name"]), doc_path(full_doc["_id"]), class: "list_title", target: "_blank"
   end
 
   # Prepares description/short text view
   def shortTextView(t, doc)
-    return getText(doc["_source"], t["Field Name"]) + '<br />'
+      return getText(doc, t["Field Name"]) + '<br />'
   end
 
   # Prepares longer text view
   def longTextView(t, doc)
-    return truncate(getText(doc["_source"], "doc_text"), length: 200)
+    return truncate(getText(doc, "doc_text"), length: 200)
   end
 
   # Prepares facet view
   def categoryView(t, doc)
-    output = ""
+    
+    output = ''
+    
     if @facet_fields.include?(t["Field Name"])
-      facet_links = linkedFacets(doc["_source"][t["Field Name"]], t["Field Name"])
+      facet_links = linkedFacets(doc[t["Field Name"]], t["Field Name"])
+      
       if facet_links != "" && !facet_links.empty?
         output += facetPrepare(t, facet_links)
       end

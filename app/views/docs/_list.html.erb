@@ -1,26 +1,26 @@
 <div class="search-item"  id='<%= doc["_id"] %>' doctitle='<%= doc["_source"].title %>'>
   <div class="hide"><%= doc["_score"] %></div>
 
-  <h3 class="title"><%= showByType("Title", doc) %></h3>
+  <h3 class="title"><%= showByType("Title", doc["_source"], doc, false) %></h3>
 
-  <div class="pictures"><%= showByType("Picture", doc) %></div>
+  <div class="pictures"><%= showByType("Picture", doc["_source"], doc, false) %></div>
 
-  <h4 class="title-sub"><%= showByType("Short Text", doc) %></h4>
+  <h4 class="title-sub"><%= showByType("Short Text", doc["_source"], doc, false) %></h4>
  
-  <%= showByType("Date", doc) %>
+  <%= showByType("Date", doc["_source"], doc, false) %>
 
   <div class="row">
     <div class="col-md-6 description">
-      <%= showByType("Description", doc) %>
+      <%= showByType("Description", doc["_source"], doc, false) %>
     </div> 
     <div class="col-md-6 doc_text">
-      <%= showByType("Long Text", doc)  %>
+      <%= showByType("Long Text", doc["_source"], doc, false)  %>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12 facets">
-      <%= showByType("Category", doc) %>
+      <%= showByType("Category", doc["_source"], doc, false) %>
     </div>
   </div>
 
@@ -29,65 +29,26 @@
   <% doc["item_fields"].each do |item| %>
   <hr>
 
-    <% tableItems.each do |t| %>
-    <% if t["Display Type"] == "Short Text" %>
-      <h4 class="title-sub"><%= getText(item, t["Field Name"]) %></h4>
-    <% end %>
-    <% end %>
+  <h4 class="title-sub"><%= showByType("Short Text", item, doc, true) %></h4>
 
-    <% tableItems.each do |t| %>
-    <% if t["Display Type"] == "Date" %>
-    <% if item[t["Field Name"]] %>
-      <span class="date"><%= t["Human Readable Name"] %>: <span class="list_date"><%= item[t["Field Name"]] %></span></span>
-      <% end %>
-    <% end %>
-    <% end %>
+  <%= showByType("Date", item, doc, true) %>
+
   
-    <div class="row">
-      <% if item["doc_text"] %>
+  <div class="row">
       <div class="col-md-6 description">
-	<% tableItems.each do |t| %>
-	  <% if t["Display Type"] == "Description" %>
-	    <% if item[t["Field Name"]] %>
-	      <%= raw(getText(item, t["Field Name"])) %>
-	    <% end %>
-	   <% end %>
-	<% end %>
-	
-      </div> 
-      <div class="col-md-6 doc_text">
-        <%= truncate(getText(item, "doc_text"), length: 200) %>
+	<%= showByType("Description", item, doc, true) %>
       </div>
-      <% else %>
-      <div class="col-md-10 description">
-        <%= getText(item, "description") %>
-      </div> 
-      <% end %>
+      
+      <div class="col-md-6 doc_text">
+	<%= showByType("Long Text", item, doc, true) %>
+      </div>
     </div>
 
     <div class="row">
       <div class="col-md-12 facets">
-        <% tableItems.each do |t| %>
-        <% if @facet_fields.include?(t["Field Name"]) %>
-        <% facet_links = raw(linkedFacets(item[t["Field Name"]], t["Field Name"])) %>
-        <% if facet_links != "" && !facet_links.empty? %>
-        <div class="facet <%= t["Field Name"] %>">
-          <%= image_tag t["Icon"]+"-24.png" %> <%= facet_links %>
-        </div>
-        <% end %>
-        <% end %>
-        <% end %>
+	<%= showByType("Category", item, doc, true) %>
       </div>
     </div>
   <% end %>
   <% end %>
-
-  <div class="row">
-    <% tableItems.each do |t| %>
-    <% if t["Display Type"] == "Link" %>
-    <%= t["Field Name"] %>
-    <% end %>
-    <% end %>
-  </div>
-
 </div>

@@ -75,6 +75,9 @@ module DataspecUtils
         return i
       end
     end
+
+    # No matching field- this is an error with the dataspec
+    return nil
   end
 
   # Takes a field and list to check it against                                                   
