@@ -7,6 +7,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'pry'
 gem 'rb-readline'
 gem 'will_paginate'
+gem 'datapackage'
 
 gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'bootstrap-sass'
