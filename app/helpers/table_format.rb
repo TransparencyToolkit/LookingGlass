@@ -41,28 +41,36 @@ module TableFormat
   def showByType(display_type, doc)
     output = ""
     
-    
     tableItems.each do |t|
       # Get fields of appropriate type
       if t["Display Type"] == display_type
-        # Slight variations by type
-        if display_type == "Title"
-          output += titleView(t, doc)
-        elsif display_type == "Short Text" || display_type == "Description"
-          output += shortTextView(t, doc)
-        elsif display_type == "Date"
-          output +=  dateView(t, doc)
-        elsif display_type == "Long Text"
-          output += longTextView(t, doc)
-        elsif display_type == "Picture"
-          output += pictureView(t, doc)
-        elsif display_type == "Category"
-          categoryView(t, doc)
-        end
+        # Get processed value
+        processed_value = processType(t, display_type, doc)
+
+        # Add to output if it is not nil or a category type
+        output += processed_value if processed_value != nil && display_type != "Category"
       end
     end
 
     return raw(output)
+  end
+
+  # Processes type appropriately using case statement
+  def processType(t, display_type, doc)
+    case display_type
+    when "Title"
+      return titleView(t, doc)
+    when "Short Text", "Description"
+      return shortTextView(t, doc)
+    when "Date"
+      return dateView(t, doc)
+    when "Long Text"
+      return longTextView(t, doc)
+    when "Picture"
+      return pictureView(t, doc)
+    when "Category"
+      return categoryView(t, doc)
+    end
   end
 
   # Prepares picture view
@@ -96,11 +104,16 @@ module TableFormat
     if @facet_fields.include?(t["Field Name"])
       facet_links = linkedFacets(doc["_source"][t["Field Name"]], t["Field Name"])
       if facet_links != "" && !facet_links.empty?
-        output += '<div class="facet'+ t["Field Name"] +'">'+ image_tag(t["Icon"]+"-24.png") + facet_links +' </div>'
+        output += facetPrepare(t, facet_links)
       end
     end
 
     return output
+  end
+
+  # Format and return the facet
+  def facetPrepare(t, facet_links)
+    return '<div class="facet'+ t["Field Name"] +'">'+ image_tag(t["Icon"]+"-24.png") + facet_links +' </div>'
   end
 
   # Get list of items in results and their names
