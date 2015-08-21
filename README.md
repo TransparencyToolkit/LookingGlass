@@ -19,6 +19,10 @@ Search, filter, and browse any JSON data. Includes full text, categorical data, 
 - Generate simple form data `rails generate simple_form:install` 
 - Browse to dataspec directory `cd app/dataspec/`
 - Copy importer for example data `cp example_importers/lidata_importer.json importer.json`
+- In the main directory, make and load the data_packages dir
+    - mkdir data_packages
+    - cd data_packages
+    - git clone https://github.com/TransparencyToolkit/month-names.git
 
 **For Running In Production**
 - Compile your assets `rake assets:precompile`
