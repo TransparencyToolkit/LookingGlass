@@ -47,15 +47,15 @@ module TableFormat
       if t["Display Type"] == display_type
         # Slight variations by type
         if display_type == "Title"
-          output += link_to getText(doc["_source"], t["Field Name"]), doc_path(doc["_id"]), class: "list_title", target: "_blank"
+          output += titleView(t, doc)
         elsif display_type == "Short Text" || display_type == "Description"
-          output += getText(doc["_source"], t["Field Name"]) + '<br />'
+          output += shortTextView(t, doc)
         elsif display_type == "Date"
-          output += '<span class="date">'+ t["Human Readable Name"]+ ': <span class="list_date">'+doc["_source"][t["Field Name"]]+'</span></span>'
+          output +=  dateView(t, doc)
         elsif display_type == "Long Text"
-          output += truncate(getText(doc["_source"], "doc_text"), length: 200)
+          output += longTextView(t, doc)
         elsif display_type == "Picture"
-          output += image_tag(doc["_source"][t["Field Name"]], :class => "picture")
+          output += pictureView(t, doc)
         elsif display_type == "Category"
           categoryView(t, doc)
         end
@@ -63,6 +63,31 @@ module TableFormat
     end
 
     return raw(output)
+  end
+
+  # Prepares picture view
+  def pictureView(t, doc)
+    return image_tag(doc["_source"][t["Field Name"]], :class => "picture")
+  end
+  
+  # Prepares date view
+  def dateView(t, doc)
+    return '<span class="date">'+ t["Human Readable Name"]+ ': <span class="list_date">'+doc["_source"][t["Field Name"]]+'</span></span>'
+  end
+  
+  # Prepares title view
+  def titleView(t, doc)
+    return link_to getText(doc["_source"], t["Field Name"]), doc_path(doc["_id"]), class: "list_title", target: "_blank"
+  end
+
+  # Prepares description/short text view
+  def shortTextView(t, doc)
+    return getText(doc["_source"], t["Field Name"]) + '<br />'
+  end
+
+  # Prepares longer text view
+  def longTextView(t, doc)
+    return truncate(getText(doc["_source"], "doc_text"), length: 200)
   end
 
   # Prepares facet view
