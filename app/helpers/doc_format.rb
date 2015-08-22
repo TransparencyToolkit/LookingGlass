@@ -17,7 +17,7 @@ module DocFormat
   end
 
   # Prepare a picture field
-  def preparePicture(doc, field)
+  def preparePictureFields(doc, field)
     return image_tag(doc[field["Field Name"]], :class => "picture")
   end
 
@@ -55,22 +55,28 @@ module DocFormat
 
     # Handle picture fields
     if field["Display Type"] == "Picture"
-      outstr += preparePicture(doc, field)
+      outstr += preparePictureFields(doc, field)
     else # Handle fields that need a field name first
-      outstr += prepareFieldName(field)
-      
-      # Long text
-      if checkIfX(field, @truncated_fields)
-        outstr += prepareLongText(doc, field)
-
-      # Links
-      elsif field["Display Type"] == "Link"
-        outstr += handleLinkFields(doc, field)
-
-      # Any other text
-      else
-        outstr += doc[field["Field Name"]].to_s
-      end
+      outstr += prepareTextFields(doc, field)
     end
+  end
+
+  # Handles text fields that need a field name first
+  def prepareTextFields(doc, field)
+    outstr = prepareFieldName(field)
+
+    # Long text
+    if checkIfX(field, @truncated_fields)
+      outstr += prepareLongText(doc, field)
+
+    # Links
+    elsif field["Display Type"] == "Link"
+      outstr += handleLinkFields(doc, field)
+
+    else # Any other text
+      outstr += doc[field["Field Name"]].to_s
+    end
+
+    return outstr
   end
 end
