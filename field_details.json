@@ -84,7 +84,7 @@
     "Display Type": "Category",
     "Mapping": "english",
     "Form Params": "skills",
-    "Location": "9",
+    "Location": "16",
     "Icon": "work"
   },{
     "Field Name": "certifications",
@@ -93,7 +93,7 @@
     "Display Type": "Category",
     "Mapping": "english",
     "Form Params": "certifications",
-    "Location": "11",
+    "Location": "17",
     "Icon": "certificate"
   },{
     "Field Name": "additional_info",
@@ -102,7 +102,7 @@
     "Display Type": "Description",
     "Mapping": "not_analyzed",
     "Form Params": "additional_info",
-    "Location": "15",
+    "Location": "28",
     "Icon": ""
   },{
     "Field Name": "links",
@@ -151,7 +151,7 @@
       "Display Type": "Description",
       "Mapping": "english",
       "Form Params": "summary",
-      "Location": "28",
+      "Location": "15",
       "Icon": "document-topic"
   },
     {
