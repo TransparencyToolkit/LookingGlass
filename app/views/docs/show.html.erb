@@ -1,84 +1,28 @@
 <div id="sidebar" class="col-sm-4 col-md-3 sidebar">
-  <div class="detail-heading">Document Details</div>
-
-  <% first_doc = @link_type["Link Type"] == "mult_items" ? @docs.first : @doc %>
-  <% @field_info_sorted.each do |f| %>
-    <% if checkIfX(f, @facet_fields) && first_doc[f["Field Name"]] && !checkIfX(f, @item_fields) %>
-      <% if !first_doc[f["Field Name"]].empty? %>
-      <p><%= image_tag f["Icon"]+"-24.png" %> <strong><%= f["Human Readable Name"] %>: </strong>
-        <%= raw(linkedFacets(first_doc[f["Field Name"]], f["Field Name"])) %>
-      </p>
-      <% end %>
-    <% end %>
-  <% end %>
+  <%= render partial: 'docs/showsidebar' %>
 </div>
 
-<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
-  <ul class="nav nav-pills" style="text-align:center;">
-    <li class="active" id="litext">
-      <a href="#text" data-toggle="tab"><%= image_tag "text-24.png" %> Text</a>
-    </li>
-    <% if @pdf_tab == "Yes" %>
-    <li id="lipdf">
-      <a href="#pdf" data-toggle="tab"><%= image_tag "document-24.png" %> Document</a>
-    </li>
-    <% end %>
-    <li id="liarticles">
-      <a href="#articles" data-toggle="tab"><%= image_tag "link-24.png" %> Links</a>
-    </li>
-  </ul>
+<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3
+			     main">
+  <%= render partial: 'docs/showpane' %>
+ 
   <div class="tab-content" id="tab-contents">
 
     <!-- Pane Text -->
     <div class="tab-pane active" id="text">
-    <% if @link_type["Link Type"] != "mult_items" %> 
-      <% @field_info_sorted.each do |f| %>
-        <% if checkIfX(f, @doc_page_fields) && !checkIfX(f, @facet_fields) %>
-        <p><%= raw prepareField(f, @doc) %></p>
-        <% end %>
-       <% end %>
-    <% else %>
-      <% @field_info_sorted.each do |f| %>
-      <% if checkIfX(f, @doc_page_fields) && !checkIfX(f, @facet_fields) && !checkIfX(f, @item_fields) %>
-      <p><%= raw prepareField(f, first_doc) %></p>
-      <% end %>
-      <% end %>
-      <hr /><hr />
-      <% item_field_sort(@docs, @show_sort_field).each do |d| %>
-      
-      <% @field_info_sorted.each do |f| %>
-        <% if checkIfX(f, @item_fields) %>
-        <%= raw prepareField(f, d) %><br />
-        <% end %>
-      <% end %>
-      <hr />
-      <% end %>
-    <% end %>
+      <%= render partial: 'docs/showtext' %>
     </div>
 
     <!-- Pane PDF -->
     <% if @pdf_tab == "Yes" %>
     <div class="tab-pane" id="pdf">
-      <% if first_doc[@attach_attr].is_a?(Array) %>
-        <% first_doc[@attach_attr].each do |doc_path| %>
-        <%= render partial: 'docs/document', locals: { path: @attach_prefix+doc_path } %>
-         <% end %>
-      <% else %>
-        <%= render partial: 'docs/document', locals: { path: @attach_prefix+first_doc[@attach_attr] } %>
-      <% end %>
+      <%= render partial: 'docs/showpdf' %>
     </div>
     <% end %>
 
+    <!-- Pane Links -->
     <div class="tab-pane" id="articles">
-      <h3>Links</h3>
-      <% web_links = first_doc[@web_url].is_a?(String) ? [first_doc[@web_url]] : first_doc[@web_url] %>
-      <% web_links.each.with_index do |link, index| %>      
-        <div class="show-article-item">
-          <span class="article"><em>#<%= index + 1 %></em> <%= link %></span>
-          <a href="<%= link %>" data-index="<%= index + 1 %>" class="btn btn-default btn-sm show-article-tab" target="_blank">Show in Doc Search</a>
-          <a href="<%= link %>" class="btn btn-default btn-sm" target="_blank">Show in New Window</a>
-        </div>
-      <% end %>
+      <%= render partial: 'docs/showlinks' %>
     </div>
 
   </div>

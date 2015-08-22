@@ -1,0 +1,13 @@
+<ul class="nav nav-pills" style="text-align:center;">
+  <li class="active" id="litext">
+    <a href="#text" data-toggle="tab"><%= image_tag "text-24.png" %> Text</a>
+  </li>
+  <% if @pdf_tab == "Yes" %>
+  <li id="lipdf">
+    <a href="#pdf" data-toggle="tab"><%= image_tag "document-24.png" %> Document</a>
+  </li>
+  <% end %>
+  <li id="liarticles">
+    <a href="#articles" data-toggle="tab"><%= image_tag "link-24.png" %> Links</a>
+  </li>
+</ul>

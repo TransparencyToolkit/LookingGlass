@@ -1,0 +1,13 @@
+<div class="detail-heading">Document Details</div>
+
+<% first_doc = @link_type["Link Type"] == "mult_items" ? @docs.first : @doc  %>
+<% @field_info_sorted.each do |f| %>
+  <% if checkIfX(f, @facet_fields) && first_doc[f["Field Name"]] && !checkIfX(f, @item_fields) %>
+      <% if !first_doc[f["Field Name"]].empty? %>
+        <p><%= image_tag f["Icon"]+"-24.png" %> <strong><%= f["Human Readable Name"] %>: </strong>
+	  <%= raw(linkedFacets(first_doc[f["Field Name"]], f["Field Name"])) %>
+	</p>
+      <% end %>
+   <% end %>
+<% end %>
+	    

@@ -1,0 +1,13 @@
+<% first_doc = @link_type["Link Type"] == "mult_items" ? @docs.first : @doc %>
+
+<!-- Handle multiple PDFs -->
+<% if first_doc[@attach_attr].is_a?(Array) %>
+  <% first_doc[@attach_attr].each do |doc_path| %>
+    <%= render partial: 'docs/document', locals: { path: @attach_prefix+doc_path } %>
+  <% end %>
+
+<!-- Handle single PDF -->
+<% else %>
+  <%= render partial: 'docs/document', locals: { path: @attach_prefix+first_doc[@attach_attr] } %>
+<% end %>
+		
