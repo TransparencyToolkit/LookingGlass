@@ -71,7 +71,7 @@ module CategoryFormat
 
     # Generate link text for each item
     items.each do |i|
-      list_html += termLink(i, categories_chosen, category_name)
+      list_html += termLink(i, categories_chosen, category_name).to_s
     end
 
     list_html += "</li></ul>" if is_overflow

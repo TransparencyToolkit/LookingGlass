@@ -4,11 +4,14 @@ module CategoryLink
   def termLink(val, categories_chosen, category_name)
     linkname = "#{val["term"]} (#{val["count"].to_s})"
 
-    # Check if link is selected or not                                                                    
-    if is_selected?(categories_chosen, val)
-      return selected(val, categories_chosen, category_name, linkname)
-    else
-      return notSelected(val, categories_chosen, category_name, linkname)
+    # Only generate links for non-blank terms
+    if !val["term"].empty?
+      # Check if link is selected or not                                                                    
+      if is_selected?(categories_chosen, val)
+        return selected(val, categories_chosen, category_name, linkname)
+      else
+        return notSelected(val, categories_chosen, category_name, linkname)
+      end
     end
   end
 
