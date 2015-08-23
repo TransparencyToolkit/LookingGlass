@@ -2,5 +2,6 @@
 
 <% first_doc = getFirstDoc %>
 <% facet_check = Proc.new{ |f, doc| checkIfX(f, @facet_fields) && doc[f["Field Name"]] && !checkIfX(f, @item_fields)} %>
-<%= raw(printSidebar(first_doc, facet_check)) %>
+
+<%= raw(printData(first_doc, facet_check, "sidebar")) %>
 	    
