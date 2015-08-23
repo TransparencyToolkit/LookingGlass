@@ -1,4 +1,17 @@
 module DocFormat
+  # Prints the fields
+  def printFields(doc_content, print_conditions)
+    output = ''
+    
+    @field_info_sorted.each do |f|
+      if print_conditions.call(f)
+        output += '<p>'+raw(prepareField(f, doc_content))+'</p>'
+      end
+    end
+
+    return output
+  end
+  
   # Replaces newlines with br
   def format_text(text)
     text.gsub("\n", "<br />")
