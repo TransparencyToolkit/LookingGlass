@@ -9,9 +9,9 @@ module DocFormat
       if print_conditions.call(f, doc)
         case print_type
         when "fields"
-          output += printFields(f, doc)
+          output += printFields(f, doc).to_s
         when "sidebar"
-          output += printSidebarItem(f, doc)
+          output += printSidebarItem(f, doc).to_s
         end
       end
     end
@@ -19,9 +19,12 @@ module DocFormat
     return output
   end
 
-  # Prints the fields
+  # Prints the field name and content if filled in
   def printFields(f, doc_content)
-    return '<p>'+raw(prepareField(f, doc_content))+'</p>'
+    field_content = doc_content[f["Field Name"]]
+    if field_content != nil && !field_content.to_s.empty? && field_content != "[]"
+      return '<p>'+raw(prepareField(f, doc_content))+'</p>'
+    end
   end
 
   # Prints the sidebar item
