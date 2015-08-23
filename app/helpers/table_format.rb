@@ -5,9 +5,9 @@ module TableFormat
   end
 
   # Gets text for the field (highlighted if it should be)
-  def getText(doc, field)
-    if isHighlighted?(doc, field)
-      return raw(doc["highlight"][field].first.to_s)
+  def getText(doc, field, full_doc)
+    if isHighlighted?(full_doc, field)
+      return raw(full_doc["highlight"][field].first.to_s)
     else
       # Handles both with _source and without
       begin
@@ -66,11 +66,11 @@ module TableFormat
     when "Title"
       return titleView(t, doc, full_doc)
     when "Short Text", "Description"
-      return shortTextView(t, doc)
+      return shortTextView(t, doc, full_doc)
     when "Date"
       return dateView(t, doc)
     when "Long Text"
-      return longTextView(t, doc)
+      return longTextView(t, doc, full_doc)
     when "Picture"
       return pictureView(t, doc)
     when "Category"
@@ -90,17 +90,17 @@ module TableFormat
   
   # Prepares title view
   def titleView(t, doc, full_doc)
-    return link_to getText(doc, t["Field Name"]), doc_path(full_doc["_id"]), class: "list_title", target: "_blank"
+    return link_to(getText(doc, t["Field Name"], full_doc), doc_path(full_doc["_id"]), class: "list_title", target: "_blank")
   end
 
   # Prepares description/short text view
-  def shortTextView(t, doc)
-      return getText(doc, t["Field Name"]) + '<br />'
+  def shortTextView(t, doc, full_doc)
+      return getText(doc, t["Field Name"], full_doc)
   end
 
   # Prepares longer text view
-  def longTextView(t, doc)
-    return truncate(getText(doc, "doc_text"), length: 200)
+  def longTextView(t, doc, full_doc)
+    return truncate(getText(doc, "doc_text", full_doc), length: 200)
   end
 
   # Prepares facet view
