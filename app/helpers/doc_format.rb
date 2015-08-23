@@ -1,4 +1,6 @@
 module DocFormat
+  include TableFormat
+  
   # Prints the fields
   def printFields(doc_content, print_conditions)
     output = ''
@@ -10,6 +12,31 @@ module DocFormat
     end
 
     return output
+  end
+
+  # Prints the sidebar
+  def printSidebar(doc, print_conditions)
+    output = ''
+
+    @field_info_sorted.each do |f|
+      if print_conditions.call(f, doc)
+        if !doc[f["Field Name"]].empty?
+          output += '<p>'+prepareIcon(f)+prepareFieldName(f)+linkedFacets(doc[f["Field Name"]], f["Field Name"])+'</p>'
+        end
+      end
+    end
+
+    return output
+  end
+
+  # Gets the first doc in list, useful for getting item fields
+  def getFirstDoc
+    return @link_type["Link Type"] == "mult_items" ? @docs.first : @doc 
+  end
+
+  # Prepare to print icon
+  def prepareIcon(f)
+    return image_tag(f["Icon"]+"-24.png")+' '
   end
   
   # Replaces newlines with br

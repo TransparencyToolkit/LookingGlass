@@ -1,4 +1,4 @@
-<% first_doc = @link_type["Link Type"] == "mult_items" ? @docs.first : @doc %>
+<% first_doc = getFirstDoc %>
 
 <!-- For when there are never item fields -->
 <% if @link_type["Link Type"] != "mult_items" %>
