@@ -12,7 +12,7 @@ module DataspecUtils
   # Gets the details for each field
   def getFieldInfo
     @importer = JSON.parse(File.read("app/dataspec/importer.json")).first
-    @config_dir = @importer["Dataset Config"]
+    @config_dir = @importer["Dataset Config"].first
     @field_info = JSON.parse(File.read(@config_dir+"field_details.json"))
     @field_info_sorted = @field_info.sort_by{|field| field["Location"].to_i}
   end

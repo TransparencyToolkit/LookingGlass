@@ -1,5 +1,29 @@
-module IndexMethods
-  attr_accessor :settings, :mappings
+class DataspecContent
+  # field_details.json
+  attr_reader :config_dir, :field_info, :field_info_sorted
+
+  # display_prefs.json
+  attr_reader :facet_fields, :searchable_fields, :fields_in_results, :default_fields_in_results,
+              :doc_page_fields, :item_fields, :truncated_fields
+
+  # dataset_details.json
+  attr_reader :index_name, :data_path_type, :data_path, :ignore_ext, :sort_field, :show_sort_field
+
+  # import_config.json
+  attr_reader :id_field, :id_secondary, :get_after, :synonym_list, :ignore_list, :dedup_ignore,
+              :dedup_prioritize
+
+  # attach_config.json
+  attr_reader :pdf_tab, :attach_prefix, :attach_attr, :web_tab, :web_url, :image_prefix
+
+  # site_config.json
+  attr_reader :site_config, :search_title
+  
+  def initialize(config_dir)
+    @config_dir = config_dir
+    loadDataspec
+  end
+
   # Load all dataspec info
   def loadDataspec
     getFieldInfo
@@ -10,15 +34,13 @@ module IndexMethods
     getSiteConfig
   end
 
-  # Gets the details for each field                                                                     
+  # Gets the details for each field
   def getFieldInfo
-    @importer = JSON.parse(File.read("app/dataspec/importer.json")).first
-    @config_dir = @importer["Dataset Config"].first
     @field_info = JSON.parse(File.read(@config_dir+"field_details.json"))
     @field_info_sorted = @field_info.sort_by{|field| field["Location"].to_i}
   end
 
-  # Get where each field should show up                                                                       
+  # Get where each field should show up
   def getDisplayPrefs
     display_prefs = JSON.parse(File.read(@config_dir+"display_prefs.json"))
     @facet_fields = display_prefs["Facet"]
@@ -30,7 +52,7 @@ module IndexMethods
     @truncated_fields = display_prefs["Truncate Text"]
   end
 
-  # Gets where the dataset is and how it is structured                                                             
+  # Gets where the dataset is and how it is structured
   def getDatasetDetails
     dataset_details = JSON.parse(File.read(@config_dir+"dataset_details.json"))
     @index_name = dataset_details["Index Name"]
@@ -38,6 +60,7 @@ module IndexMethods
     @data_path = dataset_details["Path"]
     @ignore_ext = dataset_details["Ignore Dir Import Ext"]
     @sort_field = dataset_details["Sort Field"]
+    @show_sort_field = dataset_details["Show Sort Field"]
   end
 
   # Get import config details
@@ -68,5 +91,4 @@ module IndexMethods
     @site_config = JSON.parse(File.read(@config_dir+"site_config.json"))
     @search_title = @site_config["Search Title"]
   end
-
 end
