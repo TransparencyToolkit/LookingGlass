@@ -1,12 +1,24 @@
 require 'open-uri'
 require 'pry'
 require 'datapackage.rb'
+load 'generate_id.rb'
 load 'index_methods.rb'
+load 'date_funcs.rb'
+load 'misc_process.rb'
+load 'deduplicate_data.rb'
+load 'process_data.rb'
+load 'import_support.rb'
 
 class IndexManager
   extend IndexMethods
   include ENAnalyzer
-
+  extend GenerateId
+  extend DateFuncs
+  extend MiscProcess
+  extend DeduplicateData
+  extend ProcessData
+  extend ImportSupport
+  
   # Index creation
   def self.create_index(options={})
     # Make client, get settings, set name
@@ -45,245 +57,6 @@ class IndexManager
         end
       end
     end
-  end
-
-  # Gets data from a link and imports it
-  def self.importFromURL
-    createFromFile(JSON.parse(URI.parse(@data_path).read, symbolize_names: true))
-  end
-
-  # Gets data from file and imports it
-  def self.importFromFile
-    createFromFile(JSON.parse(File.read(@data_path), symbolize_names: true))  
-  end
-
-  # Processes and creates items in single file
-  def self.createFromFile(data)
-    unique_id = 0
-    data.each do |item|
-      createItem(processItem(item), unique_id)
-      unique_id += 1
-    end
-  end
-
-  # Preprocesses documents for loading into ES
-  def self.processItem(item)
-    # Go through each field in item
-    @field_info.each do |f|
-      item = process_date(f, item)
-      item = process_pic(f, item)
-      item = make_facet_version(f, item)
-    end
-
-    return item
-  end
-
-  # Creates a new item in the index
-  def self.createItem(item, unique_id)
-    begin
-      if deduplicate(item)
-        Doc.create item.merge(id: getID(item)), index: @index_name
-      end
-    rescue
-      Doc.create item.merge(id: getID(item)), index: @index_name
-    end
-  end
-
-  # Deduplicate Items
-  def self.deduplicate(item)
-    # Check if any item from same profile has been added
-    potential_dups = Doc.search(query: { match: { @id_field => item[@id_field] }}).results
-    
-    # Check if there are any entries for that item
-    if !potential_dups.empty?
-      potential_dups.each do |dup_i|
-        # See if it is exact match or not
-        if exactMatch?(removeIgnore(item).symbolize_keys, removeIgnore(dup_i.to_hash))
-          # Check if matching item was scraped after saved item
-          if Date.parse(item[@dedup_prioritize]) > Date.parse(dup_i[@dedup_prioritize].to_s)
-            return true # TODO: Delete the old item and create a new one instead
-          else
-            return false # Existing item is more recent
-          end
-        else
-          return true # A different entry for same item
-        end
-      end
-    else
-      return true # No other entries for item
-    end
-  end
-
-  # See if all the fields in first item match all the fiels in the second item
-  def self.exactMatch?(first_item, second_item)
-    first_item.each do |key, value|
-      # Checks if it is a date, not nil, and not a year
-      if second_item[key]
-        if isDate?(key.to_s) && value != nil && value.length > 4
-         # Sometimes end dates are different for same position- this is a bug
-        elsif value == nil
-          return false if !second_item[key] == nil
-        elsif value.is_a?(Integer) || value.is_a?(Float)
-          return false if value.to_i != second_item[key].to_i
-        elsif !value.is_a?(Integer) && value.empty?
-          return false if value.empty? && (second_item[key] != nil && !second_item[key].empty?)
-        elsif second_item[key] != value
-          return false
-        end
-      end
-    end
-        return true
-    
-  end
-  # Checks if item is a date
-  def self.isDate?(field)
-    datefields = @field_info.select{ |item| item["Type"] == "Date" }
-    
-    datefields.each do |f|
-      return true if f["Field Name"] == field
-    end
-    
-    return false
-  end
-  
-  # Remove ignore fields
-  def self.removeIgnore(item)
-    itemcopy = item.dup
-    @dedup_ignore.each do |remove|
-      itemcopy = itemcopy.except(remove, remove.to_sym)
-    end
-    
-    return itemcopy    
-  end
-
-  # Get unique ID
-  def self.getID(item)
-    # If some part should be removed from the ID field
-    id_initial = item[@id_field.to_sym] == nil ? item[@id_field] : item[@id_field.to_sym]
-    if @get_after != nil && !@get_after.empty?
-      clean_id = cleanID(id_initial.split(@get_after)[1])
-    else
-      clean_id = cleanID(id_initial)
-    end
-
-    @id_secondary.each do |f|
-      secondary_field = item[f.to_sym] == nil ? item[f] : item[f.to_sym]
-      clean_id += cleanID(secondary_field.to_s) if secondary_field != nil
-    end
-
-    return clean_id
-  end
-
-  # Removes non-urlsafe chars from ID
-  def self.cleanID(str)
-    if str
-      return str.gsub("/", "").gsub(" ", "").gsub(",", "").gsub(":", "").gsub(";", "").gsub("'", "").gsub(".", "")
-    end
-  end
-  
-  # Handles the processing of each item in a file in a directory import
-  def self.importFileInDir(file)
-    # Get dataset name (file name) and categories (directory names)
-    dataset_name = file.split("/").last.gsub("_", " ").gsub(".json", "")
-    categories = file.gsub(@data_path, "").gsub(file.split("/").last, "").split("/").reject(&:empty?)
-    categories.push(dataset_name)
-    
-    # Add the dataset_name and categories to each item, do any extra processing, then create
-    count = 0
-    # Handle null values instead of JSON
-    file_text = File.read(file)
-    file_items = JSON.parse(file_text) if file_text != "null"
-   
-    if file_items != nil && !file_items.empty?
-      file_items.each do |i|
-        i.merge!(dataset_name: dataset_name, categories: categories)
-        createItem(processItem(i), dataset_name.gsub(" ", "")+count.to_s)
-        count += 1
-      end
-    end
-  end
-
-  # Processes dates and handles unknowns
-  def self.process_date(f, item)
-    if f["Type"] == "Date"
-      # Set date field to symbol or string as needed
-      date_field = f["Field Name"].to_sym 
-      date_field = item[date_field] == nil ? date_field.to_s : date_field
-      
-      # Normalize unknown vals
-      if item[date_field] == "Date unknown" || item[date_field] == "Unknown" || item[date_field] == "nodate" || item[date_field].to_s == "0000-00-00 00:00:00" || item[date_field].empty?
-        item[date_field] = ""
-        
-      # Normalize present vals for end dates
-      elsif item[date_field].include?("Present") || item[date_field].include?("Current") || item[date_field].include?("Gegenwart")
-        item[date_field] = ""
-      end
-
-      # Handle dates that aren't parsed correctly
-      begin
-        item[date_field] = Date.parse(item[date_field])
-      rescue
-        # Handle year only dates
-        if item[date_field].to_s.length == 4 || item[date_field].to_s.length == 5
-          item[date_field] = Date.parse("January " + item[date_field].to_s)
-        elsif !item[date_field].empty? # Handle foreign dates
-          former_date = item[date_field]
-          item[date_field] = Date.parse(normalize_date(item[date_field]).to_s)
-        end
-      end
-    end    
-    return item
-  end
-
-  # Normalizes dates in other languages
-  def self.normalize_date(date)
-    # Load in file
-    package_path = "data_packages/month-names/"
-    package = DataPackage::Package.new(package_path+"datapackage.json")
-    file = CSV.parse(File.read(package_path+package.resources[0]["path"]))
-
-    # Check for matches in all value rows
-    file.each_with_index do |row, index|
-      if index != 0 
-        row.each_with_index do |item, i_index|
-
-          # Check all other language row items to see if it is included
-          if i_index != 0 && date.include?(item)
-            return date.sub(item, row[0])
-          end
-          
-        end
-      end
-    end
-
-    # Return input if it gets this far
-    return date
-  end
-
-  # Makes links https
-  def self.process_pic(f, item)
-    if f["Field Name"] == "picture"
-      pic_field = f["Field Name"]
-
-      if !@image_prefix.empty?
-        item[pic_field] = @image_prefix+item[pic_field].split("/").last
-      end
-    end
-
-    return item
-  end
-  
-  
-  # Creates a facet version with the same value for field
-  def self.make_facet_version(f, item)
-    if @facet_fields.include?(f["Field Name"])
-      field_name = f["Field Name"]
-      facet_field_name = f["Field Name"]+"_analyzed"
-
-      item[facet_field_name.to_sym] = item[field_name.to_sym]
-    end
-
-    return item
   end
 end
 
