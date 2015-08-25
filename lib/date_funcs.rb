@@ -12,13 +12,6 @@ module DateFuncs
     return false
   end
 
-  # Set date field name as symbol or string as needed
-  def set_name(f, item)
-    date_field = f["Field Name"].to_sym
-    date_field = item[date_field] == nil ? date_field.to_s : date_field
-    return date_field
-  end
-
   # Blanks the date field if it matches specified terms
   def blank_if_match(f, item, date_field, terms)
     terms.each do |t|
@@ -74,7 +67,7 @@ module DateFuncs
   def process_date(f, item)
     if f["Type"] == "Date"
       # Set date field to symbol or string as needed
-      date_field = set_name(f, item)
+      date_field = set_name(f["Field Name"], item)
       
       # Handle unknown and present dates
       handle_unknown_dates(f, item, date_field)
