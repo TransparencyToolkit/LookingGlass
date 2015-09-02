@@ -8,6 +8,7 @@ load 'misc_process.rb'
 load 'deduplicate_data.rb'
 load 'process_data.rb'
 load 'import_support.rb'
+load 'multi_dataset.rb'
 
 class IndexManager
   extend IndexMethods
@@ -18,23 +19,24 @@ class IndexManager
   extend DeduplicateData
   extend ProcessData
   extend ImportSupport
+  extend MultiDataset
   
   # Index creation
-  def self.create_index(options={})
+  def self.create_index(dataspec, options={})
     # Make client, get settings, set name
     client = Doc.gateway.client
     
     loadDataspec
-    Doc.index_name = @index_name
+    Doc.index_name = dataspec.index_name
     
     # Delete index if it already exists
-    client.indices.delete index: @index_name rescue nil if options[:force]
+    client.indices.delete index: dataspec.index_name rescue nil if options[:force]
     
     settings = ENAnalyzer.analyzerSettings
     mappings = Doc.mappings.to_hash
     
     # Create index with appropriate settings and mappings
-    client.indices.create index: @index_name,
+    client.indices.create index: dataspec.index_name,
     body: {
       settings: settings.to_hash,
       mappings: mappings.to_hash }
@@ -42,7 +44,11 @@ class IndexManager
 
   # Import data from different formats
   def self.import_data(options={})
-    create_index force: true if options[:force]
+    # Load all datasets and make indexes for them
+    loadAllDatasets
+    @dataspecs.each do |dataspec|
+      create_index(dataspec, force: true)
+    end
     
     # Import from file, link, or dir
     case @data_path_type
@@ -56,7 +62,6 @@ class IndexManager
           begin
             importFileInDir(file)
           rescue
-            binding.pry
           end
         end
       end

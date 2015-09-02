@@ -2,11 +2,13 @@ class Doc
   extend IndexMethods
   include Elasticsearch::Persistence::Model
   include ENAnalyzer
- 
+
   # Load dataspec, analyzer settings and set index name
   loadDataspec
+
   index_name @index_name
   self.settings = ENAnalyzer::analyzerSettings
+
 
   def self.genMapping(settings)
     fieldhash = Hash.new
