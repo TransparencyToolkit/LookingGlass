@@ -53,7 +53,9 @@ module TableFormat
         processed_value = processType(t, display_type, doc, full_doc)
 
         # Add to output if it is not nil or a category type
-        output += processed_value if processed_value != nil && !doc[t["Field Name"]].empty?
+        if doc[t["Field Name"]] != nil # Check if nil first
+          output += processed_value if (processed_value != nil) && (!doc[t["Field Name"]].empty?)
+        end
       end
     end
 
