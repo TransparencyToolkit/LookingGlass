@@ -53,7 +53,11 @@ class IndexManager
     when "Directory"
       Dir.glob(@data_path+"/**/*.json") do |file|
         if !file.include? @ignore_ext
-          importFileInDir(file)
+          begin
+            importFileInDir(file)
+          rescue
+            binding.pry
+          end
         end
       end
     end

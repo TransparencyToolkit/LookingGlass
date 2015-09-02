@@ -5,7 +5,18 @@ module GenerateId
   def getID(item)
     id_initial = item[set_name(@id_field, item)]
     clean_id = cleanID(removeIDPart(id_initial))
-    return appendSecondary(clean_id, item)
+    return addIndex(appendSecondary(clean_id, item))
+  end
+
+  # Add index name to id iff more than one dataset
+  def addIndex(id)
+    dataset_count = @importer.first[1].length
+
+    # Append if more than one dataset
+    if dataset_count > 1
+      return id+@index_name
+    else return id
+    end
   end
 
   # Append secondary ID fields
