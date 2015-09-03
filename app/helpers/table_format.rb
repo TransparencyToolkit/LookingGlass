@@ -49,17 +49,26 @@ module TableFormat
     tableItems.each do |t|
       # Get fields of appropriate display and item field type
       if (t["Display Type"] == display_type) && (is_item_field == @item_fields.include?(t["Field Name"]))
-        # Get processed value
+        # Get processed value and raw val
         processed_value = processType(t, display_type, doc, full_doc)
+        raw_value = doc[t["Field Name"]]
 
         # Add to output if it is not nil or a category type
-        if doc[t["Field Name"]] != nil # Check if nil first
-          output += processed_value if (processed_value != nil) && (!doc[t["Field Name"]].empty?)
-        end
+        output += processed_value if notEmpty?(processed_value, raw_value)
       end
     end
 
     return raw(output)
+  end
+
+  # Check if either value is empty/nill
+  def notEmpty?(processed_value, raw_value)
+    if raw_value != nil
+      # Return true if processed val is not nil and raw is not empty (or nil)
+      return (processed_value != nil) && (!raw_value.empty?)
+    else
+      return false
+    end
   end
 
   # Processes type appropriately using case statement
