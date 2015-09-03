@@ -1,6 +1,7 @@
 class DocsController < ApplicationController
   before_action :set_doc, only: [:show]
   include FacetsQuery
+  include ControllerUtils
 
   def description
     
@@ -11,10 +12,7 @@ class DocsController < ApplicationController
 
   def index
     fieldhash = get_all_categories
-
-    pagenum = params[:page] ? params[:page].to_i : 1
-    start = pagenum*30-30
-    
+    pagenum, start = page_calc(params)
     sort_results(start, fieldhash)
 
     # Get all facets and documents

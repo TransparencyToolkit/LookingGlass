@@ -1,8 +1,9 @@
 class SearchController < ApplicationController
+  include ControllerUtils
+  
   def index
     # Calculate start and page num
-    pagenum = params[:page] ? params[:page].to_i : 1
-    start = pagenum*30-30
+    pagenum, start = page_calc(params)
     
     # Pass params to SearchQuery model (which builds query and gets results)
     params.delete_if { |k, v| v.empty? }
