@@ -40,19 +40,42 @@ module DeduplicateData
       # Checks if it is a date, not nil, and not a year
       if second_item[key]
         if isDate?(key.to_s) && value != nil && value.length > 4
-          # Sometimes end dates are different for same position- this is a bug
         elsif value == nil
-          return false if !second_item[key] == nil
-        elsif value.is_a?(Integer) || value.is_a?(Float)
-          return false if value.to_i != second_item[key].to_i
-        elsif !value.is_a?(Integer) && value.empty?
-          return false if value.empty? && (second_item[key] != nil && !second_item[key].empty?)
-        elsif second_item[key] != value
+          return false if bothNotNil?(second_item, key)
+        elsif isNonIntNum?(value)
+          return false if !matchAsInt?(value, second_item, key)
+        elsif isEmpty?(value)
+          return false if !isEmpty?(second_item[key])
+        elsif simplyDoesntMatch?(value, second_item, key)
           return false
         end
       end
     end
     return true
+  end
 
+  # Returns true if it doesn't match
+  def simplyDoesntMatch?(value, second_item, key)
+    return second_item[key] != value
+  end
+
+  # Checks if val is in int or float
+  def isNonIntNum?(value)
+    return value.is_a?(Integer) || value.is_a?(Float)
+  end
+
+  # Checks if value is empty
+  def isEmpty?(value)
+    return !value.is_a?(Integer) && (value != nil) && value.empty?
+  end
+
+  # Checks if num values match after being converted to same type
+  def matchAsInt?(value, second_item, key)
+    return value.to_i != second_item[key].to_i
+  end
+  
+  # Check if both are nil (and return false/no match if not)
+  def bothNotNil?(second_item, key)
+    return !second_item[key] == nil
   end
 end
