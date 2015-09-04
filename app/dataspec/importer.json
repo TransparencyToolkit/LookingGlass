@@ -1,5 +1,5 @@
 [
   {
-      "Dataset Config": ["app/dataspec/dataspec-indeed/", "app/dataspec/dataspec-icwatch/"]
+      "Dataset Config": ["app/dataspec/dataspec-icwatch/", "app/dataspec/dataspec-indeed/"]
   }
 ]

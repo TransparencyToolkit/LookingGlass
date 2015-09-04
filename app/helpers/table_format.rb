@@ -91,7 +91,7 @@ module TableFormat
 
   # Prepares picture view
   def pictureView(t, doc)
-    return image_tag(doc[t["Field Name"]], :class => "picture")
+    return '<img src="'+doc[t["Field Name"]]+'" class="picture"></img>'
   end
   
   # Prepares date view

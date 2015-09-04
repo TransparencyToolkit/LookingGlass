@@ -31,7 +31,7 @@ module DateFuncs
     
     # Handle blank dates
     if (!item[date_field]) || (item[date_field].empty?)
-      item[date_field] = "" if item[date_field].empty?
+      item[date_field] = ""
     end
     
     return item
