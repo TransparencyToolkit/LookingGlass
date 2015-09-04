@@ -49,23 +49,28 @@ module SearchedFormat
     items = Hash.new
     
     dataItems.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |item|
-      uid = item["_source"][unique_id.to_s]
+      uid = getText(item, unique_id, item)
       
       # Does item already exist by unique_id?
       if item_ids.include? uid
-
         # Get item field content and add to overall matching item
         items[uid]["item_fields"].to_a.push(listItemInfo(item_fields, item))
 
-      # If not added already, add item and first set of item fields
+      # If not added already, add item and push ID
       else
-        items[uid] = item
-        items[uid]["item_fields"] = [listItemInfo(item_fields, item)]
+        items = addFirstForID(items, uid, item, item_fields)
         item_ids.to_a.push(uid)
       end
 
     end
 
+    return items
+  end
+  
+  # Adds item and first set of item fields
+  def addFirstForID(items, uid, item, item_fields)
+    items[uid] = item
+    items[uid]["item_fields"] = [listItemInfo(item_fields, item)]
     return items
   end
 
