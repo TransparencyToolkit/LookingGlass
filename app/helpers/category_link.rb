@@ -22,16 +22,20 @@ module CategoryLink
     return single_match || multiple_match
   end
 
+  # New search path for facet (to avoid pagination issue)
+  def prepNewPath(par, category_name, chosen)
+    return search_path(par.merge(category_name => chosen, :page => 1))
+  end
 
   # Generate link for selected facet
   def selected(val, categories_chosen, category_name, linkname)
     # Check if there are other facets selected (in this category or others)
-    if params.except("controller", "action", "utf8", category_name).length > 0 || categories_chosen.is_a?(Array)
+    if params.except("controller", "action", "utf8", "page", category_name).length > 0 || categories_chosen.is_a?(Array)
       # Are there other facets selected in this category?
       if categories_chosen.is_a?(Array)
         genMultSelected(val, categories_chosen, linkname, category_name)
       else # If no others in category selected
-        return genLink(linkname, search_path(params.except(category_name)), true)
+        return genLink(linkname, search_path(params.except(category_name, :page)), true)
       end
     else # If no others selected
       return genLink(linkname, root_path, true)
@@ -43,7 +47,7 @@ module CategoryLink
     outval = categories_chosen.dup
     outval.delete(val["term"])
     outval = outval[0] if categories_chosen.count <= 2
-    return genLink(linkname, search_path(params.except(category_name).merge(category_name => outval)), true)
+    return genLink(linkname, prepNewPath(params.except(category_name), category_name, outval), true)
   end
 
 
@@ -58,7 +62,7 @@ module CategoryLink
 
   # Generates link if no others are picked in category 
   def pickMeFirst(val, category_name, linkname)
-    val_link = genLink(linkname, search_path(params.merge("utf8" => "✓", category_name => val["term"])), false)
+    val_link = genLink(linkname, prepNewPath(params, category_name, val["term"]), false)
     params.except(category_name)
 
     return val_link
@@ -74,7 +78,7 @@ module CategoryLink
     end
 
     # Generate link
-    val_link = genLink(linkname, search_path(params.merge("utf8" => "✓", category_name => categories_chosen)), false)
+    val_link = genLink(linkname, prepNewPath(params, category_name, categories_chosen), false)
     params.except(category_name).merge(category_name => categories_chosen)
 
     return val_link
