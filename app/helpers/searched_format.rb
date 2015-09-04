@@ -43,8 +43,8 @@ module SearchedFormat
     return link
   end
 
+  # Groups results with item fields
   def genUniqueResults(dataItems, item_fields, unique_id)
-
     item_ids = []
     items = Hash.new
     
@@ -54,23 +54,26 @@ module SearchedFormat
       # Does item already exist by unique_id?
       if item_ids.include? uid
 
-        # Create "item.item_fields" object
-        these_item_fields = Hash.new
-        item_fields.each do |field|
-          these_item_fields[field] = item["_source"][field]
-        end
+        # Get item field content and add to overall matching item
+        items[uid]["item_fields"].to_a.push(listItemInfo(item_fields, item))
 
-        items[uid]["item_fields"].to_a.push these_item_fields
-
-      # If not add
+      # If not added already, add item and first set of item fields
       else
         items[uid] = item
-        items[uid]["item_fields"] = []
-        item_ids.to_a.push uid
+        items[uid]["item_fields"] = [listItemInfo(item_fields, item)]
+        item_ids.to_a.push(uid)
       end
 
     end
 
     return items
+  end
+
+  # Generates a list of item fields and vals
+  def listItemInfo(item_fields, item)
+    return item_fields.inject({}) do |item_info, field|
+     item_info[field] = item["_source"][field]
+     item_info
+    end
   end
 end
