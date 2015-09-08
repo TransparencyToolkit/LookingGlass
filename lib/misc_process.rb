@@ -26,7 +26,7 @@ module MiscProcess
 
       item[facet_field_name.to_sym] = item[field_name.to_sym]
     end
-
+    
     return item
   end
 

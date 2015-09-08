@@ -12,46 +12,22 @@ class DocsController < ApplicationController
   end
 
   def index
-    doc_items = Array.new
-    doc_sets = Array.new
-    run_all do |dataspec, model|
-      fieldhash = get_all_categories(dataspec)
-
-      # Get page count and items
-      pagenum, start = page_calc(params)
-      docs = sort_results(start, fieldhash, dataspec, model)
-
-      # Add to array to paginate
-      docs.each do |d|
-        doc_items.push(d)
-      end
-
-      doc_sets.push(docs)
-    end
-
-    pagenum, start = page_calc(params)
-    @pagination = WillPaginate::Collection.create(pagenum, 30, doc_items.count) do |pager|
-      pager.replace doc_items
-    end
-
-   # binding.pry
-    #fieldhash = get_all_categories
-    #pagenum, start = page_calc(params)
-    #sort_results(start, fieldhash)
-
-    # Get all facets and documents
-    #@pagination = WillPaginate::Collection.create(pagenum, 30, Doc.count) do |pager|
-    #  pager.replace @docs
-    #end
-
-    # FIGUREOUT: how to save response and paginate for more than one
-    # Maybe answer is to search mult indexes in first place
-    # But that might require weird handling of sorting fields and similar
-    @facets = doc_sets[0].response["facets"]
-    @docs = doc_sets[0].response["hits"]["hits"]
+    # Get a list of all facets
+    get_all_facets
     
-    #@facets = @docs.response["facets"]
-    #@docs = @docs.response["hits"]["hits"]
+    # Get docs, pages, and count
+    pagenum, start = page_calc(params)
+    docs = sort_results(start, @all_facets, @dataspecs.first)
+    @total_count = get_total_docs 
+
+    # Paginate documents
+    @pagination = WillPaginate::Collection.create(pagenum, 30, @total_count) do |pager|
+      pager.replace @docs
+    end
+  
+    # Get facets and documents
+    @facets = @docs.response["facets"]
+    @docs = @docs.response["hits"]["hits"]
   end
 
   def show
@@ -74,12 +50,11 @@ class DocsController < ApplicationController
     end
 
     # Sorts the results
-    def sort_results(start, fieldhash, dataspec, model)
+    def sort_results(start, all_facet_fields, dataspec)
       if !dataspec.sort_field.empty?
-        return model.search(sort: {dataspec.sort_field => "desc"}, from: start, size: 30, facets: fieldhash)
+        @docs = Elasticsearch::Model.search({sort: {dataspec.sort_field => "desc"}, from: start, size: 30, facets: all_facet_fields}, @models) #NOTE: sort is broken
       else
-        # REMOVE: Used to be @docs
-        return model.search(from: start, size: 30, facets: fieldhash)
+        @docs = Elasticsearch::Model.search({from: start, size: 30, facets: all_facet_fields}, @models)
       end
     end
 

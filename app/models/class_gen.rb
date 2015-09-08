@@ -8,7 +8,9 @@ module ClassGen
       end
 
       # Import needed methods
+      require 'elasticsearch/model'
       include Elasticsearch::Persistence::Model
+      include Elasticsearch::Model
       include ENAnalyzer
       extend ModelGen
 

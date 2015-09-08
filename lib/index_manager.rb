@@ -26,8 +26,8 @@ class IndexManager
   # Index creation
   def self.create_index(dataspec, model_name, options={})
     # Make client, get settings, set name
-    client = Doc.gateway.client
     doc_class = ClassGen.gen_class(model_name, dataspec)
+    client = doc_class.gateway.client
     
     # Delete index if it already exists
     client.indices.delete index: dataspec.index_name rescue nil if options[:force]

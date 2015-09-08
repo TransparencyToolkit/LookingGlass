@@ -6,4 +6,11 @@ module ControllerUtils
 
     return pagenum, start
   end
+
+  # Count the number of docs across all models
+  def get_total_docs
+    return @models.inject(0) do |total_count, m|
+      total_count += m.count
+    end
+  end
 end

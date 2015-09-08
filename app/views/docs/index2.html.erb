@@ -1,0 +1,33 @@
+
+    <div id="sidebar" class="col-sm-4 col-md-3 sidebar">
+      <%= render partial: 'docs/sidebar' %>
+    </div>
+
+    <div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+
+      <div id="search-details">
+        <div class="detail">
+	  <%= Doc.count %> Results
+        </div>
+      </div>
+
+      <div id="search-result">
+      <% link_field = "" %>
+      <% item_fields = @item_fields %>
+      
+      <% if item_fields # Check for duplicates on ID Field %>
+        <% genUniqueResults(@docs, item_fields, @id_field).each do |item| %>
+          <%= render partial: 'docs/list', locals: { doc: item[1], item_fields: item_fields } %>
+        <% end %>
+      <% else # Normal rendering (no Item Fields) %>
+        <% @docs.each do |doc| %>
+          <%= render partial: 'docs/list', locals: { doc: doc } %>
+        <% end %>
+      <% end %>
+      </div>
+
+      <div id="search-pagination">
+        <%= will_paginate @pagination %>
+      </div>
+
+    </div>
