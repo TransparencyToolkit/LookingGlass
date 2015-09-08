@@ -1,12 +1,22 @@
 Rails.application.routes.draw do
+  # Load all datasets at runtime
+  extend MultiDataset
+  loadAllDatasets
+  create_all_models
+  
   get 'search', to: 'search#index'
   get 'docs/makedocview', to: 'docs#makedocview'
 
   get 'description', to: 'docs#description'
   get 'advancedsearch', to: 'docs#advanced'
+  
   root to: 'docs#index'
-  resources :docs
-  resources :nsadocs, controller: 'docs'
+
+  # Dynamically generate routes
+  extend MiscProcess
+  @dataspecs.each do |d|
+    resources gen_class_name(d).to_sym, controller: 'docs'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

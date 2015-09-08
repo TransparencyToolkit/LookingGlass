@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
 
   def load_dataspec
     loadAllDatasets
-    
-    loadDataspec # TO REMOVE
+    create_all_models
   end
 end

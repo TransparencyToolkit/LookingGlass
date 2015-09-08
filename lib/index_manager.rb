@@ -29,14 +29,10 @@ class IndexManager
     client = Doc.gateway.client
     doc_class = ClassGen.gen_class(model_name, dataspec)
     
-    #loadDataspec
-    #Doc.index_name = dataspec.index_name
-    
     # Delete index if it already exists
     client.indices.delete index: dataspec.index_name rescue nil if options[:force]
     
     settings = ENAnalyzer.analyzerSettings
-    #mappings = Doc.mappings.to_hash
     mappings = doc_class.mappings.to_hash
     
     # Create index with appropriate settings and mappings

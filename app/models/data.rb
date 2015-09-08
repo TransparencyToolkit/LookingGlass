@@ -1,6 +1,6 @@
 load 'model_gen.rb'
 
-class Doc
+class Data
   extend IndexMethods
   include IndexMethods
   include Elasticsearch::Persistence::Model

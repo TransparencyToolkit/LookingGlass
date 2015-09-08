@@ -2,6 +2,7 @@ class DocsController < ApplicationController
   before_action :set_doc, only: [:show]
   include FacetsQuery
   include ControllerUtils
+  include MultiDataset
 
   def description
     
@@ -11,16 +12,46 @@ class DocsController < ApplicationController
   end
 
   def index
-    fieldhash = get_all_categories
+    doc_items = Array.new
+    doc_sets = Array.new
+    run_all do |dataspec, model|
+      fieldhash = get_all_categories(dataspec)
+
+      # Get page count and items
+      pagenum, start = page_calc(params)
+      docs = sort_results(start, fieldhash, dataspec, model)
+
+      # Add to array to paginate
+      docs.each do |d|
+        doc_items.push(d)
+      end
+
+      doc_sets.push(docs)
+    end
+
     pagenum, start = page_calc(params)
-    sort_results(start, fieldhash)
+    @pagination = WillPaginate::Collection.create(pagenum, 30, doc_items.count) do |pager|
+      pager.replace doc_items
+    end
+
+   # binding.pry
+    #fieldhash = get_all_categories
+    #pagenum, start = page_calc(params)
+    #sort_results(start, fieldhash)
 
     # Get all facets and documents
-    @pagination = WillPaginate::Collection.create(pagenum, 30, Doc.count) do |pager|
-      pager.replace @docs
-    end
-    @facets = @docs.response["facets"]
-    @docs = @docs.response["hits"]["hits"]
+    #@pagination = WillPaginate::Collection.create(pagenum, 30, Doc.count) do |pager|
+    #  pager.replace @docs
+    #end
+
+    # FIGUREOUT: how to save response and paginate for more than one
+    # Maybe answer is to search mult indexes in first place
+    # But that might require weird handling of sorting fields and similar
+    @facets = doc_sets[0].response["facets"]
+    @docs = doc_sets[0].response["hits"]["hits"]
+    
+    #@facets = @docs.response["facets"]
+    #@docs = @docs.response["hits"]["hits"]
   end
 
   def show
@@ -43,11 +74,12 @@ class DocsController < ApplicationController
     end
 
     # Sorts the results
-    def sort_results(start, fieldhash)
-      if !@sort_field.empty?
-        @docs = Doc.search(sort: {@sort_field => "desc"}, from: start, size: 30, facets: fieldhash)
+    def sort_results(start, fieldhash, dataspec, model)
+      if !dataspec.sort_field.empty?
+        return model.search(sort: {dataspec.sort_field => "desc"}, from: start, size: 30, facets: fieldhash)
       else
-        @docs = Doc.search(from: start, size: 30, facets: fieldhash)
+        # REMOVE: Used to be @docs
+        return model.search(from: start, size: 30, facets: fieldhash)
       end
     end
 

@@ -3,11 +3,11 @@ module FacetsQuery
   include DataspecUtils
 
   # Specify which categories/facets to get info for on the sidebar- all of them 
-  def get_all_categories
+  def get_all_categories(dataspec)
     fieldhash = Hash.new
     
     # Generate queries to get each facet
-    @facet_fields.each do |field|
+    dataspec.facet_fields.each do |field|
       fieldhash[field.to_sym] = {terms: {field: field, size: 500}}
     end
     
