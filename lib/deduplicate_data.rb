@@ -1,16 +1,19 @@
 module DeduplicateData
   # Deduplicate Items
-  def deduplicate(item)
+  def deduplicate(item, dataspec, doc_class)
     # Check if any item from same profile has been added
-    potential_dups = Doc.search(query: { match: { @id_field => item[@id_field] }}).results
-
+    begin
+      potential_dups = doc_class.search(query: { match: { dataspec.id_field => item[dataspec.id_field] }}).results
+    rescue
+      
+    end
     # Check if there are any entries for that item
     if !potential_dups.empty?
       potential_dups.each do |dup_i|
         # See if it is exact match or not
-        if exactMatch?(removeIgnore(item).symbolize_keys, removeIgnore(dup_i.to_hash))
+        if exactMatch?(removeIgnore(item, dataspec).symbolize_keys, removeIgnore(dup_i.to_hash, dataspec))
           # Check if matching item was scraped after saved item
-          if Date.parse(item[@dedup_prioritize]) > Date.parse(dup_i[@dedup_prioritize].to_s)
+          if Date.parse(item[dataspec.dedup_prioritize]) > Date.parse(dup_i[dataspec.dedup_prioritize].to_s)
             return true # TODO: Delete the old item and create a new one instead
           else
             return false # Existing item is more recent
@@ -25,9 +28,9 @@ module DeduplicateData
   end
   
   # Remove ignore fields for comparison
-  def removeIgnore(item)
+  def removeIgnore(item, dataspec)
     itemcopy = item.dup
-    @dedup_ignore.each do |remove|
+    dataspec.dedup_ignore.each do |remove|
       itemcopy = itemcopy.except(remove, remove.to_sym)
     end
 
@@ -49,7 +52,7 @@ module DeduplicateData
   # Return false if the two fields don't match 
   def fieldValsMatch?(first_val, second_val, key)
     # Check if it is a date, not nil, and not a year
-    if isDate?(key.to_s) && first_val != nil && first_val.length > 4
+    if isDate?(key.to_s, dataspec) && first_val != nil && first_val.length > 4
     elsif first_val == nil # Check if both are nil
       return false if bothNotNil?(second_val)
     elsif isNonIntNum?(first_val) # Check if they match when converted to int

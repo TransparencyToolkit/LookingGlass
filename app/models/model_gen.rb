@@ -1,13 +1,14 @@
 module ModelGen
   # Generate mapping based on dataspec/settings
-  def genMapping(settings)
+  def genMapping(settings, dataspec)
     fieldhash = Hash.new
-    @field_info.each do |f|
+    
+    dataspec.field_info.each do |f|
       # Set mapping
       map = fieldMapping(f)
 
       # If facet, make separate analyzed version.
-      if @facet_fields.include?(f["Field Name"])
+      if dataspec.facet_fields.include?(f["Field Name"])
         addToMapping(f, f["Field Name"]+"_analyzed", map)
         duplicateUnanalyzedFacet(f)
       else # For non-facets
