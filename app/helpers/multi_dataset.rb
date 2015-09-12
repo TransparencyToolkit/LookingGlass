@@ -21,12 +21,28 @@ module MultiDataset
     end
   end
 
+  # Get the dataspec for an item
+  def get_dataspec(doc)
+    doc_index = doc["_index"]
+    @dataspecs.each do |dataspec|
+      return dataspec if doc_index == dataspec.index_name
+    end
+  end
+  
   # Get all the facets
   def get_all_facets
     @all_facets = Hash.new
     run_all do |dataspec, model|
       facet_fields = get_all_categories(dataspec)
       @all_facets.merge!(facet_fields)
+    end
+  end
+
+  # Get all field info
+  def get_all_field_info
+    @all_field_info = Array.new
+    run_all do |dataspec, model|
+      @all_field_info += dataspec.field_info
     end
   end
 

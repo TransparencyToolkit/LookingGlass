@@ -12,9 +12,6 @@ class DocsController < ApplicationController
   end
 
   def index
-    # Get a list of all facets
-    get_all_facets
-    
     # Get docs, pages, and count
     pagenum, start = page_calc(params)
     docs = sort_results(start, @all_facets, @dataspecs.first)

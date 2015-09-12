@@ -1,0 +1,14 @@
+<!-- Get results grouped by item field and ordered -->
+<% results = order_results(@docs) %>
+
+<!-- Show all results -->
+<% results.each do |result| %>
+  <% dataspec, uid, item_fields = get_details(result[1]) %>
+
+  <!-- Render differently depending on if there are item fields for item -->
+  <% if item_fields %>
+    <%= render partial: 'docs/list', locals: { doc: result[1], item_fields: item_fields} %>
+  <% else %>
+    <%= render(partial: 'docs/list', locals: { doc: result[1] }) %>
+  <% end %>
+<% end %>

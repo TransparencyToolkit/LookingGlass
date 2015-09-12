@@ -1,3 +1,5 @@
+include MultiDataset
+
 module TableFormat
   # Checks if field is highlighted in restuls
   def isHighlighted?(doc, field)
@@ -41,16 +43,17 @@ module TableFormat
   def facetLinkGen(field_vals, field_name)
     return link_to(field_vals.strip, search_path((field_name+"_facet").to_sym => field_vals))
   end
-
+  
   # Display the item in the appropriate way for the display type
   def showByType(display_type, doc, full_doc, is_item_field)
     output = ""
+    dataspec = get_dataspec(full_doc)
     
-    tableItems.each do |t|
+    tableItems(dataspec).each do |t|
       # Get fields of appropriate display and item field type
-      if (t["Display Type"] == display_type) && (is_item_field == @item_fields.include?(t["Field Name"]))
+      if (t["Display Type"] == display_type) && (is_item_field == dataspec.item_fields.include?(t["Field Name"]))
         # Get processed value and raw val
-        processed_value = processType(t, display_type, doc, full_doc)
+        processed_value = processType(t, display_type, doc, full_doc, dataspec)
         raw_value = doc[t["Field Name"]]
 
         # Add to output if it is not nil or a category type
@@ -72,7 +75,7 @@ module TableFormat
   end
 
   # Processes type appropriately using case statement
-  def processType(t, display_type, doc, full_doc)
+  def processType(t, display_type, doc, full_doc, dataspec)
     case display_type
     when "Title"
       return titleView(t, doc, full_doc)
@@ -85,7 +88,7 @@ module TableFormat
     when "Picture"
       return pictureView(t, doc)
     when "Category"
-      return categoryView(t, doc)
+      return categoryView(t, doc, dataspec)
     end
   end
 
@@ -115,11 +118,11 @@ module TableFormat
   end
 
   # Prepares facet view
-  def categoryView(t, doc)
+  def categoryView(t, doc, dataspec)
     
     output = ''
     
-    if @facet_fields.include?(t["Field Name"])
+    if dataspec.facet_fields.include?(t["Field Name"])
       facet_links = linkedFacets(doc[t["Field Name"]], t["Field Name"])
       
       if facet_links != "" && !facet_links.empty?
@@ -135,14 +138,14 @@ module TableFormat
     return '<div class="facet'+ t["Field Name"] +'">'+ image_tag(t["Icon"]+"-24.png") + facet_links +' </div>'
   end
 
-  # Get list of items in results and their names
-  def tableItems
+  # Get list of fields in results and their names
+  def tableItems(dataspec)
     itemarr = Array.new
-
+    
     # Get list of all fields in results
-    sortFields(@fields_in_results).each do |i|
+    sortFields(dataspec.fields_in_results, @all_field_info).each do |i|
       # Get details (HR name, field name, etc) for field
-      itemarr.push(getFieldDetails(i))
+      itemarr.push(getFieldDetails(i, dataspec.field_info))
     end
 
     return itemarr

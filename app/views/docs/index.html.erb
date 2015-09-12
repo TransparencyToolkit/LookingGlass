@@ -1,5 +1,5 @@
 <div id="sidebar" class="col-sm-4 col-md-3 sidebar">
-  <%= @facets %>
+  <%= render partial: 'docs/sidebar' %>
 </div>
 
 <div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9
@@ -12,9 +12,7 @@
   </div>
 
   <div id="search-result">
-    <% @docs.each do |doc| %>
-       <%= doc %>
-    <% end %>
+    <%= render partial: 'docs/showresults' %>
   </div>
 
   <div id="search-pagination">

@@ -14,5 +14,9 @@ class ApplicationController < ActionController::Base
   def load_dataspec
     loadAllDatasets
     create_all_models
+
+    # Load general vars
+    get_all_facets
+    get_all_field_info
   end
 end

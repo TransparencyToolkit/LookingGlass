@@ -42,43 +42,4 @@ module SearchedFormat
     params[k] = saveparams # Set it back to normal
     return link
   end
-
-  # Groups results with item fields
-  def genUniqueResults(dataItems, item_fields, unique_id)
-    item_ids = []
-    items = Hash.new
-    
-    dataItems.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |item|
-      uid = getText(item, unique_id, item)
-      
-      # Does item already exist by unique_id?
-      if item_ids.include? uid
-        # Get item field content and add to overall matching item
-        items[uid]["item_fields"].to_a.push(listItemInfo(item_fields, item))
-
-      # If not added already, add item and push ID
-      else
-        items = addFirstForID(items, uid, item, item_fields)
-        item_ids.to_a.push(uid)
-      end
-
-    end
-
-    return items
-  end
-  
-  # Adds item and first set of item fields
-  def addFirstForID(items, uid, item, item_fields)
-    items[uid] = item
-    items[uid]["item_fields"] = [listItemInfo(item_fields, item)]
-    return items
-  end
-
-  # Generates a list of item fields and vals
-  def listItemInfo(item_fields, item)
-    return item_fields.inject({}) do |item_info, field|
-     item_info[field] = item["_source"][field]
-     item_info
-    end
-  end
 end

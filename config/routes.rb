@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   get 'advancedsearch', to: 'docs#advanced'
   
   root to: 'docs#index'
-
+  resources :docs
+  
   # Dynamically generate routes
   extend MiscProcess
   @dataspecs.each do |d|
