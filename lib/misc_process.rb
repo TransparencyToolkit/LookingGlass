@@ -17,14 +17,13 @@ module MiscProcess
     return item
   end
 
-
   # Creates a facet version with the same value for field
   def make_facet_version(f, item, dataspec)
     if dataspec.facet_fields.include?(f["Field Name"])
       field_name = f["Field Name"]
       facet_field_name = f["Field Name"]+"_analyzed"
 
-      item[facet_field_name.to_sym] = item[field_name.to_sym]
+      item[facet_field_name.to_sym] = item[set_name(field_name, item)]
     end
     
     return item
