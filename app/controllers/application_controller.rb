@@ -6,17 +6,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include DataspecUtils
   include MultiDataset
+  include FacetsQuery
 
   before_action :load_dataspec
   
   private 
 
   def load_dataspec
-    loadAllDatasets
-    create_all_models
-
-    # Load general vars
-    get_all_facets
-    get_all_field_info
+    load_everything
   end
 end

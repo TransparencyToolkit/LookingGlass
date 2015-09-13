@@ -1,20 +1,6 @@
 <!-- Only show search bar on index action -->
 <% if ['index'].include?(action_name) %>
-  <form action="" class="navbar-form navbar-left input-group-addon">
-    <select name="ftypes" id="ftypes">
-      <option data-type="all" value="all" selected>All</option>
-      <!-- Group fields by type -->
-      <optgroup label="Text">
-        <%= raw(matchFieldTypes(["Title", "Description", "Short Text", "Medium Text", "Long Text"])) %>
-      </optgroup>
-      <optgroup label="Date">
-        <%= raw(matchFieldTypes(["Date"])) %>
-      </optgroup>
-      <optgroup label="Categories">
-        <%= raw(matchFieldTypes(["Category"])) %>
-      </optgroup>
-    </select>
-  </form>
+  <%= raw(group_by_dataset) %>
 
   <!-- Render forms for different types of queries -->
   <%= render partial: 'docs/queries/allquery' %>

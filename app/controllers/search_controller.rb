@@ -1,6 +1,7 @@
 # coding: utf-8
 class SearchController < ApplicationController
   include ControllerUtils
+  include MultiDataset
   
   def index
     # Calculate start and page num
@@ -10,8 +11,10 @@ class SearchController < ApplicationController
     params.delete_if { |k, v| v.empty? }
     s = SearchQuery.new(params, start)
     query = s.build_query
-    
-    @docs = Doc.search(query)
+
+    # THIS ONLY WORKS FOR ALL SEARCH
+    @docs = Elasticsearch::Model.search(query, @models)
+   # @docs = Doc.search(query) # FIGUREOUT WHAT THIS DOES
     @facets = @docs.response["facets"]
     
     @pagination = WillPaginate::Collection.create(pagenum, 30, @docs.response.hits.total) do |pager|

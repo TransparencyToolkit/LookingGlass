@@ -9,7 +9,7 @@ class SearchQuery
   def initialize(params, start)
     @params = params
     @start = start
-    loadDataspec
+    load_everything
   end
 
   # Calls methods to process params and put together query
@@ -21,14 +21,15 @@ class SearchQuery
     @fieldnames = [@input[:field]]
     queryhash = {}
     highlighthash = Hash.new
-
+    
     # Form specific query for parameters passed
     queryhash = build_search_query
     filterhash = build_facet_filters
     fullhash = combine_search_and_facet_queries(queryhash, filterhash)
     
     # Get information needed to display results nicely
-    fieldhash = get_all_categories
+    fieldhash = @all_facets
+    #fieldhash = get_all_categories ONLY WORKS FOR ALL FACETS
     highlighthash = specify_fields_to_highlight(queryhash, highlighthash)
     
     query = {from: @start, size: 30, query: fullhash, facets: fieldhash,

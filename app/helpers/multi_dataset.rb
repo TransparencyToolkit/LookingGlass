@@ -1,6 +1,19 @@
 module MultiDataset
   include MiscProcess
 
+  # Load everything
+  def load_everything
+    # Load dataspecs and create models
+    loadAllDatasets
+    create_all_models
+
+    # Load general vars
+    get_all_facets
+    get_all_field_info
+    get_all_searchable_fields
+    get_all_truncated_fields
+  end
+
   # Saves all dataspec values in @dataspecs
   def loadAllDatasets
     # Load dataspec paths
@@ -43,6 +56,22 @@ module MultiDataset
     @all_field_info = Array.new
     run_all do |dataspec, model|
       @all_field_info += dataspec.field_info
+    end
+  end
+
+  # Get all truncated fields
+  def get_all_truncated_fields
+    @all_truncated_fields = Array.new
+    run_all do |dataspec, model|
+      @all_truncated_fields += dataspec.truncated_fields
+    end
+  end
+
+  # Get all searchable fields
+  def get_all_searchable_fields
+    @all_searchable_fields = Array.new
+    run_all do |dataspec, model|
+      @all_searchable_fields += dataspec.searchable_fields
     end
   end
 

@@ -7,7 +7,7 @@ class DataspecContent
               :doc_page_fields, :item_fields, :truncated_fields
 
   # dataset_details.json
-  attr_reader :index_name, :data_path_type, :data_path, :ignore_ext, :sort_field, :show_sort_field
+  attr_reader :index_name, :dataset_name, :data_path_type, :data_path, :ignore_ext, :sort_field, :show_sort_field
 
   # import_config.json
   attr_reader :id_field, :id_secondary, :get_after, :synonym_list, :ignore_list, :dedup_ignore,
@@ -56,6 +56,7 @@ class DataspecContent
   def getDatasetDetails
     dataset_details = JSON.parse(File.read(@config_dir+"dataset_details.json"))
     @index_name = dataset_details["Index Name"]
+    @dataset_name = dataset_details["Dataset Name"]
     @data_path_type = dataset_details["Path Type"]
     @data_path = dataset_details["Path"]
     @ignore_ext = dataset_details["Ignore Dir Import Ext"]

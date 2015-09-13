@@ -16,7 +16,8 @@ module HighlightQuery
 
   # Truncate highlighted field only when needed
   def highlightLength(fieldName)
-    if @truncated_fields.include?(fieldName)
+    # SHOULD CHECK WITH DATASPEC, NOT TOTALLY SAFE
+    if @all_truncated_fields.include?(fieldName)
       return {}
     else
       return {number_of_fragments: 0}
