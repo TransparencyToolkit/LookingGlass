@@ -2,6 +2,7 @@
   "Path Type": "Directory",
   "Path": "/home/gh/test_data/indeed/",
   "Index Name": "icwatch_indeed_test",
+  "Dataset Name": "Indeed",
   "Ignore Dir Import Ext": "_terms.json",
   "Sort Field": "",
   "Show Sort Field": "start_date"
