@@ -14,7 +14,7 @@
     </div>
 
     <!-- Pane PDF -->
-    <% if @pdf_tab == "Yes" %>
+    <% if @dataspec.pdf_tab == "Yes" %>
     <div class="tab-pane" id="pdf">
       <%= render partial: 'docs/showpdf' %>
     </div>

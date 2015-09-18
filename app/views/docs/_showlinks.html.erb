@@ -2,7 +2,7 @@
 
 <h3>Links</h3>
 <!-- Get a list of links to show -->
-<% web_links = first_doc[@web_url].is_a?(String) ? [first_doc[@web_url]] : first_doc[@web_url] %>
+<% web_links = first_doc[@dataspec.web_url].is_a?(String) ? [first_doc[@dataspec.web_url]] : first_doc[@dataspec.web_url] %>
 
 <% web_links.each.with_index do |link, index| %>
   <div class="show-article-item">

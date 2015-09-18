@@ -2,21 +2,21 @@
 
 <!-- For when there are never item fields -->
 <% if @link_type["Link Type"] != "mult_items" %>
-  <% non_facet_check = Proc.new{ |f| checkIfX(f, @doc_page_fields) && !checkIfX(f, @facet_fields)} %>
-  <%= raw(printData(@doc, non_facet_check, "fields")) %>
+  <% non_facet_check = Proc.new{ |f| checkIfX(f, @dataspec.doc_page_fields) && !checkIfX(f, @dataspec.facet_fields)} %>
+  <%= raw(printData(@doc, non_facet_check, "fields", @dataspec, @dataspec.doc_page_fields)) %>
     
 <!-- For when some are item fields -->
 <% else %>
   <!-- Non-item fields -->
-  <% non_item_check = Proc.new{ |f| checkIfX(f, @doc_page_fields) && !checkIfX(f, @facet_fields) && !checkIfX(f, @item_fields)} %>
-  <%= raw(printData(first_doc, non_item_check, "fields")) %>
+  <% non_item_check = Proc.new{ |f| checkIfX(f, @dataspec.doc_page_fields) && !checkIfX(f, @dataspec.facet_fields) && !checkIfX(f, @dataspec.item_fields)} %>
+  <%= raw(printData(first_doc, non_item_check, "fields", @dataspec, @dataspec.doc_page_fields)) %>
   
   <!-- Item fields -->
   <hr /><hr />
   <!-- Sorts docs by specified field and loops through in order -->
-  <% item_field_sort(@docs, @show_sort_field).each do |d| %>
-    <% item_check = Proc.new{ |f| checkIfX(f, @item_fields) } %>
-    <%= raw(printData(d, item_check, "fields")) %>
+  <% item_field_sort(@docs, @dataspec.show_sort_field).each do |d| %>
+    <% item_check = Proc.new{ |f| checkIfX(f, @dataspec.item_fields) } %>
+    <%= raw(printData(d["_source"], item_check, "fields", @dataspec, @dataspec.item_fields)) %>
    <hr />
    <% end %>
    

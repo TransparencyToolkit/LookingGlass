@@ -2,7 +2,7 @@
   <li class="active" id="litext">
     <a href="#text" data-toggle="tab"><%= image_tag "text-24.png" %> Text</a>
   </li>
-  <% if @pdf_tab == "Yes" %>
+  <% if @dataspec.pdf_tab == "Yes" %>
   <li id="lipdf">
     <a href="#pdf" data-toggle="tab"><%= image_tag "document-24.png" %> Document</a>
   </li>
