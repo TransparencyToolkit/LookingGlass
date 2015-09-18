@@ -23,7 +23,7 @@ $(document).ready(function() {
         .attr('name', item['Form Params'][0])
       $('#search-date-end')
         .attr('name', item['Form Params'][1])
-    } else if (type === 'string') {
+    } else if (type === 'string'){
       $('#form-search-' + type)
         .find('input[type=text]')
         .attr('name', item['Form Params'])

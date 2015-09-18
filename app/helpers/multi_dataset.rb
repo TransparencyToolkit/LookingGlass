@@ -12,6 +12,7 @@ module MultiDataset
     get_all_field_info
     get_all_searchable_fields
     get_all_truncated_fields
+    dataspecs_by_name
   end
 
   # Saves all dataspec values in @dataspecs
@@ -31,6 +32,21 @@ module MultiDataset
     @models.each_with_index do |model, index|
       dataspec = @dataspecs[index]
       yield(dataspec, model)
+    end
+  end
+
+  # Gets the correct model
+  def get_model(index_name)
+    run_all do |dataspec, model|
+      return model if dataspec.index_name == index_name
+    end
+  end
+
+  # Get all index names
+  def dataspecs_by_name
+    @dataspecs_index_name = Hash.new
+    run_all do |dataspec, model|
+      @dataspecs_index_name[dataspec.index_name] = dataspec
     end
   end
 

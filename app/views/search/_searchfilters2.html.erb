@@ -1,0 +1,16 @@
+<%= render_filters %>
+<% params.except("utf8", "action", "controller", "page").each do |k, v| %>
+  <% if k.include? "_facet" %>
+    <% if v.is_a?(Array) %>
+        <% v.each do |v1| %>
+         <%= raw(removeFormat(getHR(k.gsub("_facet", "")), k, v1, "filter")) %>
+	 <% end %>
+    <% else %>
+      <%= raw(removeFormat(getHR(k.gsub("_facet", "")), k, v, "filter")) %>
+    <% end %>
+  <% elsif k == "q" %>
+    <%= raw(removeFormat("All Fields", k, v, "search")) %>
+  <% elsif params[k] != "" %>
+    <%= raw(removeFormat(getHR(k), k, v, "search")) %>
+  <% end %>
+<% end %>

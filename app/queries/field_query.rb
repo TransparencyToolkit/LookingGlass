@@ -9,8 +9,9 @@ module FieldQuery
     elsif @fieldnames[0] != nil
       # Exclude fields that shouldn't be searchable from query
       #fields_to_search = @fieldnames[0] == "_all" ? @searchable_fields : @fieldnames[0]
-      fields_to_search = @fieldnames[0] == "_all" ? @all_searchable_fields : @fieldnames[0]
+      fields_to_search = @fieldnames[0] == "_all" ? @all_searchable_fields : [@fieldnames[0]]
       
+      # FIX GET TYPE
       queryhash = {
         simple_query_string: {
           query: @input[:searchterm],

@@ -1,4 +1,29 @@
 module SearchedFormat
+  # Renders the filters for the dataspec
+  def render_filters
+    params.except("utf8", "action", "controller", "page").each do |k, v|
+      # For facet params
+      if k.include?("_facet")
+        # ADD FACET PROCESSING
+      # For search all
+      elsif k == "q"
+        return raw(removeFormat("All Fields", k, v, "search"))
+      # For a specific non-empty search term
+      elsif params[k] != ""
+        return raw(process_searchfield_filter(params, k, v))
+      end
+    end
+  end
+
+  # Generates filter for search by field
+  def process_searchfield_filter(params, k, v)
+    param_item, dataspec = get_search_param(params)
+    field_key = param_item.keys.first
+    dataset_name = dataspec.dataset_name
+    hrname = getHR(field_key, dataspec)+" ("+dataset_name+")"
+    return removeFormat(hrname, k, v, "search")
+  end
+  
   # Formats the x link for search terms (link removes term from search) 
   def removeFormat(hrname, k, v, type)
     outstr = '<div class="search-filter">'

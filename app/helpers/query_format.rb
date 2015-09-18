@@ -11,7 +11,7 @@ module QueryFormat
 
       # If display type matches, add html
       if match_type.include?(f["Display Type"])
-        outhtml += genOptionHtml(f)
+        outhtml += genOptionHtml(f, dataspec.index_name)
       end
     end
 
@@ -27,7 +27,6 @@ module QueryFormat
     
     # Gen search form (all for all datasets)
     run_all do |dataspec, model|
-      # FIX TO MAKE RIGHT NAME- ADD ATTR
       outhtml = outhtml + '<optgroup label="'+dataspec.dataset_name+'">'
       outhtml += group_by_type(dataspec)
       outhtml += '</optgroup>'
@@ -38,7 +37,7 @@ module QueryFormat
 
   # Groups fields by type
   def group_by_type(dataspec)
-    outhtml = '<option data-type="all" value="all">'+'All '+dataspec.dataset_name+'</option>'
+    outhtml = '<option data-type="all" value="all_sindex_'+dataspec.index_name+'">'+'All '+dataspec.dataset_name+'</option>'
     outhtml = outhtml + '<optgroup label="Text">'+
               raw(matchFieldTypes(["Title", "Description", "Short Text", "Medium Text", "Long Text"], dataspec)) + '</optgroup>'
     outhtml = outhtml + '<optgroup label="Date">'+ raw(matchFieldTypes(["Date"], dataspec))+ '</optgroup>'
@@ -46,7 +45,8 @@ module QueryFormat
   end
   
   # Generate html for the matching option
-  def genOptionHtml(f)
-     return '<option data-type="' + f["Type"] + '"  value="' + f["Field Name"] + '">' + f["Human Readable Name"] + '</option>'
+  def genOptionHtml(f, index)
+    return '<option data-type="' + f["Type"] +
+           '"  value="' + f["Field Name"] + '_sindex_'+index+'">' + f["Human Readable Name"] + '</option>'
   end
 end
