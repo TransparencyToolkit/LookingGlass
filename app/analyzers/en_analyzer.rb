@@ -1,8 +1,12 @@
 module ENAnalyzer
-  extend IndexMethods
+  extend MultiDataset
   
   def self.analyzerSettings
-    loadDataspec
+    # Load dataspecs but don't load all- that ends in an infinite loop
+    @instance = InstanceSpec.new
+    loadAllDatasets
+
+    # Settings
     return {
       index: {
         analysis: {
@@ -21,7 +25,7 @@ module ENAnalyzer
             },
             synonyms: {
               type: 'synonym',
-              synonyms: File.read(@synonym_list).split("\n")
+              synonyms: File.read(@dataspecs[0].synonym_list).split("\n")
             }
           },       
           analyzer: {

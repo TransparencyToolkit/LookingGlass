@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   # Load all datasets at runtime
   extend MultiDataset
-  loadAllDatasets
-  create_all_models
+  extend FacetsQuery
+  load_everything
   
   get 'search', to: 'search#index'
   get 'docs/makedocview', to: 'docs#makedocview'

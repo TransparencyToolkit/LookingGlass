@@ -1,13 +1,15 @@
 module MultiDataset
   include MiscProcess
+  include GeneralUtils
 
   # Load everything
   def load_everything
     # Load dataspecs and create models
+    @instance = InstanceSpec.new
     loadAllDatasets
     create_all_models
 
-    # Load general vars
+    # Load general vars (mult datasets grouped)
     get_all_facets
     get_all_field_info
     get_all_searchable_fields
@@ -17,12 +19,10 @@ module MultiDataset
 
   # Saves all dataspec values in @dataspecs
   def loadAllDatasets
-    # Load dataspec paths
-    dataspec_paths = JSON.parse(File.read("app/dataspec/importer.json"))[0]["Dataset Config"]
     @dataspecs = Array.new
 
     # Load all dataspecs into array
-    dataspec_paths.each do |dataspec_dir|
+    @instance.dataspec_paths.each do |dataspec_dir|
       @dataspecs.push(DataspecContent.new(dataspec_dir))
     end
   end

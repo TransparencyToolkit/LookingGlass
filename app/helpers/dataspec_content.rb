@@ -16,9 +16,6 @@ class DataspecContent
   # attach_config.json
   attr_reader :pdf_tab, :attach_prefix, :attach_attr, :web_tab, :web_url, :image_prefix
 
-  # site_config.json
-  attr_reader :site_config, :search_title
-  
   def initialize(config_dir)
     @config_dir = config_dir
     loadDataspec
@@ -31,7 +28,6 @@ class DataspecContent
     getDatasetDetails
     getImportConfig
     getAttachConfig
-    getSiteConfig
   end
 
   # Gets the details for each field
@@ -85,11 +81,5 @@ class DataspecContent
     @web_tab = attach_config["Show Webpage?"]
     @web_url = attach_config["Web URL"]
     @image_prefix = attach_config["Image Path Prefix"]
-  end
-
-  # Get site config (logo, name, info urls)
-  def getSiteConfig
-    @site_config = JSON.parse(File.read(@config_dir+"site_config.json"))
-    @search_title = @site_config["Search Title"]
   end
 end

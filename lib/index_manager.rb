@@ -2,7 +2,6 @@ require 'open-uri'
 require 'pry'
 require 'datapackage.rb'
 load 'generate_id.rb'
-load 'index_methods.rb'
 load 'date_funcs.rb'
 load 'misc_process.rb'
 load 'deduplicate_data.rb'
@@ -11,7 +10,6 @@ load 'import_support.rb'
 load 'multi_dataset.rb'
 
 class IndexManager
-  extend IndexMethods
   include ENAnalyzer
   extend GenerateId
   extend DateFuncs
@@ -21,6 +19,7 @@ class IndexManager
   extend ImportSupport
   extend MultiDataset
   extend ClassGen
+  extend FacetsQuery
   include MiscProcess
   
   # Index creation
@@ -48,7 +47,7 @@ class IndexManager
   def self.import_data(options={})
     # Load all datasets and make indexes for them
     @importer = JSON.parse(File.read("app/dataspec/importer.json")).first
-    loadAllDatasets
+    load_everything
     
     @dataspecs.each do |dataspec|
       doc_class = create_index(dataspec, gen_class_name(dataspec), force: true)

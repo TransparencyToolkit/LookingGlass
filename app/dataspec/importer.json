@@ -1,5 +1,5 @@
 [
   {
-      "Dataset Config": ["app/dataspec/dataspec-indeed/", "app/dataspec/dataspec-icwatch/"]
+      "Instance Config": "app/dataspec/instances/test_config.json"
   }
 ]
