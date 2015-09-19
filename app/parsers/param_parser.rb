@@ -4,10 +4,24 @@ module ParamParser
   # Processes parameters for search query generation             
   def process_params
     processed_params = Hash.new
-    model_to_search = nil
-
-    if @params[:q] then processed_params = {field: "_all", searchterm: @params[:q]} # Search all fields     
-    else # For searching individual fields
+    model_to_search = @models
+    
+    # Search all fields
+    if @params[:q]
+      #processed_params = {field: "_all", searchterm: @params[:q]}
+      processed_params = search_all_fields(:q)
+      
+    # Search allfields on specific index
+    elsif params_include?("all_sindex_")
+      # Set processed params
+      processed_params = search_all_fields(get_param_includes("all_sindex_").to_sym)
+      
+      # Get dataspec and model for index
+      _, dataspec = get_search_param(@params)
+      model_to_search = [get_model(dataspec.index_name)]
+      
+    # Search individual fields
+    else
       # Get correct dataspec and item
       param_item, dataspec = get_search_param(@params)
 
@@ -19,6 +33,27 @@ module ParamParser
     return processed_params, model_to_search
   end
 
+  # Checks if any params include phrase
+  def params_include?(phrase)
+    @params.each do |param|
+      return true if param[0].include?(phrase)
+    end
+
+    return false
+  end
+
+  # Gets the param that includes the phrase
+  def get_param_includes(phrase)
+    @params.each do |param|
+      return param[0] if param[0].include?(phrase)
+    end
+  end
+
+  # Params for searching all fields (in any index)
+  def search_all_fields(field)
+    return {field: "_all", searchterm: @params[field]}
+  end
+  
   # Finds params that match for a given dataspec
   def find_field_param_match(param_item, dataspec)
     dataspec.searchable_fields.each do |field|
@@ -54,6 +89,6 @@ module ParamParser
     end
     
     # Return params and model to search
-    return processed_params, get_model(dataspec.index_name)
+    return processed_params, [get_model(dataspec.index_name)]
   end
 end

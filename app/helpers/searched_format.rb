@@ -8,11 +8,24 @@ module SearchedFormat
       # For search all
       elsif k == "q"
         return raw(removeFormat("All Fields", k, v, "search"))
+        
+      # Search all in particular index
+      elsif k.include?("all_sindex_")
+        return raw(process_allforindex_filter(params, k, v))
+        
       # For a specific non-empty search term
       elsif params[k] != ""
         return raw(process_searchfield_filter(params, k, v))
       end
     end
+  end
+
+  # Processes the filter for the index
+  def process_allforindex_filter(params, k, v)
+    _, dataspec = get_search_param(params)
+    dataset_name = dataspec.dataset_name
+    hrname = "All " + dataset_name
+    return removeFormat(hrname, k, v, "search")
   end
 
   # Generates filter for search by field

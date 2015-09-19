@@ -15,7 +15,7 @@ class SearchQuery
   # Calls methods to process params and put together query
   def build_query
     # Initial processing of query and facet parameters
-    @input, @model_to_search = process_params                                
+    @input, @model_to_search = process_params
     @filter_by = @params.select { |i| i.include? "_facet" }
     
     @fieldnames = [@input[:field]]
@@ -35,7 +35,7 @@ class SearchQuery
     query = {from: @start, size: 30, query: fullhash, facets: fieldhash,
                highlight: { pre_tags: ["<b>"], post_tags: ["</b>"], fields: highlighthash}}
     
-    return query
+    return query, @model_to_search
   end
 
 

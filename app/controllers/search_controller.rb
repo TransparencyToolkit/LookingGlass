@@ -10,11 +10,10 @@ class SearchController < ApplicationController
     # Pass params to SearchQuery model (which builds query and gets results)
     params.delete_if { |k, v| v.empty? }
     s = SearchQuery.new(params, start)
-    query = s.build_query
-
-    # THIS ONLY WORKS FOR ALL SEARCH
-    @docs = Elasticsearch::Model.search(query, @models)
-   # @docs = Doc.search(query) # FIGUREOUT WHAT THIS DOES
+    query, model_to_search = s.build_query
+    
+    # Searches the specified models with query input
+    @docs = Elasticsearch::Model.search(query, model_to_search) 
     @facets = @docs.response["facets"]
     
     @pagination = WillPaginate::Collection.create(pagenum, 30, @docs.response.hits.total) do |pager|
