@@ -28,7 +28,7 @@ module ParamParser
       # Get params and model to search
       processed_params, model_to_search = find_field_param_match(param_item, dataspec)
     end
-
+    
     processed_params == {} if processed_params.empty?
     return processed_params, model_to_search
   end
