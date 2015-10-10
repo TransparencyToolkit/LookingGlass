@@ -18,20 +18,21 @@ $(document).ready(function() {
       var this_spec = _.findWhere(dataspec, { 'index_name': selected_parts[1] })
       var item = _.findWhere(this_spec.field_info_sorted, { 'Field Name' : selected_parts[0]});
     }
+
     // Modify Fields
     if (type === 'date') {
 
       $('#search-date-start')
-        .attr('name', item['Form Params'][0])
+        .attr('name', 'startrange_' + value)
       $('#search-date-end')
-        .attr('name', item['Form Params'][1])
+        .attr('name', 'endrange_' + value)
 
     }
     else if (type === 'string') {
 
       $('#form-search-' + type)
         .find('input[type=text]')
-        .attr('name', item['Form Params'])
+        .attr('name', value)
         .attr('placeholder', 'Search ' + item['Human Readable Name'])
 
       // Style & Fill Form Field
@@ -39,12 +40,12 @@ $(document).ready(function() {
 
       if (search_query[value] !== undefined) {
         form_field
-          .attr('name', item['Form Params'])
+          .attr('name', value)
           .attr('placeholder', 'Search ' + item['Human Readable Name'])
           .val(search_query[value] + ' ')
       } else {
         form_field
-          .attr('name', item['Form Params'])
+          .attr('name', value)
           .attr('placeholder', 'Search ' + item['Human Readable Name'])
           .val('')
       }
