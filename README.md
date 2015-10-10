@@ -9,20 +9,28 @@ Search, filter, and browse any JSON data. Includes full text, categorical data, 
 		- Go install [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) using homebrew `brew install elasticsearch`
 		- Install [RubyOnRails](http://rubyonrails.org/download/) by typing `gem install rails`
 	- On Debian / Ubuntu
-		- Install Elasticsearch `sudo apt-get install elasticsearch` 
+		- Install Elasticsearch `sudo apt-get install elasticsearch`
 	- On Fedora
 	- 	- Install Elasticsearch via the [Fedora Yum instructions](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
 	- 	- Install dependencies  `sudo yum install make automake gcc gcc-c++ kernel-devel ruby-devel rubygem-railties`
-- Clone repo `git clone git@github.com:TransparencyToolkit/LookingGlass.git`
+- Clone repo `git clone --recursive git@github.com:TransparencyToolkit/LookingGlass.git`
 - Then cd into directory `cd LookingGlass`
-- Install dependencies `bundle install`
-- Generate simple form data `rails generate simple_form:install` 
-- Browse to dataspec directory `cd app/dataspec/`
-- Copy importer for example data `cp example_importers/lidata_importer.json importer.json`
-- In the main directory, make and load the data_packages dir
-    - mkdir data_packages
-    - cd data_packages
-    - git clone https://github.com/TransparencyToolkit/month-names.git
+- Install Ruby dependencies `bundle install`
+- Generate simple form data `rails generate simple_form:install`
+
+## Configuring
+
+- Browse to the dataspec directory `cd app/dataspec/`
+- Copy the example config file `instances/example-config.json` to `instances/your-config.json`
+- Add any additional dataspec files to `your-config.json` file by adding to `Dataset Config` array
+- Edit `importer.json` attribute `Instance Config` to your config `app/dataspec/instances/your-config.json`
+
+You might want do add custom data related things to your instance as well. LookingGlass use [datapackages](https://data.okfn.org) for this goal such as `month-names` for internationalization!
+
+- Add any additional data packages to the `data_packages` directory
+    - `cd data_packages`
+    - git clone https://github.com/you/datapackage.git
+
 
 **For Running In Production**
 - Compile your assets `rake assets:precompile`
@@ -47,64 +55,6 @@ it is used/where it should show up.
 3. `hidecolumns.json` The indices of the columns to hide by default in the table.
 
 
-### Example DataSpec File
-
-
-```
-{
-  "Field Name": "title",
-  "Human Readable Name": "Title",
-  "Type": "String",
-  "Display Type": "Title",
-  "Mapping": "english",
-  "Facet?": "No",
-  "In Table?": "Yes",
-  "Show by default in table?": "Yes",
-  "Searchable?": "Yes",
-  "In doc?": "Yes",
-  "Form Params": "title",
-  "Size": "1000",
-  "Location": "0",
-  "Link": "single",
-  "Item_Field": "No",
-  "Icon": ""
-},{
-  "Field Name": "description",
-  "Human Readable Name": "Description",
-  "Type": "String",
-  "Display Type": "Short Text",
-  "Mapping": "english",
-  "Facet?": "No",
-  "In Table?": "Yes",
-  "Show by default in table?": "Yes",
-  "Searchable?": "Yes",
-  "In doc?": "Yes",
-  "Form Params": "description",
-  "Size": "1000",
-  "Location": "1",
-  "Item_Field": "No",
-  "Icon": ""
-},{
-  "Field Name": "document_date",
-  "Human Readable Name": "Document Date",
-  "Type": "Date",
-  "Display Type": "date",
-  "Mapping": "not_analyzed",
-  "Facet?": "No",
-  "In Table?": "Yes",
-  "Show by default in table?": "No",
-  "Searchable?": "Yes",
-  "In doc?": "Yes",
-  "Form Params": [
-    "document_date",
-    "end_document_date"
-  ],
-  "Size": "1000",
-  "Location": "5",
-  "Item_Field": "No",
-  "Icon": ""
-}
-```
 
 #### The "Display Type" field
 
