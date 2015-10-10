@@ -1,0 +1,10 @@
+[submodule "month-names"]
+	path = data_packages/month-names
+	url = https://github.com/TransparencyToolkit/month-names
+[submodule "dataspec-linkedin"]
+	path = app/dataspec/dataspec-linkedin
+	url = https://github.com/TransparencyToolkit/dataspec-linkedin
+[submodule "dataspec-linkedin"]
+	path = app/dataspec/dataspec-indeed
+	url = https://github.com/TransparencyToolkit/dataspec-indeed
+
