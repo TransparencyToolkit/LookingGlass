@@ -8,10 +8,8 @@ module FieldQuery
     # If searching by any other field
     elsif @fieldnames[0] != nil
       # Exclude fields that shouldn't be searchable from query
-      #fields_to_search = @fieldnames[0] == "_all" ? @searchable_fields : @fieldnames[0]
       fields_to_search = @fieldnames[0] == "_all" ? @all_searchable_fields : [@fieldnames[0]]
       
-      # FIX GET TYPE
       queryhash = {
         simple_query_string: {
           query: @input[:searchterm],
@@ -29,9 +27,9 @@ module FieldQuery
   # Gets the type of a field                                                                             
   def get_field_type
     field_type = ""
-    
-    @all_field_info.each do |f|
-      # FIX TO LOOK AT JUST FOR SPECIFIC INDEX
+
+    # Go through only the appropriate fields for query
+    use_all_or_some("field_info", @all_field_info).each do |f|
       if @input[:field].to_s == f["Field Name"]
         field_type = f["Type"]
       end

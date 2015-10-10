@@ -35,6 +35,15 @@ module MultiDataset
     end
   end
 
+  # Get an attribute from a particular dataspec or fall back to all
+  def use_all_or_some(check_field, all_field)
+    if @dataspec_to_search
+      return eval "@dataspec_to_search.#{check_field}"
+    else
+      return all_field
+    end
+  end
+
   # Gets the correct model
   def get_model(index_name)
     run_all do |dataspec, model|

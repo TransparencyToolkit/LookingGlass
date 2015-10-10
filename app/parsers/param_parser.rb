@@ -16,26 +16,26 @@ module ParamParser
       processed_params = search_all_fields(get_param_includes("all_sindex_").to_sym)
       
       # Get dataspec and model for index
-      _, dataspec = get_search_param(@params)
-      model_to_search = [get_model(dataspec.index_name)]
+      _, dataspec_to_search = get_search_param(@params)
+      model_to_search = [get_model(dataspec_to_search.index_name)]
 
     # Search date params
     elsif params_include?("startrange_") || params_include?("endrange_") 
-      dataspec, processed_params = process_date_params
-      model_to_search = [get_model(dataspec.index_name)]
+      dataspec_to_search, processed_params = process_date_params
+      model_to_search = [get_model(dataspec_to_search.index_name)]
       
       
     # Search individual fields
     else
       # Get correct dataspec and item
-      param_item, dataspec = get_search_param(@params)
+      param_item, dataspec_to_search = get_search_param(@params)
       
       # Get params and model to search
-      processed_params, model_to_search = find_field_param_match(param_item, dataspec)
+      processed_params, model_to_search = find_field_param_match(param_item, dataspec_to_search)
     end
     
     processed_params == {} if processed_params.empty?
-    return processed_params, model_to_search
+    return processed_params, model_to_search, dataspec_to_search
   end
 
   # Checks if any params include a particular phrase
