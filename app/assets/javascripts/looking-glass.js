@@ -14,16 +14,21 @@ $(document).ready(function() {
 
     // Get Item
     if (type !== 'all') {
-      var item = _.findWhere(dataspec, { 'Field Name' : value});
+      var selected_parts = value.split('_sindex_')
+      var this_spec = _.findWhere(dataspec, { 'index_name': selected_parts[1] })
+      var item = _.findWhere(this_spec.field_info_sorted, { 'Field Name' : selected_parts[0]});
     }
-
     // Modify Fields
     if (type === 'date') {
+
       $('#search-date-start')
         .attr('name', item['Form Params'][0])
       $('#search-date-end')
         .attr('name', item['Form Params'][1])
-    } else if (type === 'string'){
+
+    }
+    else if (type === 'string') {
+
       $('#form-search-' + type)
         .find('input[type=text]')
         .attr('name', item['Form Params'])
@@ -43,6 +48,7 @@ $(document).ready(function() {
           .attr('placeholder', 'Search ' + item['Human Readable Name'])
           .val('')
       }
+
     }
 
     // Show Form
@@ -65,7 +71,7 @@ $(document).ready(function() {
       $('#maincontent').find('.nav-pills').append('<li id="li' + new_tab_id + '">\
         <a href="#' + new_tab_id + '" data-toggle="tab"> Article #' + $(this).data('index') + '</a>\
       </li>');
-  
+
       $('#maincontent').find('.tab-content').append('<div class="tab-pane" id="' + new_tab_id + '">\
         <iframe class="show-iframe" src="' + $(this).attr('href') + '" width="100%" height="700" sandbox="allow-same-origin"></iframe>\
       </div>');
