@@ -2,6 +2,8 @@ module ENAnalyzer
   extend MultiDataset
   
   def self.analyzerSettings
+    # Current LIMITATION: Takes synonym list from first dataspec- maybe pass in dataspec instead?
+    
     # Load dataspecs but don't load all- that ends in an infinite loop
     @instance = InstanceSpec.new
     loadAllDatasets

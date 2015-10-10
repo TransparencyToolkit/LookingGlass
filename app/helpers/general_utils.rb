@@ -23,6 +23,15 @@ module GeneralUtils
     end
   end
 
+  # Gets the index and field name for date param
+  def get_date_index(key)
+    key, index = key.split("_sindex_")
+    dataspec = @dataspecs_index_name[index]
+    fieldname = key.split("range_")[1]
+
+    return fieldname, dataspec
+  end
+
   # Checks params for form params of all types
   def paramMatch?(pl_item, compare)
     form_params = pl_item["Form Params"]

@@ -8,7 +8,6 @@ module ParamParser
     
     # Search all fields
     if @params[:q]
-      #processed_params = {field: "_all", searchterm: @params[:q]}
       processed_params = search_all_fields(:q)
       
     # Search allfields on specific index
@@ -17,23 +16,29 @@ module ParamParser
       processed_params = search_all_fields(get_param_includes("all_sindex_").to_sym)
       
       # Get dataspec and model for index
-      _, dataspec = get_search_param(@params)
-      model_to_search = [get_model(dataspec.index_name)]
+      _, dataspec_to_search = get_search_param(@params)
+      model_to_search = [get_model(dataspec_to_search.index_name)]
+
+    # Search date params
+    elsif params_include?("startrange_") || params_include?("endrange_") 
+      dataspec_to_search, processed_params = process_date_params
+      model_to_search = [get_model(dataspec_to_search.index_name)]
+      
       
     # Search individual fields
     else
       # Get correct dataspec and item
-      param_item, dataspec = get_search_param(@params)
-
+      param_item, dataspec_to_search = get_search_param(@params)
+      
       # Get params and model to search
-      processed_params, model_to_search = find_field_param_match(param_item, dataspec)
+      processed_params, model_to_search = find_field_param_match(param_item, dataspec_to_search)
     end
     
     processed_params == {} if processed_params.empty?
-    return processed_params, model_to_search
+    return processed_params, model_to_search, dataspec_to_search
   end
 
-  # Checks if any params include phrase
+  # Checks if any params include a particular phrase
   def params_include?(phrase)
     @params.each do |param|
       return true if param[0].include?(phrase)
@@ -42,14 +47,14 @@ module ParamParser
     return false
   end
 
-  # Gets the param that includes the phrase
+  # Gets the first param that includes the phrase
   def get_param_includes(phrase)
     @params.each do |param|
       return param[0] if param[0].include?(phrase)
     end
   end
 
-  # Params for searching all fields (in any index)
+  # Sets field and searchterm for searching all fields, all indexes
   def search_all_fields(field)
     return {field: "_all", searchterm: @params[field]}
   end
@@ -78,7 +83,7 @@ module ParamParser
 
     # Check if it is a date and handle input differently if so      
     if item_info["Type"] == "Date"
-      processed_params = process_date_params(fieldname, item_info)
+      processed_params = process_date_params(fieldname, item_info, @params)
 
     # If not a date                                                              
     else
