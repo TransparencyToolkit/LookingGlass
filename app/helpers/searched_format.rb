@@ -1,23 +1,32 @@
 module SearchedFormat
   # Renders the filters for the dataspec
   def render_filters
+    outhtml = ""
+
+    # Go through and add to output
     params.except("utf8", "action", "controller", "page").each do |k, v|
       # For facet params
       if k.include?("_facet")
         # ADD FACET PROCESSING
       # For search all
       elsif k == "q"
-        return raw(removeFormat("All Fields", k, v, "search"))
+        outhtml += removeFormat("All Fields", k, v, "search")
         
       # Search all in particular index
       elsif k.include?("all_sindex_")
-        return raw(process_allforindex_filter(params, k, v))
-        
+        outhtml += process_allforindex_filter(params, k, v)
+
+      # Check if it is a date
+      elsif k.include?("startrange_") || k.include?("endrange_")
+        outhtml += process_datefield_filter(k,v)
+  
       # For a specific non-empty search term
       elsif params[k] != ""
-        return raw(process_searchfield_filter(params, k, v))
+        outhtml += process_searchfield_filter(params, k, v)
       end
     end
+
+    return raw(outhtml)
   end
 
   # Processes the filter for the index
@@ -26,6 +35,23 @@ module SearchedFormat
     dataset_name = dataspec.dataset_name
     hrname = "All " + dataset_name
     return removeFormat(hrname, k, v, "search")
+  end
+
+  # Generates filter for date field queries
+  def process_datefield_filter(k, v)
+    param_item, dataspec = get_date_index(k)
+    dataset_name = dataspec.dataset_name
+    hrname = getHR(param_item, dataspec)+" "+ check_start_or_end(k)+" ("+dataset_name+")"
+    return removeFormat(hrname, k, v, "search")
+  end
+
+  # Checks if it is the start or end date of range
+  def check_start_or_end(k)
+    if k.include?("startrange_")
+      return "Later Than"
+    elsif k.include?("endrange_")
+      return "Earlier Than"
+    end
   end
 
   # Generates filter for search by field

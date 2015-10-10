@@ -31,7 +31,7 @@ module FieldQuery
     field_type = ""
     
     @all_field_info.each do |f|
-    #@field_info.each do |f|
+      # FIX TO LOOK AT JUST FOR SPECIFIC INDEX
       if @input[:field].to_s == f["Field Name"]
         field_type = f["Type"]
       end
