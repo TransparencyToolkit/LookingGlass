@@ -1,4 +1,7 @@
 <div class="search-item"  id='<%= doc["_id"] %>' doctitle='<%= doc["_source"].title %>'>
+
+  <h4><%= get_dataspec(doc).dataset_name %></h4>
+
   <div class="hide"><%= doc["_score"] %></div>
 
   <h3 class="title"><%= showByType("Title", doc["_source"], doc, false) %></h3>
@@ -6,13 +9,13 @@
   <div class="pictures"><%= showByType("Picture", doc["_source"], doc, false) %></div>
 
   <h4 class="title-sub"><%= showByType("Short Text", doc["_source"], doc, false) %></h4>
- 
+
   <%= showByType("Date", doc["_source"], doc, false) %>
 
   <div class="row">
     <div class="col-md-6 description">
       <%= showByType("Description", doc["_source"], doc, false) %>
-    </div> 
+    </div>
     <div class="col-md-6 doc_text">
       <%= showByType("Long Text", doc["_source"], doc, false)  %>
     </div>
@@ -33,12 +36,12 @@
 
   <%= showByType("Date", item, doc, true) %>
 
-  
+
   <div class="row">
       <div class="col-md-6 description">
 	<%= showByType("Description", item, doc, true) %>
       </div>
-      
+
       <div class="col-md-6 doc_text">
 	<%= showByType("Long Text", item, doc, true) %>
       </div>
