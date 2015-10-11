@@ -409,10 +409,10 @@ body {
   div.search-item h3.title a b,
   div.search-item div.description b,
   div.search-item div.doc_text b {
-    background: $brand-warning;
+    background: $lg-search-item-highlight-background;
     padding: 2px;
     border-radius: 3px;
-    color: $gray-darker;
+    color: $lg-search-item-highlight-color;
   }
 
   div.search-item div.pictures {
