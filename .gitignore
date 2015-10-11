@@ -7,5 +7,8 @@ config/initializers/simple_form.rb
 config/locales/simple_form.en.yml
 lib/templates/
 /public/assets/
-/app/dataspec/
-/data_packages/*
+app/dataspec/*
+!app/dataspec/dataspec-linkedin
+!app/dataspec/dataspec-indeed
+data_packages/*
+!data_packages/month-names
