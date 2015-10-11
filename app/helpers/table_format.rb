@@ -47,12 +47,12 @@ module TableFormat
     # Return link
     return link_to(facet_name, search_path((field_name+"_facet").to_sym => field_vals))
   end
-  
+
   # Display the item in the appropriate way for the display type
   def showByType(display_type, doc, full_doc, is_item_field)
     output = ""
     dataspec = get_dataspec(full_doc)
-    
+
     tableItems(dataspec).each do |t|
       # Get fields of appropriate display and item field type
       if (t["Display Type"] == display_type) && (is_item_field == dataspec.item_fields.include?(t["Field Name"]))
@@ -100,12 +100,12 @@ module TableFormat
   def pictureView(t, doc)
     return '<img src="'+doc[t["Field Name"]]+'" class="picture"></img>'
   end
-  
+
   # Prepares date view
   def dateView(t, doc)
     return '<span class="date">'+ t["Human Readable Name"]+ ': <span class="list_date">'+doc[t["Field Name"]]+'</span></span>'
   end
-  
+
   # Prepares title view
   def titleView(t, doc, full_doc)
     return link_to(getText(doc, t["Field Name"], full_doc), doc_path(full_doc["_id"]), class: "list_title", target: "_blank")
@@ -125,9 +125,9 @@ module TableFormat
   def categoryView(t, doc, dataspec, full_doc)
     # Get list of categories that are highlighted (and highlighted section)
     highlighted_categories = get_highlighted_categories(full_doc, t["Field Name"])
-    
+
     output = ''
-    
+
     if dataspec.facet_fields.include?(t["Field Name"])
       # Gen all links
       facet_links = linkedFacets(doc[t["Field Name"]], t["Field Name"], highlighted_categories)
@@ -144,7 +144,7 @@ module TableFormat
   # Gets list of the highlighted categories
   def get_highlighted_categories(full_doc, fieldname)
     highlightlist = Hash.new
-    
+
     if isHighlighted?(full_doc, fieldname)
       full_doc["highlight"][fieldname].each do |field|
         highlightlist[ActionView::Base.full_sanitizer.sanitize(field)] = field
@@ -153,16 +153,16 @@ module TableFormat
 
     return highlightlist
   end
-  
+
   # Format and return the facet
   def facetPrepare(t, facet_links)
-    return '<div class="facet'+ t["Field Name"] +'">'+ image_tag(t["Icon"]+"-24.png") + facet_links +' </div>'
+    return '<div class="facet ' + t["Field Name"] + ' ">'+ image_tag(t["Icon"] + '-24.png') + facet_links +' </div>'
   end
 
   # Get list of fields in results and their names
   def tableItems(dataspec)
     itemarr = Array.new
-    
+
     # Get list of all fields in results
     sortFields(dataspec.fields_in_results, @all_field_info).each do |i|
       # Get details (HR name, field name, etc) for field
