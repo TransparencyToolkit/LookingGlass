@@ -9,7 +9,7 @@ module ImportSupport
     createFromFile(JSON.parse(File.read(dataspec.data_path), symbolize_names: true), dataspec)
   end
 
-  
+
   # Get dataset name (file name) - for import from dir
   def getDatasetName(file)
     return file.split("/").last.gsub("_", " ").gsub(".json", "")
@@ -47,13 +47,13 @@ module ImportSupport
   def getDatasource(dataspec, i)
     return dataspec.index_name.gsub("_", " ").capitalize
   end
-  
+
   # Handles the processing of each item in a file in a directory import
   def importFileInDir(file, dataspec, doc_class)
     # Get dataset name and categories
     dataset_name = getDatasetName(file)
     categories = getNameCategories(file, dataset_name, dataspec)
-    
+
     # Append categories to items and create
     appendCategories(openFile(file), dataset_name, categories, dataspec, doc_class)
   end

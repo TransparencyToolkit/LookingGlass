@@ -21,19 +21,19 @@ class IndexManager
   extend ClassGen
   extend FacetsQuery
   include MiscProcess
-  
+
   # Index creation
   def self.create_index(dataspec, model_name, options={})
     # Make client, get settings, set name
     doc_class = ClassGen.gen_class(model_name, dataspec)
     client = doc_class.gateway.client
-    
+
     # Delete index if it already exists
     client.indices.delete index: dataspec.index_name rescue nil if options[:force]
-    
+
     settings = ENAnalyzer.analyzerSettings
     mappings = doc_class.mappings.to_hash
-    
+
     # Create index with appropriate settings and mappings
     client.indices.create index: dataspec.index_name,
     body: {
@@ -48,10 +48,10 @@ class IndexManager
     # Load all datasets and make indexes for them
     @importer = JSON.parse(File.read("app/dataspec/importer.json")).first
     load_everything
-    
+
     @dataspecs.each do |dataspec|
       doc_class = create_index(dataspec, gen_class_name(dataspec), force: true)
-    
+
       # Import from file, link, or dir
       case dataspec.data_path_type
       when "File"
@@ -71,4 +71,3 @@ class IndexManager
     end
   end
 end
-
