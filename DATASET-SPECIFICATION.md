@@ -47,6 +47,22 @@ which show up on the page for an individual document.
 A list of fields in the dataset with their data type, human readable name, order they should show up in, icon for the
 field, and mapping details (for search).
 
+#### The "Display Type" field
+
+One of the more important fields in the dataspec is the `Display Type` field. This field informs the interface of where and how to display certain UI attributes used for ordering and filtering the datasets. The following are the **types** available.
+
+- **Title** - The main title on the search terms and the show page. Probably some shorter bit of text. Might be the link to the show page (though not sure if we should also have a more obvious link or not).
+- **Description** - Description has a special role like the title where it is shown at the top of the show page (but this might not appear in every dataset). Should be searchable.
+- **Short Text** - One line or name length text that isn't a category. It should be possible to sort by Short and titles.
+- **Medium Text** - Like the description, but treated like a normal searchable field. Medium-length text should not be truncated.
+- **Long Text** - For even longer versions of text such as document. This is truncated in the search results/
+- **Category** - Facets. These appear on the sidebar in the results and show view and are links in the results.
+- **Date** - Dates. It's possible to filter by these and should be possible to sort by these. These might show up towards the top of search results.
+- **Numerical** - For various number fields that are *not* date values (population, money, etc...). Date fields are sortable.
+- **Picture** - A small picture. This probably shows up towards the top of
+search results and show pages.
+- **Link** - A link to document itself?
+
 ### import_config.json
 
 Specifies what field(s) to use as an ID in the URLs for individual documents, which fields to ignore when deduplicating
