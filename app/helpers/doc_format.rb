@@ -34,7 +34,7 @@ module DocFormat
   # Prints the sidebar item
   def printSidebarItem(f, doc)
     if !doc[f["Field Name"]].empty?
-      return '<p>'+prepareIcon(f)+prepareFieldName(f)+linkedFacets(doc[f["Field Name"]], f["Field Name"])+'</p>'
+      return '<p>'+prepareIcon(f)+prepareFieldName(f)+linkedFacets(doc[f["Field Name"]], f["Field Name"], {})+'</p>'
     end
   end
 

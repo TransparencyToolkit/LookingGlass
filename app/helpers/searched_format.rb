@@ -7,7 +7,8 @@ module SearchedFormat
     params.except("utf8", "action", "controller", "page").each do |k, v|
       # For facet params
       if k.include?("_facet")
-        # ADD FACET PROCESSING
+        outhtml += process_facet_field(params, k, v)
+        
       # For search all
       elsif k == "q"
         outhtml += removeFormat("All Fields", k, v, "search")
@@ -18,7 +19,7 @@ module SearchedFormat
 
       # Check if it is a date
       elsif k.include?("startrange_") || k.include?("endrange_")
-        outhtml += process_datefield_filter(k,v)
+        outhtml += process_datefield_filter(k, v)
   
       # For a specific non-empty search term
       elsif params[k] != ""
@@ -29,6 +30,31 @@ module SearchedFormat
     return raw(outhtml)
   end
 
+  # Generates remove links for facet fields
+  def process_facet_field(params, k, v)
+    outhtml = ""
+    
+    # Handle multiple sets of facets
+    if v.is_a?(Array)
+      v.each do |v1|
+        outhtml += removeFormat(get_facet_hrname(k), k, v1, "filter")
+      end
+    else
+      # Handle single facets
+      outhtml += removeFormat(get_facet_hrname(k), k, v, "filter")
+    end
+
+    return outhtml
+  end
+
+  def get_facet_hrname(k)
+    # Get field display details
+    field_spec = getFieldDetails(k.to_s.gsub("_facet", ""), @all_field_info)
+    
+    # Get facet hrname
+    return field_spec["Human Readable Name"]
+  end
+  
   # Processes the filter for the index
   def process_allforindex_filter(params, k, v)
     _, dataspec = get_search_param(params)
@@ -69,7 +95,7 @@ module SearchedFormat
     outstr += '<span class="filter">' + strip_tags(v) + '</span>'
     outstr += getRemoveLink(k, v)
     outstr += '<br>'
-    outstr += '<span class="category">' + hrname + "</span>"
+    outstr += '<span class="category">' + hrname + " ["+type+"] </span>"
     outstr += '</div>'
   end
 

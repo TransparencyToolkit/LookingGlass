@@ -21,7 +21,7 @@ module MiscProcess
   def make_facet_version(f, item, dataspec)
     if dataspec.facet_fields.include?(f["Field Name"])
       field_name = f["Field Name"]
-      facet_field_name = f["Field Name"]+"_analyzed"
+      facet_field_name = f["Field Name"]+"_facet"
 
       item[facet_field_name.to_sym] = item[set_name(field_name, item)]
     end

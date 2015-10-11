@@ -9,7 +9,7 @@ module ModelGen
 
       # If facet, make separate analyzed version.
       if dataspec.facet_fields.include?(f["Field Name"])
-        addToMapping(f, f["Field Name"]+"_analyzed", map)
+        addToMapping(f, f["Field Name"], map)
         duplicateUnanalyzedFacet(f)
       else # For non-facets
         addToMapping(f, f["Field Name"], map)
@@ -24,7 +24,7 @@ module ModelGen
 
   # Make a duplicate that isn't analyzed for facets
   def duplicateUnanalyzedFacet(f)
-    return attribute f["Field Name"].to_sym, f["Type"], mapping: {index: "not_analyzed", fielddata: {format: "doc_values"}}
+    return attribute (f["Field Name"]+"_facet").to_sym, f["Type"], mapping: {index: "not_analyzed", fielddata: {format: "doc_values"}}
   end
 
   # Generate mapping for particular field
