@@ -1,10 +1,12 @@
 <div class="search-item"  id='<%= doc["_id"] %>' doctitle='<%= doc["_source"].title %>'>
 
-  <h4><%= get_dataspec(doc).dataset_name %></h4>
-
   <div class="hide"><%= doc["_score"] %></div>
 
-  <h3 class="title"><%= showByType("Title", doc["_source"], doc, false) %></h3>
+  <h3 class="title pull-left"><%= showByType("Title", doc["_source"], doc, false) %></h3>
+  <div class="dataset-name pull-right">
+    <img src="/assets/source-<%= get_dataspec(doc).dataset_name %>-24.png"><%= get_dataspec(doc).dataset_name %>
+  </div>
+  <div class="clearfix"></div>
 
   <div class="pictures"><%= showByType("Picture", doc["_source"], doc, false) %></div>
 
