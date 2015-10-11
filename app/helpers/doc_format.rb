@@ -2,10 +2,14 @@ module DocFormat
   include TableFormat
 
   # Prints the fields in the sidebar or text
-  def printData(doc, print_conditions, print_type)
+  def printData(doc, print_conditions, print_type, dataspec, fields)
     output = ''
-    
-    @field_info_sorted.each do |f|
+
+    # Go through sorted list
+    sortFields(fields, dataspec.field_info).each do |field|
+      f = getFieldDetails(field, dataspec.field_info) # Full field details
+      
+      # Print if field it fulfills conditions
       if print_conditions.call(f, doc)
         case print_type
         when "fields"
@@ -30,13 +34,13 @@ module DocFormat
   # Prints the sidebar item
   def printSidebarItem(f, doc)
     if !doc[f["Field Name"]].empty?
-      return '<p>'+prepareIcon(f)+prepareFieldName(f)+linkedFacets(doc[f["Field Name"]], f["Field Name"])+'</p>'
+      return '<p>'+prepareIcon(f)+prepareFieldName(f)+linkedFacets(doc[f["Field Name"]], f["Field Name"], {})+'</p>'
     end
   end
 
   # Gets the first doc in list, useful for getting item fields
   def getFirstDoc
-    return @link_type["Link Type"] == "mult_items" ? @docs.first : @doc 
+    return @link_type["Link Type"] == "mult_items" ? @docs.first["_source"] : @doc 
   end
 
   # Prepare to print icon
@@ -52,8 +56,13 @@ module DocFormat
   # Sorts item field by creation date
   def item_field_sort(items, sort_field)
     return sorted = items.sort do |b, a|
-      a[sort_field] && b[sort_field] ? a[sort_field] <=> b[sort_field] : a[sort_field] ? -1 : 1
+      gf(a, sort_field) && gf(b, sort_field) ? gf(a, sort_field) <=> gf(b, sort_field) : gf(a, sort_field) ? -1 : 1
     end
+  end
+
+  # Gets the field with _source
+  def gf(item, field)
+    return item["_source"][field]
   end
 
   # Generate a link

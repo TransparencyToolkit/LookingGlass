@@ -17,17 +17,7 @@
       </div>
 
       <div id="search-result">
-      <% link_field = "" %>
-      <% item_fields = @item_fields %>
-      <% if item_fields # Check for duplicates on ID Field %>
-        <% genUniqueResults(@docs, item_fields, @id_field).each do |item| %>
-          <%= render partial: 'docs/list', locals: { doc: item[1], item_fields: item_fields } %>
-        <% end %>
-      <% else # Normal rendering (no Item Fields) %>
-        <% @docs.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |doc| %>
-          <%= render partial: 'docs/list', locals: { doc: doc } %>
-        <% end %>
-      <% end %>
+        <%= render partial: 'docs/showresults' %>
       </div>
 
       <div id="search-pagination">

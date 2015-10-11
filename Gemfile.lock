@@ -279,6 +279,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   datapackage
   elasticsearch!
+  elasticsearch-model
   elasticsearch-persistence!
   elasticsearch-rails!
   font-awesome-rails

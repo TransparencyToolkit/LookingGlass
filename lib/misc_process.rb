@@ -1,27 +1,31 @@
 module MiscProcess
+  # Generates properly formatted class name
+  def gen_class_name(dataspec)
+    return dataspec.index_name.split("_").map{ |c| c.capitalize}.join+"Doc"
+  end
+  
   # Adds the specified prefix to the images
-  def process_pic(f, item)
+  def process_pic(f, item, dataspec)
     if f["Field Name"] == "picture"
       pic_field = f["Field Name"]
 
-      if !@image_prefix.empty?
-        item[pic_field] = @image_prefix+item[pic_field].split("/").last
+      if !dataspec.image_prefix.empty?
+        item[pic_field] = dataspec.image_prefix+item[pic_field].split("/").last
       end
     end
 
     return item
   end
 
-
   # Creates a facet version with the same value for field
-  def make_facet_version(f, item)
-    if @facet_fields.include?(f["Field Name"])
+  def make_facet_version(f, item, dataspec)
+    if dataspec.facet_fields.include?(f["Field Name"])
       field_name = f["Field Name"]
-      facet_field_name = f["Field Name"]+"_analyzed"
+      facet_field_name = f["Field Name"]+"_facet"
 
-      item[facet_field_name.to_sym] = item[field_name.to_sym]
+      item[facet_field_name.to_sym] = item[set_name(field_name, item)]
     end
-
+    
     return item
   end
 

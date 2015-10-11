@@ -1,14 +1,30 @@
 module DateParser
   # Process parameters for date query into form needed for build_search_query
-  def process_date_params(fieldname, search_item)
-    start_date_val = @params[search_item["Form Params"][0]]
-    end_date_val = @params[search_item["Form Params"][1]]
+  def process_date_params
+    startrange, endrange, fieldname, dataspec = ""
 
-    return {
+    # Get the sart and end of range vals
+    @params.each do |key, value|
+      if key.include?("startrange_")
+        startrange = @params[key]
+        fieldname, dataspec = get_date_index(key)
+      elsif key.include?("endrange_")
+        endrange = @params[key]
+        fieldname, dataspec = get_date_index(key)
+      end
+    end
+   
+    # Return dataspec and date info
+    return dataspec, {
       field: fieldname,
-      start_date: start_date_val && !start_date_val.empty? ? parse_date(start_date_val) : "0001-01-01",
-      end_date: end_date_val && !end_date_val.empty? ? parse_date(end_date_val) : Time.now
+      start_date: handle_empty_dates(startrange, "0001-01-01"),
+      end_date: handle_empty_dates(endrange, Time.now)
     }
+  end
+
+  # Use default for empty dates
+  def handle_empty_dates(date, default)
+    date && !date.empty? ? parse_date(date) : default
   end
 
   # Convert date into appropriate format for elasticsearch

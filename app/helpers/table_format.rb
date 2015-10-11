@@ -1,3 +1,5 @@
+include MultiDataset
+
 module TableFormat
   # Checks if field is highlighted in restuls
   def isHighlighted?(doc, field)
@@ -19,38 +21,43 @@ module TableFormat
   end
 
   # Generates links to data filtered by facet val
-  def linkedFacets(field_vals, field_name)
+  def linkedFacets(field_vals, field_name, highlighted_categories)
     outstr = ""
 
     # Generate links for each value in list of facet vals
     if field_vals.is_a?(Array)
       field_vals.each do |i|
-        outstr += facetLinkGen(i, field_name)
+        outstr += facetLinkGen(i, field_name, highlighted_categories)
         outstr += ", " if i != field_vals.last
       end
     # For single values
     else
       if field_vals
-        outstr += facetLinkGen(field_vals, field_name)
+        outstr += facetLinkGen(field_vals, field_name, highlighted_categories)
       end
     end
     return outstr
   end
 
   # Generate facet link for category results
-  def facetLinkGen(field_vals, field_name)
-    return link_to(field_vals.strip, search_path((field_name+"_facet").to_sym => field_vals))
-  end
+  def facetLinkGen(field_vals, field_name, highlighted_categories)
+    # Bold category name if highlighted
+    facet_name = highlighted_categories[field_vals] ? raw(highlighted_categories[field_vals]) : field_vals.strip
 
+    # Return link
+    return link_to(facet_name, search_path((field_name+"_facet").to_sym => field_vals))
+  end
+  
   # Display the item in the appropriate way for the display type
   def showByType(display_type, doc, full_doc, is_item_field)
     output = ""
+    dataspec = get_dataspec(full_doc)
     
-    tableItems.each do |t|
+    tableItems(dataspec).each do |t|
       # Get fields of appropriate display and item field type
-      if (t["Display Type"] == display_type) && (is_item_field == @item_fields.include?(t["Field Name"]))
+      if (t["Display Type"] == display_type) && (is_item_field == dataspec.item_fields.include?(t["Field Name"]))
         # Get processed value and raw val
-        processed_value = processType(t, display_type, doc, full_doc)
+        processed_value = processType(t, display_type, doc, full_doc, dataspec)
         raw_value = doc[t["Field Name"]]
 
         # Add to output if it is not nil or a category type
@@ -72,7 +79,7 @@ module TableFormat
   end
 
   # Processes type appropriately using case statement
-  def processType(t, display_type, doc, full_doc)
+  def processType(t, display_type, doc, full_doc, dataspec)
     case display_type
     when "Title"
       return titleView(t, doc, full_doc)
@@ -85,7 +92,7 @@ module TableFormat
     when "Picture"
       return pictureView(t, doc)
     when "Category"
-      return categoryView(t, doc)
+      return categoryView(t, doc, dataspec, full_doc)
     end
   end
 
@@ -115,13 +122,17 @@ module TableFormat
   end
 
   # Prepares facet view
-  def categoryView(t, doc)
+  def categoryView(t, doc, dataspec, full_doc)
+    # Get list of categories that are highlighted (and highlighted section)
+    highlighted_categories = get_highlighted_categories(full_doc, t["Field Name"])
     
     output = ''
     
-    if @facet_fields.include?(t["Field Name"])
-      facet_links = linkedFacets(doc[t["Field Name"]], t["Field Name"])
-      
+    if dataspec.facet_fields.include?(t["Field Name"])
+      # Gen all links
+      facet_links = linkedFacets(doc[t["Field Name"]], t["Field Name"], highlighted_categories)
+
+      # Generate full field with all links
       if facet_links != "" && !facet_links.empty?
         output += facetPrepare(t, facet_links)
       end
@@ -130,19 +141,32 @@ module TableFormat
     return output
   end
 
+  # Gets list of the highlighted categories
+  def get_highlighted_categories(full_doc, fieldname)
+    highlightlist = Hash.new
+    
+    if isHighlighted?(full_doc, fieldname)
+      full_doc["highlight"][fieldname].each do |field|
+        highlightlist[ActionView::Base.full_sanitizer.sanitize(field)] = field
+      end
+    end
+
+    return highlightlist
+  end
+  
   # Format and return the facet
   def facetPrepare(t, facet_links)
     return '<div class="facet'+ t["Field Name"] +'">'+ image_tag(t["Icon"]+"-24.png") + facet_links +' </div>'
   end
 
-  # Get list of items in results and their names
-  def tableItems
+  # Get list of fields in results and their names
+  def tableItems(dataspec)
     itemarr = Array.new
-
+    
     # Get list of all fields in results
-    sortFields(@fields_in_results).each do |i|
+    sortFields(dataspec.fields_in_results, @all_field_info).each do |i|
       # Get details (HR name, field name, etc) for field
-      itemarr.push(getFieldDetails(i))
+      itemarr.push(getFieldDetails(i, dataspec.field_info))
     end
 
     return itemarr

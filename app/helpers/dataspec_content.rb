@@ -7,7 +7,7 @@ class DataspecContent
               :doc_page_fields, :item_fields, :truncated_fields
 
   # dataset_details.json
-  attr_reader :index_name, :data_path_type, :data_path, :ignore_ext, :sort_field, :show_sort_field
+  attr_reader :index_name, :dataset_name, :data_path_type, :data_path, :ignore_ext, :sort_field, :show_sort_field
 
   # import_config.json
   attr_reader :id_field, :id_secondary, :get_after, :synonym_list, :ignore_list, :dedup_ignore,
@@ -16,9 +16,6 @@ class DataspecContent
   # attach_config.json
   attr_reader :pdf_tab, :attach_prefix, :attach_attr, :web_tab, :web_url, :image_prefix
 
-  # site_config.json
-  attr_reader :site_config, :search_title
-  
   def initialize(config_dir)
     @config_dir = config_dir
     loadDataspec
@@ -31,7 +28,6 @@ class DataspecContent
     getDatasetDetails
     getImportConfig
     getAttachConfig
-    getSiteConfig
   end
 
   # Gets the details for each field
@@ -56,6 +52,7 @@ class DataspecContent
   def getDatasetDetails
     dataset_details = JSON.parse(File.read(@config_dir+"dataset_details.json"))
     @index_name = dataset_details["Index Name"]
+    @dataset_name = dataset_details["Dataset Name"]
     @data_path_type = dataset_details["Path Type"]
     @data_path = dataset_details["Path"]
     @ignore_ext = dataset_details["Ignore Dir Import Ext"]
@@ -84,11 +81,5 @@ class DataspecContent
     @web_tab = attach_config["Show Webpage?"]
     @web_url = attach_config["Web URL"]
     @image_prefix = attach_config["Image Path Prefix"]
-  end
-
-  # Get site config (logo, name, info urls)
-  def getSiteConfig
-    @site_config = JSON.parse(File.read(@config_dir+"site_config.json"))
-    @search_title = @site_config["Search Title"]
   end
 end

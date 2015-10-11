@@ -9,4 +9,5 @@ module DocsHelper
   include CategoryLink
   include QueryFormat
   include DataspecUtils
+  include ResultsOrder
 end

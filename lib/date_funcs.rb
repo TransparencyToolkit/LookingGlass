@@ -2,8 +2,8 @@ require 'index_manager.rb'
 
 module DateFuncs
   # Checks if item is a date
-  def isDate?(field)
-    datefields = @field_info.select{ |item| item["Type"] == "Date" }
+  def isDate?(field, dataspec)
+    datefields = dataspec.field_info.select{ |item| item["Type"] == "Date" }
 
     datefields.each do |f|
       return true if f["Field Name"] == field

@@ -6,14 +6,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include DataspecUtils
   include MultiDataset
+  include FacetsQuery
 
   before_action :load_dataspec
   
   private 
 
   def load_dataspec
-    loadAllDatasets
-    
-    loadDataspec # TO REMOVE
+    load_everything
   end
 end

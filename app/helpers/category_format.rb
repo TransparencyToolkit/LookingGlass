@@ -6,8 +6,9 @@ module CategoryFormat
   def facetFormat(facets)
     outhtml = ""
     
-    # Go through all facets 
-    sortFields(@facet_fields).each do |field|
+    # Go through all facets
+    sortFields(@all_facets.keys, @all_field_info).each do |field|
+      # sortFields(@facet_fields).each do |field|
       total_count = facets[field]["terms"].count.to_s
       outhtml += genFacet(facets, "", field, total_count) if facets[field]["terms"].count > 0
     end
@@ -17,7 +18,7 @@ module CategoryFormat
 
   # Gen html for list of links for each facet                                                 
   def genFacet(categories, outhtml, field, total_count)
-    category_name = field+"_facet" 
+    category_name = field.to_s+"_facet" 
     categories_chosen = params[category_name] 
 
     top_results, overflow_results = splitResults(categories, field)
@@ -55,7 +56,7 @@ module CategoryFormat
 
   # Generates the html for single category
   def genPartialHTML(items, is_overflow, categories_chosen, category_name, field, total_count)
-    field_spec = getFieldDetails(field) # Get field display details
+    field_spec = getFieldDetails(field.to_s, @all_field_info) # Get field display details
 
     if is_overflow
       list_html = '<li><label class="tree-toggler nav-header plus"></label>

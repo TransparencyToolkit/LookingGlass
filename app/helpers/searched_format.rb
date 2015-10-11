@@ -1,11 +1,101 @@
 module SearchedFormat
+  # Renders the filters for the dataspec
+  def render_filters
+    outhtml = ""
+
+    # Go through and add to output
+    params.except("utf8", "action", "controller", "page").each do |k, v|
+      # For facet params
+      if k.include?("_facet")
+        outhtml += process_facet_field(params, k, v)
+        
+      # For search all
+      elsif k == "q"
+        outhtml += removeFormat("All Fields", k, v, "search")
+        
+      # Search all in particular index
+      elsif k.include?("all_sindex_")
+        outhtml += process_allforindex_filter(params, k, v)
+
+      # Check if it is a date
+      elsif k.include?("startrange_") || k.include?("endrange_")
+        outhtml += process_datefield_filter(k, v)
+  
+      # For a specific non-empty search term
+      elsif params[k] != ""
+        outhtml += process_searchfield_filter(params, k, v)
+      end
+    end
+
+    return raw(outhtml)
+  end
+
+  # Generates remove links for facet fields
+  def process_facet_field(params, k, v)
+    outhtml = ""
+    
+    # Handle multiple sets of facets
+    if v.is_a?(Array)
+      v.each do |v1|
+        outhtml += removeFormat(get_facet_hrname(k), k, v1, "filter")
+      end
+    else
+      # Handle single facets
+      outhtml += removeFormat(get_facet_hrname(k), k, v, "filter")
+    end
+
+    return outhtml
+  end
+
+  def get_facet_hrname(k)
+    # Get field display details
+    field_spec = getFieldDetails(k.to_s.gsub("_facet", ""), @all_field_info)
+    
+    # Get facet hrname
+    return field_spec["Human Readable Name"]
+  end
+  
+  # Processes the filter for the index
+  def process_allforindex_filter(params, k, v)
+    _, dataspec = get_search_param(params)
+    dataset_name = dataspec.dataset_name
+    hrname = "All " + dataset_name
+    return removeFormat(hrname, k, v, "search")
+  end
+
+  # Generates filter for date field queries
+  def process_datefield_filter(k, v)
+    param_item, dataspec = get_date_index(k)
+    dataset_name = dataspec.dataset_name
+    hrname = getHR(param_item, dataspec)+" "+ check_start_or_end(k)+" ("+dataset_name+")"
+    return removeFormat(hrname, k, v, "search")
+  end
+
+  # Checks if it is the start or end date of range
+  def check_start_or_end(k)
+    if k.include?("startrange_")
+      return "Later Than"
+    elsif k.include?("endrange_")
+      return "Earlier Than"
+    end
+  end
+
+  # Generates filter for search by field
+  def process_searchfield_filter(params, k, v)
+    param_item, dataspec = get_search_param(params)
+    field_key = param_item.keys.first
+    dataset_name = dataspec.dataset_name
+    hrname = getHR(field_key, dataspec)+" ("+dataset_name+")"
+    return removeFormat(hrname, k, v, "search")
+  end
+  
   # Formats the x link for search terms (link removes term from search) 
   def removeFormat(hrname, k, v, type)
     outstr = '<div class="search-filter">'
     outstr += '<span class="filter">' + strip_tags(v) + '</span>'
     outstr += getRemoveLink(k, v)
     outstr += '<br>'
-    outstr += '<span class="category">' + hrname + "</span>"
+    outstr += '<span class="category">' + hrname + " ["+type+"] </span>"
     outstr += '</div>'
   end
 
@@ -41,44 +131,5 @@ module SearchedFormat
     link = genXLink(search_path(params))
     params[k] = saveparams # Set it back to normal
     return link
-  end
-
-  # Groups results with item fields
-  def genUniqueResults(dataItems, item_fields, unique_id)
-    item_ids = []
-    items = Hash.new
-    
-    dataItems.sort { |a, b| a["_score"] <=> b["_score"]}.reverse.each do |item|
-      uid = getText(item, unique_id, item)
-      
-      # Does item already exist by unique_id?
-      if item_ids.include? uid
-        # Get item field content and add to overall matching item
-        items[uid]["item_fields"].to_a.push(listItemInfo(item_fields, item))
-
-      # If not added already, add item and push ID
-      else
-        items = addFirstForID(items, uid, item, item_fields)
-        item_ids.to_a.push(uid)
-      end
-
-    end
-
-    return items
-  end
-  
-  # Adds item and first set of item fields
-  def addFirstForID(items, uid, item, item_fields)
-    items[uid] = item
-    items[uid]["item_fields"] = [listItemInfo(item_fields, item)]
-    return items
-  end
-
-  # Generates a list of item fields and vals
-  def listItemInfo(item_fields, item)
-    return item_fields.inject({}) do |item_info, field|
-     item_info[field] = item["_source"][field]
-     item_info
-    end
   end
 end

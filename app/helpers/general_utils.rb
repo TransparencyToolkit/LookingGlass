@@ -1,11 +1,35 @@
 module GeneralUtils
   # Gets the human readable name of a field
-  def getHR(name)
-    @field_info.each do |i|
+  def getHR(name, dataspec)
+    dataspec.field_info.each do |i|
       if paramMatch?(i, name)
         return i["Human Readable Name"]
       end
     end
+  end
+
+  # Gets the search param name only- minus sindex
+  def get_search_param(params)
+    params.each do |key, value|
+      # Find one that is search term
+      if key.include?("_sindex_")
+        key, index = key.split("_sindex_")
+
+        # Get dataspec and item
+        dataspec = @dataspecs_index_name[index]
+        item = {key => value}
+        return item, dataspec
+      end
+    end
+  end
+
+  # Gets the index and field name for date param
+  def get_date_index(key)
+    key, index = key.split("_sindex_")
+    dataspec = @dataspecs_index_name[index]
+    fieldname = key.split("range_")[1]
+
+    return fieldname, dataspec
   end
 
   # Checks params for form params of all types
