@@ -1,5 +1,5 @@
 class InstanceSpec
-  attr_reader :site_config, :search_title, :dataspec_paths, :logo, :favicon, :url_1, :url_2
+  attr_reader :site_config, :search_title, :dataspec_paths, :theme, :logo, :favicon, :url_1, :url_2
 
   # Load importer and vars for search instance
   def initialize
@@ -12,6 +12,7 @@ class InstanceSpec
     @site_config = JSON.parse(File.read(@path))
     @search_title = @site_config["Search Title"]
     @dataspec_paths = @site_config["Dataset Config"]
+    @theme = @site_config["Theme"]
     @logo = @site_config["Logo"]
     @favicon = @site_config["Favicon"]
     @url_1 = @site_config["URL 1"]
