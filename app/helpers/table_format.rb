@@ -124,8 +124,8 @@ module TableFormat
   # Prepares facet view
   def categoryView(t, doc, dataspec, full_doc)
     # Get list of categories that are highlighted (and highlighted section)
-    highlighted_categories = get_highlighted_categories(full_doc, t["Field Name"]+"_analyzed")
-  
+    highlighted_categories = get_highlighted_categories(full_doc, t["Field Name"])
+    
     output = ''
     
     if dataspec.facet_fields.include?(t["Field Name"])

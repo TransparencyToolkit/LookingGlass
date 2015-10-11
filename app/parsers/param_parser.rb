@@ -27,11 +27,15 @@ module ParamParser
       
     # Search individual fields
     else
-      # Get correct dataspec and item
-      param_item, dataspec_to_search = get_search_param(@params)
+      begin
+        # Get correct dataspec and item
+        param_item, dataspec_to_search = get_search_param(@params)
       
-      # Get params and model to search
-      processed_params, model_to_search = find_field_param_match(param_item, dataspec_to_search)
+        # Get params and model to search
+        processed_params, model_to_search = find_field_param_match(param_item, dataspec_to_search)
+      rescue
+        # If it fails, it's probably because there's a facet
+      end
     end
     
     processed_params == {} if processed_params.empty?
@@ -79,7 +83,7 @@ module ParamParser
   def process_param_by_type(search_item, dataspec)
     # Get field details and name to search
     item_info = getFieldDetails(search_item, dataspec.field_info)
-    fieldname = dataspec.facet_fields.include?(search_item) ? (search_item+"_analyzed").to_sym : search_item.to_sym
+    fieldname = search_item.to_sym
 
     # Check if it is a date and handle input differently if so      
     if item_info["Type"] == "Date"

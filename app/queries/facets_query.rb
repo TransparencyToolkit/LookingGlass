@@ -8,7 +8,7 @@ module FacetsQuery
     
     # Generate queries to get each facet
     dataspec.facet_fields.each do |field|
-      fieldhash[field.to_sym] = {terms: {field: field, size: 500}}
+      fieldhash[field.to_sym] = {terms: {field: field+"_facet", size: 500}}
     end
     
     return fieldhash
@@ -20,11 +20,11 @@ module FacetsQuery
     @filter_by.each do |k, v|
       # Handles categories where multiple values are being filtered for 
       if v.is_a? Array
-        v.each { |j| hasharr.push({ term: { k.gsub("_facet", "") => j}})}
+        v.each { |j| hasharr.push({ term: { k => j}})}
 
       # If only one category per field is being filtered for 
       else
-        hasharr.push({ term: { k.gsub("_facet", "") => v}})
+        hasharr.push({ term: { k => v}})
       end
     end
     filterhash = { "and" => hasharr }
