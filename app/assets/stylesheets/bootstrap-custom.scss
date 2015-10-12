@@ -1,18 +1,18 @@
 // Core variables and mixins
-@import "bootstrap-variables-snowden";
+@import "theme-default/fonts";
+@import "theme-default/bootstrap-variables";
 @import "bootstrap/mixins";
 
 // Reset and dependencies
 @import "bootstrap/normalize";
 @import "bootstrap/print";
-@import "fonts";
 
 // Core CSS
 @import "bootstrap/scaffolding";
 @import "bootstrap/type";
 @import "bootstrap/code";
 @import "bootstrap/grid";
-@import "bootstrap/tables";
+//@import "bootstrap/tables";
 @import "bootstrap/forms";
 @import "bootstrap/buttons";
 
@@ -23,14 +23,14 @@
 @import "bootstrap/input-groups";
 @import "bootstrap/navs";
 @import "bootstrap/navbar";
-@import "bootstrap/breadcrumbs";
+//@import "bootstrap/breadcrumbs";
 @import "bootstrap/pagination";
-@import "bootstrap/pager";
-@import "bootstrap/labels";
-@import "bootstrap/badges";
-@import "bootstrap/thumbnails";
-@import "bootstrap/alerts";
-@import "bootstrap/progress-bars";
+//@import "bootstrap/pager";
+//@import "bootstrap/labels";
+//@import "bootstrap/badges";
+//@import "bootstrap/thumbnails";
+//@import "bootstrap/alerts";
+//@import "bootstrap/progress-bars";
 @import "bootstrap/media";
 @import "bootstrap/list-group";
 @import "bootstrap/panels";
@@ -38,11 +38,10 @@
 @import "bootstrap/close";
 
 // Components w/ JavaScript
-@import "bootstrap/modals";
-@import "bootstrap/tooltip";
-@import "bootstrap/popovers";
+//@import "bootstrap/modals";
+//@import "bootstrap/tooltip";
+//@import "bootstrap/popovers";
 
 // Utility classes
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
-
