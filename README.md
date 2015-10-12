@@ -32,9 +32,13 @@ You might want do add custom data related things to your instance as well. Looki
     - `cd data_packages`
     - git clone https://github.com/you/datapackage.git
 
+## Adding Datasets
 
-**For Running In Production**
-- Compile your assets `rake assets:precompile`
+This search should work for any JSON based dataset. If you want to add a dataset, see the app/dataspec folder for the necessary files. You will need to create your own `dataspec-template` package.
+
+- [ ] Prepare and save your data somewhere on your machine
+- [ ] Either create a dataspec for it based on `datapec-template` or use existing
+- [ ] Modify your `config.json` file to include additional datasets
 
 ## Running LookingGlass
 
@@ -46,19 +50,14 @@ You might want do add custom data related things to your instance as well. Looki
 - Start up the app `rails server`
 - Then access [http://0.0.0.0:3000](http://0.0.0.0:3000) in your browser
 
-## Adding Datasets
-
-This search should work for any JSON based dataset. If you want to add a dataset, see the app/dataspec folder for the necessary files. You will need to create your own `dataspec-template` package.
-
-- [ ] Prepare and place your data somewhere on your machine
-- [ ] Either create a dataspec for it based on `datapec-template` or use existing
-- [ ] Modify your `config.json` file to include additional datasets
+**For Running In Production**
+- Compile your assets `rake assets:precompile`
 
 ---
 
 ## Developing
 
-We would love your help and contributions improving upon LookingGlass. To do so, we suggest doing the following:
+We would love your help and contributions improving upon LookingGlass. You can also customize how LookingGlass looks with a custom theme. To do either, first get a working instance setup on your development machine, then check out the following:
 
-- Get a working instance setup on your development machine
-- Read & use our [Developer Documentation](http://www.rubydoc.info/github/TransparencyToolkit/LookingGlass/master) for reference
+- [Themes](THEMES.md) - documentation for making custom look and feel
+- [Developer Documentation](http://www.rubydoc.info/github/TransparencyToolkit/LookingGlass/master) - references of codebase
