@@ -1,10 +1,10 @@
 {
     "Dataset Config": ["app/dataspec/dataspec-indeed/", "app/dataspec/dataspec-linkedin/"],
-    "Page Title": "ICWATCH",
-    "Search Title": "ICWATCH",
+    "Page Title": "ICWATCH II",
+    "Search Title": "ICWATCH II",
     "Theme": "theme-default",
-    "Favicon": "tt-logo-32.png",
-    "Logo": "tt-logo-57.png",
+    "Favicon": "tt-favicon.png",
+    "Logo": "tt-logo.png",
     "Description URL": "https://icwatch.transparencytoolkit.org",
     "URL 1": [
       {
