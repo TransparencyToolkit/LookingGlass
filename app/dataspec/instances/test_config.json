@@ -1,7 +1,7 @@
 {
-    "Dataset Config": ["app/dataspec/dataspec-indeed/", "app/dataspec/dataspec-linkedin/"],
-    "Page Title": "ICWATCH",
-    "Search Title": "ICWATCH",
+    "Dataset Config": ["app/dataspec/dataspec-indeed", "app/dataspec/dataspec-linkedin/"],
+    "Page Title": "ICWatch",
+    "Search Title": "ICWatch",
     "Theme": "theme-default",
     "Favicon": "tt-logo-32.png",
     "Logo": "tt-logo-57.png",
