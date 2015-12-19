@@ -8,6 +8,16 @@
     "Display Type": "Title",
     "Icon": ""
   },{
+      "Field Name": "doc_modified",
+      "Human Readable Name": "Modified?",
+      "Type": "String",
+      "Display Type": "Category",
+      "Mapping": "not_analyzed",
+      "Form Params": "doc_modified",
+      "Location": "28",
+      "Icon": "document-topic"
+  },
+    {
     "Field Name": "company",
     "Human Readable Name": "Company",
     "Type": "String",

@@ -3,7 +3,7 @@
   "Ignore List": "",
   "ID Field": "url",
   "Secondary ID": ["company", "job_title", "start_date"],
-  "Deduplicate Ignore": ["time_scraped", "categories", "dataset_name"],
+    "Deduplicate Ignore": ["time_scraped", "categories", "dataset_name", "doc_modified"],
   "Deduplicate Prioritize": "time_scraped",
   "Get ID After": "indeed.com/r/"
 }

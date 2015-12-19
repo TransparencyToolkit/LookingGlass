@@ -3,7 +3,8 @@
     "company",
     "location",
     "company_location",
-    "dataset_name"
+      "dataset_name",
+      "doc_modified"
 	],
   "Searchable": [
     "name",
@@ -35,7 +36,8 @@
     "additional_info",
     "current_title",
     "time_scraped",
-      "dataset_name"
+      "dataset_name",
+      "doc_modified"
 	],
     "In Search Results by Default": [
 	"name",
@@ -52,7 +54,8 @@
 	"additional_info",
 	"current_title",
 	"time_scraped",
-	"dataset_name"
+	"dataset_name",
+	"doc_modified"
   ],
     "On Doc Page": [
 	"name",
@@ -71,7 +74,8 @@
 	"current_title",
 	"time_scraped",
 	"dataset_name",
-	"links"
+	"links",
+	"doc_modified"
   ],
   "Item Field": [
     "company",
