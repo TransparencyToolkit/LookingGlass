@@ -1,5 +1,5 @@
 {
-    "Dataset Config": ["app/dataspec/dataspec-indeed/", "app/dataspec/dataspec-icwatch/"],
+    "Dataset Config": ["app/dataspec/dataspec-icwatch/"],
     "Page Title": "ICWATCH",
     "Search Title": "ICWATCH",
     "Favicon": "tt-favicon.ico",

@@ -1,6 +1,11 @@
 module ModelGen
-  # Generate mapping based on dataspec/settings
   def genMapping(settings, dataspec)
+    genMainMapping(settings, dataspec)
+    add_nested_fields(settings, dataspec)
+  end
+  
+  # Generate mapping based on dataspec/settings
+  def genMainMapping(settings, dataspec)
     fieldhash = Hash.new
     
     dataspec.field_info.each do |f|
@@ -15,6 +20,12 @@ module ModelGen
         addToMapping(f, f["Field Name"], map)
       end
     end
+  end
+
+  # Add nested fields to mapping
+  def add_nested_fields(settings, dataspec)
+    property_info = mapping.to_hash[(dataspec.index_name+"_doc").to_sym][:properties].except(:versions)
+    return attribute :versions, String, mapping: { type: 'nested', properties: property_info}
   end
 
   # Add non-facet field to mapping (name, data type, mapping)
