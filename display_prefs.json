@@ -5,7 +5,10 @@
     "company_location",
       "dataset_name",
       "doc_modified"
-	],
+  ],
+    "Merge Categorical": [
+	"dataset_name"
+    ],
   "Searchable": [
     "name",
     "company",
