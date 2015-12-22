@@ -4,7 +4,7 @@ class DataspecContent
 
   # display_prefs.json
   attr_reader :facet_fields, :searchable_fields, :fields_in_results, :default_fields_in_results,
-              :doc_page_fields, :item_fields, :truncated_fields
+              :doc_page_fields, :item_fields, :truncated_fields, :merge_categorical_fields
 
   # dataset_details.json
   attr_reader :index_name, :dataset_name, :data_path_type, :data_path, :ignore_ext, :sort_field, :show_sort_field
@@ -40,6 +40,7 @@ class DataspecContent
   def getDisplayPrefs
     display_prefs = JSON.parse(File.read(@config_dir+"display_prefs.json"))
     @facet_fields = display_prefs["Facet"]
+    @merge_categorical_fields = display_prefs["Merge Categorical"]
     @searchable_fields = display_prefs["Searchable"]
     @fields_in_results = display_prefs["In Search Results"]
     @default_fields_in_results = display_prefs["In Search Results by Default"]

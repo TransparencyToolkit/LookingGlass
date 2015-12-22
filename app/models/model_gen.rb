@@ -2,6 +2,9 @@ module ModelGen
   def genMapping(settings, dataspec)
     genMainMapping(settings, dataspec)
     add_nested_fields(settings, dataspec)
+    attribute :version_list, String
+    attribute :doc_modified, String
+    attribute :doc_modiefied_facet, String
   end
   
   # Generate mapping based on dataspec/settings

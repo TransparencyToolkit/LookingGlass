@@ -61,7 +61,7 @@ module TableFormat
         raw_value = doc[t["Field Name"]]
 
         # Add to output if it is not nil or a category type
-        output += processed_value if notEmpty?(processed_value, raw_value)
+        output += processed_value if raw_value.is_a?(Integer) || notEmpty?(processed_value, raw_value)
       end
     end
 
