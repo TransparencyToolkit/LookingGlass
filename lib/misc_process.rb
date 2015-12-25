@@ -10,7 +10,7 @@ module MiscProcess
       pic_field = f["Field Name"]
 
       if !dataspec.image_prefix.empty?
-        item[pic_field] = dataspec.image_prefix+item[pic_field].split("/").last
+        item[pic_field] = dataspec.image_prefix+item[pic_field].split("/").last if item[pic_field]
       end
     end
 
