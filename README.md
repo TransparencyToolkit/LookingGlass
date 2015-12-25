@@ -10,6 +10,7 @@ Search, filter, and browse any JSON data. Includes full text, categorical data, 
 		- Go install [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) using homebrew `brew install elasticsearch`
 		- Install [RubyOnRails](http://rubyonrails.org/download/) by typing `gem install rails`
 	- On Debian / Ubuntu
+		- Install dependencies `sudo apt-get install ruby-full`
 		- Install Elasticsearch `sudo apt-get install elasticsearch`
 	- On Fedora
 	- 	- Install Elasticsearch via the [Fedora Yum instructions](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
