@@ -12,9 +12,5 @@
  *
  *= require_tree .
  *= require_self
- *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
- *= require dataTables/extras/dataTables.colVis
- *= require dataTables/extras/dataTables.colReorder
- *= require dataTables/extras/dataTables.responsive
  *= require bootstrap-datepicker3
  */

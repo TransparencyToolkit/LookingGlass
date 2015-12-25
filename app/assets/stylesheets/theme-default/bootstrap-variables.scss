@@ -4,7 +4,6 @@ $bootstrap-sass-asset-helper: false !default;
 // --------------------------------------------------
 
 
-
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
@@ -944,3 +943,10 @@ $lg-show-article-text-size:   18px;
 $lg-show-article-text-weight: bold;
 $lg-show-article-item-border: 1px solid $gray-light;
 $lg-show-article-number:      $gray-light;
+
+$lg-static-background-color:  #FFF;
+$lg-static-border-top:        0px;
+$lg-static-border-right:      1px solid $gray-light;
+$lg-static-border-bottom:     1px solid $gray-light;
+$lg-static-item-border-left:  0px;
+$lg-static-title-color:       $brand-danger;
