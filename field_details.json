@@ -18,6 +18,36 @@
       "Icon": "document-topic"
   },
     {
+	"Field Name": "search_terms",
+	"Human Readable Name": "Search Terms",
+	"Type": "String",
+	"Display Type": "Category",
+	"Mapping": "not_analyzed",
+	"Form Params": "search_terms",
+	"Location": "28",
+	"Icon": "document-topic"
+    }, 
+    {
+	"Field Name": "doc_source",
+	"Human Readable Name": "Data Source",
+	"Type": "String",
+	"Display Type": "Category",
+	"Mapping": "not_analyzed",
+	"Form Params": "doc_source",
+	"Location": "30",
+	"Icon": "document-topic"
+    },
+    {
+	"Field Name": "tools_mentioned",
+	"Human Readable Name": "Tools Mentioned",
+	"Type": "String",
+	"Display Type": "Category",
+	"Mapping": "not_analyzed",
+	"Form Params": "tools_mentioned",
+	"Location": "31",
+	"Icon": "document-topic"
+    },
+    {
     "Field Name": "company",
     "Human Readable Name": "Company",
     "Type": "String",

@@ -3,11 +3,14 @@
     "company",
     "location",
     "company_location",
-      "dataset_name",
-      "doc_modified"
+      "search_terms",
+      "doc_modified",
+      "doc_source",
+      "tools_mentioned"
   ],
     "Merge Categorical": [
-	"dataset_name"
+	"search_terms",
+	"tools_mentioned"
     ],
   "Searchable": [
     "name",
@@ -22,7 +25,10 @@
       "skills",
       "current_title",
     "certifications",
-    "additional_info"
+      "additional_info",
+      "doc_modified",
+      "doc_source",
+      "tools_mentioned"
 	],
   "In Search Results": [
     "name",
@@ -39,8 +45,10 @@
     "additional_info",
     "current_title",
     "time_scraped",
-      "dataset_name",
-      "doc_modified"
+      "search_terms",
+      "doc_modified",
+      "doc_source",
+      "tools_mentioned"
 	],
     "In Search Results by Default": [
 	"name",
@@ -57,8 +65,10 @@
 	"additional_info",
 	"current_title",
 	"time_scraped",
-	"dataset_name",
-	"doc_modified"
+	"search_terms",
+	"doc_modified",
+	"doc_source",
+	"tools_mentioned"
   ],
     "On Doc Page": [
 	"name",
@@ -76,9 +86,11 @@
 	"additional_info",
 	"current_title",
 	"time_scraped",
-	"dataset_name",
+	"search_terms",
 	"links",
-	"doc_modified"
+	"doc_modified",
+	"doc_source",
+	"tools_mentioned"
   ],
   "Item Field": [
     "company",
@@ -87,7 +99,8 @@
     "end_date",
     "job_description",
     "company_location",
-    "linkedin_company_url"
+      "linkedin_company_url",
+      "tools_mentioned"
   ],
   "Truncate Text": [
   ]

@@ -1,6 +1,6 @@
 {
   "Path Type": "Directory",
-  "Path": "/home/shidash/test_data/indeed/",
+  "Path": "/home/shidash/Data/KG/",
   "Index Name": "indeed_data",
   "Dataset Name": "Indeed",
   "Ignore Dir Import Ext": "_terms.json",
