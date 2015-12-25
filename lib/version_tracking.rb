@@ -1,8 +1,4 @@
-module VersionTracking
-  # TODO-
-  # Save doc modified for removed and made private in jsons
-  # Use that version if removed or made private
-   
+module VersionTracking   
   # Add new version of document to version list
   def add_new_version(version_item, dataspec, doc_class, id)
     # Get full item and timestamps
@@ -96,6 +92,9 @@ module VersionTracking
   # See if document has been changed or deleted
   def check_changed(item, dataspec, doc_class, id)
     versions = doc_class.find(id).versions
+
+    doc_modified = doc_class.find(id)[:doc_modified]
+    return doc_modified if doc_modified
 
     versions.each do |version|
       # Make copy and remove current version
