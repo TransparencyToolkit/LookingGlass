@@ -4,22 +4,22 @@ require 'datapackage.rb'
 load 'generate_id.rb'
 load 'date_funcs.rb'
 load 'misc_process.rb'
-load 'deduplicate_data.rb'
 load 'process_data.rb'
 load 'import_support.rb'
 load 'multi_dataset.rb'
+load 'version_tracking.rb'
 
 class IndexManager
   include ENAnalyzer
   extend GenerateId
   extend DateFuncs
   extend MiscProcess
-  extend DeduplicateData
   extend ProcessData
   extend ImportSupport
   extend MultiDataset
   extend ClassGen
   extend FacetsQuery
+  extend VersionTracking
   include MiscProcess
 
   # Index creation
