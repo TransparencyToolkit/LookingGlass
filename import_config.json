@@ -5,5 +5,5 @@
   "Secondary ID": ["company", "job_title", "start_date"],
     "Deduplicate Ignore": ["time_scraped", "categories", "search_terms", "search_terms_facet", "doc_modified", "doc_modified_facet", "tools_mentioned", "tools_mentioned_facet", "doc_source", "doc_source_facet", "updated_at"],
   "Deduplicate Prioritize": "time_scraped",
-  "Get ID After": "indeed.com/r/"
+  "Get ID After": "indeed.com/"
 }
