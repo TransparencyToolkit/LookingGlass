@@ -27,8 +27,11 @@ module TableFormat
     # Generate links for each value in list of facet vals
     if field_vals.is_a?(Array)
       field_vals.each do |i|
-        outstr += facetLinkGen(i, field_name, highlighted_categories)
-        outstr += ", " if i != field_vals.last
+        begin
+          outstr += facetLinkGen(i, field_name, highlighted_categories)
+          outstr += ", " if i != field_vals.last
+        rescue
+        end
       end
     # For single values
     else
@@ -41,11 +44,14 @@ module TableFormat
 
   # Generate facet link for category results
   def facetLinkGen(field_vals, field_name, highlighted_categories)
-    # Bold category name if highlighted
-    facet_name = highlighted_categories[field_vals] ? raw(highlighted_categories[field_vals]) : field_vals.strip
+    begin
+      # Bold category name if highlighted
+      facet_name = highlighted_categories[field_vals] ? raw(highlighted_categories[field_vals]) : field_vals.strip
 
-    # Return link
-    return link_to(facet_name, search_path((field_name+"_facet").to_sym => field_vals))
+      # Return link
+      return link_to(facet_name, search_path((field_name+"_facet").to_sym => field_vals))
+    rescue
+    end
   end
 
   # Display the item in the appropriate way for the display type

@@ -16,15 +16,25 @@ module VersionTracking
 
   # Make an entirely new item
   def create_new(item, dataspec, doc_class, id)
-    created_item = doc_class.create item.merge(id: id), index: dataspec.index_name
+    created_item = doc_class.create get_right_fields(item, dataspec).merge(id: id), index: dataspec.index_name
     
     update_item_for_new_version(created_item, item, dataspec, doc_class, id)
+  end
+
+  # Get just the fields in the dataspec
+  def get_right_fields(item, dataspec)
+    # Get list of fields that should be in dataspec
+    field_arr = Array.new
+    dataspec.field_info.each {|i| field_arr.push(i["Field Name"]) }
+
+    # Get only fields in dataspec
+    return item.select{|k, v| field_arr.include?(k)}
   end
 
   # Update item to match new version
   def update_item_for_new_version(full_item, item, dataspec, doc_class, id)
     # Add new version
-    append_version_to_item(item, doc_class, id)
+    append_version_to_item(get_right_fields(item, dataspec), doc_class, id)
     add_this_version_to_list(item, doc_class, id, dataspec)
 
     # Check if document has been changed
