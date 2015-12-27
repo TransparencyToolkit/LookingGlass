@@ -86,7 +86,7 @@ $(document).ready(function() {
   // Diffing
   var dmp = new diff_match_patch();
 
-  var doDiffing = function(element, text1, text2) {
+  var doDiffing = function(element, text1, text2, diffing) {
 
     dmp.Diff_Timeout = 4;
     dmp.Diff_EditCost = 4;
@@ -95,10 +95,10 @@ $(document).ready(function() {
     var d = dmp.diff_main(text1, text2)
     var ms_end = (new Date()).getTime()
 
-    if (document.getElementById('semantic').checked) {
+    if (diffing == 'semantic') {
       dmp.diff_cleanupSemantic(d);
     }
-    if (document.getElementById('efficiency').checked) {
+    else if (diffing == 'efficiency') {
       dmp.diff_cleanupEfficiency(d);
     }
 
@@ -108,13 +108,11 @@ $(document).ready(function() {
     //console.log('Diffing Processing Time: ' + (ms_end - ms_start) / 1000 + 's')
   }
 
-  // Perform Diff
-  $('#versions-compute').on('click', function(e) {
+  var getElementsForDiffing = function() {
 
-    e.preventDefault()
     $('#versions-diff').html('')
 
-    // Get All Versions
+    // Get Versions
     var versions = $('#versions-container').find('.version')
 
     // Move elements to matching pairs
@@ -130,8 +128,19 @@ $(document).ready(function() {
 
       //console.log('doing element key: ' + key + ' type: ' + element_type)
       //console.log(element)
-      doDiffing(element_type, $(element[0]).html(), $(element[1]).html() )
+      doDiffing(element_type, $(element[0]).html(), $(element[1]).html(), $('select[name=diffing-type]').val())
     })
+  }
+
+  // Perform Diff
+  $('#versions-compute').on('click', function(e) {
+    e.preventDefault()
+    getElementsForDiffing()
+  })
+
+  // Update on Change
+  $('#versions-diffing-type').on('change', function() {
+    getElementsForDiffing()
   })
 
 })
