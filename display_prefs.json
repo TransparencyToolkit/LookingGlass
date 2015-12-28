@@ -100,7 +100,8 @@
     "job_description",
     "company_location",
       "linkedin_company_url",
-      "tools_mentioned"
+      "tools_mentioned",
+      "doc_modified"
   ],
   "Truncate Text": [
   ]
