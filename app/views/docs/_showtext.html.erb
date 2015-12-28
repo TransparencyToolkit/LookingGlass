@@ -1,58 +1,37 @@
 <% first_doc = getFirstDoc %>
 
-<% #first_doc["versions"] %>
-
-<!-- Start example of JS versioning diffing -->
-<form>
-<div class="row" id="versions-container">
-  <div class="col-md-5 version">
-    <h3 class="title">Text Version 1</h3>
-    <p class="text">I am the very model of a modern Major-General, I've information vegetable, animal, and mineral, I know the kings of England, and I quote the fights historical, From Marathon to Waterloo, in order categorical.</p>
-  </div>
-  <div class="col-md-5 version">
-    <h3 class="title">Test Version 2</h3>
-    <p class="text">I am the very model of a cartoon individual, My animation's comical, unusual, and whimsical, I'm quite adept at funny gags, comedic theory I have read, From wicked puns and stupid jokes to anvils that drop on your head.</p>
-  </div>
-</div>
-
-<hr>
-<label for="diffing-type">Show changes in data as:</label>
-<select name="diffing-type" id="versions-diffing-type">
-  <option value="semantic" selected>Sequential Differences</option>
-  <option value="efficiency">Mixed Differences</option>
-</select>
-
-<button class="btn pull-right" id="versions-compute">Show Changes in Data</button>
-<div class="clearfix"></div>
-<hr>
-
-<div class="row">
-  <div class="col-md-10" id="versions-diff">
-  </div>
-</div>
-</form>
-<hr>
-
-<!-- End example JS versioning -->
-
 <!-- For when there are never item fields -->
 <% if @link_type["Link Type"] != "mult_items" %>
-  <% non_facet_check = Proc.new{ |f| checkIfX(f, @dataspec.doc_page_fields) && !checkIfX(f, @dataspec.facet_fields)} %>
-  <%= raw(printData(@doc, non_facet_check, "fields", @dataspec, @dataspec.doc_page_fields)) %>
+  <%= render 'printnormaldocfields' %>
 
 <!-- For when some are item fields -->
 <% else %>
   <!-- Non-item fields -->
-  <% non_item_check = Proc.new{ |f| checkIfX(f, @dataspec.doc_page_fields) && !checkIfX(f, @dataspec.facet_fields) && !checkIfX(f, @dataspec.item_fields)} %>
-  <%= raw(printData(first_doc, non_item_check, "fields", @dataspec, @dataspec.doc_page_fields)) %>
-
+  <% if any_changed?(@docs) %>
+    <% newest, oldest = get_newest_and_oldest(first_doc) %>
+    <%= render 'changetracker',
+        to_render: 'docs/print/printoverallfields',
+        newest_doc: newest,
+        oldest_doc: oldest %>
+  <% else %>
+    <%= render 'docs/print/printoverallfields', d: first_doc %>  
+  <% end %>
+    
   <!-- Item fields -->
   <hr /><hr />
   <!-- Sorts docs by specified field and loops through in order -->
   <% item_field_sort(@docs, @dataspec.show_sort_field).each do |d| %>
-    <% item_check = Proc.new{ |f| checkIfX(f, @dataspec.item_fields) } %>
-    <%= raw(printData(d["_source"], item_check, "fields", @dataspec, @dataspec.item_fields)) %>
-   <hr />
-   <% end %>
-
+    <% if d["_source"][:doc_modified] == "Changed" %>
+    <% newest, oldest = get_newest_and_oldest(d["_source"]) %>
+    <%= render 'changetracker',
+	to_render: 'docs/print/printitemfields',
+	newest_doc: newest,
+	oldest_doc: oldest %>
+    <% else %>
+      <%= render 'docs/print/printitemfields', d: d %> <!-- Prints doc passed to it -->
+    <% end %>
+  <% end %>
+  
 <% end %>
+
+

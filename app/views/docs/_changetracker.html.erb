@@ -1,0 +1,27 @@
+<form>
+  <div class="row" id="versions-container">
+    <div class="col-md-5 version">
+      <%= render to_render, d: oldest_doc %>
+    </div>
+    <div class="col-md-5 version">
+      <%= render to_render, d: newest_doc %>
+    </div>
+  </div>
+
+  <hr>
+  <label for="diffing-type">Show changes in data as:</label>
+  <select name="diffing-type" id="versions-diffing-type">
+    <option value="semantic" selected>Sequential Differences</option>
+    <option value="efficiency">Mixed Differences</option>
+  </select>
+
+  <button class="btn pull-right" id="versions-compute">Show Changes in
+    Data</button>
+  <div class="clearfix"></div>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-10" id="versions-diff">
+    </div>
+  </div>
+</form>

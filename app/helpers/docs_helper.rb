@@ -10,4 +10,5 @@ module DocsHelper
   include QueryFormat
   include DataspecUtils
   include ResultsOrder
+  include VersionControl
 end

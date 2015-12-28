@@ -27,7 +27,7 @@ module DocFormat
   def printFields(f, doc_content)
     field_content = doc_content[f["Field Name"]]
     if field_content != nil && !field_content.to_s.empty? && field_content != "[]"
-      return '<p>'+raw(prepareField(f, doc_content))+'</p>'
+      return "<p class=#{f["Field Name"]}>"+raw(prepareField(f, doc_content))+'</p>'
     end
   end
 

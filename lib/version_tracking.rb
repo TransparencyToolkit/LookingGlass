@@ -79,7 +79,7 @@ module VersionTracking
   # Append a new version to the versions nested document
   def append_version_to_item(item, doc_class, id)
     all_versions = doc_class.find(id).versions
-
+    
     # Push to existing list if existing, otherwise make new arr
     if all_versions
       doc_class.find(id).update(versions: all_versions.push(item))
@@ -110,13 +110,13 @@ module VersionTracking
       # Make copy and remove current version
       other_versions = versions.dup
       other_versions.delete(version)
-
+      
       # Check if exactly the same as all other versions
       other_versions.each do |other_version|
         # Remove timestamp and other fields that may change without doc changing
         nonchanging_version = removeIgnore(version, dataspec).symbolize_keys
         nonchanging_other_version = removeIgnore(other_version, dataspec).symbolize_keys
-
+        
         nonchanging_version.each do |key, value|
           return "Changed" if value != nonchanging_other_version[key]
         end
