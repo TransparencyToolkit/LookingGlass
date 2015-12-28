@@ -8,7 +8,7 @@ module DocFormat
     # Go through sorted list
     sortFields(fields, dataspec.field_info).each do |field|
       f = getFieldDetails(field, dataspec.field_info) # Full field details
-      
+
       # Print if field it fulfills conditions
       if print_conditions.call(f, doc)
         case print_type
@@ -19,7 +19,7 @@ module DocFormat
         end
       end
     end
-    
+
     return output
   end
 
@@ -40,14 +40,14 @@ module DocFormat
 
   # Gets the first doc in list, useful for getting item fields
   def getFirstDoc
-    return @link_type["Link Type"] == "mult_items" ? @docs.first["_source"] : @doc 
+    return @link_type["Link Type"] == "mult_items" ? @docs.first["_source"] : @doc
   end
 
   # Prepare to print icon
   def prepareIcon(f)
     return image_tag(f["Icon"]+"-24.png")+' '
   end
-  
+
   # Replaces newlines with br
   def format_text(text)
     text.gsub("\n", "<br />")
@@ -77,7 +77,7 @@ module DocFormat
 
   # Format field names
   def prepareFieldName(field)
-    return '<strong>'+field["Human Readable Name"]+': </strong>'
+    return '<strong class="label">'+field["Human Readable Name"]+': </strong>'
   end
 
   # Format longer text fields
@@ -103,7 +103,7 @@ module DocFormat
     return outstr
   end
 
-  # Wraps field name in tags and gets doc text for showing in doc   
+  # Wraps field name in tags and gets doc text for showing in doc
   def prepareField(field, doc)
     outstr = ''
 
