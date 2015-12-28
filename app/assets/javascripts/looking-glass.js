@@ -83,4 +83,64 @@ $(document).ready(function() {
   });
 
 
-});
+  // Diffing
+  var dmp = new diff_match_patch();
+
+  var doDiffing = function(element, text1, text2, diffing) {
+
+    dmp.Diff_Timeout = 4;
+    dmp.Diff_EditCost = 4;
+
+    var ms_start = (new Date()).getTime()
+    var d = dmp.diff_main(text1, text2)
+    var ms_end = (new Date()).getTime()
+
+    if (diffing == 'semantic') {
+      dmp.diff_cleanupSemantic(d);
+    }
+    else if (diffing == 'efficiency') {
+      dmp.diff_cleanupEfficiency(d);
+    }
+
+    var ds = dmp.diff_prettyHtml(d);
+
+    $('#versions-diff').append('<' + element + '>' + ds + '</' + element + '>');
+    //console.log('Diffing Processing Time: ' + (ms_end - ms_start) / 1000 + 's')
+  }
+
+  var getElementsForDiffing = function() {
+
+    $('#versions-diff').html('')
+
+    // Get Versions
+    var versions = $('#versions-container').find('.version')
+
+    // Move elements to matching pairs
+    // Instead of [h3, p] and [h3, p] we have [h3, h3] and [p, p]
+    var element_pairs = _.zip( $(versions[0]).children(), $(versions[1]).children() )
+    //console.log(element_pairs)
+
+    // Diff Element Pairs
+    _.each(element_pairs, function(element, key) {
+
+      // Need for reconstructing
+      var element_type = $(element).prop('tagName')
+
+      //console.log('doing element key: ' + key + ' type: ' + element_type)
+      //console.log(element)
+      doDiffing(element_type, $(element[0]).html(), $(element[1]).html(), $('select[name=diffing-type]').val())
+    })
+  }
+
+  // Perform Diff
+  $('#versions-compute').on('click', function(e) {
+    e.preventDefault()
+    getElementsForDiffing()
+  })
+
+  // Update on Change
+  $('#versions-diffing-type').on('change', function() {
+    getElementsForDiffing()
+  })
+
+})
