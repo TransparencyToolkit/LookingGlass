@@ -86,7 +86,7 @@ $(document).ready(function() {
   // Diffing
   var dmp = new diff_match_patch();
 
-  var doDiffing = function(element, text1, text2, diffing) {
+  var doDiffing = function(doc_id, diffing, element, label, text1, text2) {
 
     dmp.Diff_Timeout = 4;
     dmp.Diff_EditCost = 4;
@@ -95,52 +95,70 @@ $(document).ready(function() {
     var d = dmp.diff_main(text1, text2)
     var ms_end = (new Date()).getTime()
 
-    if (diffing == 'semantic') {
+    if (diffing == 'Sequential') {
       dmp.diff_cleanupSemantic(d);
     }
-    else if (diffing == 'efficiency') {
+    else if (diffing == 'Mixed') {
       dmp.diff_cleanupEfficiency(d);
     }
 
     var ds = dmp.diff_prettyHtml(d);
 
-    $('#versions-diff').append('<' + element + '>' + ds + '</' + element + '>');
+    $('#versions-diff-data-' + doc_id).append('<' + element + '>' + label + ds + '</' + element + '>');
     //console.log('Diffing Processing Time: ' + (ms_end - ms_start) / 1000 + 's')
   }
 
-  var getElementsForDiffing = function() {
+  var getDiffingData = function(doc_id, diffing) {
 
-    $('#versions-diff').html('')
+    // Reset Diff View
+    $('#versions-diff-data-' + doc_id).html('')
 
-    // Get Versions
-    var versions = $('#versions-container').find('.version')
+    // Get Data
+    var version_oldest = $('#version-oldest-' + doc_id).children()
+    var version_newest = $('#version-newest-' + doc_id).children()
 
     // Move elements to matching pairs
-    // Instead of [h3, p] and [h3, p] we have [h3, h3] and [p, p]
-    var element_pairs = _.zip( $(versions[0]).children(), $(versions[1]).children() )
-    //console.log(element_pairs)
+    // Makes [h3, p] and [h3, p] we have [h3, h3] and [p, p]
+    var element_pairs = _.zip(version_oldest, version_newest)
 
-    // Diff Element Pairs
+    // Diff Pairs
     _.each(element_pairs, function(element, key) {
 
       // Need for reconstructing
       var element_type = $(element).prop('tagName')
 
-      //console.log('doing element key: ' + key + ' type: ' + element_type)
-      //console.log(element)
-      doDiffing(element_type, $(element[0]).html(), $(element[1]).html(), $('select[name=diffing-type]').val())
+      // Filter non-content elements
+      if (_.indexOf(['SMALL', 'HR'], element_type) == -1) {
+
+        // Cache original element
+        var label = ''
+        if ($(element[0]).find('.label').prop('outerHTML') !== undefined) {
+          label = $(element[0]).find('.label').prop('outerHTML')
+        }
+
+        var element_one = $(element[0]).html().replace(label, '')
+        var element_two = $(element[1]).html().replace(label, '')
+
+        // Process
+        if (/<[a-z][\s\S]*>/i.test(element_one) && /<[a-z][\s\S]*>/i.test(element_two)) {
+          //console.log('Element is HTML so cannot diff')
+          $('#versions-diff-data-' + doc_id).append(label + element_two);
+        } else {
+          doDiffing(doc_id, diffing, element_type, label, element_one, element_two)
+        }
+      }
     })
   }
 
   // Perform Diff
-  $('#versions-compute').on('click', function(e) {
+  $('.versions-compute').on('click', function(e) {
     e.preventDefault()
-    getElementsForDiffing()
-  })
+    getDiffingData($(this).data('doc_id'), $(this).data('diffing'))
 
-  // Update on Change
-  $('#versions-diffing-type').on('change', function() {
-    getElementsForDiffing()
+    $('#versions-diff-' + $(this).data('doc_id'))
+      .removeClass('invisible')
+      .find('h3.panel-title')
+      .html($(this).data('diffing') + ' Data Differences')
   })
 
 })

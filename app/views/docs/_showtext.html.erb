@@ -10,28 +10,28 @@
   <% if any_changed?(@docs) %>
     <% newest, oldest = get_newest_and_oldest(first_doc) %>
     <%= render 'changetracker',
-        to_render: 'docs/print/printoverallfields',
-        newest_doc: newest,
-        oldest_doc: oldest %>
+          to_render: 'docs/print/printoverallfields',
+          newest_doc: newest,
+          oldest_doc: oldest,
+          doc_id: 'overallfields' %>
   <% else %>
-    <%= render 'docs/print/printoverallfields', d: first_doc %>  
+    <%= render 'docs/print/printoverallfields', d: first_doc %>
   <% end %>
-    
+
   <!-- Item fields -->
-  <hr /><hr />
+  <hr>
   <!-- Sorts docs by specified field and loops through in order -->
   <% item_field_sort(@docs, @dataspec.show_sort_field).each do |d| %>
     <% if d["_source"][:doc_modified] == "Changed" %>
     <% newest, oldest = get_newest_and_oldest(d["_source"]) %>
     <%= render 'changetracker',
-	to_render: 'docs/print/printitemfields',
-	newest_doc: newest,
-	oldest_doc: oldest %>
+          to_render: 'docs/print/printitemfields',
+          newest_doc: newest,
+          oldest_doc: oldest,
+          doc_id: d["_id"] %>
     <% else %>
       <%= render 'docs/print/printitemfields', d: d %> <!-- Prints doc passed to it -->
     <% end %>
   <% end %>
-  
+
 <% end %>
-
-
