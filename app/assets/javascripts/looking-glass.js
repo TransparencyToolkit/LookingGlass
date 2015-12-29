@@ -142,9 +142,11 @@ $(document).ready(function() {
         // Process
         if (/<[a-z][\s\S]*>/i.test(element_one) && /<[a-z][\s\S]*>/i.test(element_two)) {
           //console.log('Element is HTML so cannot diff')
-          $('#versions-diff-data-' + doc_id).append(label + element_two);
-        } else {
+          $('#versions-diff-data-' + doc_id).append('<' + element_type + '>' + label + element_two + '</' + element_type + '>');
+        } else if (element_one != '' && element_two != '') {
           doDiffing(doc_id, diffing, element_type, label, element_one, element_two)
+        } else {
+          $('#versions-diff-data-' + doc_id).append('<p><em>Sorry, could not perform diffing operation</em></p>')
         }
       }
     })
