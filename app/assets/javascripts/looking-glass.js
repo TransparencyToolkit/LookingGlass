@@ -146,7 +146,7 @@ $(document).ready(function() {
         } else if (element_one != '' && element_two != '') {
           doDiffing(doc_id, diffing, element_type, label, element_one, element_two)
         } else {
-          $('#versions-diff-data-' + doc_id).append('<p>' + label + ' <em>oops, no data compare or an error occurred</em></p>')
+          $('#versions-diff-data-' + doc_id).append('<p>' + label + ' <em>no data to compare or an error occurred</em></p>')
         }
       }
     })
@@ -161,6 +161,13 @@ $(document).ready(function() {
       .removeClass('invisible')
       .find('h3.panel-title')
       .html($(this).data('diffing') + ' Data Differences')
+
+    var position_offset = ($('#versions-diff-' + $(this).data('doc_id')).offset().top - 60)
+
+    $('html, body').animate({
+      scrollTop: position_offset + 'px'
+      }, 'fast')
+
   })
 
 })
