@@ -146,7 +146,7 @@ $(document).ready(function() {
         } else if (element_one != '' && element_two != '') {
           doDiffing(doc_id, diffing, element_type, label, element_one, element_two)
         } else {
-          $('#versions-diff-data-' + doc_id).append('<p>' + label + ' <em>oops, error or no data compare</em></p>')
+          $('#versions-diff-data-' + doc_id).append('<p>' + label + ' <em>oops, no data compare or an error occurred</em></p>')
         }
       }
     })
