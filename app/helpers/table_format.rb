@@ -104,7 +104,7 @@ module TableFormat
 
   # Prepares picture view
   def pictureView(t, doc)
-    return '<img src="'+doc[t["Field Name"]]+'" class="picture"></img>'
+    return '<img src="'+doc[t["Field Name"]]+'" class="picture"></img>' if doc[t["Field Name"]]
   end
 
   # Prepares date view

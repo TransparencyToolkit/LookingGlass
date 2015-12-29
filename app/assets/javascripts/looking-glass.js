@@ -83,4 +83,82 @@ $(document).ready(function() {
   });
 
 
-});
+  // Diffing
+  var dmp = new diff_match_patch();
+
+  var doDiffing = function(doc_id, diffing, element, label, text1, text2) {
+
+    dmp.Diff_Timeout = 4;
+    dmp.Diff_EditCost = 4;
+
+    var ms_start = (new Date()).getTime()
+    var d = dmp.diff_main(text1, text2)
+    var ms_end = (new Date()).getTime()
+
+    if (diffing == 'Sequential') {
+      dmp.diff_cleanupSemantic(d);
+    }
+    else if (diffing == 'Mixed') {
+      dmp.diff_cleanupEfficiency(d);
+    }
+
+    var ds = dmp.diff_prettyHtml(d);
+
+    $('#versions-diff-data-' + doc_id).append('<' + element + '>' + label + ds + '</' + element + '>');
+    //console.log('Diffing Processing Time: ' + (ms_end - ms_start) / 1000 + 's')
+  }
+
+  var getDiffingData = function(doc_id, diffing) {
+
+    // Reset Diff View
+    $('#versions-diff-data-' + doc_id).html('')
+
+    // Get Data
+    var version_oldest = $('#version-oldest-' + doc_id).children()
+    var version_newest = $('#version-newest-' + doc_id).children()
+
+    // Move elements to matching pairs
+    // Makes [h3, p] and [h3, p] we have [h3, h3] and [p, p]
+    var element_pairs = _.zip(version_oldest, version_newest)
+
+    // Diff Pairs
+    _.each(element_pairs, function(element, key) {
+
+      // Need for reconstructing
+      var element_type = $(element).prop('tagName')
+
+      // Filter non-content elements
+      if (_.indexOf(['SMALL', 'HR'], element_type) == -1) {
+
+        // Cache original element
+        var label = ''
+        if ($(element[0]).find('.label').prop('outerHTML') !== undefined) {
+          label = $(element[0]).find('.label').prop('outerHTML')
+        }
+
+        var element_one = $(element[0]).html().replace(label, '')
+        var element_two = $(element[1]).html().replace(label, '')
+
+        // Process
+        if (/<[a-z][\s\S]*>/i.test(element_one) && /<[a-z][\s\S]*>/i.test(element_two)) {
+          //console.log('Element is HTML so cannot diff')
+          $('#versions-diff-data-' + doc_id).append(label + element_two);
+        } else {
+          doDiffing(doc_id, diffing, element_type, label, element_one, element_two)
+        }
+      }
+    })
+  }
+
+  // Perform Diff
+  $('.versions-compute').on('click', function(e) {
+    e.preventDefault()
+    getDiffingData($(this).data('doc_id'), $(this).data('diffing'))
+
+    $('#versions-diff-' + $(this).data('doc_id'))
+      .removeClass('invisible')
+      .find('h3.panel-title')
+      .html($(this).data('diffing') + ' Data Differences')
+  })
+
+})
