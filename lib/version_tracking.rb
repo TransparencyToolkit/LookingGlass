@@ -118,7 +118,9 @@ module VersionTracking
         nonchanging_other_version = removeIgnore(other_version, dataspec).symbolize_keys
 
         nonchanging_version.each do |key, value|
-          return "Changed" if value != nonchanging_other_version[key]
+          if !dataspec.facet_fields.include?(key.to_s)
+            return "Changed" if value != nonchanging_other_version[key]
+          end
         end
       end
 
