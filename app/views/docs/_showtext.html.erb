@@ -28,7 +28,11 @@
           to_render: 'docs/print/printitemfields',
           newest_doc: newest,
           oldest_doc: oldest,
-          doc_id: d["_id"] %>
+          doc_id: d["_id"].gsub(/[^0-9a-z ]/i, '-') %>
+    <% # this gsub strips out special characters that were breaking DOM calls
+       # might want to move this to a higher level for better harmony through app
+       # see: https://github.com/TransparencyToolkit/LookingGlass/issues/42
+    %>
     <% else %>
       <%= render 'docs/print/printitemfields', d: d %> <!-- Prints doc passed to it -->
     <% end %>
