@@ -15,5 +15,6 @@
 //= require underscore
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
+//= require diff_match_patch
 //= require list
 //= require_tree .

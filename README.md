@@ -11,7 +11,7 @@ Search, filter, and browse any JSON data. Includes full text, categorical data, 
 		- Install [RubyOnRails](http://rubyonrails.org/download/) by typing `gem install rails`
 	- On Debian / Ubuntu
 		- Install dependencies `sudo apt-get install ruby-full`
-		- Install Elasticsearch `sudo apt-get install elasticsearch`
+		- Install ElasticSearch using package manager or [1.5.2 docs](https://www.elastic.co/guide/en/elasticsearch/reference/1.5/_installation.html)
 	- On Fedora
 	- 	- Install Elasticsearch via the [Fedora Yum instructions](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
 	- 	- Install dependencies  `sudo yum install make automake gcc gcc-c++ kernel-devel ruby-devel rubygem-railties`
@@ -45,7 +45,8 @@ This search should work for any JSON based dataset. If you want to add a dataset
 
 - Then start up ElasticSearch
 	- On Mac Os type `elasticsearch`
-	- On Debian / Ubuntu type `/etc/init.d/elasticsearch start`
+	- On Debian / Ubuntu installed via packages type `/etc/init.d/elasticsearch start` o
+	- On Debian installed 1.5.2 go to `elasticsearch-1.5.2/bin/` and type `./elasticsearch`
 	- On Fedora type `sudo systemctl start elasticsearch.service`
 - Then type `rails runner 'IndexManager.import_data(force: true)'` when importing / updating datasets
 - Start up the app `rails server`

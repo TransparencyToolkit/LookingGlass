@@ -534,6 +534,15 @@ body {
     margin-right: 10px;
   }
 
+  #maincontent small.version-name {
+    display: inline-block;
+    background: $gray-lighter;
+    border: 1px solid $gray-light;
+    color: $gray;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+  }
 
 /* Static Pages */
 
