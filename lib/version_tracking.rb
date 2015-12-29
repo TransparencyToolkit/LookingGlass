@@ -119,7 +119,9 @@ module VersionTracking
         
         nonchanging_version.each do |key, value|
           if !dataspec.facet_fields.include?(key.to_s) && dataspec.doc_page_fields.include?(key.to_s)
-            return "Changed" if value != nonchanging_other_version[key]
+            if value != nonchanging_other_version[key]
+              return "Changed" if value && nonchanging_other_version[key]
+            end
           end
         end
       end
