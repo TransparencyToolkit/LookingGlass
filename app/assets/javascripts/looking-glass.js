@@ -142,9 +142,11 @@ $(document).ready(function() {
         // Process
         if (/<[a-z][\s\S]*>/i.test(element_one) && /<[a-z][\s\S]*>/i.test(element_two)) {
           //console.log('Element is HTML so cannot diff')
-          $('#versions-diff-data-' + doc_id).append(label + element_two);
-        } else {
+          $('#versions-diff-data-' + doc_id).append('<' + element_type + '>' + label + element_two + '</' + element_type + '>');
+        } else if (element_one != '' && element_two != '') {
           doDiffing(doc_id, diffing, element_type, label, element_one, element_two)
+        } else {
+          $('#versions-diff-data-' + doc_id).append('<p>' + label + ' <em>no data to compare or an error occurred</em></p>')
         }
       }
     })
@@ -159,6 +161,13 @@ $(document).ready(function() {
       .removeClass('invisible')
       .find('h3.panel-title')
       .html($(this).data('diffing') + ' Data Differences')
+
+    var position_offset = ($('#versions-diff-' + $(this).data('doc_id')).offset().top - 60)
+
+    $('html, body').animate({
+      scrollTop: position_offset + 'px'
+      }, 'fast')
+
   })
 
 })

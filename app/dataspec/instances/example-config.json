@@ -2,9 +2,9 @@
     "Dataset Config": ["app/dataspec/dataspec-linkedin/"],
     "Page Title": "Looking Glass Example",
     "Search Title": "Looking Glass Example",
-    "Favicon": "tt-favicon.ico",
+    "Favicon": "tt-favicon.png",
     "Logo": "tt-logo.png",
-    "Theme": "default-theme",
+    "Theme": "theme-default",
     "Description URL": "https://looking-glass-example.website.com",
     "URL 1": [
       {
