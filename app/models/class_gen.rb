@@ -1,5 +1,10 @@
 module ClassGen
   def self.gen_class(class_name, dataspec)
+    # Don't recreate if it already exists
+    if (const_defined?(class_name))
+      return const_get(class_name)
+    end
+    
     new_class = Class.new(Object) do
       # Set name for class
       @class_name = class_name
