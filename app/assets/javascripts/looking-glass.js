@@ -130,24 +130,57 @@ $(document).ready(function() {
       // Filter non-content elements
       if (_.indexOf(['SMALL', 'HR'], element_type) == -1) {
 
-        // Cache original element
         var label = ''
-        if ($(element[0]).find('.label').prop('outerHTML') !== undefined) {
-          label = $(element[0]).find('.label').prop('outerHTML')
+        var element_one = $(element[0]).html()
+        var element_two = $(element[1]).html()
+
+        //console.log(element_one)
+        //console.log(element_two)
+
+        // Oldest Version
+        var element_one_text = ''
+        if (element_one !== undefined) {
+
+          // Find Label
+          if ($(element[0]).find('.label').prop('outerHTML') !== undefined) {
+            label = $(element[0]).find('.label').prop('outerHTML')
+          }
+
+          element_one_text = element_one.replace(label, '')
         }
 
-        var element_one = $(element[0]).html().replace(label, '')
-        var element_two = $(element[1]).html().replace(label, '')
+
+        // Newest Version
+        var element_two_text = ''
+        if (element_two !== undefined) {
+
+          if (label == '') {
+            if ($(element[1]).find('.label').prop('outerHTML') !== undefined) {
+              label = $(element[1]).find('.label').prop('outerHTML')
+            }
+          }
+
+          element_two_text = element_two.replace(label, '')
+        }
+
 
         // Process
-        if (/<[a-z][\s\S]*>/i.test(element_one) && /<[a-z][\s\S]*>/i.test(element_two)) {
+        if (/<[a-z][\s\S]*>/i.test(element_one_text) && /<[a-z][\s\S]*>/i.test(element_two_text)) {
+
           //console.log('Element is HTML so cannot diff')
           $('#versions-diff-data-' + doc_id).append('<' + element_type + '>' + label + element_two + '</' + element_type + '>');
-        } else if (element_one != '' && element_two != '') {
-          doDiffing(doc_id, diffing, element_type, label, element_one, element_two)
+
+        } else if (element_one_text != '' && element_two_text != '') {
+
+          doDiffing(doc_id, diffing, element_type, label, element_one_text, element_two_text)
+
         } else {
+
           $('#versions-diff-data-' + doc_id).append('<p>' + label + ' <em>no data to compare or an error occurred</em></p>')
+
         }
+
+
       }
     })
   }
