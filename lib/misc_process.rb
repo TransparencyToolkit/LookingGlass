@@ -13,7 +13,7 @@ module MiscProcess
         item[pic_field] = dataspec.image_prefix+item[pic_field].split("/").last if item[pic_field]
       end
     end
-
+    
     return item
   end
 

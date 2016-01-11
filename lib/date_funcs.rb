@@ -30,7 +30,7 @@ module DateFuncs
     item = blank_if_match(f, item, date_field, unknown)
     
     # Handle blank dates
-    if (!item[date_field]) || (item[date_field].empty?)
+    if (!item[date_field]) || (item[date_field].to_s.empty?)
       item[date_field] = ""
     end
     
