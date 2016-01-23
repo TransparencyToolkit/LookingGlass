@@ -86,26 +86,82 @@ $(document).ready(function() {
   // Diffing
   var dmp = new diff_match_patch();
 
-  var doDiffing = function(doc_id, diffing, element, label, text1, text2) {
+  var doDiffing = function(doc_id, diffing, name, item) {
 
-    dmp.Diff_Timeout = 4;
-    dmp.Diff_EditCost = 4;
+    dmp.Diff_Timeout = 4
+    dmp.Diff_EditCost = 4
 
     var ms_start = (new Date()).getTime()
-    var d = dmp.diff_main(text1, text2)
+    var d = dmp.diff_main(item.versions.oldest, item.versions.newest)
     var ms_end = (new Date()).getTime()
 
     if (diffing == 'Sequential') {
-      dmp.diff_cleanupSemantic(d);
+      dmp.diff_cleanupSemantic(d)
     }
     else if (diffing == 'Mixed') {
-      dmp.diff_cleanupEfficiency(d);
+      dmp.diff_cleanupEfficiency(d)
     }
 
-    var ds = dmp.diff_prettyHtml(d);
+    var ds = dmp.diff_prettyHtml(d)
 
-    $('#versions-diff-data-' + doc_id).append('<' + element + '>' + label + ds + '</' + element + '>');
+    $('#versions-diff-data-' + doc_id)
+      .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + ds + '</' + item.element_type + '>')
     //console.log('Diffing Processing Time: ' + (ms_end - ms_start) / 1000 + 's')
+    return true
+  }
+
+  var doNonDiffing = function(doc_id, diffing, name, item) {
+
+    if (item.versions.oldest === undefined && item.versions.newest !== undefined) {
+      //console.log(name + ' MISSING ' + item.versions.newest)
+      $('#versions-diff-data-' + doc_id)
+        .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + item.versions.newest + ' <ins style="background:#e6ffe6;"> (shown in newest)</ins></' + item.element_type + '>')
+    } else if (item.versions.newest === undefined && item.versions.oldest !== undefined) {
+      //console.log(name + ' MISSING ' + item.versions.oldest)
+      $('#versions-diff-data-' + doc_id)
+        .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + item.versions.oldest + ' <ins style="background:#ffe6e6;"> (shown in oldest)</ins></' + item.element_type + '>')
+    }
+
+    return true
+  }
+
+  var extractDiffingItem = function(element_pairs, version, item) {
+
+    var name = $(item).attr('class')
+    var type = $(item).prop('tagName')
+
+    // Filter non-content elements
+    if (_.indexOf(['SMALL', 'HR'], type) == -1) {
+
+      var text_all = $(item).html()
+      var label = ''
+
+      if ($(item).find('.label').prop('outerHTML') !== undefined) {
+        label = $(item).find('.label').prop('outerHTML')
+      }
+
+      var text_trim = text_all.replace(label, '')
+
+      // Does item exist
+      if (element_pairs[name] === undefined) {
+        element_pairs[name] = {
+          'element_type': type,
+          'label': label,
+          'versions': {}
+        }
+
+        element_pairs[name].versions[version] = text_trim
+
+      } else if (element_pairs[name]) {
+        //console.log(name + ' exists')
+        element_pairs[name].versions[version] = text_trim
+      }
+    } else {
+      // Use to debug unusual elements
+      // console.log(name + ' | SKIPPED')
+    }
+
+    return element_pairs
   }
 
   var getDiffingData = function(doc_id, diffing) {
@@ -116,71 +172,26 @@ $(document).ready(function() {
     // Get Data
     var version_oldest = $('#version-oldest-' + doc_id).children()
     var version_newest = $('#version-newest-' + doc_id).children()
+    var element_pairs = {}
 
-    // Move elements to matching pairs
-    // Makes [h3, p] and [h3, p] we have [h3, h3] and [p, p]
-    var element_pairs = _.zip(version_oldest, version_newest)
+    // Do Oldest version
+    _.each(version_oldest, function(item, key) {
+      element_pairs = extractDiffingItem(element_pairs, 'oldest', item)
+    })
 
-    // Diff Pairs
-    _.each(element_pairs, function(element, key) {
+    // Then Newest version
+    _.each(version_newest, function(item, key) {
+      element_pairs = extractDiffingItem(element_pairs, 'newest', item)
+    })
 
-      // Need for reconstructing
-      var element_type = $(element).prop('tagName')
-
-      // Filter non-content elements
-      if (_.indexOf(['SMALL', 'HR'], element_type) == -1) {
-
-        var label = ''
-        var element_one = $(element[0]).html()
-        var element_two = $(element[1]).html()
-
-        //console.log(element_one)
-        //console.log(element_two)
-
-        // Oldest Version
-        var element_one_text = ''
-        if (element_one !== undefined) {
-
-          // Find Label
-          if ($(element[0]).find('.label').prop('outerHTML') !== undefined) {
-            label = $(element[0]).find('.label').prop('outerHTML')
-          }
-
-          element_one_text = element_one.replace(label, '')
-        }
-
-
-        // Newest Version
-        var element_two_text = ''
-        if (element_two !== undefined) {
-
-          if (label == '') {
-            if ($(element[1]).find('.label').prop('outerHTML') !== undefined) {
-              label = $(element[1]).find('.label').prop('outerHTML')
-            }
-          }
-
-          element_two_text = element_two.replace(label, '')
-        }
-
-
-        // Process
-        if (/<[a-z][\s\S]*>/i.test(element_one_text) && /<[a-z][\s\S]*>/i.test(element_two_text)) {
-
-          //console.log('Element is HTML so cannot diff')
-          $('#versions-diff-data-' + doc_id).append('<' + element_type + '>' + label + element_two + '</' + element_type + '>');
-
-        } else if (element_one_text != '' && element_two_text != '') {
-
-          doDiffing(doc_id, diffing, element_type, label, element_one_text, element_two_text)
-
-        } else {
-
-          $('#versions-diff-data-' + doc_id).append('<p>' + label + ' <em>no data to compare or an error occurred</em></p>')
-
-        }
-
-
+    // Render
+    // to debug results
+    // console.log(element_pairs)
+    _.each(element_pairs, function(item, name) {
+      if (item.versions.oldest !== undefined && item.versions.newest !== undefined) {
+        doDiffing(doc_id, diffing, name, item)
+      } else {
+        doNonDiffing(doc_id, diffing, name, item)
       }
     })
   }
