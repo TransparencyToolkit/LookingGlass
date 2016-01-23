@@ -8,7 +8,7 @@ module VersionTracking
 
     # Update main item to be newest
     if full_item_timestamp <= version_timestamp
-      full_item = full_item.update(version_item)
+      full_item = full_item.update(processItem(get_right_fields(version_item, dataspec), dataspec).compact)
     end
 
     update_item_for_new_version(full_item, version_item, dataspec, doc_class, id)
@@ -16,7 +16,7 @@ module VersionTracking
 
   # Make an entirely new item
   def create_new(item, dataspec, doc_class, id)
-    created_item = doc_class.create get_right_fields(item, dataspec).merge(id: id), index: dataspec.index_name
+    created_item = doc_class.create processItem(get_right_fields(item, dataspec), dataspec).merge(id: id), index: dataspec.index_name
     
     update_item_for_new_version(created_item, item, dataspec, doc_class, id)
   end
@@ -25,7 +25,7 @@ module VersionTracking
   def get_right_fields(item, dataspec)
     # Get list of fields that should be in dataspec
     field_arr = Array.new
-    dataspec.field_info.each {|i| field_arr.push(i["Field Name"]) }
+    dataspec.field_info.each{|i| field_arr.push(i["Field Name"]) }
 
     # Get only fields in dataspec
     return item.select{|k, v| field_arr.include?(k)}
@@ -103,14 +103,15 @@ module VersionTracking
   def check_changed(item, dataspec, doc_class, id)
     versions = doc_class.find(id).versions
 
+    # Return if doc is removed, made private, partially made private
     doc_modified = doc_class.find(id)[:doc_modified]
-    return doc_modified if doc_modified
+    return doc_modified if doc_modified && (doc_modified != "Not Changed")
 
     versions.each do |version|
       # Make copy and remove current version
       other_versions = versions.dup
       other_versions.delete(version)
-      
+
       # Check if exactly the same as all other versions
       other_versions.each do |other_version|
         # Remove timestamp and other fields that may change without doc changing
@@ -119,7 +120,7 @@ module VersionTracking
         
         nonchanging_version.each do |key, value|
           if !dataspec.facet_fields.include?(key.to_s) && dataspec.doc_page_fields.include?(key.to_s)
-            if value != nonchanging_other_version[key]
+            if value.gsub(/[^0-9a-z]/i, "") != nonchanging_other_version[key].gsub(/[^0-9a-z]/i, "")
               return "Changed" if value && nonchanging_other_version[key]
             end
           end
