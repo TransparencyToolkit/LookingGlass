@@ -37,7 +37,8 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-         <img src="/assets/<%= @instance.theme %>/<%= @instance.logo %>"> <span class="title"><%= @instance.search_title %> </span>
+          <% if @instance.logo != "" %><img src="/assets/<%= @instance.theme %>/<%= @instance.logo %>"><% end %>
+          <span class="title"><%= @instance.search_title %> </span>
         </a>
       </div>
 
