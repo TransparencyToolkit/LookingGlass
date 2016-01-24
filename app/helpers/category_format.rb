@@ -5,7 +5,7 @@ module CategoryFormat
   # Format all facets on sidebar
   def facetFormat(facets)
     outhtml = ""
-    
+
     # Go through all facets
     sortFields(@all_facets.keys, @all_field_info).each do |field|
       # sortFields(@facet_fields).each do |field|
@@ -16,10 +16,10 @@ module CategoryFormat
     return outhtml
   end
 
-  # Gen html for list of links for each facet                                                 
+  # Gen html for list of links for each facet
   def genFacet(categories, outhtml, field, total_count)
-    category_name = field.to_s+"_facet" 
-    categories_chosen = params[category_name] 
+    category_name = field.to_s+"_facet"
+    categories_chosen = params[category_name]
 
     top_results, overflow_results = splitResults(categories, field)
     return combinedHTML(top_results, overflow_results, categories_chosen, category_name, field, total_count)
@@ -27,10 +27,10 @@ module CategoryFormat
 
   # Splits the results into overflow/not overflow
   def splitResults(categories, field)
-    # Overflow calculation settings                             
+    # Overflow calculation settings
     totalnum = categories[field]["terms"].count
     numshow = totalnum > 5 ? 5+totalnum*0.01 : totalnum
-    
+
     # Divides list of terms
     sorted_results = sortResults(categories, field)
     top_results = sorted_results[0..numshow]
@@ -65,7 +65,7 @@ module CategoryFormat
       list_html = '<ul class="nav nav-list">
                      <li>
                         <label class="tree-toggler nav-header just-plus" title="' + total_count + ' Filters">
-                          ' + image_tag(field_spec["Icon"]+"-24.png") + field_spec["Human Readable Name"] + '
+                          <i class="icon-' + field_spec["Icon"] + '"></i>' + field_spec["Human Readable Name"] + '
                         </label>
                         <ul class="nav nav-list tree collapse">'
     end
@@ -76,7 +76,7 @@ module CategoryFormat
     end
 
     list_html += "</li></ul>" if is_overflow
-    
+
     return list_html
   end
 end

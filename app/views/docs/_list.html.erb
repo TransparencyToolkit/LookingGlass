@@ -4,7 +4,7 @@
 
   <h3 class="title pull-left"><%= showByType("Title", doc["_source"], doc, false) %></h3>
   <div class="dataset-name pull-right">
-    <img src="/assets/source-<%= get_dataspec(doc).dataset_name %>-24.png"><%= get_dataspec(doc).dataset_name %>
+    <i class="icon-<%= get_dataspec(doc).dataset_name.downcase %>"></i> <%= get_dataspec(doc).dataset_name %>
   </div>
   <div class="clearfix"></div>
 

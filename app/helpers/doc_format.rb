@@ -45,7 +45,7 @@ module DocFormat
 
   # Prepare to print icon
   def prepareIcon(f)
-    return image_tag(f["Icon"]+"-24.png")+' '
+    return '<i class="icon-' + f["Icon"] + '"></i>'
   end
 
   # Replaces newlines with br

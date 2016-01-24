@@ -162,7 +162,7 @@ module TableFormat
 
   # Format and return the facet
   def facetPrepare(t, facet_links)
-    return '<div class="facet ' + t["Field Name"] + ' ">'+ image_tag(t["Icon"] + '-24.png') + facet_links +' </div>'
+    return '<div class="facet ' + t["Field Name"] + ' "><i class="icon-'+ t["Icon"] + '"></i> ' + facet_links +' </div>'
   end
 
   # Get list of fields in results and their names
