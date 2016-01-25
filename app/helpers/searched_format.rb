@@ -8,11 +8,11 @@ module SearchedFormat
       # For facet params
       if k.include?("_facet")
         outhtml += process_facet_field(params, k, v)
-        
+
       # For search all
       elsif k == "q"
         outhtml += removeFormat("All Fields", k, v, "search")
-        
+
       # Search all in particular index
       elsif k.include?("all_sindex_")
         outhtml += process_allforindex_filter(params, k, v)
@@ -20,7 +20,7 @@ module SearchedFormat
       # Check if it is a date
       elsif k.include?("startrange_") || k.include?("endrange_")
         outhtml += process_datefield_filter(k, v)
-  
+
       # For a specific non-empty search term
       elsif params[k] != ""
         outhtml += process_searchfield_filter(params, k, v)
@@ -33,7 +33,7 @@ module SearchedFormat
   # Generates remove links for facet fields
   def process_facet_field(params, k, v)
     outhtml = ""
-    
+
     # Handle multiple sets of facets
     if v.is_a?(Array)
       v.each do |v1|
@@ -50,11 +50,11 @@ module SearchedFormat
   def get_facet_hrname(k)
     # Get field display details
     field_spec = getFieldDetails(k.to_s.gsub("_facet", ""), @all_field_info)
-    
+
     # Get facet hrname
     return field_spec["Human Readable Name"]
   end
-  
+
   # Processes the filter for the index
   def process_allforindex_filter(params, k, v)
     _, dataspec = get_search_param(params)
@@ -88,8 +88,8 @@ module SearchedFormat
     hrname = getHR(field_key, dataspec)+" ("+dataset_name+")"
     return removeFormat(hrname, k, v, "search")
   end
-  
-  # Formats the x link for search terms (link removes term from search) 
+
+  # Formats the x link for search terms (link removes term from search)
   def removeFormat(hrname, k, v, type)
     outstr = '<div class="search-filter">'
     outstr += '<span class="filter">' + strip_tags(v) + '</span>'
@@ -121,13 +121,13 @@ module SearchedFormat
 
   # Generates the x link with the appropriate path
   def genXLink(path)
-    return link_to(raw('<b style="color: red" class="x"> X</b>'), path, :class => "remove-filter")
+    return link_to(raw('X'), path, :class => "remove-filter")
   end
 
   # Link removes just one val if multiple are chosen
   def multValsSelected(k, v)
     saveparams = params[k]
-    params[k] = params[k] - [v] # Remove value from array                                                 
+    params[k] = params[k] - [v] # Remove value from array
     link = genXLink(search_path(params))
     params[k] = saveparams # Set it back to normal
     return link
