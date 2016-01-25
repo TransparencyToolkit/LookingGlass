@@ -1,5 +1,5 @@
 <% first_doc = @link_type["Link Type"] == "mult_items" ? @docs.first["_source"] : @doc %>
-
+<% if @dataspec.attach_attr %>
 <!-- Handle multiple PDFs -->
 <% if first_doc[@dataspec.attach_attr].is_a?(Array) %>
   <% first_doc[@dataspec.attach_attr].each do |doc_path| %>
@@ -11,3 +11,4 @@
   <%= render partial: 'docs/document', locals: { path: @dataspec.attach_prefix+first_doc[@dataspec.attach_attr] } %>
 <% end %>
 		
+<% end %>
