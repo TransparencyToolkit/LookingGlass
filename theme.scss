@@ -1,0 +1,39 @@
+@import "theme-pi/bootstrap-variables";
+
+#sidebar {
+
+  hr {
+    border-top: 6px solid $base-black;
+  }
+
+  img.full {
+    width: 70%;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+  }
+}
+
+
+h3.title:after {
+  background: $base-white;
+  opacity: 0.2;
+  width: 115px;
+  height: 6px;
+  display: block;
+  content: '';
+  margin-top: 10px;
+}
+
+div.search-item {
+
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 0px;
+  margin-bottom: 50px;
+  padding-left: 20px;
+
+  hr {
+    border-color: rgba(255, 255, 255, 0.2)
+  }
+
+}
