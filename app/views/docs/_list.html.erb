@@ -14,14 +14,30 @@
 
   <%= showByType("Date", doc["_source"], doc, false) %>
 
+  <% doc_description = showByType("Description", doc["_source"], doc, false) %>
+  <% doc_long_text = showByType("Long Text", doc["_source"], doc, false) %>
+  <% if doc_description != "" && doc_long_text != "" %>
   <div class="row">
     <div class="col-md-6 description">
-      <%= showByType("Description", doc["_source"], doc, false) %>
+      <%= doc_description %>
     </div>
     <div class="col-md-6 doc_text">
-      <%= showByType("Long Text", doc["_source"], doc, false)  %>
+      <%= doc_long_text %>
     </div>
   </div>
+  <% elsif doc_description != "" && doc_long_text == "" %>
+  <div class="row">
+    <div class="col-md-10 description">
+      <%= doc_description %>
+    </div>
+  </div>
+  <% elsif doc_description == "" && doc_long_text != "" %>
+  <div class="row">
+    <div class="col-md-10 doc_text">
+      <%= doc_long_text %>
+    </div>
+  </div>
+  <% end %>
 
   <div class="row">
     <div class="col-md-12 facets">
@@ -33,27 +49,21 @@
   <% if doc["item_fields"] %>
   <% doc["item_fields"].each do |item| %>
   <hr>
-
   <h4 class="title-sub"><%= showByType("Short Text", item, doc, true) %></h4>
-
   <%= showByType("Date", item, doc, true) %>
-
-
   <div class="row">
-      <div class="col-md-6 description">
-	<%= showByType("Description", item, doc, true) %>
-      </div>
-
-      <div class="col-md-6 doc_text">
-	<%= showByType("Long Text", item, doc, true) %>
-      </div>
+    <div class="col-md-6 description">
+	  <%= showByType("Description", item, doc, true) %>
     </div>
-
-    <div class="row">
-      <div class="col-md-12 facets">
-	<%= showByType("Category", item, doc, true) %>
-      </div>
+    <div class="col-md-6 doc_text">
+	  <%= showByType("Long Text", item, doc, true) %>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 facets">
+	  <%= showByType("Category", item, doc, true) %>
+    </div>
+  </div>
   <% end %>
   <% end %>
 </div>
