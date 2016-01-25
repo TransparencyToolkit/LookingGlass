@@ -432,12 +432,9 @@ body {
       background: $lg-show-tab-background-color;
       color: $base-white;
 
-      img {
-        height: 18px;
+      i {
+        margin-left: 5px;
         margin-right: 5px;
-        -webkit-filter:invert(100%);
-        filter: invert(100%);
-        filter:progid:DXImageTransform.Microsoft.BasicImage(invert='1');
       }
     }
 

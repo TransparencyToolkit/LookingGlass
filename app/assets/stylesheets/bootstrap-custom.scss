@@ -1,6 +1,6 @@
 // Core variables and mixins
-@import "theme-default/fonts";
-@import "theme-default/bootstrap-variables";
+@import "theme-pi/fonts";
+@import "theme-pi/bootstrap-variables";
 @import "bootstrap/mixins";
 
 // Reset and dependencies
@@ -48,3 +48,7 @@
 
 // Extras
 @import "extras";
+@import "icons";
+
+// Theme Specific
+@import "theme-pi/theme";
