@@ -124,7 +124,7 @@ module TableFormat
 
   # Prepares longer text view
   def longTextView(t, doc, full_doc)
-    return truncate(getText(doc, "doc_text", full_doc), length: 200)
+    return truncate(getText(doc, t["Field Name"], full_doc), length: 200)
   end
 
   # Prepares facet view

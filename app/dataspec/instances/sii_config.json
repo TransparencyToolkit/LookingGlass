@@ -1,0 +1,23 @@
+{
+    "Dataset Config": ["app/dataspec/dataspec-sii/dataspec-company/", "app/dataspec/dataspec-sii/dataspec-material/"],
+    "Page Title": "SII",
+    "Search Title": "SII",
+    "Favicon": "tt-favicon.ico",
+    "Logo": "tt-logo.png",
+    "Theme": "default-theme",
+    "Description URL": "https://icwatch.transparencytoolkit.org",
+    "URL 1": [
+     {
+        "Name":"Advanced Search",
+        "URL": "/advancedsearch/"
+      }
+    ],
+    "URL 2": [{
+        "Name": "Privacy International",
+        "URL": "https://privacyinternational.org"
+      },{
+        "Name": "Transparency Toolkit",
+        "URL": "https://transparencytoolkit.org"
+      }
+    ]
+}

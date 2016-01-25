@@ -7,7 +7,9 @@
     <a href="#pdf" data-toggle="tab"><i class="icon-document"></i> Document</a>
   </li>
   <% end %>
+  <% if @dataspec.web_tab == "Yes" %>
   <li id="liarticles">
     <a href="#articles" data-toggle="tab"><i class="icon-link"></i> Links</a>
   </li>
+  <% end %>
 </ul>
