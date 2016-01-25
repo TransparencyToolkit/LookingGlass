@@ -370,7 +370,7 @@ body {
       display: inline-block;
       margin-right: 15px;
       margin-bottom: 5px;
-      color: $gray;
+      color: $lg-search-item-detail-text-color;
       font-size: 13px;
       font-weight: bold;
       font-family: Helvetica, Arial, sans-serif;
@@ -382,7 +382,7 @@ body {
       font-size: 14px;
       font-family: Helvetica, arial, sans-serif;
       line-height: 16px;
-      color: $gray-darker;
+      color: $lg-search-item-text-color;
     }
 
     h3.title a b,
@@ -430,7 +430,7 @@ body {
 
     ul.nav > li > a {
       background: $lg-show-tab-background-color;
-      color: $base-white;
+      color: $lg-show-tab-color;
 
       i {
         margin-left: 5px;
@@ -440,7 +440,7 @@ body {
 
     ul.nav > li.active > a {
       background: $lg-show-tab-active-background-color;
-      color: $gray-base;
+      color: $lg-show-tab-active-color;
 
       img {
         -webkit-filter:invert(0%);
