@@ -925,7 +925,7 @@ $lg-search-details-weight:    normal;
 
 $lg-search-item-border-top:   0px;
 $lg-search-item-border-right: 0px;
-$lg-search-item-border-bottom: 1px solid $gray-light;
+$lg-search-item-border-bottom: 0px;
 $lg-search-item-border-left:  0px;
 $lg-search-item-title-color:  $base-white;
 $lg-search-item-title-font:   'SourceSansPro-Bold';
@@ -933,8 +933,11 @@ $lg-search-item-title-hover-color: $brand-danger;
 $lg-search-item-title-size:   24px;
 $lg-search-item-title-weight: 500;
 
+$lg-search-item-detail-text-color: $gray-lighter;
+$lg-search-item-text-color: $base-white;
+
 $lg-search-item-highlight-background: #e6ce95;
-$lg-search-item-highlight-color: $gray-darker;
+$lg-search-item-highlight-color: $base-white;
 
 $lg-search-pagination-hover-bg: #000;
 $lg-search-pagination-font:   'SourceSansPro-Bold';
@@ -946,11 +949,13 @@ $lg-show-color:               $base-white;
 $lg-show-link-color:          $brand-danger;
 $lg-show-link-color-hover:    darken($brand-danger, 15%);
 
-$lg-show-tab-background-color: $base-black;
-$lg-show-tab-active-background-color: $base-white;
+$lg-show-tab-background-color: darken($color-red-brown, 7%);
+$lg-show-tab-color: darken($base-white, 20%);
+$lg-show-tab-active-background-color: $color-red-brown;
+$lg-show-tab-active-color: $base-white;
 $lg-show-tab-border-top:      0px;
-$lg-show-tab-border-right:    1px solid $gray-light;
-$lg-show-tab-border-bottom:   1px solid $gray-light;
+$lg-show-tab-border-right:    0px;
+$lg-show-tab-border-bottom:   0px;
 $lg-search-item-border-left:  0px;
 
 $lg-show-embed-border:        1px solid $gray-light;
@@ -958,7 +963,7 @@ $lg-show-embed-border:        1px solid $gray-light;
 $lg-show-article-color:       $gray-dark;
 $lg-show-article-text-size:   18px;
 $lg-show-article-text-weight: bold;
-$lg-show-article-item-border: 1px solid $gray-light;
+$lg-show-article-item-border: 0px;
 $lg-show-article-number:      $gray-light;
 
 $lg-static-background-color:  #FFF;
