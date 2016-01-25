@@ -1,11 +1,11 @@
 <div id="sidebar" class="col-sm-4 col-md-3 sidebar">
   <%= render partial: 'docs/showsidebar' %>
+  <!-- Theme Injection -->
+  <%= render partial: '../../assets/stylesheets/' + @instance.theme + '/sidebar' rescue nil %>
 </div>
 
-<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3
-			     main">
+<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
   <%= render partial: 'docs/showpane' %>
-
   <div class="tab-content" id="tab-contents">
 
     <!-- Pane Text -->
@@ -24,6 +24,5 @@
     <div class="tab-pane" id="articles">
       <%= render partial: 'docs/showlinks' %>
     </div>
-
   </div>
 </div>

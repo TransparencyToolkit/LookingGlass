@@ -1,7 +1,5 @@
 <div class="detail-heading">Select Filter Categories</div>
-
 <%= raw facetFormat(@facets) %>
-
 <script>
   $(document).ready(function () {
   $('label.tree-toggler').click(function () {
@@ -18,3 +16,5 @@
   });
   });
 </script>
+<!-- Theme Injection -->
+<%= render partial: '../assets/stylesheets/' + @instance.theme + '/sidebar' rescue nil %>
