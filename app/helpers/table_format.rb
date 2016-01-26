@@ -70,7 +70,6 @@ module TableFormat
         output += processed_value if raw_value.is_a?(Integer) || notEmpty?(processed_value, raw_value)
       end
     end
-
     return raw(output)
   end
 
@@ -114,7 +113,9 @@ module TableFormat
 
   # Prepares title view
   def titleView(t, doc, full_doc)
-    return link_to(getText(doc, t["Field Name"], full_doc), doc_path(full_doc["_id"]), class: "list_title", target: "_blank")
+    doc_title = getText(doc, t["Field Name"], full_doc)
+    doc_title = "(No Title)" if (!doc_title || doc_title.empty?)
+    return link_to(doc_title, doc_path(full_doc["_id"]), class: "list_title", target: "_blank")
   end
 
   # Prepares description/short text view
