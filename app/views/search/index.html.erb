@@ -1,27 +1,23 @@
-
-    <div id="sidebar" class="col-sm-4 col-md-3 sidebar">
-      <%= render partial: 'docs/sidebar' %>
+<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
+  <%= render partial: 'docs/sidebar' %>
+</div>
+<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+  <div class="row more-bottom">
+    <div id="searchtags" class="col-md-9">
+      <div class="detail-heading">Filtered By</div>
+      <%= render partial: 'search/searchfilters' %>
     </div>
-
-    <div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
-
-      <div id="searchtags">
-        <div class="detail-heading">Filtered By</div>
-        <%= render partial: 'search/searchfilters' %>
+    <div id="search-details" class="col-md-3 text-right">
+      <div class="detail-heading">Results</div>
+      <div class="detail">
+        <%= @pagination.total_entries %> Total Found
       </div>
-
-      <div id="search-details">
-        <div class="detail">
-          <%= @pagination.total_entries %> Results Found
-        </div>
-      </div>
-
-      <div id="search-result">
-        <%= render partial: 'docs/showresults' %>
-      </div>
-
-      <div id="search-pagination">
-        <%= will_paginate @pagination %>
-      </div>
-
     </div>
+  </div>
+  <div id="search-result">
+    <%= render partial: 'docs/showresults' %>
+  </div>
+  <div id="search-pagination">
+    <%= will_paginate @pagination %>
+  </div>
+</div>
