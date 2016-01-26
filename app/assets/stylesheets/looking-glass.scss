@@ -214,7 +214,7 @@ body {
   div.search-filter {
     padding: 5px 10px 8px 10px;
     margin: 0px 15px 0px 0px;
-    background-color: $lg-search-background-color;
+    background-color: $lg-search-filter-background-color;
     font-size: 16px;
     font-family: $lg-search-filter-font;
     font-weight: $lg-search-filter-weight;
@@ -230,7 +230,16 @@ body {
       font-family: $lg-search-filter-font;
       text-transform: uppercase;
       line-height: 12px;
-      color: $lg-search-light-text-color;
+      color: $lg-search-filter-category-color;
+    }
+
+    a.remove-filter {
+      margin-left: 10px;
+      color: $lg-search-filter-remove-color;
+
+      &:hover {
+        color: darken($lg-search-filter-remove-color, 15%);
+      }
     }
   }
 
@@ -251,7 +260,7 @@ body {
 
     div.detail {
       display: inline-block;
-      background: $lg-search-background-color;
+      background: $lg-search-details-background-color;
       padding: 10px 15px;
       font-family: $lg-search-details-font;
       font-size: 18px;
@@ -283,6 +292,7 @@ body {
       em,
       a {
         padding: 3px 8px;
+        color: $lg-search-pagination-color;
       }
 
       em {
@@ -293,7 +303,7 @@ body {
 
       a,
       a:visited {
-        color: $lg-search-text-color;
+        color: $lg-search-pagination-color;
 
         &:hover {
           text-decoration: none;
@@ -321,6 +331,7 @@ body {
     h3.title,
     h3.title a,
     h3.title a:visited {
+      max-width: 80%;
       font-size: $lg-search-item-title-size;
       font-family: $lg-search-item-title-font;
       font-weight: $lg-search-item-title-weight;
@@ -340,20 +351,17 @@ body {
     div.dataset-name {
       margin-top: 5px;
       font-size: 14px;
-      color: #999;
+      color: $lg-search-item-dataset-color;
 
       &:hover {
-        color: #000;
+        color: $lg-search-item-dataset-hover-color;
         margin-right: 5px;
         opacity:1.0;
         filter:alpha(opacity=100);
       }
 
-      img {
-        width: 18px;
+      i {
         margin-right: 5px;
-        opacity:0.60;
-        filter:alpha(opacity=60);
       }
     }
 
@@ -414,11 +422,11 @@ body {
       a {
         display: inline-block;
         margin: 0px 0px 0px 5px;
-        color: $lg-search-facet-color;
+        color: $lg-search-item-facet-color;
 
         &:hover {
           background: transparent;
-          color: $lg-search-facet-hover-color;
+          color: $lg-search-item-facet-hover-color;
           text-decoration: none;
         }
       }
