@@ -51,7 +51,7 @@ body {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: $navbar-height;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -141,7 +141,7 @@ body {
       letter-spacing: $lg-sidebar-link-spacing;
 
       &:hover {
-        color: $lg-search-light-text-color;
+        color: $lg-sidebar-text-color-hover;
         cursor: pointer;
       }
 
@@ -170,6 +170,11 @@ body {
       }
       &.just-plus:after {
         content: " +";
+      }
+      &.just-minus:hover:hover,
+      &.just-plus:hover:after {
+        color: $lg-sidebar-text-color-hover;
+        padding-left: 0px;
       }
     }
 
@@ -381,14 +386,14 @@ body {
       color: $lg-search-item-detail-text-color;
       font-size: 13px;
       font-weight: bold;
-      font-family: Helvetica, Arial, sans-serif;
+      font-family: $font-family-sans-serif;
     }
 
     div.description,
     div.doc_text {
       margin-bottom: 10px;
       font-size: 14px;
-      font-family: Helvetica, arial, sans-serif;
+      font-family: $font-family-sans-serif;
       line-height: 16px;
       color: $lg-search-item-text-color;
     }
