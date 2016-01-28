@@ -1,5 +1,20 @@
 @import "theme-pi/bootstrap-variables";
 
+.navbar-inverse {
+
+  .navbar-brand {
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-size: 30px;
+  }
+
+  .nav a.dropdown-toggle {
+    font-family: 'SourceSansPro-Bold';
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
 #sidebar {
 
   hr {
