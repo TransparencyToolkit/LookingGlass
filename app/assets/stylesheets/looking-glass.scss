@@ -149,27 +149,26 @@ body {
         margin-right: 10px;
       }
 
-      .plus:after {
+      &.plus:after,
+      &.minus:after {
         padding-left: 2px;
         font-size: ($lg-sidebar-link-size * .75);
+      }
+      &.plus:after {
         content: "+ Show More";
       }
-
-      .minus:after {
-        padding-left: 2px;
-        font-size: ($lg-sidebar-link-size * .75);
+      &.minus:after {
         content: "- Show Less";
       }
-
-      .just-minus:after {
-        color: $lg-search-light-text-color;
+      &.just-minus:after,
+      &.just-plus:after {
+        color: $lg-sidebar-expand-color;
         padding-left: 0px;
+      }
+      &.just-minus:after {
         content: " -";
       }
-
-      .just-plus:after {
-        color: $lg-search-light-text-color;
-        padding-left: 0px;
+      &.just-plus:after {
         content: " +";
       }
     }
