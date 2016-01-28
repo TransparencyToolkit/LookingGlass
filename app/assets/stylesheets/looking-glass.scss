@@ -123,6 +123,20 @@ body {
 
 /*** Sidebar ***/
 
+  @mixin sidebar-titles() {
+    font-size: $lg-sidebar-text-size;
+    font-family: $lg-sidebar-text-font;
+    font-weight: $lg-sidebar-link-weight;
+    letter-spacing: $lg-sidebar-link-spacing;
+  }
+
+  @mixin sidebar-links($weight, $color) {
+    font-family: $lg-sidebar-link-font;
+    font-size: $lg-sidebar-link-size;
+    font-weight: $weight;
+    color: $color;
+  }
+
   #sidebar {
     background-color: $lg-sidebar-background-color;
     color: $lg-sidebar-text-color;
@@ -135,10 +149,7 @@ body {
     }
 
     label.nav-header {
-      font-size: $lg-sidebar-link-size;
-      font-family: $lg-sidebar-link-font;
-      font-weight: $lg-sidebar-link-weight;
-      letter-spacing: $lg-sidebar-link-spacing;
+      @include sidebar-titles();
 
       &:hover {
         color: $lg-sidebar-text-color-hover;
@@ -152,13 +163,15 @@ body {
       &.plus:after,
       &.minus:after {
         padding-left: 2px;
-        font-size: ($lg-sidebar-link-size * .75);
+        @include sidebar-links($lg-sidebar-link-weight, $lg-sidebar-text-color);
       }
       &.plus:after {
         content: "+ Show More";
+        font-weight: bold;
       }
       &.minus:after {
         content: "- Show Less";
+        font-weight: bold;
       }
       &.just-minus:after,
       &.just-plus:after {
@@ -186,18 +199,36 @@ body {
       font-style: normal;
 
       a {
-        font-size: $lg-sidebar-link-size * .75;
-        color: $lg-sidebar-term-on-color;
+        @include sidebar-links($lg-sidebar-link-weight, $lg-sidebar-term-on-color);
       }
     }
 
     ul.nav > li > a {
-      font-size: $lg-sidebar-link-size * .75;
-      color: $lg-sidebar-link-color;
+      @include sidebar-links($lg-sidebar-link-weight, $lg-sidebar-link-color);
 
       &:hover,
       &:focus {
         color: $gray-darker;
+      }
+    }
+
+    p {
+      strong.label {
+        @include sidebar-titles();
+      }
+
+      i {
+        margin-right: 10px;
+      }
+
+      a {
+        @include sidebar-links($lg-sidebar-link-weight, $lg-sidebar-link-color);
+        padding: 10px 0px;
+        text-decoration: $lg-sidebar-link-decoration;
+        &:hover {
+          color: $lg-sidebar-link-color-hover;
+          text-decoration: $lg-sidebar-link-decoration-hover;
+        }
       }
     }
   }
