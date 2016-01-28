@@ -3,14 +3,15 @@
 #sidebar {
 
   hr {
-    border-top: 6px solid $base-black;
+    border-top: 6px solid rgba(37, 34, 22, 0.2);
+  }
+
+  div.detail-heading {
+    color: $base-black;
   }
 
   img.full {
-    width: 70%;
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
+    width: 80%;
   }
 }
 

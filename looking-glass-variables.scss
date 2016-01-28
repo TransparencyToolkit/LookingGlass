@@ -14,10 +14,11 @@ $lg-tiny-heading-size:        13px;
 $lg-sidebar-background-color: $base-tan;
 $lg-sidebar-border-right:     0px;
 $lg-sidebar-text-color:       #000;
+$lg-sidebar-text-color-hover: $gray-dark;
+$lg-sidebar-expand-color:     $gray-dark;
 $lg-sidebar-link-color:       $base-black;
 $lg-sidebar-link-color-hover: lighten($base-black, 10%);
 $lg-sidebar-link-font:        'SourceSansPro-Bold';
-$lg-sidebar-link-hover-background-color: red;
 $lg-sidebar-link-size:        21px;
 $lg-sidebar-link-weight:      bold;
 $lg-sidebar-link-spacing:     0px;
@@ -26,7 +27,7 @@ $lg-sidebar-term-on-color:    $lg-sidebar-text-color;
 
 $lg-search-background-color:  $color-blue-green;
 $lg-search-text-color:        $base-white;
-$lg-search-light-text-color:  $gray-light;
+$lg-search-light-text-color:  #846e60;
 
 $lg-search-filter-background-color: rgba(255, 255, 255, 0.2);
 $lg-search-filter-color:            $base-white;
