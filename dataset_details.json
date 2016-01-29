@@ -1,6 +1,6 @@
 {
   "Path Type": "Directory",
-  "Path": "/home/shidash/Data/indeed_fix_test",
+  "Path": "/home/shidash/Data/KG/xkeyscore_IndeedCrawl",
   "Index Name": "indeed_data",
   "Dataset Name": "Indeed",
   "Ignore Dir Import Ext": "_terms.json",
