@@ -11,7 +11,7 @@ module GenerateId
   # Add index name to id iff more than one dataset
   def addIndex(id, dataspec)
     dataset_count = @importer.first[1].length
-
+    
     # Append if more than one dataset
     if dataset_count > 1
       return id+dataspec.index_name

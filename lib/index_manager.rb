@@ -51,7 +51,7 @@ class IndexManager
 
     @dataspecs.each do |dataspec|
       doc_class = create_index(dataspec, gen_class_name(dataspec), force: true)
-
+      
       # Import from file, link, or dir
       case dataspec.data_path_type
       when "File"

@@ -31,7 +31,7 @@ module ImportSupport
   # Append categories to file items and create
   def appendCategories(file_items, dataset_name, categories, dataspec, doc_class)
     count = 0
-
+    
     # Loop through all items if not nill or empty
     if file_items != nil && !file_items.empty?
       file_items.each do |i|

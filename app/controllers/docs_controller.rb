@@ -11,6 +11,15 @@ class DocsController < ApplicationController
   def advancedsearch
   end
 
+  # Handle attachments in directories other than the current one
+  def attach
+    path = "/"+params["path"]+"."+params["format"]
+    send_file(path,
+               :disposition => 'inline',
+               :type => params["format"], # CHANGE/GENERALIZE- test with other formats
+               :x_sendfile => true )
+  end
+
   def index
     # Get docs, pages, and count
     pagenum, start = page_calc(params)
