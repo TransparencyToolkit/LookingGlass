@@ -16,7 +16,7 @@ class DocsController < ApplicationController
     path = "/"+params["path"]+"."+params["format"]
     send_file(path,
                :disposition => 'inline',
-               :type => params["format"], # CHANGE/GENERALIZE- test with other formats
+               :type => params["format"],
                :x_sendfile => true )
   end
 
@@ -61,7 +61,7 @@ class DocsController < ApplicationController
   # Sorts the results
   def sort_results(start, all_facet_fields, dataspec)
     if !dataspec.sort_field.empty?
-      @docs = Elasticsearch::Model.search({sort: {dataspec.sort_field => "desc"}, from: start, size: 30, facets: all_facet_fields}, @models) #NOTE: sort is broken
+      @docs = Elasticsearch::Model.search({sort: {dataspec.sort_field => "desc"}, from: start, size: 30, facets: all_facet_fields}, @models)
     else
       @docs = Elasticsearch::Model.search({from: start, size: 30, facets: all_facet_fields}, @models)
     end
