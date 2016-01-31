@@ -52,19 +52,12 @@ class IndexManager
     @dataspecs.each do |dataspec|
       doc_class = create_index(dataspec, gen_class_name(dataspec), force: true)
       
-      # Import from file, link, or dir
-      case dataspec.data_path_type
-      when "File"
-        importFromFile
-      when "url"
-        importFromURL
-      when "Directory"
-        Dir.glob(dataspec.data_path+"/**/*.json") do |file|
-          if !file.include? dataspec.ignore_ext
-            begin
-              importFileInDir(file, dataspec, doc_class)
-            rescue
-            end
+      # Import from directory
+      Dir.glob(dataspec.data_path+"/**/*.json") do |file|
+        if !file.include? dataspec.ignore_ext
+          begin
+            importFileInDir(file, dataspec, doc_class)
+          rescue
           end
         end
       end

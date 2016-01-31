@@ -1,15 +1,4 @@
 module ImportSupport
-  # Gets data from a link and imports it
-  def importFromURL(datspec)
-    createFromFile(JSON.parse(URI.parse(dataspec.data_path).read, symbolize_names: true), dataspec)
-  end
-
-  # Gets data from file and imports it
-  def importFromFile(dataspec)
-    createFromFile(JSON.parse(File.read(dataspec.data_path), symbolize_names: true), dataspec)
-  end
-
-
   # Get dataset name (file name) - for import from dir
   def getDatasetName(file)
     return file.split("/").last.gsub("_", " ").gsub(".json", "")
