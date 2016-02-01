@@ -52,10 +52,41 @@ class DocsController < ApplicationController
   end
 
   private
+
+  # Check if it includes index name
+  def includes_index_name?(id, index_names)
+    index_names.each do |i|
+      return true if id.include?(i)
+    end
+
+    return false
+  end
+
+  # Leacy support for specific cases before multidataspec support
+  def handle_legacy_id(id, index_names)
+    # Change icwatch2 to icwatch
+    if id.include?("icwatch2")
+      return id.gsub("icwatch2", "icwatch")
+    else # Append appropriate index
+      append = index_names.select{|i| ["nsadocs", "icwatch_linkedin"].include?(i)}.first
+      return id+append
+    end
+  end
   
   # Set the doc var to the correct item for the show view
   def set_doc
-    @doc = Elasticsearch::Model.search({query: { match: {"_id" => params[:id]}}}, @models).response["hits"]["hits"].first
+    # Get list of all index names
+    index_names = @dataspecs.inject([]) {|arr,d| arr.push(d.index_name)}
+
+    # Check if id includes index name
+    if includes_index_name?(params[:id], index_names)
+      id = params[:id]
+    else # Legacy support for before multidataspec support
+      id = handle_legacy_id(params[:id], index_names)
+    end
+
+    # Get document
+    @doc = Elasticsearch::Model.search({query: { match: {"_id" => id}}}, @models).response["hits"]["hits"].first
   end
 
   # Sorts the results

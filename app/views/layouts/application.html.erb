@@ -23,6 +23,7 @@
     <%= render partial: 'layouts/javascriptvars' %>
 
     <%= javascript_include_tag "application" %>
+    <link rel="stylesheet" href="/assets/marker.css">
   </head>
   <body>
 
@@ -57,6 +58,27 @@
 	    <%= yield %>
       </div>
     </div>
-
+    <script type="text/javascript"
+	    src="/assets/mootools-core-and-more.js"></script>
+    <script type="text/javascript"
+	    src="/assets/efatmarker.min.js"></script>
+    <script type="text/javascript"
+	    src="/assets/efatmarker.inc.js"></script>
+    <div id="efm-button">
+      <div id="efm-menu">
+	<h3 style="margin: 0 0 2px 0">e-Highlighter</h3>
+	<a id="efm-permalink" class="efm-need-highlight" href=""
+	   style="margin-bottom:0;padding-bottom:0"></a>
+	<p style="margin-top:0;padding-top:0" class="efm-need-highlight">Click
+	to send permalink to address bar, or right-click to copy
+	  permalink.</p>
+	<p style="margin:0.5em 0;padding:0;border-top:1px dotted
+		  #ccc;height:1px"></p>
+	<a id="efm-unhighlightall" class="efm-need-highlight">Un-highlight
+	  all</a>
+	<a id="efm-unhighlight">Un-highlight selection<span>u</span></a>
+	<a id="efm-highlight">Highlight selection<span>h</span></a>
+      </div>
+    </div>
   </body>
 </html>

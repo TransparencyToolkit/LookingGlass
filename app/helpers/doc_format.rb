@@ -1,6 +1,12 @@
 module DocFormat
   include TableFormat
 
+  # Sanitize the text
+  def sanitize_text(text)
+    return sanitize(text, tags: ['br', 'b', 'li', 'ul', 'ol', 'a', 'strong', 'i', 'p', 'img'])
+  end
+    
+
   # Prints the fields in the sidebar or text
   def printData(doc, print_conditions, print_type, dataspec, fields)
     output = ''
