@@ -13,11 +13,11 @@
 
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= stylesheet_link_tag "/css/" + @instance.theme, :media => "all" %>
 
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
-    <%= favicon_link_tag @instance.theme + '/' + @instance.favicon, :rel => 'shortcut icon' %>
+    <%= favicon_link_tag "/themes/" + @instance.theme + '/' + @instance.favicon, :rel => 'shortcut icon' %>
 
     <!-- Load in vars for use in javascript -->
     <%= render partial: 'layouts/javascriptvars' %>
@@ -37,7 +37,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <% if @instance.logo != "" %><img src="/assets/<%= @instance.theme %>/<%= @instance.logo %>"><% end %>
+          <% if @instance.logo != "" %><img src="/themes/<%= @instance.theme %>/<%= @instance.logo %>"><% end %>
           <span class="title"><%= @instance.search_title %> </span>
         </a>
       </div>
