@@ -2,9 +2,19 @@
   <%= render partial: 'docs/sidebar' %>
 </div>
 <div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
-  <div id="search-details">
-    <div class="detail">
-      <%= @total_count %> Results
+  <div class="row more-bottom">
+    <div id="searchtags" class="col-md-9">
+      <div class="detail-heading">No Filters</div>
+      <div class="search-filter">
+        <span class="filter">Add Filters</span><br>
+        <span class="category">From sidebar or searchbox</span>
+      </div>
+    </div>
+    <div id="search-details" class="col-md-3 text-right">
+      <div class="detail-heading">Results</div>
+      <div class="detail">
+        <%= @total_count %> Total
+      </div>
     </div>
   </div>
   <div id="search-result">

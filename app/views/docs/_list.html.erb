@@ -8,7 +8,10 @@
   </div>
   <div class="clearfix"></div>
 
-  <div class="pictures"><%= showByType("Picture", doc["_source"], doc, false) %></div>
+  <% doc_picture = showByType("Picture", doc["_source"], doc, false) %>
+  <% if (doc_picture != nil) && (!doc_picture.empty?) %>
+  <div class="pictures"><%= doc_picture %></div>
+  <% end %>
 
   <h4 class="title-sub"><%= showByType("Short Text", doc["_source"], doc, false) %></h4>
 
