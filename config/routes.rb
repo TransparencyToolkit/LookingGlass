@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   
   root to: 'docs#index'
   resources :docs
+
+  # Aliases for legacy support
+  get 'nsadocs', to: 'docs#index'
+  get 'nsadocs/:id', to: 'docs#show'
   
   # Dynamically generate routes
   extend MiscProcess
