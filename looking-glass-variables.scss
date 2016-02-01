@@ -3,8 +3,6 @@
 // Specific things needed for Looking Glass app that can be customized
 //##
 
-@import "bootstrap-variables";
-
 $lg-navbar-brand-font:        $font-family-sans-serif;
 
 $lg-tiny-heading-font:        $font-family-sans-serif;
@@ -33,7 +31,7 @@ $lg-search-background-color:  #FFF;
 $lg-search-text-color:        #000;
 $lg-search-light-text-color:  $gray-light;
 
-$lg-search-filter-background-color: #000;
+$lg-search-filter-background-color: $base-white;
 $lg-search-filter-color:            #000;
 $lg-search-filter-font:             $font-family-sans-serif;
 $lg-search-filter-weight:           bold;
