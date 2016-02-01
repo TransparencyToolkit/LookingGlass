@@ -1,0 +1,9 @@
+#efm-button {margin:0 0 4px 0;padding:0 0 0 30px;position:fixed;height:48px;width:52px;bottom:0;right:0;background:transparent url('/assets/kedit-2.png') no-repeat bottom right;cursor:pointer;opacity:0.4;z-index:99999999999}
+#efm-button:hover {opacity:1}
+#efm-button #efm-menu {margin:0 0 52px 0;border:1px outset gray;padding:0;display:none;background:#eee;position:fixed;bottom:0;right:0;width:20em;opacity:1;cursor:auto}
+#efm-button:hover #efm-menu {display:block;font-size:smaller;color:#999}
+#efm-button #efm-menu p {margin:0;padding:0 3px}
+#efm-button #efm-menu a {margin:1px;padding:3px 3px;display:block;font:12px sans-serif;white-space:nowrap;opacity:inherit;cursor:pointer}
+#efm-button #efm-menu a:hover {color:black;background-color:white;opacity:1}
+#efm-button #efm-menu a > span {color:gray;position:absolute;right:4px}
+.efm-hi {background-color:#ff8;font-weight:normal;}
