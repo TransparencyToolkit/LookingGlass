@@ -26,7 +26,7 @@
 	"Mapping": "not_analyzed",
 	"Form Params": "doc_source",
 	"Location": "30",
-	"Icon": "document-topic"
+	"Icon": "analysis"
     },
     {
 	"Field Name": "tools_mentioned",
@@ -36,7 +36,7 @@
 	"Mapping": "not_analyzed",
 	"Form Params": "tools_mentioned",
 	"Location": "31",
-	"Icon": "document-topic"
+	"Icon": "survey"
     },
     {
     "Field Name": "company",
@@ -88,7 +88,7 @@
     "Mapping": "english",
     "Form Params": "location",
     "Location": "5",
-    "Icon": "countries"
+    "Icon": "geopoint"
   },{
     "Field Name": "company_location",
     "Human Readable Name": "Company Location",
@@ -97,7 +97,7 @@
     "Mapping": "english",
     "Form Params": "company_location",
     "Location": "6",
-    "Icon": "countries"
+    "Icon": "industry"
   },{
     "Field Name": "job_description",
     "Human Readable Name": "Description",
