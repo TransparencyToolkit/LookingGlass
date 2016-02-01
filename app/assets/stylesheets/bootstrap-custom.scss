@@ -1,7 +1,7 @@
 // Core variables and mixins
-@import "theme-pi/fonts";
-@import "theme-pi/bootstrap-variables";
-@import "theme-pi/looking-glass-variables";
+@import "theme-default/fonts";
+@import "theme-default/bootstrap-variables";
+@import "theme-default/looking-glass-variables";
 @import "bootstrap/mixins";
 
 // Reset and dependencies
@@ -52,4 +52,4 @@
 @import "icons";
 
 // Theme Specific
-@import "theme-pi/theme";
+@import "theme-default/theme";
