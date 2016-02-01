@@ -50,7 +50,7 @@ module DocFormat
 
   # Replaces newlines with br
   def format_text(text)
-    text.gsub("\n", "<br />")
+    raw(text).gsub("\n", "<br />")
   end
 
   # Sorts item field by creation date
@@ -82,7 +82,7 @@ module DocFormat
 
   # Format longer text fields
   def prepareLongText(doc, field)
-    return raw(format_text(doc[field["Field Name"]])) if doc[field["Field Name"]]
+    return format_text(doc[field["Field Name"]]) if doc[field["Field Name"]]
   end
 
   # Handles both single links and arrays of links
@@ -120,7 +120,7 @@ module DocFormat
     outstr = prepareFieldName(field)
 
     # Long text
-    if checkIfX(field, @truncated_fields)
+    if checkIfX(field, @dataspec.truncated_fields)
       outstr += prepareLongText(doc, field)
 
     # Links

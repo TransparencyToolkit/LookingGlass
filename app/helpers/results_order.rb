@@ -40,13 +40,32 @@ module ResultsOrder
 
     return dataspec, uid, item_fields
   end
-  
-  # Puts results in appropriate order and handles item fields
-  def order_results(docs)
+
+  # Return hash of arrays of docs separated by type
+  def separate_docs_by_type(docs)
+    doc_lists = Hash.new
+
+    # Check the dataspec for each document
+    docs.each do |doc|
+      dataspec = get_dataspec(doc)
+
+      # Add to array of docs or make new array
+      if doc_lists[dataspec]
+        doc_lists[dataspec].push(doc)
+      else
+        doc_lists[dataspec] = [doc]
+      end
+    end
+
+    return doc_lists
+  end
+
+  # Sorts the documents
+  def sort_docs(docs, sort_field)
     item_ids = []
     items = Hash.new
-    
-    docs.sort { |a, b| a["_score"] <=> b["_score"] }.reverse.each do |doc|
+
+    docs.sort { |a, b| a[sort_field] <=> b[sort_field] }.each do |doc|
       # Get the dataspec, id, item_fields
       dataspec, uid, item_fields = get_details(doc)
 
@@ -59,5 +78,21 @@ module ResultsOrder
     end
 
     return items
+  end
+  
+  # Puts results in appropriate order and handles item fields
+  def order_results(docs)
+    ordered_results = Hash.new
+
+    # Sort by score if there is a score field, otherwise sort by sort field
+    if docs.first["_score"]
+      ordered_results.merge!(sort_docs(docs, "_score").to_a.reverse.to_h)
+    else
+      separate_docs_by_type(docs).each do |key, value|
+        ordered_results.merge!(sort_docs(value, key.sort_field))
+      end
+    end
+
+    return ordered_results
   end
 end

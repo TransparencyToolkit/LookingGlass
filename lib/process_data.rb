@@ -23,6 +23,7 @@ module ProcessData
   # Creates a new item in the index
   def createItem(item, unique_id, dataspec, doc_class)
     id = getID(item, dataspec)
+    
     begin
     begin # Add new version to existing doc
       doc_class.find(id)

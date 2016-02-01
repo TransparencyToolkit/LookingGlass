@@ -1,5 +1,6 @@
 <% item_check = Proc.new{ |f| checkIfX(f, @dataspec.item_fields) } %>
 <% doc = d["_source"] ? d["_source"] : d %> <!-- Handle different doc formats -->
-<%= raw(printData(doc, item_check, "fields", @dataspec, @dataspec.item_fields)) %>
+<%= raw(sanitize(printData(doc, item_check, "fields", @dataspec,
+    @dataspec.item_fields), tags: ['br', 'b', 'li', 'ul', 'ol', 'a'])) %>
 <hr />
 

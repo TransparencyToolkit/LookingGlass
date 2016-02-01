@@ -1,15 +1,4 @@
 module ImportSupport
-  # Gets data from a link and imports it
-  def importFromURL(datspec)
-    createFromFile(JSON.parse(URI.parse(dataspec.data_path).read, symbolize_names: true), dataspec)
-  end
-
-  # Gets data from file and imports it
-  def importFromFile(dataspec)
-    createFromFile(JSON.parse(File.read(dataspec.data_path), symbolize_names: true), dataspec)
-  end
-
-
   # Get dataset name (file name) - for import from dir
   def getDatasetName(file)
     return file.split("/").last.gsub("_", " ").gsub(".json", "")
@@ -31,7 +20,7 @@ module ImportSupport
   # Append categories to file items and create
   def appendCategories(file_items, dataset_name, categories, dataspec, doc_class)
     count = 0
-
+    
     # Loop through all items if not nill or empty
     if file_items != nil && !file_items.empty?
       file_items.each do |i|

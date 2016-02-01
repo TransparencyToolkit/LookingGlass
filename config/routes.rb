@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   extend MiscProcess
   @dataspecs.each do |d|
     resources gen_class_name(d).to_sym, controller: 'docs'
+    get 'attachments/*path', to: 'docs#attach'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

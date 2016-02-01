@@ -1,9 +1,17 @@
 <% file_type = File.extname(URI.parse(path).path) %>
+<% doc_location = @dataspec.local_or_remote %>
+
+<% if doc_location == "local" %>
+  <% file_path = "/attachments"+path %>
+<% elsif doc_location == "remote" %>
+  <% file_path = path %>  
+<% end %>
+
 <% if ['.jpg', '.jpeg', '.gif', '.png'].include? file_type %>
-<img src="<%= asset_path(path) %>">
+<img src="<%= asset_path(file_path) %>">
 <% elsif file_type == '.pdf' %>
-<object class="show-document" data="<%= asset_path(path) %>" type="application/pdf">
-  <embed src="<%= asset_path(path) %>" type="application/pdf" />
+<object class="show-document" data="<%= file_path %>" type="application/pdf">
+  <embed src="<%= asset_path(file_path) %>" type="application/pdf" />
 </object>
 <% else %>
 <h3>Could not load document</h3>
