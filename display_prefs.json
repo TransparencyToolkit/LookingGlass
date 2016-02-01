@@ -4,7 +4,6 @@
     "location",
     "company_location",
       "search_terms",
-      "doc_modified",
       "doc_source",
       "tools_mentioned"
   ],
@@ -26,7 +25,6 @@
       "current_title",
     "certifications",
       "additional_info",
-      "doc_modified",
       "doc_source",
       "tools_mentioned"
 	],
@@ -46,7 +44,6 @@
     "current_title",
     "time_scraped",
       "search_terms",
-      "doc_modified",
       "doc_source",
       "tools_mentioned"
 	],
@@ -66,7 +63,6 @@
 	"current_title",
 	"time_scraped",
 	"search_terms",
-	"doc_modified",
 	"doc_source",
 	"tools_mentioned"
   ],
@@ -88,7 +84,6 @@
 	"time_scraped",
 	"search_terms",
 	"links",
-	"doc_modified",
 	"doc_source",
 	"tools_mentioned"
   ],
