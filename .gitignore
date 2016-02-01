@@ -14,3 +14,5 @@ app/dataspec/*
 !app/dataspec/dataspec-indeed
 data_packages/*
 !data_packages/month-names
+public/themes/*
+.sass-cache/
