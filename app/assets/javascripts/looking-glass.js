@@ -95,7 +95,7 @@ $(document).ready(function() {
     var d = dmp.diff_main(item.versions.oldest, item.versions.newest)
     var ms_end = (new Date()).getTime()
 
-    if (diffing == 'Sequential') {
+    if (diffing == 'Sequentially') {
       dmp.diff_cleanupSemantic(d)
     }
     else if (diffing == 'Mixed') {
@@ -204,7 +204,7 @@ $(document).ready(function() {
     $('#versions-diff-' + $(this).data('doc_id'))
       .removeClass('invisible')
       .find('h3.panel-title')
-      .html($(this).data('diffing') + ' Data Differences')
+      .html('Data Differences: ' + $(this).data('diffing'))
 
     var position_offset = ($('#versions-diff-' + $(this).data('doc_id')).offset().top - 60)
 

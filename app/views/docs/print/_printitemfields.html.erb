@@ -2,5 +2,4 @@
 <% doc = d["_source"] ? d["_source"] : d %> <!-- Handle different doc formats -->
 <%= raw(sanitize_text(printData(doc, item_check, "fields", @dataspec,
     @dataspec.item_fields))) %>
-<hr />
-
+<hr>
