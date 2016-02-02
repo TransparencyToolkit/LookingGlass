@@ -22,7 +22,9 @@
       <%= render partial: 'docs/showresults' %>
     </div>
   </div>
+  <% if @pagination.length >= 30 %>
   <div id="search-pagination">
     <%= will_paginate @pagination %>
   </div>
+  <% end %>
 </div>
