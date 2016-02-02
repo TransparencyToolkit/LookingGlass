@@ -6,36 +6,32 @@ LookingGlass supports creating custom themes of the app. For an examples, look a
  - [ICWATCH](https://icwatch.transparencytoolkit.org)
  - [Snowden Doc Search](https://search.edwardsnowden.com)
 
-Both of these instanaces are using the LookingGlass application underneath, but both look different. This achieved using LookingGlass' theming functionality!
+Both of these instances are using the LookingGlass application, they look similar but also different. This is achieved using LookingGlass' theming functionality!
 
-## LookingGlass Core Files
+## The LookingGlass "Default" Theme
 
-All of the files needed for styling LookingGlass live in the directory `app/assets/stylesheets/` however, some of the files are "core" files that pertain to the overall application. You shouldn't need to modify these to achieve a custom "look & feel" for your instance!
+All of the files needed for styling LookingGlass live in the directory `public/scss/` and `public/fonts/` and the files needed for each theme exist in the `public/themes/` directory. LookingGlass ships with the **default** theme, whos files are located in `public/themes/default/` and the contents of that are:
 
-- `application.scss` - loads all styles files and gems to compile
-- `application.css` - also needed to load all styles files and gems to compile
-- `bootstrap-custom.scss` - defines Bootstrap specific files (and others) to include from Gem or custom
-- `looking-glass.scss` - contains custom CSS / SASS code for the LookingGlass application
+- `default/bootstrap-variables.scss` - all the basic variables used by Bootstrap for customization
+- `default/fonts.scss` - defines names of font families loaded by the theme (put additional fonts in your theme)
+- `default/looking-glass-variables.scss` - variables specifically for LookingGlass app
+- `default/theme.scss` - is the file you actually build the CSS from, custom as neeeded
+- `default/tt-favicon.png` - favicon for your theme
+- `default/tt-logo-32.png` - logo files and other theme specific images
 
-The actual files that *style* your instance of LookingGlass live in a folder prefixed with `theme-` for organizational purposes. The default **Transparency Toolkit's** design is found in `theme-default` and as you can see, it contains SCSS, fonts, and image files such as:
+The actual files that *style* your instance of LookingGlass and are thus needed to make a new theme are `theme.scss` and `bootstrap-variables.scss` and `looking-glass-variables.scss` everything else is optional. There is also an optional HTML files you can include such as:
 
-- `theme-default/bootstrap-variables.scss` -
-- `theme-default/fonts/` - a directory of custom fonts for your theme
-- `theme-default/fonts.scss` - defines names of font families loaded by the theme
-- `theme-default/tt-logo-32.png` - logo files and other theme specific images
+- `_sidebar.html.erb` - which will inject some HTML below the search facets on the sidebar
 
-## Creating Your Custom Theme
+## Create A Custom Theme
 
-To make your own custom theme, follow these steps:
+To make your own theme, follow these steps:
 
-1. Make a directory called whatever you want, e.g. `theme-awesome`
-2. Copy file `theme-default/bootstrap-variables.scss` to your theme `theme-awesome/bootstrap-variables.scss`
-3. Copy file `theme-default/fonts.scss` to your theme `theme-awesome/fonts.scss`
-4. Edit all references to `theme-default` in the files you copied to `theme-awesome`
-5. Add your fonts to `theme-awesome/fonts/` and images to `theme-awesome/images/` as you needed
-6. Edit paths in your `fonts.scss` file to match your fonts names
-7. Edit whatever CSS / SASS properties you desire in your theme files
-8. Edit the `Theme` in `app/dataspec/instances/config.json` file to `theme-awesome`
-9. Voila, viewing LookingGlass in your browser should show your "awesome" theme :)
+1. Make a copy of directory `default` to name of your theme, e.g. `public/themes/nicetheme/`
+2. Edit variables and oaths from the `default` files you copied in `nice-theme` directory
+5. Add fonts, images, and whatever files you need in your directory to `nice-theme`
+7. Add & edit whatever CSS / SASS properties you desire in your theme files
+8. Edit the value `Theme` in `app/dataspec/instances/your-config.json` to `nice-theme`
+9. Voila, viewing LookingGlass in your browser should show your "nice" theme :)
 
-*This is a work-in-progress if you have ideas or suggestions how to improve it, make it more simple, or add new features let us know and please [file an issue](https://github.com/TransparencyToolkit/LookingGlass/issues/new)*
+*This is a work-in-progress if you have ideas or suggestions how to improve it or add new features let us know and [file an issue](https://github.com/TransparencyToolkit/LookingGlass/issues/new)*
