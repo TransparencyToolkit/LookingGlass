@@ -311,7 +311,6 @@ body {
 
   #search-pagination {
     display: inline-block;
-    margin-top: 20px;
     background: $lg-search-background-color;
     padding: 15px 10px;
     font-family: $lg-search-pagination-font;
@@ -546,13 +545,18 @@ body {
 
     small.version-name {
       display: inline-block;
-      background: $gray-lighter;
-      border: 1px solid $gray-light;
-      color: $gray;
+      background: $lg-show-version-background;
+      border: $lg-show-version-border;
+      color: $lg-show-version-color;
       padding: 5px 10px;
-      border-radius: 3px;
       margin-bottom: 15px;
     }
+
+    h3.panel-title {
+      font-family: $lg-show-panel-title-font;
+      font-size: $lg-show-panel-title-size;
+    }
+
   }
 
 /* Static Pages */
