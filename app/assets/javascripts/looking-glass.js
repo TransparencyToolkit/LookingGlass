@@ -95,7 +95,7 @@ $(document).ready(function() {
     var d = dmp.diff_main(item.versions.oldest, item.versions.newest)
     var ms_end = (new Date()).getTime()
 
-    if (diffing == 'Sequential') {
+    if (diffing == 'Sequentially') {
       dmp.diff_cleanupSemantic(d)
     }
     else if (diffing == 'Mixed') {
@@ -108,6 +108,12 @@ $(document).ready(function() {
       .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + ds + '</' + item.element_type + '>')
     //console.log('Diffing Processing Time: ' + (ms_end - ms_start) / 1000 + 's')
     return true
+  }
+
+  var doDiffingHTML = function(doc_id, diffing, name, item) {
+    $('#versions-diff-data-' + doc_id)
+      .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + item.versions.oldest + '</' +
+     item.element_type + '>')
   }
 
   var doNonDiffing = function(doc_id, diffing, name, item) {
@@ -189,7 +195,14 @@ $(document).ready(function() {
     // console.log(element_pairs)
     _.each(element_pairs, function(item, name) {
       if (item.versions.oldest !== undefined && item.versions.newest !== undefined) {
-        doDiffing(doc_id, diffing, name, item)
+        if (/<[a-z][\s\S]*>/i.test(item.versions.oldest)) {
+          doDiffingHTML(doc_id, diffing, name, item)
+        } else if (/<[a-z][\s\S]*>/i.test(item.versions.newest)) {
+          $('#versions-diff-data-' + doc_id)
+            .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + item.versions.oldest + '</' + item.element_type + '>');
+        } else {
+          doDiffing(doc_id, diffing, name, item)
+        }
       } else {
         doNonDiffing(doc_id, diffing, name, item)
       }
@@ -204,7 +217,7 @@ $(document).ready(function() {
     $('#versions-diff-' + $(this).data('doc_id'))
       .removeClass('invisible')
       .find('h3.panel-title')
-      .html($(this).data('diffing') + ' Data Differences')
+      .html('Data Differences: ' + $(this).data('diffing'))
 
     var position_offset = ($('#versions-diff-' + $(this).data('doc_id')).offset().top - 60)
 

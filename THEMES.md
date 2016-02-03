@@ -32,6 +32,15 @@ To make your own theme, follow these steps:
 5. Add fonts, images, and whatever files you need in your directory to `nice-theme`
 7. Add & edit whatever CSS / SASS properties you desire in your theme files
 8. Edit the value `Theme` in `app/dataspec/instances/your-config.json` to `nice-theme`
-9. Voila, viewing LookingGlass in your browser should show your "nice" theme :)
 
-*This is a work-in-progress if you have ideas or suggestions how to improve it or add new features let us know and [file an issue](https://github.com/TransparencyToolkit/LookingGlass/issues/new)*
+## Building Your CSS Assets
+
+To generate the actual CSS that LookingGlass uses, you need to install and run the [SASS](http://sass-lang.com) compiler in another terminal by doing the following
+
+```
+sass --watch public/themes/nice-theme/theme.scss:public/css/nice-theme.css
+```
+
+Note: how the name `nice-theme` is used when running the `sass` command. The name of the theme is needed (and it needs to match the instance-config.json) for LookingGlass to properly include in. If you do this incorrectly, your CSS won't get loaded by LookingGlass
+
+*If you have ideas or suggestions how to improve it or add new features let us know and [file an issue](https://github.com/TransparencyToolkit/LookingGlass/issues/new)*
