@@ -5109,7 +5109,6 @@ div.search-filter {
 
 #search-pagination {
   display: inline-block;
-  margin-top: 20px;
   background: #FFF;
   padding: 15px 10px;
   font-family: Ubuntu, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -5280,11 +5279,13 @@ div.search-item {
 #maincontent small.version-name {
   display: inline-block;
   background: #eeeeee;
-  border: 1px solid #cdcdcd;
-  color: #383838;
+  border: 0px;
+  color: #6c6c6c;
   padding: 5px 10px;
-  border-radius: 3px;
   margin-bottom: 15px; }
+#maincontent h3.panel-title {
+  font-family: Ubuntu, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 18px; }
 
 /* Static Pages */
 .static-page {
