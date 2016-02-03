@@ -85,11 +85,13 @@ module ResultsOrder
     ordered_results = Hash.new
 
     # Sort by score if there is a score field, otherwise sort by sort field
-    if docs.first["_score"]
-      ordered_results.merge!(sort_docs(docs, "_score").to_a.reverse.to_h)
-    else
-      separate_docs_by_type(docs).each do |key, value|
-        ordered_results.merge!(sort_docs(value, key.sort_field))
+    if !docs.empty?
+      if docs.first["_score"]
+        ordered_results.merge!(sort_docs(docs, "_score").to_a.reverse.to_h)
+      else
+        separate_docs_by_type(docs).each do |key, value|
+          ordered_results.merge!(sort_docs(value, key.sort_field))
+        end
       end
     end
 
