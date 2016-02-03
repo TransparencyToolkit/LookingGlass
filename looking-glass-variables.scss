@@ -17,6 +17,7 @@ $lg-sidebar-text-font:              'SourceSansPro-Bold';
 $lg-sidebar-text-size:              21px;
 $lg-sidebar-text-color:             #000;
 $lg-sidebar-text-color-hover:       $gray-dark;
+$lg-sidebar-text-weight:            normal;
 $lg-sidebar-expand-color:           $gray-dark;
 $lg-sidebar-link-color:             lighten($base-black, 15%);
 $lg-sidebar-link-color-hover:       $base-black;
@@ -96,3 +97,9 @@ $lg-static-border-right:      1px solid $gray-light;
 $lg-static-border-bottom:     1px solid $gray-light;
 $lg-static-item-border-left:  0px;
 $lg-static-title-color:       $brand-danger;
+
+$lg-show-version-border:      0px;
+$lg-show-version-background:  $gray-lighter;
+$lg-show-version-color:       $gray-dark;
+$lg-show-panel-title-font:    'SourceSansPro-Bold';
+$lg-show-panel-title-size:    18px;
