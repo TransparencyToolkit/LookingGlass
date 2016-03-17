@@ -57,7 +57,7 @@
   <% # If duplicate entries %>
   <% if doc["item_fields"] %>
   <% doc["item_fields"].each do |item| %>
-  <% if (item != nil) && (!item.empty?) %>
+  <% if (item != nil) && (!item.empty?) && !(item.values.reject{|v| !v || v.empty?}.empty?) %>
   <hr>
   <h4 class="title-sub"><%= showByType("Short Text", item, doc, true) %></h4>
   <%= showByType("Date", item, doc, true) %>
