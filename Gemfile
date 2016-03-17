@@ -8,6 +8,8 @@ gem 'rb-readline'
 gem 'will_paginate'
 gem 'datapackage'
 gem 'sanitize'
+gem 'puma'
+gem 'puma_worker_killer'
 
 gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'bootstrap-sass'

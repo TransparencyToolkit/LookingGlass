@@ -98,6 +98,8 @@ module TableFormat
       return pictureView(t, doc)
     when "Category"
       return categoryView(t, doc, dataspec, full_doc)
+    when "Shorter Text"
+      return shorter_text_gen(t, doc, dataspec, full_doc)
     end
   end
 
@@ -120,7 +122,9 @@ module TableFormat
 
   # Prepares description/short text view
   def shortTextView(t, doc, full_doc)
-      return getText(doc, t["Field Name"], full_doc)
+    text = getText(doc, t["Field Name"], full_doc)
+    text = text.join(", ") if text.is_a?(Array)
+    return text
   end
 
   # Prepares longer text view
@@ -146,6 +150,14 @@ module TableFormat
     end
 
     return output
+  end
+
+  # Generate shorter text
+  def shorter_text_gen(t, doc, dataspec, full_doc)
+    text = shortTextView(t, doc, full_doc)
+    if text
+      return facetPrepare(t, text)
+    end
   end
 
   # Gets list of the highlighted categories

@@ -98,7 +98,7 @@ class DocsController < ApplicationController
     end
   end
 
-    # Set field that links items
+  # Set field that links items
   def set_link_field
     @dataspec.field_info.each do |f|
       if f["Link"]

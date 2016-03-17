@@ -35,14 +35,11 @@ You might want do add custom data related things to your instance as well. Looki
 
 ## Adding Datasets
 
-This search should work for any JSON based dataset. If you want to add a dataset, see the `app/dataspec/` folder in your app. You will need to create your own `dataspec-template` package. Here are some steps to get you going:
+This search should work for any JSON based dataset. If you want to add a dataset, see the app/dataspec folder for the necessary files. You will need to create your own `dataspec-template` package.
 
-- [ ] Clone our [datapec-template](https://github.com/TransparencyToolkit/dataspec-template) into that directory
 - [ ] Prepare and save your data somewhere on your machine
-- [ ] Edit the values in your `datapec-template` files
-- [ ] Modify your `instance-config.json` file to include additional datasets
-
-You can learn more about the values in these files mean in our [Dataset Specification](DATASET-SPECIFICATION.md).
+- [ ] Either create a dataspec for it based on `datapec-template` or use existing
+- [ ] Modify your `config.json` file to include additional datasets
 
 ## Running LookingGlass
 
@@ -58,17 +55,6 @@ You can learn more about the values in these files mean in our [Dataset Specific
 **For Running In Production**
 - Compile your assets `rake assets:precompile`
 
-
-## Theming
-
-LookingGlass ships and uses the theme called `default` but we've also made two custom themes which you can select from:
-
-- `default` - matches TransparencyToolkit's branding
-- `snowden` - matches Courage Foundations branding
-- `pi` - matches Privacy Internationals branding
-
-Select your "theme" by editing the value `"Theme": "default"` to reflect your preferred theme. You can also make your own theme [by following these instructions](THEMES.md).
-
 ---
 
 ## Developing
@@ -76,5 +62,4 @@ Select your "theme" by editing the value `"Theme": "default"` to reflect your pr
 We would love your help and contributions improving upon LookingGlass. You can also customize how LookingGlass looks with a custom theme. To do either, first get a working instance setup on your development machine, then check out the following:
 
 - [Themes](THEMES.md) - documentation for making custom look and feel
-- [Dataset Specification](DATASET-SPECIFICATION.md) - details about the values in the various dataspec files
 - [Developer Documentation](http://www.rubydoc.info/github/TransparencyToolkit/LookingGlass/master) - references of codebase
