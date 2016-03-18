@@ -4,7 +4,7 @@
 
   <h3 class="title pull-left"><%= showByType("Title", doc["_source"], doc, false) %></h3>
   <div class="dataset-name pull-right">
-    <i class="icon-<%= get_dataspec(doc).dataset_name.downcase %>"></i> <%= get_dataspec(doc).dataset_name %>
+    <i class="icon-<%= get_dataspec(doc).dataset_name.downcase.gsub("/", "-").gsub(" ", "-") %>"></i> <%= get_dataspec(doc).dataset_name %>
   </div>
   <div class="clearfix"></div>
 
@@ -22,7 +22,7 @@
       <%= showByType("Shorter Text", doc["_source"], doc, false) %>
     </div>
   </div>
-  
+
   <% doc_description = showByType("Description", doc["_source"], doc, false) %>
   <% doc_long_text = showByType("Long Text", doc["_source"], doc, false) %>
   <% if doc_description != "" && doc_long_text != "" %>
