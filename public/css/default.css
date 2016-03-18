@@ -4039,178 +4039,223 @@ i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-/*** Duplicated / Hack Mappings ***/
-.icon-company:before {
-  content: "\e906"; }
-
 /*** Normal Mappings ***/
-.icon-agencies:before {
+.icon-addresses:before {
   content: "\e900"; }
 
-.icon-alerts:before {
+.icon-agencies:before {
   content: "\e901"; }
 
-.icon-analysis:before {
+.icon-alerts:before {
   content: "\e902"; }
 
-.icon-archive:before {
+.icon-analysis:before {
   content: "\e903"; }
 
-.icon-bookmark:before {
+.icon-archive:before {
   content: "\e904"; }
 
-.icon-briefcase:before {
+.icon-bookmark:before {
   content: "\e905"; }
 
-.icon-building:before {
+.icon-briefcase:before {
   content: "\e906"; }
 
-.icon-calendar:before {
+.icon-building:before {
   content: "\e907"; }
 
-.icon-certificate:before {
+.icon-calendar:before {
   content: "\e908"; }
 
-.icon-checkmark:before {
+.icon-certificate:before {
   content: "\e909"; }
 
-.icon-classification:before {
+.icon-checkmark:before {
   content: "\e90a"; }
 
-.icon-clock:before {
+.icon-classification:before {
   content: "\e90b"; }
 
-.icon-code:before {
+.icon-clock:before {
   content: "\e90c"; }
 
-.icon-codewords:before {
+.icon-code:before {
   content: "\e90d"; }
 
-.icon-countries:before {
+.icon-codewords:before {
   content: "\e90e"; }
 
-.icon-dashboard:before {
+.icon-comment:before {
   content: "\e90f"; }
 
-.icon-decentralization:before {
+.icon-countries:before {
   content: "\e910"; }
 
-.icon-distributed:before {
+.icon-dashboard:before {
   content: "\e911"; }
 
-.icon-document:before {
+.icon-database:before {
   content: "\e912"; }
 
-.icon-documents:before {
+.icon-decentralization:before {
   content: "\e913"; }
 
-.icon-document-topic:before {
+.icon-delivery:before {
   content: "\e914"; }
 
-.icon-download:before {
+.icon-distributed:before {
   content: "\e915"; }
 
-.icon-education:before {
+.icon-document:before {
   content: "\e916"; }
 
-.icon-email:before {
+.icon-documents:before {
   content: "\e917"; }
 
-.icon-folder:before {
+.icon-document-topic:before {
   content: "\e918"; }
 
-.icon-geopoint:before {
+.icon-download:before {
   content: "\e919"; }
 
-.icon-google:before {
+.icon-edit:before {
   content: "\e91a"; }
 
-.icon-harvester:before {
+.icon-education:before {
   content: "\e91b"; }
+
+.icon-email:before {
+  content: "\e91c"; }
+
+.icon-fax:before {
+  content: "\e91d"; }
+
+.icon-folder:before {
+  content: "\e91e"; }
+
+.icon-geopoint:before {
+  content: "\e91f"; }
+
+.icon-google:before {
+  content: "\e920"; }
+
+.icon-harvester:before {
+  content: "\e921"; }
+
+.icon-home:before {
+  content: "\e922"; }
 
 .icon-indeed:before {
   content: "\e923"; }
 
 .icon-industry:before {
-  content: "\e91c"; }
-
-.icon-link:before {
-  content: "\e91d"; }
-
-.icon-linkedin:before {
-  content: "\e91e"; }
-
-.icon-logo:before {
-  content: "\e91f"; }
-
-.icon-logo-black:before {
-  content: "\e920"; }
-
-.icon-modified:before {
-  content: "\e921"; }
-
-.icon-money:before {
-  content: "\e922"; }
-
-.icon-photos:before {
   content: "\e924"; }
 
-.icon-plus:before {
+.icon-link:before {
   content: "\e925"; }
 
-.icon-progress:before {
+.icon-linkedin:before {
   content: "\e926"; }
 
-.icon-research:before {
+.icon-logo:before {
   content: "\e927"; }
 
-.icon-rss:before {
+.icon-logo-black:before {
   content: "\e928"; }
 
-.icon-search:before {
+.icon-map:before {
   content: "\e929"; }
 
-.icon-server:before {
+.icon-modified:before {
   content: "\e92a"; }
 
-.icon-shared-with:before {
+.icon-money:before {
   content: "\e92b"; }
 
-.icon-social:before {
+.icon-phone-extension:before {
   content: "\e92c"; }
 
-.icon-sources:before {
+.icon-photos:before {
   content: "\e92d"; }
 
-.icon-star:before {
+.icon-plus:before {
   content: "\e92e"; }
 
-.icon-survey:before {
+.icon-progress:before {
   content: "\e92f"; }
 
-.icon-telephone:before {
+.icon-recrawl:before {
   content: "\e930"; }
 
-.icon-terms:before {
+.icon-research:before {
   content: "\e931"; }
 
-.icon-text:before {
+.icon-rss:before {
   content: "\e932"; }
 
-.icon-twiddler:before {
+.icon-search:before {
   content: "\e933"; }
 
-.icon-twitter:before {
+.icon-server:before {
   content: "\e934"; }
 
-.icon-upload:before {
+.icon-shared-with:before {
   content: "\e935"; }
 
-.icon-user:before {
+.icon-social:before {
   content: "\e936"; }
 
-.icon-work:before {
+.icon-sources:before {
   content: "\e937"; }
+
+.icon-star:before {
+  content: "\e938"; }
+
+.icon-store:before {
+  content: "\e939"; }
+
+.icon-survey:before {
+  content: "\e93a"; }
+
+.icon-telephone:before {
+  content: "\e93b"; }
+
+.icon-terms:before {
+  content: "\e93c"; }
+
+.icon-text:before {
+  content: "\e93d"; }
+
+.icon-trash:before {
+  content: "\e93e"; }
+
+.icon-twiddler:before {
+  content: "\e93f"; }
+
+.icon-twitter:before {
+  content: "\e940"; }
+
+.icon-upload:before {
+  content: "\e941"; }
+
+.icon-user:before {
+  content: "\e942"; }
+
+.icon-view:before {
+  content: "\e943"; }
+
+.icon-work:before {
+  content: "\e944"; }
+
+.icon-x:before {
+  content: "\e945"; }
+
+/*** Duplicated / Hack Mappings ***/
+.icon-company:before {
+  content: "\e907"; }
+
+.icon-fbi-dhs-hack:before {
+  content: "\e943"; }
 
 /*!
  * Datepicker for Bootstrap v1.6.0-alpha (https://github.com/eternicode/bootstrap-datepicker)
