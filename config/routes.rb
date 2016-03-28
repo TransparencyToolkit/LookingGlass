@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   # Routes for indexing
   get 'find_dataspec' => 'index#find_dataspec'
+  match 'add_new_item' => 'index#add_new_item', as: :index_add_new_item, via: [:get, :post]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

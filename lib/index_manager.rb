@@ -39,7 +39,7 @@ class IndexManager
     body: {
       settings: settings.to_hash,
       mappings: mappings.to_hash }
-
+    
     return doc_class
   end
 

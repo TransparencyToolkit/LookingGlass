@@ -1,6 +1,18 @@
 load 'lib/index_manager.rb'
 
 class IndexController < ApplicationController
+  def add_new_item
+    # Get all the variables needed to add item
+    dataspec = get_dataspec_for_this_source("app/dataspec/dataspec-"+params["source"]+"/")
+    item = JSON.parse(params[:extracted_item])
+    unique_id = dataspec.dataset_name+params[:uid]
+    doc_class = get_model(dataspec).first
+
+    # Create the item
+    IndexManager.createItem(IndexManager.processItem(item, dataspec), unique_id, dataspec, doc_class)
+  end
+
+  # Load in the dataspec
   def find_dataspec
     # Load in data
     source = params["source"]
@@ -26,6 +38,10 @@ class IndexController < ApplicationController
 
   # Generates an index for this dataspec
   def make_index_for_dataspec(dataspec)
-    IndexManager.create_index(dataspec, gen_class_name(dataspec), force: true)
+    begin
+      IndexManager.create_index(dataspec, gen_class_name(dataspec))
+    rescue NameError
+      # Index already exists!
+    end
   end
 end
