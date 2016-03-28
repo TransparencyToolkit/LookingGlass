@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     get 'attachments/*path', to: 'docs#attach'
   end
 
+  # Routes for indexing
+  get 'find_dataspec' => 'index#find_dataspec'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

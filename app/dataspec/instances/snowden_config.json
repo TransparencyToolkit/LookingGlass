@@ -1,5 +1,5 @@
 {
-    "Dataset Config": ["app/dataspec/dataspec-snowden/"],
+    "Dataset Config": ["app/dataspec/dataspec-fbidhs/"],
     "Page Title": "Snowden Doc Search",
     "Search Title": "Snowden Doc Search",
     "Favicon": "courage-favicon.ico",
