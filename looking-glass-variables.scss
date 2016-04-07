@@ -5,11 +5,22 @@
 
 @import "bootstrap-variables";
 
-$lg-navbar-brand-font:        'SourceSansPro-Bold';
+$lg-navbar-brand-font:              'SourceSansPro-Bold';
+$lg-navbar-select-color:            $base-white;
+$lg-navbar-select-background-color: $color-blue-green;
+$lg-navbar-select-border:           0px;
+$lg-navbar-input-color:             $base-black;
+$lg-navbar-input-background-color:  $base-tan;
+$lg-navbar-input-border:            0px;
+$lg-navbar-input-placeholder-color: $color-brown-normal;
+$lg-navbar-button-color:            $base-white;
+$lg-navbar-button-background-color: $color-brown-normal;
+$lg-navbar-button-background-color-hover: darken($lg-navbar-button-background-color, 8%);
+$lg-navbar-button-border:           0px;
 
-$lg-tiny-heading-font:        'SourceSansPro-Bold';
-$lg-tiny-heading-color:       $base-white;
-$lg-tiny-heading-size:        13px;
+$lg-tiny-heading-font:              'SourceSansPro-Bold';
+$lg-tiny-heading-color:             $base-white;
+$lg-tiny-heading-size:              13px;
 
 $lg-sidebar-background-color:       $base-tan;
 $lg-sidebar-border-right:           0px;
