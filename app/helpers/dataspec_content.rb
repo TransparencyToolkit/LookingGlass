@@ -14,7 +14,7 @@ class DataspecContent
               :dedup_prioritize
 
   # attach_config.json
-  attr_reader :pdf_tab, :attach_prefix, :attach_attr, :web_tab, :web_url, :image_prefix, :local_or_remote
+  attr_reader :pdf_tab, :attach_prefix, :attach_attr, :web_tab, :web_url, :image_prefix, :local_or_remote, :tab_order
 
   def initialize(config_dir)
     @config_dir = config_dir
@@ -83,5 +83,6 @@ class DataspecContent
     @web_url = attach_config["Web URL"]
     @image_prefix = attach_config["Image Path Prefix"]
     @local_or_remote = attach_config["Local or Remote File"]
+    @tab_order = attach_config["Tab Order"]
   end
 end

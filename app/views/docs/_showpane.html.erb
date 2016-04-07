@@ -1,15 +1,12 @@
 <ul class="nav nav-pills" style="text-align:center;">
-  <li class="active" id="litext">
-    <a href="#text" data-toggle="tab"><i class="icon-text"></i> Text</a>
-  </li>
-  <% if @dataspec.pdf_tab == "Yes" %>
-  <li id="lipdf">
-    <a href="#pdf" data-toggle="tab"><i class="icon-document"></i> Document</a>
-  </li>
-  <% end %>
-  <% if @dataspec.web_tab == "Yes" %>
-  <li id="liarticles">
-    <a href="#articles" data-toggle="tab"><i class="icon-link"></i> Links</a>
-  </li>
+  <% first = 0 %>
+  
+  <% @dataspec.tab_order.each do |tab| %>
+    <% if first == 0 %>
+      <%= render partial: 'docs/tab'+tab, locals: {active: true} %>
+      <% first = 1 %>
+    <% else %>
+      <%= render partial: 'docs/tab'+tab, locals: {active: false} %>
+    <% end %>
   <% end %>
 </ul>

@@ -1,3 +1,9 @@
+<% if active == true%>
+  <div class="tab-pane active" id="text">
+<% else %>
+  <div class="tab-pane" id="text">
+<% end %>
+  
 <% first_doc = getFirstDoc %>
 
 <!-- For when there are never item fields -->
@@ -39,3 +45,4 @@
   <% end %>
 
 <% end %>
+</div>
