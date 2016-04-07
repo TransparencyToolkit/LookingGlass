@@ -4,7 +4,7 @@ module QueryFormat
   # Get all searchable fields
   def matchFieldTypes(match_type, dataspec)
     outhtml = ""
-    
+
     # Go through all searchable fields
     sortFields(dataspec.searchable_fields, dataspec.field_info).each do |field|
       f = getFieldDetails(field, dataspec.field_info)
@@ -21,10 +21,10 @@ module QueryFormat
   # Group by dataset
   def group_by_dataset
     # Gen form
-    outhtml = '<form action="" class="navbar-form navbar-left input-group-addon">                                                    
-     <select name="ftypes" id="ftypes">'
+    outhtml = '<form action="" class="navbar-form navbar-left input-group-addon">
+     <select name="ftypes" id="ftypes" class="form-control">'
     outhtml += '<option data-type="all" value="all" selected>All</option>'
-    
+
     # Gen search form (all for all datasets)
     run_all do |dataspec, model|
       outhtml = outhtml + '<optgroup label="'+dataspec.dataset_name+'">'
@@ -43,7 +43,7 @@ module QueryFormat
     outhtml = outhtml + '<optgroup label="Date">'+ raw(matchFieldTypes(["Date"], dataspec))+ '</optgroup>'
     outhtml = outhtml + '<optgroup label="Categories">'+raw(matchFieldTypes(["Category"], dataspec))+'</optgroup>'
   end
-  
+
   # Generate html for the matching option
   def genOptionHtml(f, index)
     return '<option data-type="' + f["Type"] +
