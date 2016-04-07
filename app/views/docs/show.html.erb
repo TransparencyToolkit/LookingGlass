@@ -6,24 +6,18 @@
 </div>
 <div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
   <%= render partial: 'docs/showpane' %>
-  <div class="tab-content" id="tab-contents">
+  <div class="tab-content" id="tab-contents">    
 
-    <!-- Pane Text -->
-    <div class="tab-pane active" id="text">
-      <%= render partial: 'docs/showtext' %>
-    </div>
-
-    <!-- Pane PDF -->
-    <% if @dataspec.pdf_tab == "Yes" %>
-    <div class="tab-pane" id="pdf">
-      <%= render partial: 'docs/showpdf' %>
-    </div>
+    <!-- Show tabs -->
+    <% first = 0 %>
+    <% @dataspec.tab_order.each do |tab| %>
+      <% if first == 0 %>
+        <%= render partial: 'docs/'+tab, locals: {active: true} %>
+        <% first = 1 %>
+      <% else %>
+        <%= render partial: 'docs/'+tab, locals: {active: false} %>
+      <% end %>
     <% end %>
-
-    <!-- Pane Links -->
-    <div class="tab-pane" id="articles">
-      <%= render partial: 'docs/showlinks' %>
-    </div>
   </div>
 </div>
 </div>

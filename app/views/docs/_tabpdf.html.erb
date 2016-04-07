@@ -1,0 +1,11 @@
+<% if @dataspec.pdf_tab == "Yes" %>
+
+<% if active == true%>
+  <li class="active" id="lipdf">
+<% else %>
+  <li id="lipdf">
+<% end %>
+  <a href="#pdf" data-toggle="tab"><i class="icon-document"></i>
+    Document</a>
+</li>
+<% end %>

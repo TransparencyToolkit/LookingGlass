@@ -1,3 +1,9 @@
+<% if active ==true%>
+  <div class="tab-pane active" id="articles" %>
+<% else %>
+  <div class="tab-pane" id="articles">
+<% end %>
+  
 <% first_doc = getFirstDoc %>
 
 <h3>Links</h3>
@@ -14,3 +20,4 @@
 <% end %>
       
 <% end %>
+</div>
