@@ -10,9 +10,9 @@
     {fieldname: [field_names[0], field_names[1]]} %>
 <div class="searchin" id="<%= fieldname %>">
 <input type="text" data-behaviour='datepicker' id="search-date-start" name="<%= field_names[0] %>">
- - 
+ -
 <input type="text" data-behaviour='datepicker' id="search-date-end" name="<%= field_names[1] %>">
-<button type="submit">Search</button>
+<%= render partial: 'docs/queries/search_button' %>
 </div>
 <% end %>
 

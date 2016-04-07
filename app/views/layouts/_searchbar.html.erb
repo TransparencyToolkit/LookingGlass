@@ -5,9 +5,9 @@
   <!-- Render forms for different types of queries -->
   <%= render partial: 'docs/queries/allquery' %>
   <%= render partial: 'docs/queries/stringquery', locals: {fieldname: 'stringquery', hrname: 'Query' } %>
-  <%= render partial: 'docs/queries/datequery', locals: { 
-      fieldname: 'datequery', 
-      start_date: 'start_date', 
-      end_date: 'end_date' } 
+  <%= render partial: 'docs/queries/datequery', locals: {
+      fieldname: 'datequery',
+      start_date: 'start_date',
+      end_date: 'end_date' }
   %>
 <% end %>

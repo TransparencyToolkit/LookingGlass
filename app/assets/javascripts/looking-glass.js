@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  $('#ftypes').addClass('form-control')
+
   // Search Forms
   $('#ftypes').on('change', function() {
 

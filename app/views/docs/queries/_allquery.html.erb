@@ -2,4 +2,5 @@
   <%= render partial: 'docs/queries/save_existing_fields', locals: {fieldname: "q"} %>
   <input type="text" name="q" value="<%= params[:q] %>" id="q"
   autofocus="autofocus" class="form-control searchin" placeholder="Search all fields" />
+  <%= render partial: 'docs/queries/search_button' %>
 <% end %>

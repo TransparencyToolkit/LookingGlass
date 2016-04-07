@@ -95,8 +95,57 @@ body {
     }
   }
 
-  .navbar-form input[type="text"] {
-    color: #000;
+  .navbar-form {
+
+    .form-control:focus {
+      border-color: $lg-navbar-input-color;
+      outline: 0;
+      -webkit-box-shadow: inset 0 0px 0px $base-black, 0 0 0px $base-black;
+      box-shadow: inset 0 0px 0px $base-black, 0 0 0px $base-black;
+    }
+
+    select {
+      color: $lg-navbar-select-color;
+      background-color: $lg-navbar-select-background-color;
+      border: $lg-navbar-select-border;
+    }
+
+    input[type="text"] {
+      color: $lg-navbar-input-color;
+      background-color: $lg-navbar-input-background-color;
+      border: $lg-navbar-input-border;
+      margin-right: $form-group-margin-bottom;
+    }
+
+    input::-webkit-input-placeholder {
+    	color: $lg-navbar-input-placeholder-color;
+    }
+    input::-moz-placeholder {
+      color: $lg-navbar-input-placeholder-color;
+    }
+    input:-moz-placeholder { /* Older versions of Firefox */
+      color: $lg-navbar-input-placeholder-color;
+    }
+    input:-ms-input-placeholder {
+      color: $lg-navbar-input-placeholder-color;
+    }
+
+    button[type=submit] {
+      color: $lg-navbar-button-color;
+      background-color: $lg-navbar-button-background-color;
+      border: $lg-navbar-button-border;
+
+      i {
+        font-size: 18px;
+        margin: 0 5px;
+      }
+
+      &:hover {
+        background-color: $lg-navbar-button-background-color-hover;
+      }
+
+    }
+
   }
 
   .nav-tabs > li {
