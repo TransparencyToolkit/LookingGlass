@@ -2,8 +2,8 @@
     "Dataset Config": ["app/dataspec/dataspec-sii/dataspec-company/", "app/dataspec/dataspec-sii/dataspec-material/"],
     "Page Title": "SII",
     "Search Title": "SII",
-    "Favicon": "tt-favicon.ico",
-    "Logo": "tt-logo.png",
+    "Favicon": "pi-sii-favicon.png",
+    "Logo": "pi-sii.png",
     "Theme": "pi",
     "Description URL": "https://icwatch.transparencytoolkit.org",
     "URL 1": [
