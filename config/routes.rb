@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get 'description', to: 'docs#description'
   get 'advancedsearch', to: 'docs#advanced'
+  get 'otherresources', to: 'docs#otherresources'
   
   root to: 'docs#index'
   resources :docs

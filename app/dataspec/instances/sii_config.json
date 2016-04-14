@@ -1,7 +1,7 @@
 {
     "Dataset Config": ["app/dataspec/dataspec-sii/dataspec-company/", "app/dataspec/dataspec-sii/dataspec-material/"],
-    "Page Title": "SII",
-    "Search Title": "SII",
+    "Page Title": "Surveillance Industry Index",
+    "Search Title": "Surveillance Industry Index",
     "Favicon": "pi-sii-favicon.png",
     "Logo": "pi-sii.png",
     "Theme": "pi",
@@ -10,7 +10,11 @@
      {
         "Name":"Advanced Search",
         "URL": "/advancedsearch/"
-      }
+     },
+     {
+	 "Name": "Other Resources",
+	 "URL": "/otherresources/"
+     }
     ],
     "URL 2": [{
         "Name": "Privacy International",
