@@ -3,7 +3,8 @@ module DocFormat
 
   # Sanitize the text
   def sanitize_text(text)
-    return sanitize(text, tags: ['br', 'b', 'li', 'ul', 'ol', 'a', 'strong', 'i', 'p', 'img'])
+    binding.pry if text.include?("<a href=")
+    return sanitize(text, tags: ['br', 'b', 'li', 'ul', 'ol', 'a', 'strong', 'i', 'p', 'img', 'href'])
   end
     
 
