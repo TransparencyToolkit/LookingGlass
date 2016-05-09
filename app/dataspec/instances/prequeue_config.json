@@ -1,0 +1,26 @@
+{
+    "Dataset Config": ["app/dataspec/Prequeue-Dataspecs/conferences-dataspec/"],
+    "Page Title": "Prequeue",
+    "Search Title": "Prequeue",
+    "Favicon": "tt-favicon.png",
+    "Logo": "tt-logo.png",
+    "Theme": "default",
+    "Description URL": "https://looking-glass-example.website.com",
+    "URL 1": [
+      {
+        "Name":"Description",
+        "URL": "https://website.com"
+      },{
+        "Name":"Advanced Search",
+        "URL": "/advancedsearch/"
+      }
+    ],
+    "URL 2": [{
+        "Name": "LookingGlass (search software)",
+        "URL": "https://github.com/TransparencyToolkit/LookingGlass"
+      },{
+        "Name": "Transparency Toolkit",
+        "URL": "https://transparencytoolkit.org"
+      }
+    ]
+}
