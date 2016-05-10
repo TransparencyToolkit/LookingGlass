@@ -10,14 +10,6 @@
 <% if ['.jpg', '.jpeg', '.gif', '.png'].include? file_type %>
 <img src="<%= asset_path(file_path) %>">
 <% elsif file_type == '.pdf' %>
-<div id="DV-container">
-</div>
-<script type="text/javascript">
-  $(document).ready(function(){
-  DV.load("https://www.documentcloud.org/documents/1215576-1291-oxygen-forensics-brochure-oxygen-forensic.json",
-  { container: '#DV-container' });
-  });
-</script>
 <object class="show-document" data="<%= file_path %>" type="application/pdf">
   <embed src="<%= asset_path(file_path) %>" type="application/pdf" />
 </object>
