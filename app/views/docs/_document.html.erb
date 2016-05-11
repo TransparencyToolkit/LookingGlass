@@ -1,27 +1,15 @@
 <% file_type = File.extname(URI.parse(path).path) %>
 <% doc_location = @dataspec.local_or_remote %>
 
-<% if doc_location == "local" %>
+<% if doc_location == "doc_cloud" %>
+  <% file_path = path+".json" %>
+  <%= render partial: 'docs/doc_cloud_doc', locals: {file_path: file_path} %>
+<% elsif doc_location == "local" %>
   <% file_path = "/attachments"+path %>
+  <%= render partial: 'docs/local_remote_doc', locals: { file_type: file_type,
+    file_path: file_path} %>
 <% elsif doc_location == "remote" %>
-  <% file_path = path %>  
-<% end %>
-
-<% if ['.jpg', '.jpeg', '.gif', '.png'].include? file_type %>
-<img src="<%= asset_path(file_path) %>">
-<% elsif file_type == '.pdf' %>
-<div id="DV-container">
-</div>
-<script type="text/javascript">
-  $(document).ready(function(){
-  DV.load("https://www.documentcloud.org/documents/1215576-1291-oxygen-forensics-brochure-oxygen-forensic.json",
-  { container: '#DV-container' });
-  });
-</script>
-<object class="show-document" data="<%= file_path %>" type="application/pdf">
-  <embed src="<%= asset_path(file_path) %>" type="application/pdf" />
-</object>
-<% else %>
-<h3>Could not load document</h3>
-<p>The document requested is a <strong><%= file_type %></strong> and LookingGlass cannot currently view that format!</p>
+  <% file_path = path %>
+  <%= render partial: 'docs/local_remote_doc', locals: { file_type: file_type,
+  file_path: file_path} %>
 <% end %>
