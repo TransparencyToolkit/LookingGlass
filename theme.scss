@@ -20,6 +20,11 @@
     text-transform: uppercase;
     letter-spacing: -1px;
     font-size: 30px;
+
+	&:hover {
+	  color: $gray-darker;
+	}
+
   }
 
   .nav a.dropdown-toggle {
