@@ -1,7 +1,10 @@
 {
-    "Dataset Config": ["app/dataspec/dataspec-sii/dataspec-company/", "app/dataspec/dataspec-sii/dataspec-material/"],
-    "Page Title": "SII",
-    "Search Title": "SII",
+    "Dataset Config": [
+		"app/dataspec/dataspec-sii/dataspec-company/",
+		"app/dataspec/dataspec-sii/dataspec-material/"
+	],
+    "Page Title": "Surveillance Industry Index",
+    "Search Title": "Surveillance Industry Index",
     "Favicon": "pi-sii-favicon.png",
     "Logo": "pi-sii.png",
     "Theme": "pi",
