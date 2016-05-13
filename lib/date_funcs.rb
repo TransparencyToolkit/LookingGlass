@@ -60,7 +60,11 @@ module DateFuncs
   def handle_foreign_dates(f, item, date_field)
     if !item[date_field].to_s.empty?
       former_date = item[date_field]
-      item[date_field] = Date.parse(normalize_date(item[date_field]).to_s)
+      begin
+        item[date_field] = Date.parse(normalize_date(item[date_field]).to_s)
+      rescue
+        item[date_field] = nil
+      end
     end
 
     return item

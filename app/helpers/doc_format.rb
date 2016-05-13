@@ -3,7 +3,7 @@ module DocFormat
 
   # Sanitize the text
   def sanitize_text(text)
-    return sanitize(text, tags: ['br', 'b', 'li', 'ul', 'ol', 'a', 'strong', 'i', 'p', 'img'])
+    return sanitize(text, tags: ['br', 'b', 'li', 'ul', 'ol', 'a', 'strong', 'i', 'p', 'img', 'href'])
   end
     
 
@@ -71,6 +71,18 @@ module DocFormat
     return item["_source"][field]
   end
 
+  # Generate association fields
+  def handle_association_fields(doc, field)
+    outstr = ""
+
+    # Loop through each item
+    doc[field["Field Name"]].each do |associated_doc|
+      outstr += raw('<br />')+link_to(associated_doc[0], doc_path(associated_doc[1]), target: "_blank")
+    end
+    
+    return outstr
+  end
+
   # Generate a link
   def prepareLink(this_url)
     return link_to this_url, this_url, target: "_blank"
@@ -132,6 +144,9 @@ module DocFormat
     # Links
     elsif field["Display Type"] == "Link"
       outstr += handleLinkFields(doc, field)
+
+    elsif field["Display Type"] == "Association"
+      outstr += handle_association_fields(doc, field)
 
     else # Any other text
       outstr += doc[field["Field Name"]].to_s

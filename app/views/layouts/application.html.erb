@@ -23,6 +23,8 @@
     <%= render partial: 'layouts/javascriptvars' %>
 
     <%= javascript_include_tag "application" %>
+    <%= include_stylesheets :viewer, :print, :media => 'all' %>
+    <%= include_javascripts :viewer, :templates %>
     <link rel="stylesheet" href="/assets/marker.css">
   </head>
   <body>

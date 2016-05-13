@@ -1,0 +1,103 @@
+/* ========== */
+/* = Header = */
+/* ========== */
+
+.DV-mini .DV-searchBox {
+  margin-top: 2px;
+}
+  .DV-mini .DV-searchInput {
+    padding: 3px 20px 2px;
+  }
+
+.DV-mini .DV-searchBar {
+  right: 16px;
+}
+
+.DV-mini .DV-searchInput {
+  width: 80px;
+}
+
+.DV-mini .DV-searchDocument .DV-searchInput-cancel {
+  top: 7px;
+}
+
+/* ================== */
+/* = Page Container = */
+/* ================== */
+
+.DV-autoZoom .DV-textPage {
+  margin-left: 35px;
+}
+.DV-mini .DV-textPage {
+  margin-left: 7px;
+}
+.DV-mini .DV-textContents {
+  margin: 20px;
+}
+
+.DV-autoZoom .p0,
+.DV-autoZoom .p1,
+.DV-autoZoom .p2 {
+  padding-left: 35px;
+}
+.DV-mini .p0,
+.DV-mini .p1,
+.DV-mini .p2 {
+  padding-left: 7px;
+}
+
+.DV-mini .DV-controls {
+  height: 30px;
+}
+  .DV-mini .DV-header .DV-fullscreen {
+    left: 4px; top: 3px;
+  }
+  .DV-mini .DV-zoomControls {
+    margin-top: 3px;
+  }
+  .DV-mini .DV-docViewer-Container {
+    top: 31px;
+  }
+  .DV-mini .DV-views {
+    margin-left: 6px;
+  }
+    .DV-mini .DV-views div {
+      margin-top: 4px;
+    }
+      .DV-mini .DV-views div span {
+        padding: 7px 10px 6px;
+      }
+
+/* ================= */
+/* = Page Elements = */
+/* ================= */
+
+.DV-autoZoom .DV-pageNumber,
+.DV-autoZoom .DV-textCurrentPage {
+  text-align: center;
+  width: 30px;
+  padding-left: 0px;
+}
+
+.DV-mini .DV-textCurrentPage {
+  display: none;
+}
+
+.DV-supermini .DV-views .DV-thumbnailsView {
+  display: none;
+}
+
+/* Annotations ---------------------------------------*/
+
+.DV-mini .DV-annotationTab {
+  background-image: url(../../../images/DV/embed/tabs-small.png);
+  width: 29px;
+  left: -13px;
+  height: 15px;
+}
+  .DV-mini .DV-activeAnnotation .DV-annotationTab {
+    background-position: 0 -30px;
+  }
+  .DV-mini .DV-activeAnnotation .DV-annotationClose {
+    background-position: 4px 2px;
+  }
