@@ -12,23 +12,19 @@
     <meta name="mobile-web-app-capable" content="yes" />
 
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag "/css/" + @instance.theme, :media => "all" %>
 
-    <!-- For all other devices -->
-    <!-- Size should be 32 x 32 pixels -->
+    <!-- For all other devices (size should be 32x32 px) -->
     <%= favicon_link_tag "/themes/" + @instance.theme + '/' + @instance.favicon, :rel => 'shortcut icon' %>
 
-    <!-- Load in vars for use in javascript -->
+    <!-- Load vars for use in JS -->
     <%= render partial: 'layouts/javascriptvars' %>
-
     <%= javascript_include_tag "application" %>
-    <%= include_stylesheets :viewer, :print, :media => 'all' %>
-    <%= include_javascripts :viewer, :templates %>
-    <link rel="stylesheet" href="/assets/marker.css">
+
+    <link href="/css/viewer-datauri.css" media="screen" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/marker.css">
   </head>
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -44,7 +40,6 @@
           <span class="title"><%= @instance.search_title %> </span>
         </a>
       </div>
-
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
        <%= render partial: 'layouts/searchbar' %> <!-- Render searchbar at top -->
@@ -52,34 +47,27 @@
       </div><!-- /.navbar-collapse -->
       </div>
     </nav>
-
     <%= bootstrap_flash %>
-
     <div class="container-fluid">
       <div class="row">
 	    <%= yield %>
       </div>
     </div>
-    <script type="text/javascript"
-	    src="/assets/mootools-core-and-more.js"></script>
-    <script type="text/javascript"
-	    src="/assets/efatmarker.min.js"></script>
-    <script type="text/javascript"
-	    src="/assets/efatmarker.inc.js"></script>
+    <script src="/js/mootools-core-and-more.js"></script>
+    <script src="/js/efatmarker.min.js"></script>
+    <script src="/js/efatmarker.inc.js"></script>
     <div id="efm-button">
       <div id="efm-menu">
-	<h3 style="margin: 0 0 2px 0">e-Highlighter</h3>
-	<a id="efm-permalink" class="efm-need-highlight" href=""
-	   style="margin-bottom:0;padding-bottom:0"></a>
-	<p style="margin-top:0;padding-top:0" class="efm-need-highlight">Click
-	to send permalink to address bar, or right-click to copy
-	  permalink.</p>
-	<p style="margin:0.5em 0;padding:0;border-top:1px dotted
-		  #ccc;height:1px"></p>
-	<a id="efm-unhighlightall" class="efm-need-highlight">Un-highlight
-	  all</a>
-	<a id="efm-unhighlight">Un-highlight selection<span>u</span></a>
-	<a id="efm-highlight">Highlight selection<span>h</span></a>
+	    <h3 style="margin: 0 0 2px 0">e-Highlighter</h3>
+	    <a id="efm-permalink" class="efm-need-highlight" href=""
+		style="margin-bottom:0;padding-bottom:0"></a>
+		<p style="margin-top:0;padding-top:0" class="efm-need-highlight">
+		  Click to send permalink to address bar, or right-click to copy permalink.
+ 		</p>
+		<p style="margin:0.5em 0;padding:0;border-top:1px dotted #ccc;height:1px"></p>
+		<a id="efm-unhighlightall" class="efm-need-highlight">Un-highlight all</a>
+		<a id="efm-unhighlight">Un-highlight selection<span>u</span></a>
+		<a id="efm-highlight">Highlight selection<span>h</span></a>
       </div>
     </div>
   </body>

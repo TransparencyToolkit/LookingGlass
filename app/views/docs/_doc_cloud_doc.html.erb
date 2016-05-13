@@ -1,8 +1,18 @@
 <div id="DV-container">
+	<noscript>
+	  <div id="DV-noJS">
+		The Document Viewer requires that you enable Javascript.
+	  </div>
+	</noscript>
 </div>
-<script type="text/javascript">
-  $(document).ready(function(){
-  DV.load('https://www.documentcloud.org/documents/1215576-1291-oxygen-forensics-brochure-oxygen-forensic.json',
-  { container: '#DV-container' });
-  });
+<script src="/js/viewer.js"></script>
+<script src="/js/templates.js"></script>
+<script>
+DV.load('<%= file_path %>', { 		
+	container: '#DV-container',
+	width: '100%',
+	height: 700,
+	sidebar: false,
+	search: false
+});
 </script>
