@@ -18,11 +18,12 @@ module ImportSupport
   end
 
   # Append fields and create item
-  def append_and_create_item(i, dataset_name, categories, dataspec, doc_class)
+  def append_and_create_item(i, dataset_name, categories, dataspec, doc_class, count)
     i.merge!(dataset_name: dataset_name, categories: categories)
     i.merge!(data_source: getDatasource(dataspec, i)) if @importer.first[1].size >1
     createItem(processItem(i, dataspec), dataset_name.gsub(" ", "")+count.to_s, dataspec, doc_class)
     count += 1
+	return count
   end
 
   # Append categories to file items and create
@@ -31,13 +32,13 @@ module ImportSupport
     
     # Loop through all items if not nill or empty
     if file_items != nil && !file_items.empty?
-
-      # Check if it is hash or array to determine handling
+      #binding.pry
+	  # Check if it is hash or array to determine handling
       if file_items.is_a?(Hash)
-        append_and_create_item(file_items, dataset_name, categories, dataspec, doc_class)
-      elsif fil_items.is_a?(Array)
+        append_and_create_item(file_items, dataset_name, categories, dataspec, doc_class, count)
+      elsif file_items.is_a?(Array)
         file_items.each do |i|
-          append_and_create_item(i, dataset_name, categories, dataspec, doc_class)
+          count = append_and_create_item(i, dataset_name, categories, dataspec, doc_class, count)
         end
       end
     end
