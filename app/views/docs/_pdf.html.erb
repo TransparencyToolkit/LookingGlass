@@ -1,13 +1,14 @@
 <% if @dataspec.pdf_tab == "Yes" %>
+<% first_doc = @link_type["Link Type"] == "mult_items" ?
+   @docs.first["_source"] : @doc %>
+<% if @dataspec.attach_attr && first_doc[@dataspec.attach_attr] %>
+
 <% if active == true%>
   <div class="tab-pane active" id="pdf">
 <% else %>
     <div class="tab-pane" id="pdf">
 <% end %>
-<% first_doc = @link_type["Link Type"] == "mult_items" ?
-   @docs.first["_source"] : @doc %>
 
-<% if @dataspec.attach_attr && first_doc[@dataspec.attach_attr] %>
 <!-- Handle multiple PDFs -->
 <% if first_doc[@dataspec.attach_attr].is_a?(Array) %>
 <% first_doc[@dataspec.attach_attr].each do |doc_path| %>
@@ -18,7 +19,7 @@
 <% else %>
   <%= render partial: 'docs/document', locals: { path: @dataspec.attach_prefix+first_doc[@dataspec.attach_attr] } %>
 <% end %>
-		
-<% end %>
+
 </div>
+<% end %>
 <% end %>

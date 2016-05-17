@@ -1,4 +1,8 @@
 <% if @dataspec.web_tab == "Yes" %>
+<% first_doc = getFirstDoc %>
+<% web_links = first_doc[@dataspec.web_url].is_a?(String) ? [first_doc[@dataspec.web_url]] : first_doc[@dataspec.web_url] %>
+<% if web_links %>
+
 <% if active == true%>
   <li class="active" id="liarticles">
 <% else %>
@@ -7,4 +11,5 @@
       <a href="#articles" data-toggle="tab"><i class="icon-link"></i>
 	Links</a>
 </li>
+<% end %>
 <% end %>
