@@ -1,7 +1,8 @@
 {
     "Dataset Config": [
-		"app/dataspec/dataspec-sii/dataspec-company/",
-		"app/dataspec/dataspec-sii/dataspec-material/"
+	"app/dataspec/dataspec-sii/dataspec-material/",
+	"app/dataspec/dataspec-sii/dataspec-company/",
+	"app/dataspec/dataspec-sii/dataspec-transfer/"
 	],
     "Page Title": "Surveillance Industry Index",
     "Search Title": "Surveillance Industry Index",
