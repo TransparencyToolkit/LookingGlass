@@ -2,19 +2,51 @@
 module CategoryFormat
   include GeneralUtils
 
-  # Format all facets on sidebar
+
+  # Format facets on sidebar
   def facetFormat(facets)
     outhtml = ""
 
-    # Go through all facets
-    sortFields(@all_facets.keys, @all_field_info).each do |field|
-      # sortFields(@facet_fields).each do |field|
-      total_count = facets[field]["terms"].count.to_s
-      outhtml += genFacet(facets, "", field, total_count) if facets[field]["terms"].count > 0
+    # Print facets for each dataspec
+    overlapping_facets = get_facet_union
+    outhtml += print_facet_list(overlapping_facets, facets)
+
+    # Print nonoverlapping facets for each dataspec
+    @dataspecs.each do |dataspec|
+      outhtml += '<div class="detail-heading">'+dataspec.dataset_name+' Filters</div>' if @dataspecs.length > 1
+      nonoverlapping = dataspec.facet_fields.select{|f| !overlapping_facets.include?(f.to_sym)}
+      outhtml += print_facet_list(nonoverlapping, facets)
     end
 
     return outhtml
   end
+
+  # Print a list of facets
+  def print_facet_list(facet_list, facets)
+    outhtml = ""
+    
+    sortFields(facet_list, @all_field_info).each do |field|
+      total_count = facets[field.to_sym]["terms"].count.to_s
+      outhtml += genFacet(facets, "", field.to_sym, total_count) if facets[field.to_sym]["terms"].count > 0
+    end
+
+    return outhtml
+  end
+
+  # Get lists of facets that are in more than one
+  def get_facet_union
+    facet_count = Hash[@all_facets.keys.map{|k| [k, 0]}]
+    
+    # Increment count for each time facet is used
+    @dataspecs.each do |dataspec|
+      dataspec.facet_fields.each do |facet|
+        facet_count[facet.to_sym] += 1
+      end
+    end
+
+    # Return those with a count above one
+    return facet_count.select{|k, v| v > 1}.keys
+  end  
 
   # Gen html for list of links for each facet
   def genFacet(categories, outhtml, field, total_count)
