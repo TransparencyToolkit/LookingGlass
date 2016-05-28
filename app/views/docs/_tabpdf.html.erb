@@ -1,7 +1,7 @@
 <% if @dataspec.pdf_tab == "Yes" %>
 <% first_doc = @link_type["Link Type"] == "mult_items" ?
    @docs.first["_source"] : @doc %>
-<% if @dataspec.attach_attr && first_doc[@dataspec.attach_attr] %>
+<% if @dataspec.attach_attr && first_doc[@dataspec.attach_attr] && !first_doc[@dataspec.attach_attr].empty? %>
 
 <% if active == true%>
   <li class="active" id="lipdf">
