@@ -110,7 +110,7 @@ module TableFormat
 
   # Prepares date view
   def dateView(t, doc)
-    return '<span class="date">'+ t["Human Readable Name"]+ ': <span class="list_date">'+doc[t["Field Name"]]+'</span></span>'
+    return '<span class="date">'+ t["Human Readable Name"]+ ': <span class="list_date">'+doc[t["Field Name"]].to_s+'</span></span>'
   end
 
   # Prepares title view
