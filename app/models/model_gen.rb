@@ -50,6 +50,8 @@ module ModelGen
       map[:index] = f["Mapping"]
     elsif f["Mapping"] == "english"
       map[:analyzer] = "custom_en_analyzer"
+    elsif f["Mapping"] == "spanish"
+      map[:analyzer] = "custom_es_analyzer"
     end
 
     return map
