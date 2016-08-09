@@ -21,10 +21,6 @@ module ESAnalyzer
               type: 'stemmer',
               language: 'light_spanish'
             },
-            spanish_possessive_stemmer: {
-              type: 'stemmer',
-              language: 'possessive_spanish'
-            },
             synonyms: {
               type: 'synonym',
               synonyms: File.read(@dataspecs[0].synonym_list).split("\n")
@@ -35,7 +31,6 @@ module ESAnalyzer
             type: 'custom',
             tokenizer: 'standard',
             filter: [
-                     "spanish_possessive_stemmer",
                      "lowercase",
                      "synonyms",
                      "spanish_stop",
