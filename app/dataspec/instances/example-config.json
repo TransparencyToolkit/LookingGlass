@@ -1,5 +1,5 @@
 {
-    "Dataset Config": ["app/dataspec/dataspec-linkedin/", "app/dataspec/dataspec-IndeedCrawl/"],
+    "Dataset Config": ["app/dataspec/dataspec-linkedin/", "app/dataspec/dataspec-indeed/"],
     "Page Title": "Looking Glass Example",
     "Search Title": "Looking Glass Example",
     "Favicon": "tt-favicon.png",
