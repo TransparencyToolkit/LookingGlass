@@ -31,8 +31,14 @@ module ProcessData
     rescue # Does not exist, create
       create_new(item, dataspec, doc_class, id)
     end
-    rescue
-      binding.pry
+    rescue Exception => e
+      if e.to_s.include?("failed to parse date field")
+        date_field_name = e.to_s.split("failed to parse [")[1].split("]]")[0]
+        item[date_field_name] = 0
+        create_new(item, dataspec, doc_class, id)
+      else
+        binding.pry
+      end
     end
   end
 end
