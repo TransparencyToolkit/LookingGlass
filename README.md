@@ -18,7 +18,7 @@ Search, filter, and browse any JSON data. Includes full text, categorical data, 
 - Clone repo `git clone --recursive git@github.com:TransparencyToolkit/LookingGlass.git`
 - Then cd into directory `cd LookingGlass`
 - Install Ruby dependencies `bundle install`
-- Generate simple form data `rails generate simple_form:install`
+- Generate simple form data `rails generate simple_form:install --bootstrap`
 
 ## Configuring
 
@@ -38,7 +38,7 @@ You might want do add custom data related things to your instance as well. Looki
 This search should work for any JSON based dataset. If you want to add a dataset, see the app/dataspec folder for the necessary files. You will need to create your own `dataspec-template` package.
 
 - [ ] Prepare and save your data somewhere on your machine
-- [ ] Either create a dataspec for it based on `datapec-template` or use existing
+- [ ] Either create a dataspec for it based on `dataspec-template` or use existing
 - [ ] Modify your `config.json` file to include additional datasets
 
 ## Running LookingGlass
