@@ -1,6 +1,21 @@
 load 'lib/index_manager.rb'
 
 class IndexController < ApplicationController
+  # Remove specified items from index
+  def remove_item
+    # Get dataspec and doc class
+    dataspec = get_dataspec_for_this_source("app/dataspec/dataspec-"+params["source"]+"/")
+    doc_class = get_model(dataspec).first
+
+    # Loop through and remove items
+    JSON.parse(params[:extracted_items]).each do |item|
+      item_content = JSON.parse(item["item"])
+      unique_id = dataspec.dataset_name+item["id"]
+      IndexManager.process_tags_remove(item_content, dataspec, unique_id, doc_class)
+    end
+  end
+
+  # Add all new items to index
   def add_new_item
     # Get dataspec and doc class
     dataspec = get_dataspec_for_this_source("app/dataspec/dataspec-"+params["source"]+"/")
