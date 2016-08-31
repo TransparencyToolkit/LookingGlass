@@ -8,6 +8,7 @@ load 'process_data.rb'
 load 'import_support.rb'
 load 'multi_dataset.rb'
 load 'version_tracking.rb'
+load 'tag_processor.rb'
 
 class IndexManager
   include ENAnalyzer
@@ -20,6 +21,7 @@ class IndexManager
   extend ClassGen
   extend FacetsQuery
   extend VersionTracking
+  extend TagProcessor
   include MiscProcess
 
   # Index creation

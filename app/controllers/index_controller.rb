@@ -10,7 +10,7 @@ class IndexController < ApplicationController
     JSON.parse(params[:extracted_items]).each do |item|
       item_content = JSON.parse(item["item"])
       unique_id = dataspec.dataset_name+item["id"]
-      IndexManager.createItem(IndexManager.processItem(item_content, dataspec), unique_id, dataspec, doc_class)
+      IndexManager.process_tags_add(item_content, dataspec, unique_id, doc_class)
     end
   end
 
@@ -41,10 +41,10 @@ class IndexController < ApplicationController
 
   # Generates an index for this dataspec
   def make_index_for_dataspec(dataspec)
-    begin
+    doc_class = get_model(dataspec).first
+    client = doc_class.gateway.client
+    if !client.indices.exists?(index: dataspec.index_name)
       IndexManager.create_index(dataspec, gen_class_name(dataspec))
-    rescue Exception
-      # Index already exists!
     end
   end
 end

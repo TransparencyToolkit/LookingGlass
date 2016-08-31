@@ -4,7 +4,7 @@ module ModelGen
     add_nested_fields(settings, dataspec)
     attribute :version_list, String
     attribute :doc_modified, String
-    attribute :doc_modiefied_facet, String
+    attribute :doc_modified_facet, String
   end
   
   # Generate mapping based on dataspec/settings
@@ -53,7 +53,7 @@ module ModelGen
     elsif f["Mapping"] == "spanish"
       map[:analyzer] = "custom_es_analyzer"
     end
-
+    
     return map
   end
 end
