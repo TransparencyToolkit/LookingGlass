@@ -1,7 +1,9 @@
 LookingGlass
 ============
 
-Search, filter, and browse any JSON data. Includes full text, categorical data,  and search interface with **elasticsearch** backend. Work in progress.
+Search, filter, and browse any JSON data. Includes full text, categorical data, and search interface with **elasticsearch** backend.
+
+LookingGlass can be used in combination with [Harvester](https://github.com/TransparencyToolkit/Harvester) for crawling, parse and load documents.
 
 ## Installing
 
