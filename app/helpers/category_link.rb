@@ -24,7 +24,8 @@ module CategoryLink
 
   # New search path for facet (to avoid pagination issue)
   def prepNewPath(par, category_name, chosen)
-    return search_path(par.merge(category_name => chosen, :page => 1))
+    search_params = par.symbolize_keys.merge(category_name.to_sym => chosen, :page => 1)
+    return search_path(search_params)
   end
 
   # Generate link for selected facet
@@ -35,7 +36,8 @@ module CategoryLink
       if categories_chosen.is_a?(Array)
         genMultSelected(val, categories_chosen, linkname, category_name)
       else # If no others in category selected
-        return genLink(linkname, search_path(params.except(category_name, :page)), true)
+        search_params = params.symbolize_keys.except(category_name.to_sym, :page)
+        return genLink(linkname, search_path(search_params), true)
       end
     else # If no others selected
       return genLink(linkname, root_path, true)
