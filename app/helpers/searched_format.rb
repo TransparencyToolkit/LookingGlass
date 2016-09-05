@@ -109,7 +109,7 @@ module SearchedFormat
       if params[k].is_a? Array
         return multValsSelected(k, v)
       else # For single vals per category
-        return genXLink(search_path(params.except(k)))
+        return genXLink(search_path(params.symbolize_keys.except(k.to_sym)))
       end
     end
   end
