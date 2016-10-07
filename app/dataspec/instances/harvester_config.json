@@ -1,6 +1,7 @@
 {
   "Dataset Config": [
-    "app/dataspec/dataspec-IndeedCrawl/"
+      "app/dataspec/dataspec-IndeedCrawl/"
+      "app/dataspec/dataspec-LinkedinCrawl/"
   ],
   "Page Title": "Docs",
   "Search Title": "Docs",
