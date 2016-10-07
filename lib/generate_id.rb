@@ -26,7 +26,8 @@ module GenerateId
   # Remove part of ID if needed              
   def removeIDPart(id_initial, dataspec)
     if dataspec.get_after != nil && !dataspec.get_after.empty?
-      id_initial = id_initial.split(dataspec.get_after)[1]
+      split_id = id_initial.split(dataspec.get_after)
+      id_initial = split_id.length > 1 ? split_id[1] : split_id[0]
     end
 
     return id_initial
