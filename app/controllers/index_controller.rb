@@ -56,7 +56,7 @@ class IndexController < ApplicationController
 
   # Generates an index for this dataspec
   def make_index_for_dataspec(dataspec)
-    doc_class = get_model(dataspec).first
+    doc_class = get_model(dataspec.index_name)
     client = doc_class.gateway.client
     if !client.indices.exists?(index: dataspec.index_name)
       IndexManager.create_index(dataspec, gen_class_name(dataspec))
