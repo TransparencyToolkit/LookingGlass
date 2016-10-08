@@ -5,7 +5,7 @@ class IndexController < ApplicationController
   def remove_item
     # Get dataspec and doc class
     dataspec = get_dataspec_for_this_source("app/dataspec/dataspec-"+params["source"]+"/")
-    doc_class = get_model(dataspec).first
+    doc_class = get_model(dataspec.index_name)
 
     # Loop through and remove items
     JSON.parse(params[:extracted_items]).each do |item|
