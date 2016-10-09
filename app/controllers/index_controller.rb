@@ -54,6 +54,14 @@ class IndexController < ApplicationController
     return @dataspecs.select{ |d| d.index_name == source_index}.first
   end
 
+  # Create all indexes
+  def create_all_indexes
+    load_everything
+    @dataspecs.each do |dataspec|
+      make_index_for_dataspec(dataspec)
+    end
+  end
+
   # Generates an index for this dataspec
   def make_index_for_dataspec(dataspec)
     doc_class = get_model(dataspec.index_name)
