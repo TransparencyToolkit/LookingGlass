@@ -3,6 +3,7 @@ module VersionTracking
   def add_new_version(version_item, dataspec, doc_class, id)
     # Get full item and timestamps
     full_item = doc_class.find(id)
+    
     full_item_timestamp = full_item[dataspec.dedup_prioritize]
     version_timestamp = version_item[dataspec.dedup_prioritize]
 
@@ -121,7 +122,7 @@ module VersionTracking
         nonchanging_version.each do |key, value|
           if !dataspec.facet_fields.include?(key.to_s) && dataspec.doc_page_fields.include?(key.to_s)
             if value && nonchanging_other_version[key]
-              if value.gsub(/[^0-9a-z]/i, "") != nonchanging_other_version[key].gsub(/[^0-9a-z]/i, "")
+              if value.to_s.gsub(/[^0-9a-z]/i, "") != nonchanging_other_version[key].to_s.gsub(/[^0-9a-z]/i, "")
                 return "Changed" if value && nonchanging_other_version[key]
               end
             end
