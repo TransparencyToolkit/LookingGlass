@@ -60,6 +60,10 @@ class IndexController < ApplicationController
     @dataspecs.each do |dataspec|
       make_index_for_dataspec(dataspec)
     end
+
+    respond_to do |format|
+      format.json { head :ok }
+    end
   end
 
   # Generates an index for this dataspec
