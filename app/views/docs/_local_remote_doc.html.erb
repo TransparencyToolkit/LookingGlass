@@ -1,11 +1,11 @@
-<% if ['.jpg', '.jpeg', '.gif', '.png'].include? file_type %>
+<% if ['.jpg', '.jpeg', '.gif', '.png', '.bmp', '.tif', '.tiff'].include? file_type %>
   <img src="<%= asset_path(file_path) %>">
 <% elsif file_type == '.pdf' %>
   <object class="show-document" data="<%= file_path %>" type="application/pdf">
     <embed src="<%= asset_path(file_path) %>" type="application/pdf" />
   </object>
 <% else %>
-  <h3>Could not load document</h3>
-  <p>The document requested is a <strong><%= file_type %></strong> and
-  LookingGlass cannot currently view that format!</p>
+  <h3>Download Document</h3>
+  <a href="<%= file_path %>" download>Download <%= file_path %></a>
 <% end %>
+
