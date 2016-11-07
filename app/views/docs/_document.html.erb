@@ -1,4 +1,4 @@
-<% file_type = File.extname(URI.parse(path).path) %>
+<% file_type = File.extname(URI.parse(URI.encode(path)).path) %>
 <% doc_location = @dataspec.local_or_remote %>
 
 <% if doc_location == "doc_cloud" %>
