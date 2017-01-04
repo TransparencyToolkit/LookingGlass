@@ -66,7 +66,7 @@ module DateFuncs
         item[date_field] = nil
       end
     end
-
+    
     return item
   end
 
@@ -82,12 +82,13 @@ module DateFuncs
 
       # Handle dates that are parsed correctly
       begin
-        item[date_field] = Date.parse(item[date_field])
+        item[date_field] = DateTime.parse(item[date_field])
       rescue # Handle dates that aren't parsed correctly
         item = handle_year_only(f, item, date_field)
         item = handle_foreign_dates(f, item, date_field)
       end
     end
+    
     return item
   end
   
