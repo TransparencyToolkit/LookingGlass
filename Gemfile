@@ -10,8 +10,7 @@ gem 'datapackage'
 gem 'sanitize'
 gem 'puma'
 gem 'puma_worker_killer'
-
-gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'twitter-bootstrap-rails', git: 'https://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'bootstrap-sass'
 
 # Use SCSS for stylesheets
@@ -62,7 +61,7 @@ gem 'spring',        group: :development
 gem "thin"
 gem "quiet_assets"
 gem "simple_form"
-gem "elasticsearch", git: "git://github.com/elasticsearch/elasticsearch-ruby.git"
-gem "elasticsearch-persistence", git: "git://github.com/elasticsearch/elasticsearch-rails.git", branch: "persistence-model", require: "elasticsearch/persistence/model"
-gem "elasticsearch-rails", git: "git://github.com/elasticsearch/elasticsearch-rails.git"
+gem "elasticsearch", git: "https://github.com/elasticsearch/elasticsearch-ruby.git"
+gem "elasticsearch-persistence", git: "https://github.com/elasticsearch/elasticsearch-rails.git", branch: "persistence-model", require: "elasticsearch/persistence/model"
+gem "elasticsearch-rails", git: "https://github.com/elasticsearch/elasticsearch-rails.git"
 gem "elasticsearch-model"
