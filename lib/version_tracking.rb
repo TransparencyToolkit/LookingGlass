@@ -12,6 +12,8 @@ module VersionTracking
       if full_item_timestamp <= version_timestamp
         full_item = full_item.update(processItem(get_right_fields(version_item, dataspec), dataspec).compact)
       end
+    else
+      full_item = full_item.update(processItem(get_right_fields(version_item, dataspec), dataspec).compact)
     end
     update_item_for_new_version(full_item, version_item, dataspec, doc_class, id)
   end
