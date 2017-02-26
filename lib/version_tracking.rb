@@ -3,15 +3,16 @@ module VersionTracking
   def add_new_version(version_item, dataspec, doc_class, id)
     # Get full item and timestamps
     full_item = doc_class.find(id)
-    
-    full_item_timestamp = full_item[dataspec.dedup_prioritize]
-    version_timestamp = version_item[dataspec.dedup_prioritize]
 
-    # Update main item to be newest
-    if full_item_timestamp <= version_timestamp
-      full_item = full_item.update(processItem(get_right_fields(version_item, dataspec), dataspec).compact)
+    if !dataspec.dedup_prioritize.empty?
+      full_item_timestamp = full_item[dataspec.dedup_prioritize]
+      version_timestamp = version_item[dataspec.dedup_prioritize]
+
+      # Update main item to be newest
+      if full_item_timestamp <= version_timestamp
+        full_item = full_item.update(processItem(get_right_fields(version_item, dataspec), dataspec).compact)
+      end
     end
-
     update_item_for_new_version(full_item, version_item, dataspec, doc_class, id)
   end
 
