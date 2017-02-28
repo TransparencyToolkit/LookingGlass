@@ -38,7 +38,9 @@ module ModelGen
 
   # Make a duplicate that isn't analyzed for facets
   def duplicateUnanalyzedFacet(f)
-    return attribute (f["Field Name"]+"_facet").to_sym, f["Type"], mapping: {index: "not_analyzed", fielddata: {format: "doc_values"}}
+    return attribute (f["Field Name"]+"_facet").to_sym, f["Type"], mapping: {index: "not_analyzed",
+                                                                             fielddata: {format: "doc_values"},
+                                                                             term_vector: 'with_positions_offsets_payloads'}
   end
 
   # Generate mapping for particular field
@@ -53,7 +55,7 @@ module ModelGen
     elsif f["Mapping"] == "spanish"
       map[:analyzer] = "custom_es_analyzer"
     end
-    
+    map[:term_vector] = 'with_positions_offsets_payloads'
     return map
   end
 end

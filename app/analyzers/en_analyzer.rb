@@ -11,6 +11,7 @@ module ENAnalyzer
     # Settings
     return {
       index: {
+        number_of_shards: 1,
         analysis: {
           filter: {
             english_stop: {
