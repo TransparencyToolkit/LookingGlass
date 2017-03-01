@@ -38,7 +38,7 @@ module MultiDataset
   # Get an attribute from a particular dataspec or fall back to all
   def use_all_or_some(check_field, all_field)
     if @dataspec_to_search
-      return eval "@dataspec_to_search.#{check_field}"
+      return @dataspec_to_search.send(check_field)
     else
       return all_field
     end
