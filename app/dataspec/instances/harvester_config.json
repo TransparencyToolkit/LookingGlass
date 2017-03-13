@@ -5,6 +5,7 @@
     "app/dataspec/dataspec-GoogleCrawl/",
     "app/dataspec/dataspec-LoadFiles/",
     "app/dataspec/dataspec-TwitterCrawl/"
+    "app/dataspec/dataspec-TsjobCrawl/" 
   ],
   "Page Title": "Docs",
   "Search Title": "Docs",
