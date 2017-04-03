@@ -1,5 +1,3 @@
-include MultiDataset
-
 module TableFormat
   # Checks if field is highlighted in restuls
   def isHighlighted?(doc, field)

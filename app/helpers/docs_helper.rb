@@ -8,7 +8,6 @@ module DocsHelper
   include CategoryFormat
   include CategoryLink
   include QueryFormat
-  include DataspecUtils
   include ResultsOrder
   include VersionControl
 end

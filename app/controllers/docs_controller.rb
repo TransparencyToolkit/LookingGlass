@@ -1,8 +1,6 @@
 class DocsController < ApplicationController
   before_action :set_doc, only: [:show]
   include FacetsQuery
-  include ControllerUtils
-  include MultiDataset
 
   def description
     

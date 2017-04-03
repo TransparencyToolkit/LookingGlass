@@ -1,6 +1,5 @@
 module FacetsQuery
   include GeneralUtils
-  include DataspecUtils
 
   # Specify which categories/facets to get info for on the sidebar- all of them 
   def get_all_categories(dataspec)

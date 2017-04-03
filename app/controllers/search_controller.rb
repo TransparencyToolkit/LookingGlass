@@ -1,8 +1,5 @@
 # coding: utf-8
-class SearchController < ApplicationController
-  include ControllerUtils
-  include MultiDataset
-  
+class SearchController < ApplicationController  
   def index
     # Calculate start and page num
     pagenum, start = page_calc(params)
