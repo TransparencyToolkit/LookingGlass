@@ -1,7 +1,5 @@
 Gemfile.lock
 /.bundle
-/db/*.sqlite3
-/db/*.sqlite3-journal
 /log/*.log
 /tmp
 config/initializers/simple_form.rb
@@ -10,10 +8,5 @@ lib/templates/
 /public/assets/
 app/assets/stylesheets/theme-snowden/
 app/assets/stylesheets/theme-pi/
-app/dataspec/*
-!app/dataspec/dataspec-linkedin
-!app/dataspec/dataspec-indeed
-data_packages/*
-!data_packages/month-names
 public/themes/*
 .sass-cache/
