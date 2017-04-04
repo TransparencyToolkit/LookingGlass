@@ -1,6 +1,8 @@
 class DocsController < ApplicationController
   before_action :set_doc, only: [:show]
   include FacetsQuery
+  include ParamParsing
+  include IndexApi
 
   def description
     
@@ -21,17 +23,17 @@ class DocsController < ApplicationController
   def index
     # Get docs, pages, and count
     pagenum, start = page_calc(params)
-    docs = sort_results(start, @all_facets, @dataspecs.first)
-    @total_count = get_total_docs 
-
+    docs = get_docs_on_index_page(start, ENV['PROJECT_INDEX'])
+    @total_count = get_total_docs(ENV['PROJECT_INDEX']) 
+    
     # Paginate documents
     @pagination = WillPaginate::Collection.create(pagenum, 30, @total_count) do |pager|
-      pager.replace @docs
+      pager.replace docs["hits"]["hits"]
     end
-  
+    
     # Get facets and documents
-    @facets = @docs.response["facets"]
-    @docs = @docs.response["hits"]["hits"]
+    @facets = docs["facets"]
+    @docs = docs["hits"]["hits"]
   end
 
   def show
@@ -85,15 +87,6 @@ class DocsController < ApplicationController
 
     # Get document
     @doc = Elasticsearch::Model.search({query: { match: {"_id" => id}}}, @models).response["hits"]["hits"].first
-  end
-
-  # Sorts the results
-  def sort_results(start, all_facet_fields, dataspec)
-    if !dataspec.sort_field.empty?
-      @docs = Elasticsearch::Model.search({sort: {dataspec.sort_field => "desc"}, from: start, size: 30, facets: all_facet_fields}, @models)
-    else
-      @docs = Elasticsearch::Model.search({from: start, size: 30, facets: all_facet_fields}, @models)
-    end
   end
 
   # Set field that links items

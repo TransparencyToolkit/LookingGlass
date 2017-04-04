@@ -1,0 +1,12 @@
+<!-- Get results grouped by item field and ordered -->
+<% # results = order_results(@docs) %>
+<% results = @docs %>
+
+<!-- Show all results -->
+<% results.each do |result| %>
+  <!-- Get the dataspec for the document -->
+  <% dataspec = get_dataspec_for_doc(result) %>
+  
+  <!-- Render the document -->
+  <%= render(partial: 'docs/index/templates/default', locals: { doc: result, dataspec: dataspec }) %>
+<% end %>

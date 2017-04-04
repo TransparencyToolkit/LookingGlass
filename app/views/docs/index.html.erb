@@ -1,5 +1,5 @@
 <div id="sidebar" class="col-sm-4 col-md-3 sidebar">
-  <%= render partial: 'docs/sidebar' %>
+  "# render partial: 'docs/sidebar'"
 </div>
 <div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
   <div class="row">
@@ -19,7 +19,7 @@
   </div>
   <div id="search-result">
     <div id="uniquer">
-      <%= render partial: 'docs/showresults' %>
+      <%= render partial: 'docs/index/results' %>
     </div>
   </div>
   <% if @pagination.length >= 30 %>
