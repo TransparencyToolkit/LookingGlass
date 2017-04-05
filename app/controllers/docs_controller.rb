@@ -32,7 +32,7 @@ class DocsController < ApplicationController
     end
     
     # Get facets and documents
-    @facets = docs["facets"]
+    @facets = docs["aggregations"]
     @docs = docs["hits"]["hits"]
   end
 

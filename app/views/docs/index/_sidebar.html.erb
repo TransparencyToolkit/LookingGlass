@@ -1,0 +1,21 @@
+<div class="detail-heading">Select Filter Categories</div>
+<%= raw format_facet_sidebar(@facets) %>
+<script>
+  $(document).ready(function () {
+  $('label.tree-toggler').click(function () {
+    if ($(this).hasClass('just-minus')){
+      $(this).addClass('just-plus').removeClass('just-minus');
+    } else if ($(this).hasClass('just-plus')){
+      $(this).addClass('just-minus').removeClass('just-plus');
+    } else if ($(this).hasClass('plus')){
+      $(this).addClass('minus').removeClass('plus');
+    } else {
+      $(this).addClass('plus').removeClass('minus');
+    }
+    $(this).parent().children('ul.tree').toggle(300);
+  });
+  });
+</script>
+<!-- Theme Partial -->
+<% project = get_project_spec(ENV['PROJECT_INDEX']) %>
+<%= render partial: '../assets/stylesheets/' + project["theme"] + '/sidebar' rescue nil %>
