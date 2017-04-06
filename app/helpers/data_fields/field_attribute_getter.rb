@@ -21,6 +21,6 @@ module FieldAttributeGetter
 
   # Get the name of the icon
   def icon_name(field_details)
-    field_details["Icon"].to_s
+    field_details["icon"].to_s
   end
 end

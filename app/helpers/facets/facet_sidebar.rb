@@ -7,8 +7,8 @@ module FacetSidebar
   # Load the variables for a specific facet field
   def load_vars_for_facet_tree(field, facets)
     @aggregation = facets[field[0]]
-    @hr_name = field[1]["human_readable"]
-    @icon = field[1]["icon"]
+    @hr_name = human_readable_title(field[1])
+    @icon = icon_name(field[1])
     @bucket_count = @aggregation["buckets"].length.to_s
   end
 end
