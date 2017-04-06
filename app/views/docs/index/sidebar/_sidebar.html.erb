@@ -1,5 +1,10 @@
 <div class="detail-heading">Select Filter Categories</div>
-<%= raw format_facet_sidebar(@facets) %>
+
+<!-- Render each field in the sidebar -->
+<% get_facet_list_for_sidebar.each do |field| %>
+  <%= render partial: 'docs/index/sidebar/facet_field_tree', locals: {field: field, facets: @facets} %>
+<% end %>
+  
 <script>
   $(document).ready(function () {
   $('label.tree-toggler').click(function () {

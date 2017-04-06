@@ -3,6 +3,9 @@
 module DocsHelper
   include GeneralUtils
   include IndexApi
-  include DisplayFields
+  include DisplayTypeSwitcher
   include FacetSidebar
+  include FieldAttributeGetter
+  include HighlightField
+  include FacetLinks
 end

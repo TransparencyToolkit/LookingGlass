@@ -1,0 +1,6 @@
+<!-- Displays title for the document -->
+<% if doc_title.blank? %>
+   <% doc_title = "(No Title)" %>
+<% end %>
+
+<%= link_to(doc_title, doc_path(doc["_id"]), class: "list_title", target:  "_blank") %>   

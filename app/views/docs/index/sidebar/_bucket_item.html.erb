@@ -1,0 +1,5 @@
+<!-- Partial for showing each field entry in category/facet/bucket -->
+
+<% if !bucket['key'].empty? %>
+  <li><%= "#{bucket['key']} (#{bucket['doc_count']})" %></li>
+<% end %>

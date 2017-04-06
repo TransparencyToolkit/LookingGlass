@@ -44,7 +44,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <!--  # render partial: 'layouts/searchbar'  Render searchbar at top  -->
-     <!--   # render partial: 'layouts/linkmenu'  Render info menu with links -->
+     <%= render partial: 'layouts/linkmenu', locals: { project: project } %>
       </div><!-- /.navbar-collapse -->
       </div>
     </nav>

@@ -4,7 +4,7 @@
 
   <h3 class="title pull-left"><%= show_by_type("Title", doc, dataspec) %></h3>
   <div class="dataset-name pull-right">
-    <%= raw(display_icon(dataspec)) %>
+    <%= render partial: "docs/fields/source_icon", locals: {dataspec: dataspec} %>
   </div>
   <div class="clearfix"></div>
 
