@@ -3,9 +3,9 @@
   <%= render partial: "docs/queries/dropdown/dropdown" %>
 
   <!-- Render forms for different types of queries -->
-  <%= render partial: 'docs/queries/search_fields/allquery' %>
-  <%= render partial: 'docs/queries/search_fields/stringquery', locals: {fieldname: 'stringquery', hrname: 'Query' } %>
-  <%= render partial: 'docs/queries/search_fields/datequery', locals: {
+  <%= render partial: 'docs/queries/search_fields/all' %>
+  <%= render partial: 'docs/queries/search_fields/string', locals: {fieldname:'stringquery'} %>
+  <%= render partial: 'docs/queries/search_fields/date', locals: {
       fieldname: 'datequery',
       start_date: 'start_date',
       end_date: 'end_date' }

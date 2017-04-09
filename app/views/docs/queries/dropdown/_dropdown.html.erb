@@ -4,7 +4,8 @@
   <select name="ftypes" id="ftypes" class="form-control">
     <option data-type="all" value="all" selected>All</option>
     <% datasources.each do |source| %>
-      <%= raw(group_and_render(source)) %>
+      <%= render partial: "docs/queries/dropdown/dropdown_source_options",
+                 locals: {source: source, source_param_name: gen_source_param_name(source)} %>
     <% end %>
   </select>
 </form>

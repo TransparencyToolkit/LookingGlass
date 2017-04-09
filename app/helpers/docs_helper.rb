@@ -7,4 +7,5 @@ module DocsHelper
   include FieldAttributeGetter
   include HighlightField
   include FacetLinks
+  include DropdownFormGen
 end
