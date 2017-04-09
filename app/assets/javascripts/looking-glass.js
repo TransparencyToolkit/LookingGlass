@@ -3,21 +3,15 @@ $(document).ready(function() {
   // Search Forms
   $('#ftypes').on('change', function() {
 
-    var chosen = $('#ftypes option:selected');
-    var value = chosen.val();
-    var type = chosen.data('type').toLowerCase();
-
+      var chosen = $('#ftypes option:selected');
+      var value = chosen.val();
+      var type = chosen.data('type').toLowerCase();
+      var hr_field_label = chosen.data('labelname');
+   
     // Hide Forms
     $('#form-search-all').hide();
     $('#form-search-string').hide();
     $('#form-search-date').hide();
-
-    // Get Item
-    if (type !== 'all') {
-      var selected_parts = value.split('_sindex_')
-      var this_spec = _.findWhere(dataspec, { 'index_name': selected_parts[1] })
-      var item = _.findWhere(this_spec.field_info_sorted, { 'Field Name' : selected_parts[0]});
-    }
 
     // Modify Fields
     if (type === 'date') {
@@ -33,7 +27,7 @@ $(document).ready(function() {
       $('#form-search-' + type)
         .find('input[type=text]')
         .attr('name', value)
-        .attr('placeholder', 'Search ' + item['Human Readable Name'])
+        .attr('placeholder', 'Search ' + hr_field_label)
 
       // Style & Fill Form Field
       var form_field = $('#form-search-' + type).find('input[type=text]')
@@ -41,12 +35,12 @@ $(document).ready(function() {
       if (search_query[value] !== undefined) {
         form_field
           .attr('name', value)
-          .attr('placeholder', 'Search ' + item['Human Readable Name'])
+          .attr('placeholder', 'Search ' + hr_field_label)
           .val(search_query[value] + ' ')
       } else {
         form_field
           .attr('name', value)
-          .attr('placeholder', 'Search ' + item['Human Readable Name'])
+          .attr('placeholder', 'Search ' + hr_field_label)
           .val('')
       }
 

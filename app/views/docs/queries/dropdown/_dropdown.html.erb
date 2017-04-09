@@ -1,9 +1,10 @@
 <!-- Allows choosing which fields to search -->
+<% datasources = get_dataspecs_for_project(ENV['PROJECT_INDEX'])  %>
 <form action="" class="navbar-form navbar-left input-group-addon">
   <select name="ftypes" id="ftypes" class="form-control">
     <option data-type="all" value="all" selected>All</option>
     <% datasources.each do |source| %>
-      <%= group_and_render(source) %>
+      <%= raw(group_and_render(source)) %>
     <% end %>
   </select>
 </form>

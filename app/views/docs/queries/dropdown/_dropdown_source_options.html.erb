@@ -8,15 +8,15 @@
   <!-- Displays the groups for each field type -->
   <optgroup label="Text">
     <%= raw(matchFieldTypes(["Title", "Description", "Short Text",
-        "Medium Text", "Long Text", "Tiny Text"], source)) %>
+        "Medium Text", "Long Text", "Tiny Text"], source, "string")) %>
   </optgroup>
 
   <optgroup label="Date">
-    <%= raw(matchFieldTypes(["Date"], source)) %>
+    <%= raw(matchFieldTypes(["Date"], source, "date")) %>
   </optgroup>
 
   <optgroup label="Categories">
-    <%= raw(matchFieldTypes(["Category"], source)) %>
+    <%= raw(matchFieldTypes(["Category"], source, "string")) %>
   </optgroup>
 
 </optgroup>

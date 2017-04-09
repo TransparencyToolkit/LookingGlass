@@ -1,6 +1,6 @@
 <!-- Only show search bar on index action -->
 <% if ['index'].include?(action_name) %>
-  <%= raw(gen_searchbar_fields_list) %>
+  <%= render partial: "docs/queries/dropdown/dropdown" %>
 
   <!-- Render forms for different types of queries -->
   <%= render partial: 'docs/queries/search_fields/allquery' %>
