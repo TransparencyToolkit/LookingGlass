@@ -3,9 +3,9 @@
   <%= raw(gen_searchbar_fields_list) %>
 
   <!-- Render forms for different types of queries -->
-  <%= render partial: 'docs/queries/allquery' %>
-  <%= render partial: 'docs/queries/stringquery', locals: {fieldname: 'stringquery', hrname: 'Query' } %>
-  <%= render partial: 'docs/queries/datequery', locals: {
+  <%= render partial: 'docs/queries/search_fields/allquery' %>
+  <%= render partial: 'docs/queries/search_fields/stringquery', locals: {fieldname: 'stringquery', hrname: 'Query' } %>
+  <%= render partial: 'docs/queries/search_fields/datequery', locals: {
       fieldname: 'datequery',
       start_date: 'start_date',
       end_date: 'end_date' }

@@ -1,0 +1,24 @@
+<!-- Generates the list of dropdown options for a data source -->
+<optgroup label="<%= source_hr_name %>">
+
+  <option data-type="all" value="<%= source_param_name %>">
+    All <%= source_hr_name %>
+  </option>
+
+  <!-- Displays the groups for each field type -->
+  <optgroup label="Text">
+    <%= raw(matchFieldTypes(["Title", "Description", "Short Text",
+        "Medium Text", "Long Text", "Tiny Text"], source)) %>
+  </optgroup>
+
+  <optgroup label="Date">
+    <%= raw(matchFieldTypes(["Date"], source)) %>
+  </optgroup>
+
+  <optgroup label="Categories">
+    <%= raw(matchFieldTypes(["Category"], source)) %>
+  </optgroup>
+
+</optgroup>
+
+

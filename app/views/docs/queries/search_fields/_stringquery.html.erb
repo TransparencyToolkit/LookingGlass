@@ -2,5 +2,5 @@
   <%= render partial: 'docs/queries/save_existing_fields', locals: {fieldname: fieldname} %>
   <input type="text" name="<%= fieldname %>" value="<%= params[fieldname.to_sym]%>" id="<%= fieldname %>"
   autofocus="autofocus" class="form-control searchin" placeholder="Search" />
-  <%= render partial: 'docs/queries/search_button' %>
+  <%= render partial: 'docs/queries/search_fields/search_button' %>
 <% end %>

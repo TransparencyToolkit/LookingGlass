@@ -16,35 +16,25 @@ module SearchHelper
 
   # Group by dataset
   def gen_searchbar_fields_list
-    # Gen form
-    outhtml = '<form action="" class="navbar-form navbar-left input-group-addon">
-     <select name="ftypes" id="ftypes" class="form-control">'
-    outhtml += '<option data-type="all" value="all" selected>All</option>'
-
     datasources = get_dataspecs_for_project(ENV['PROJECT_INDEX'])
 
-    # Gen search form (all for all datasets)
-    datasources.each do |source|
-      outhtml = outhtml + '<optgroup label="'+source["name"]+'">'
-      outhtml += group_by_type(source)
-      outhtml += '</optgroup>'
-    end
-    outhtml += '</select></form>'
-    return outhtml
+    render partial: "docs/queries/dropdown/dropdown", locals: { datasources: datasources }
   end
 
   # Groups fields by type
-  def group_by_type(source)
-    outhtml = '<option data-type="all" value="all_source_'+source["class_name"].underscore+'">'+'All '+source["name"]+'</option>'
-    outhtml = outhtml + '<optgroup label="Text">'+
-              raw(matchFieldTypes(["Title", "Description", "Short Text", "Medium Text", "Long Text", "Tiny Text"], source)) + '</optgroup>'
-    outhtml = outhtml + '<optgroup label="Date">'+ raw(matchFieldTypes(["Date"], source))+ '</optgroup>'
-    outhtml = outhtml + '<optgroup label="Categories">'+raw(matchFieldTypes(["Category"], source))+'</optgroup>'
+  def group_and_render(source)
+    render partial: "docs/queries/dropdown/dropdown_source_options", locals: {
+             source_param_name: "all_source_"+source["class_name"].underscore,
+             source_hr_name: source["name"],
+             source: source
+           }
   end
 
   # Generate html for the matching option
   def genOptionHtml(field, source_name)
-    return '<option data-type="' + field[1]["display_type"] +
-           '"  value="' + field[0] + '_source_'+source_name+'">' + field[1]["human_readable"] + '</option>'
+    render partial: "docs/queries/dropdown/dropdown_field_option", locals: {display_type: field[1]["display_type"],
+                                                               human_readable_name: field[1]["human_readable"],
+                                                               field_param: field[0]+"_source_"+source_name
+                                                              }
   end
 end
