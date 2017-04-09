@@ -20,6 +20,11 @@ module IndexApi
     return JSON.parse(http.body_str)
   end
 
+  def get_dataspecs_for_project(index_name)
+    http = Curl.get("http://localhost:3000/get_dataspecs_for_project", {:index_name => index_name})
+    return JSON.parse(http.body_str)
+  end
+
   def get_facets_for_project(index_name)
     http = Curl.get("http://localhost:3000/get_facet_details_for_project", {:index_name => index_name})
     return JSON.parse(http.body_str)
