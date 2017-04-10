@@ -6,9 +6,14 @@ module FacetLinks
   end
 
   # Merge with existing params: New search path for facet (to avoid pagination issue)
-  def gen_merged_search_path(params, category_name, chosen)
-    search_params = params.symbolize_keys.merge(category_name.to_sym => chosen, :page => 1)
+  def gen_merged_search_path(params, category_field, chosen)
+    search_params = params.symbolize_keys.merge(category_field.to_sym => chosen, :page => 1)
     return search_path(search_params)
+  end
+
+  # Generate a link that replaces the value of a param with a different val (for same param)
+  def replace_param_val_in_facet_link(link_val, category_field, vals_chosen)
+    gen_facet_link(gen_facet_link_name(link_val), gen_merged_search_path(params.except(category_field), category_field, vals_chosen))
   end
 
   # Generate facet name
@@ -36,94 +41,19 @@ module FacetLinks
 
   
   # Generate link html for single term
-  def termLink(val, categories_chosen, category_name)
+  def gen_facet_link_with_params(link_val, vals_chosen, category_field)
     # Facet link should be removed from query if selected
-    if is_selected?(categories_chosen, val)
-      return remove_facet_from_query_params(val, categories_chosen, category_name)
+    if is_selected?(vals_chosen, link_val)
+      return remove_facet_from_query_params(link_val, vals_chosen, category_field)
     else # Facet link should be added to query
-      return add_facet_to_query_params(val, categories_chosen, category_name)
+      return add_facet_to_query_params(link_val, vals_chosen, category_field)
     end
   end
 
-  # Check if facet link is being generated for is selected
-  def is_selected?(categories_chosen, val)
-    single_match = categories_chosen == val["key"]
-    multiple_match = (categories_chosen.is_a?(Array) && categories_chosen.include?(val["key"]))
+  # Check if facet val is already selected
+  def is_selected?(vals_chosen, link_val)
+    single_match = vals_chosen == link_val["key"]
+    multiple_match = (vals_chosen.is_a?(Array) && vals_chosen.include?(link_val["key"]))
     return single_match || multiple_match
-  end
-  
-
-  # Add facet to the query
-  def add_facet_to_query_params(val, categories_chosen, category_name)
-    if categories_chosen # Check if another facet in the same category is selected
-      return add_another_facet_in_category(categories_chosen, val, category_name)
-    else
-      return add_first_facet_in_category(val, category_name)
-    end
-  end
-
-  # Add facets: Add first facet for category to query
-  def add_first_facet_in_category(val, category_name)
-    val_link = gen_facet_link(gen_facet_link_name(val), gen_merged_search_path(params, category_name, val["key"]))
-    params.except(category_name)
-
-    return val_link
-  end
-
-  # Add facets: Add another facet to the same category for link
-  def add_another_facet_in_category(categories_chosen, val, category_name)
-    # Handle multiple categories chosen vs one
-    if categories_chosen.is_a?(Array)
-      categories_chosen = categories_chosen.dup.push(val["key"])
-    else
-      categories_chosen = [categories_chosen, val["key"]]
-    end
-
-    # Generate link
-    val_link = gen_facet_link(gen_facet_link_name(val), gen_merged_search_path(params, category_name, categories_chosen))
-    params.except(category_name).merge(category_name => categories_chosen)
-
-    return val_link
-  end
-
-  
-
-  # Generate link for selected facet
-  def remove_facet_from_query_params(val, categories_chosen, category_name)
-    # Case 1 and 2: Params other than facet to remove
-    if other_queries_already_selected?(category_name, categories_chosen)
-      return remove_without_removing_other_params(val, categories_chosen, category_name)
-    else # Case 3: No other params left
-      return gen_facet_link(gen_facet_link_name(val), root_path)
-    end
-  end
-
-  # Check if any other facets are selected
-  def other_queries_already_selected?(facet_category, facets_chosen)
-    return params.except("controller", "action", "utf8", "page", "a", "c", facet_category).length > 0 || facets_chosen.is_a?(Array)
-  end
-
-  # Remove facet if there are other params
-  def remove_without_removing_other_params(val, categories_chosen, category_name)
-    # Case 1: Other facets in same category
-    if categories_chosen.is_a?(Array)
-      remove_facetval_from_category_param_array(val, categories_chosen, category_name)
-    else # Case 2: Other params, but not in same category
-      remove_facet_but_not_other_params(category_name, val)
-    end
-  end
-
-  # Case 1: Remove facet filter without removing others in same category
-  def remove_facetval_from_category_param_array(val, categories_chosen, category_name)
-    outval = categories_chosen.dup
-    outval.delete(val["key"])
-    outval = outval[0] if categories_chosen.count <= 2
-    return gen_facet_link(gen_facet_link_name(val), gen_merged_search_path(params.except(category_name), category_name, outval))
-  end
-
-  # Remove facet but not the other params
-  def remove_facet_but_not_other_params(category_name, val)
-    search_params = params.symbolize_keys.except(category_name.to_sym, :page)
-    return gen_facet_link(gen_facet_link_name(val), search_path(search_params))
   end
 end

@@ -9,4 +9,6 @@ module DocsHelper
   include FacetLinks
   include DropdownFormGen
   include ParamFilters
+  include RemoveFacetFilter
+  include AddFacetFilter
 end

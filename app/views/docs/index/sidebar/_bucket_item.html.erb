@@ -1,5 +1,5 @@
 <!-- Partial for showing each field entry in category/facet/bucket -->
 
 <% if !bucket['key'].empty? %>
-  <li><%= termLink(bucket, params[field[0]], field[0])%></li>
+  <li><%= gen_facet_link_with_params(bucket, params[field[0]], field[0])%></li>
 <% end %>
