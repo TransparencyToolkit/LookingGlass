@@ -11,7 +11,7 @@ module FacetLinks
     return search_path(search_params)
   end
 
-  # Generate a link that replaces the value of a param with a different val (for same param)
+  # For modifying arrays of params: Generate a link that replaces the value of a param with a different val (for same param)
   def replace_param_val_in_facet_link(link_val, category_field, vals_chosen)
     gen_facet_link(gen_facet_link_name(link_val), gen_merged_search_path(params.except(category_field), category_field, vals_chosen))
   end
@@ -40,7 +40,7 @@ module FacetLinks
   end
 
   
-  # Generate link html for single term
+  # Generate link html for sidebar and filters
   def gen_facet_link_with_params(link_val, vals_chosen, category_field)
     # Facet link should be removed from query if selected
     if is_selected?(vals_chosen, link_val)
