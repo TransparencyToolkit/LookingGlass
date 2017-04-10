@@ -8,13 +8,14 @@ $(document).ready(function() {
       var type = chosen.data('type').toLowerCase();
       var hr_field_label = chosen.data('labelname');
    
-    // Hide Forms
-    $('#form-search-all').hide();
-    $('#form-search-string').hide();
-    $('#form-search-date').hide();
+      // Hide Forms
+      $('#form-search-all').hide();
+      $('#form-search-string').hide();
+      $('#form-search-date').hide();
+      $('#form-search-datetime').hide();
 
     // Modify Fields
-    if (type === 'date') {
+    if (type === 'date' || type === 'datetime') {
 
       $('#search-date-start')
         .attr('name', 'startrange_' + value)

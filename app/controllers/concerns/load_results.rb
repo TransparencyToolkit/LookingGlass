@@ -6,6 +6,13 @@ module LoadResults
     @total_count = get_total_docs(ENV['PROJECT_INDEX'])
   end
 
+  # Query search results
+  def query_search_results(params)
+    @pagenum, @start = page_calc(params)
+    @docs = run_query(ENV['PROJECT_INDEX'], params[:q], "_all", @start)
+    @total_count = @docs["hits"]["total"]
+  end
+
   # Paginates the documents
   def paginate_results
     @pagination = WillPaginate::Collection.create(@pagenum, 30, @total_count) do |pager|

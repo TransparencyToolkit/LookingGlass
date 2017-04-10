@@ -8,4 +8,5 @@ module DocsHelper
   include HighlightField
   include FacetLinks
   include DropdownFormGen
+  include ParamFilters
 end

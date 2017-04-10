@@ -29,4 +29,13 @@ module IndexApi
     http = Curl.get("http://localhost:3000/get_facet_details_for_project", {:index_name => index_name})
     return JSON.parse(http.body_str)
   end
+
+  def run_query(index_name, search_term, search_field, start_offset)
+    http = Curl.get("http://localhost:3000/run_query", {:index_name => index_name,
+                                                         :search_term => search_term,
+                                                         :search_field => search_field,
+                                                         :start => start_offset
+                                                        })
+    return JSON.parse(http.body_str)
+  end
 end

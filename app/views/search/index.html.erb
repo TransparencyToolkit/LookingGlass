@@ -1,0 +1,27 @@
+<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
+  <%= render partial: 'docs/index/sidebar/sidebar' %>
+</div>
+<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+  <div class="row">
+    <div id="searchtags" class="col-md-9">
+      <div class="detail-heading">Filtered By</div>
+        <%= render partial: 'search/search_filters/searchfilters' %>
+      </div>
+    <div id="search-details" class="col-md-3 text-right">
+      <div class="detail-heading">Results</div>
+      <div class="detail">
+        <%= @total_count %> Total
+      </div>
+    </div>
+  </div>
+  <div id="search-result">
+    <div id="uniquer">
+      <%= render partial: 'docs/index/results' %>
+    </div>
+  </div>
+  <% if @pagination.length >= 30 %>
+  <div id="search-pagination">
+    <%= will_paginate @pagination %>
+  </div>
+  <% end %>
+</div>
