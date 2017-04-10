@@ -7,14 +7,15 @@
     </label> <!-- Show facet tree list -->
     <ul class="nav nav-list tree collapse">
       <% @aggregation["buckets"][0..10].each do |bucket| %>
-        <%= render partial: "docs/index/sidebar/bucket_item", locals: {bucket: bucket} %>
+        <%= render partial: "docs/index/sidebar/bucket_item", locals: {bucket:bucket, field: field} %>
       <% end %>
     <% if @aggregation["buckets"].length > 11 %>
       <li>
 	<label class="tree-toggler nav-header plus"></label>
         <ul class="nav nav-list tree collapse">
 	  <% @aggregation["buckets"][11..@aggregation["buckets"].length-1].each do |bucket| %>
-	    <%= render partial: "docs/index/sidebar/bucket_item", locals: {bucket: bucket} %>
+	    <%= render partial: "docs/index/sidebar/bucket_item", locals:
+	    {bucket: bucket, field: field} %>
 	  <% end %>
 	</ul>
       </li>

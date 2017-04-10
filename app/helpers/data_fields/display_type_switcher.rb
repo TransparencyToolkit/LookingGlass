@@ -34,7 +34,7 @@ module DisplayTypeSwitcher
     when "Date", "DateTime", "Number"
       render partial: "docs/fields/date", locals: { date: field_data, human_readable: human_readable_name }
     when "Category"
-      facet_links = list_of_facet_links(doc, field, field_data)
+      facet_links = facet_links_for_results(doc, field, field_data)
       render partial: "docs/fields/tiny_text", locals: {icon: icon, text: facet_links, field: field}
     end
   end
