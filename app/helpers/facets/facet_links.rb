@@ -1,13 +1,18 @@
 # Generates links for facet queries and views
 module FacetLinks
+  # Add facet to field name
+  def facetize_field(name)
+    "#{name}_facet".to_sym
+  end
+  
   # Just add facet: Generate search path for link with single facet
   def gen_basic_search_path(field_name, facet_val)
-    search_path(field_name.to_sym => facet_val)
+    search_path(field_name => facet_val)
   end
 
   # Merge with existing params: New search path for facet (to avoid pagination issue)
   def gen_merged_search_path(params, category_field, chosen)
-    search_params = params.symbolize_keys.merge(category_field.to_sym => chosen, :page => 1)
+    search_params = params.symbolize_keys.merge(category_field => chosen, :page => 1)
     return search_path(search_params)
   end
 
@@ -35,7 +40,7 @@ module FacetLinks
     # Generate list of field links
     return facet_vals.reject(&:blank?).map do |item|
       link_text = highlighted_facet_text(item, field_name, doc)
-      gen_facet_link(link_text, gen_basic_search_path(field_name, item))
+      gen_facet_link(link_text, gen_basic_search_path(facetize_field(field_name), item))
     end.join(", ")
   end
 
@@ -44,9 +49,9 @@ module FacetLinks
   def gen_facet_link_with_params(link_val, vals_chosen, category_field)
     # Facet link should be removed from query if selected
     if is_selected?(vals_chosen, link_val)
-      return remove_facet_from_query_params(link_val, vals_chosen, category_field)
+      return remove_facet_from_query_params(link_val, vals_chosen, facetize_field(category_field))
     else # Facet link should be added to query
-      return add_facet_to_query_params(link_val, vals_chosen, category_field)
+      return add_facet_to_query_params(link_val, vals_chosen, facetize_field(category_field))
     end
   end
 

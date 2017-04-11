@@ -10,13 +10,27 @@ module ParamFilters
         outhtml += render partial: "search/search_filters/filter", locals: { query: query,
                                                                   field_searched: field_searched,
                                                                   label: "All Fields [search]"}
+      elsif field_searched.include?("_facet")
+        outhtml += render_facet_filters(field_searched, query)
       end
     end
 
     return raw(outhtml)
   end
 
-  # Generates the appropriate remove link for the situation
+  # Show filters for facet vals
+  def render_facet_filters(field_searched, query)
+    human_readable_name = human_readable_title(get_facets_for_project(ENV["PROJECT_INDEX"])[field_searched.gsub("_facet", "")])
+    query_array = query.is_a?(Array) ? query : [query]
+
+    return query_array.inject("") do |outhtml, filter_query|
+      outhtml += render partial: "search/search_filters/filter", locals: { query: filter_query,
+                                                                           field_searched: field_searched,
+                                                                           label: "#{human_readable_name} [filter]"}
+    end
+  end
+
+  # Generates the appropriate remove link for the situation DUPLICATE
   def gen_remove_link(field_searched, query)
     # If it's the last search term, go back to main page
     if last_search_term?(field_searched)
@@ -31,7 +45,7 @@ module ParamFilters
     end
   end
 
-  # Checks if it is the last search term or not
+  # Checks if it is the last search term or not DUPLICATE
   def last_search_term?(field_searched)
     return params.except("utf8", "action", "controller", "page", "c", "a").length <= 1 &&
            (!params[field_searched].is_a?(Array) || params[field_searched].length <= 1)
@@ -42,7 +56,7 @@ module ParamFilters
     return link_to(raw('X'), path, :class => "remove-filter")
   end
 
-  # Link removes just one val if multiple are chosen
+  # Link removes just one val if multiple are chosen DUPLICATE
   def mult_vals_selected(field_searched, query)
     saveparams = params[field_searched]
     params[field_searched] = params[field_searched] - [query] # Remove value from array
