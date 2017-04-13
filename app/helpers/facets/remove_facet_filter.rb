@@ -10,10 +10,13 @@ module RemoveFacetFilter
   def remove_facet_from_query_params(link_val, vals_chosen, category_field)
     # Case 1 and 2: Params other than facet to remove
     if other_queries_already_selected?(category_field, vals_chosen)
-      return remove_without_removing_other_params(link_val, vals_chosen, category_field)
+      path = remove_without_removing_other_params(link_val, vals_chosen, category_field)
+     # return remove_without_removing_other_params(link_val, vals_chosen, category_field)
     else # Case 3: No other params left
-      return gen_facet_link(gen_facet_link_name(link_val), root_path)
+      path = root_path
+#      return gen_facet_link(gen_facet_link_name(link_val), root_path, true)
     end
+    return gen_facet_link(gen_facet_link_name(link_val), path, true)
   end
 
   # Check if any other facets are selected
@@ -25,9 +28,9 @@ module RemoveFacetFilter
   def remove_without_removing_other_params(link_val, vals_chosen, category_field)
     # Case 1: Other facets in same category
     if vals_chosen.is_a?(Array)
-      remove_facetval_from_category_param_array(link_val, vals_chosen, category_field)
+      return remove_facetval_from_category_param_array(link_val, vals_chosen, category_field)
     else # Case 2: Other params, but not in same category
-      remove_facet_but_not_other_params(category_field, link_val)
+      return remove_facet_but_not_other_params(category_field, link_val)
     end
   end
 
@@ -36,12 +39,12 @@ module RemoveFacetFilter
     outval = vals_chosen.dup
     outval.delete(link_val["key"])
     outval = outval[0] if vals_chosen.count <= 2
-    return replace_param_val_in_facet_link(link_val, category_field, outval)
+    return gen_merged_search_path(params.except(category_field), category_field, outval)
   end
 
   # Case 2: Remove facet but not the other params
   def remove_facet_but_not_other_params(category_field, link_val)
     search_params = params.symbolize_keys.except(category_field.to_sym, :page)
-    return gen_facet_link(gen_facet_link_name(link_val), search_path(search_params))
+    return search_path(search_params)
   end
 end 

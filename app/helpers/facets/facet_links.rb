@@ -17,8 +17,9 @@ module FacetLinks
   end
 
   # For modifying arrays of params: Generate a link that replaces the value of a param with a different val (for same param)
-  def replace_param_val_in_facet_link(link_val, category_field, vals_chosen)
-    gen_facet_link(gen_facet_link_name(link_val), gen_merged_search_path(params.except(category_field), category_field, vals_chosen))
+  def replace_param_val_in_facet_link(link_val, category_field, vals_chosen, emphasize=false)
+    link_path = gen_merged_search_path(params.except(category_field), category_field, vals_chosen)
+    gen_facet_link(gen_facet_link_name(link_val), link_path, emphasize)
   end
 
   # Generate facet name
@@ -27,8 +28,11 @@ module FacetLinks
   end
 
   # Generate a single facet link
-  def gen_facet_link(link_text, path)
-    link_to(link_text, path)
+  def gen_facet_link(link_text, path, emphasize=false)
+    link = link_to(link_text, path)
+
+    # Bold if needed
+    emphasize ? (return "<em>#{link}</em>") : (return link)
   end
 
   

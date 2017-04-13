@@ -22,7 +22,7 @@ module ParamFilters
   def render_facet_filters(field_searched, query)
     human_readable_name = human_readable_title(get_facets_for_project(ENV["PROJECT_INDEX"])[field_searched.gsub("_facet", "")])
     query_array = query.is_a?(Array) ? query : [query]
-
+    
     return query_array.inject("") do |outhtml, filter_query|
       outhtml += render partial: "search/search_filters/filter", locals: { query: filter_query,
                                                                            field_searched: field_searched,
@@ -58,10 +58,7 @@ module ParamFilters
 
   # Link removes just one val if multiple are chosen DUPLICATE
   def mult_vals_selected(field_searched, query)
-    saveparams = params[field_searched]
-    params[field_searched] = params[field_searched] - [query] # Remove value from array
-    link = gen_x_link(search_path(params))
-    params[field_searched] = saveparams # Set it back to normal
-    return link
+    path = remove_without_removing_other_params(query, params[field_searched], field_searched)
+    return gen_x_link(path)
   end
 end
