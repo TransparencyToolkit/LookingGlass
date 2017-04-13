@@ -28,8 +28,8 @@ module FacetLinks
   end
 
   # Generate a single facet link
-  def gen_facet_link(link_text, path, emphasize=false)
-    link = link_to(link_text, path)
+  def gen_facet_link(link_text, path, emphasize=false, link_class=nil)
+    link = link_to(link_text, path, class: link_class)
 
     # Bold if needed
     emphasize ? (return "<em>#{link}</em>") : (return link)
@@ -53,7 +53,7 @@ module FacetLinks
   def gen_facet_link_with_params(link_val, vals_chosen, category_field)
     # Facet link should be removed from query if selected
     if is_selected?(vals_chosen, link_val)
-      return remove_facet_from_query_params(link_val, vals_chosen, facetize_field(category_field))
+      return remove_from_query_params(link_val, vals_chosen, facetize_field(category_field))
     else # Facet link should be added to query
       return add_facet_to_query_params(link_val, vals_chosen, facetize_field(category_field))
     end

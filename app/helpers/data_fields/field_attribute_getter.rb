@@ -23,4 +23,26 @@ module FieldAttributeGetter
   def icon_name(field_details)
     field_details["icon"].to_s
   end
+
+  # Get the dataspec for a specified source in project
+  def get_spec_for_source(datasource)
+    get_dataspecs_for_project(ENV["PROJECT_INDEX"]).select{|spec| spec["class_name"].underscore==datasource}[0]
+  end
+
+  # Get the human readable name for the data source
+  def datasource_name(datasource)
+    get_spec_for_source(datasource)["name"]
+  end
+
+  # Gets the name when just given a field and datasource
+  def get_human_readable_name_for_field(field, source)
+    # Gets the fields list from the spec for facets or one source
+    if source == "facets"
+      fields_list = get_facets_for_project(ENV["PROJECT_INDEX"])
+    else
+      fields_list = get_spec_for_source(source)["source_fields"]
+    end
+    
+    human_readable_title(fields_list[field])
+  end
 end

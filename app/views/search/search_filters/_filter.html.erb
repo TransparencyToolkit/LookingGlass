@@ -1,6 +1,6 @@
 <div class="search-filter">
   <span class="filter"><%= strip_tags(query) %></span>
-  <%= gen_remove_link(field_searched, query) %>
+  <%= raw(remove_from_query_params(query, params[field_searched], field_searched, true)) %>
   <br />
   <span class="category"><%= label %></span>
 </div>
