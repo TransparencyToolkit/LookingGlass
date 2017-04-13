@@ -12,5 +12,8 @@ class SearchController < ApplicationController
 
     # Save the docs and facets in vars and paginate
     load_result_docs_facets
+
+    # Render index action (uses same as docs)
+    render 'docs/index'
   end
 end

@@ -18,8 +18,6 @@ $(document).ready(function() {
       if (type === 'date' || type === 'datetime') {
 	$('#search-date-start').attr('name', 'startrange_' + value)
 	$('#search-date-end').attr('name', 'endrange_' + value)
-	  $('#search-date-start')
-	  $('#search-date-end')
     }
     else if (type === 'string') {
 

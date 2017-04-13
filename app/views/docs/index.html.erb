@@ -3,13 +3,8 @@
 </div>
 <div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
   <div class="row">
-    <div id="searchtags" class="col-md-9">
-      <div class="detail-heading">No Filters</div>
-      <div class="search-filter">
-        <span class="filter">Add Filters</span><br>
-        <span class="category">From sidebar or searchbox</span>
-      </div>
-    </div>
+    <%= render partial: 'docs/index/search/param_filters/search_filters' %>
+    
     <div id="search-details" class="col-md-3 text-right">
       <div class="detail-heading">Results</div>
       <div class="detail">
@@ -19,7 +14,7 @@
   </div>
   <div id="search-result">
     <div id="uniquer">
-      <%= render partial: 'docs/index/results' %>
+      <%= render partial: 'docs/index/results/results' %>
     </div>
   </div>
   <% if @pagination.length >= 30 %>

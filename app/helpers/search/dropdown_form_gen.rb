@@ -17,7 +17,7 @@ module DropdownFormGen
 
   # Generate html for the field option for dropdown
   def render_field_option_html(field, source_name, field_type)
-    render partial: "docs/queries/dropdown/dropdown_field_option", locals: {field_type: field_type,
+    render partial: "docs/index/search/searchbar/dropdown/dropdown_field_option", locals: {field_type: field_type,
                                                                             human_readable_name: field[1]["human_readable"],
                                                                             field_param: field[0]+"_source_"+source_name,
                                                                            }

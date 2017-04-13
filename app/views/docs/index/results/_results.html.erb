@@ -8,5 +8,5 @@
   <% dataspec = get_dataspec_for_doc(result) %>
   
   <!-- Render the document -->
-  <%= render(partial: 'docs/index/result_templates/default', locals: { doc: result, dataspec: dataspec }) %>
+  <%= render(partial: 'docs/index/results/result_templates/default', locals: { doc: result, dataspec: dataspec }) %>
 <% end %>

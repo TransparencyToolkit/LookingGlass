@@ -40,7 +40,7 @@ module ParamFilters
 
   # Render the filter partial
   def render_filter_partial(query, field_searched, label)
-    render partial: "search/search_filters/filter", locals: { query: query,
+    render partial: "docs/index/search/param_filters/filter", locals: { query: query,
                                                               field_searched: field_searched,
                                                               label: label}
   end
