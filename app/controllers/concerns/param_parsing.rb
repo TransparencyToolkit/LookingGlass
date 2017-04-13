@@ -9,6 +9,11 @@ module ParamParsing
     return pagenum, start
   end
 
+  # Defines list of params to ignore when checking params of queries
+  def params_to_ignore
+    @params_to_ignore = ["utf8", "action", "controller", "page", "c", "a"]
+  end
+
   # Parse params for facet
   def parse_facet_params
     # Get just the params that are facets

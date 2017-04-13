@@ -13,15 +13,13 @@ $(document).ready(function() {
       $('#form-search-string').hide();
       $('#form-search-date').hide();
       $('#form-search-datetime').hide();
-
+      
     // Modify Fields
-    if (type === 'date' || type === 'datetime') {
-
-      $('#search-date-start')
-        .attr('name', 'startrange_' + value)
-      $('#search-date-end')
-        .attr('name', 'endrange_' + value)
-
+      if (type === 'date' || type === 'datetime') {
+	$('#search-date-start').attr('name', 'startrange_' + value)
+	$('#search-date-end').attr('name', 'endrange_' + value)
+	  $('#search-date-start')
+	  $('#search-date-end')
     }
     else if (type === 'string') {
 

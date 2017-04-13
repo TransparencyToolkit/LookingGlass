@@ -11,17 +11,16 @@ module RemoveFacetFilter
     # Case 1 and 2: Params other than facet to remove
     if other_queries_already_selected?(category_field, vals_chosen)
       path = remove_without_removing_other_params(link_val, vals_chosen, category_field)
-     # return remove_without_removing_other_params(link_val, vals_chosen, category_field)
     else # Case 3: No other params left
       path = root_path
-#      return gen_facet_link(gen_facet_link_name(link_val), root_path, true)
     end
     return gen_facet_link(gen_facet_link_name(link_val), path, true)
   end
 
   # Check if any other facets are selected
   def other_queries_already_selected?(category_field, vals_chosen)
-    return params.except("controller", "action", "utf8", "page", "a", "c", category_field).length > 0 || vals_chosen.is_a?(Array)
+    ignore_these_params = @params_to_ignore+[category_field]
+    return params.except(*ignore_these_params).length > 0 || vals_chosen.is_a?(Array)
   end
 
   # Case 1 and 2: Remove facet if there are other params
