@@ -9,6 +9,11 @@ module IndexApi
     return JSON.parse(http.body_str)
   end
 
+  def get_doc(index_name, doc_id)
+    http = Curl.get("http://localhost:3000/get_doc", {:index_name => index_name, :doc_id => doc_id})
+    return JSON.parse(http.body_str)
+  end
+
   def get_dataspec_for_doc(doc)
     index_name = doc["_index"]
     http = Curl.get("http://localhost:3000/get_dataspec_for_doc", {:index_name => index_name, :doc => JSON.generate(doc)})

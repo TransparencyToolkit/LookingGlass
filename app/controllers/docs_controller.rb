@@ -10,4 +10,10 @@ class DocsController < ApplicationController
     # Save the docs and facets in vars and paginate
     load_result_docs_facets
   end
+
+  def show
+    id = params["id"]
+    @doc = get_doc(ENV['PROJECT_INDEX'], id)
+    @dataspec = get_dataspec_for_doc(@doc)
+  end
 end
