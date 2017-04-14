@@ -7,9 +7,9 @@ module LoadResults
   end
 
   # Query search results
-  def query_search_results(params, facets)
+  def query_search_results(params, search_query, range_query, facets)
     @pagenum, @start = page_calc(params)
-    @docs = run_query(ENV['PROJECT_INDEX'], params[:q], "_all", @start, facets)
+    @docs = run_query(ENV['PROJECT_INDEX'], search_query, range_query, @start, facets)
     @total_count = @docs["hits"]["total"]
   end
 
