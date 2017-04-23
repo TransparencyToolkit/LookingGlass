@@ -1,5 +1,4 @@
-<% params.except("utf8", "action", "controller", "page", "c", "a").each do
-   |param, existing_val| %>
+<% params.except(*@params_to_ignore+[fieldname[0], fieldname[1]]).each do |param, existing_val| %>
   <% val_arr = existing_val.is_a?(Array) ? existing_val : [existing_val] %>
   <% val_arr.each do |val| %>
     <%= hidden_field_tag(param, val, multiple: true) %>

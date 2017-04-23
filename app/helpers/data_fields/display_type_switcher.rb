@@ -11,17 +11,24 @@ module DisplayTypeSwitcher
       raw(str)
     end
   end
+
+  # Handle show view fields differently than index fields
+  def update_type_for_action(action, type)
+    if action == "show"
+      type == "Category" ? (return "ShowCategory") : (return "Show")
+    else
+      return type
+    end    
+  end
  
   # Switch between display types
   def type_switcher(type, doc, field, field_details, action)
+    type = update_type_for_action(action, type)
+    
     # Get data needed to render fields
     field_data = get_text(doc, field)
     human_readable_name = human_readable_title(field_details)
     icon = icon_name(field_details)
-
-    # Render correctly on show
-    type = "Show" if action == "show" && type != "Category"
-    type = "ShowCategory" if action == "show" && type == "Category"
 
     # Switch by field type
     case type
