@@ -1,0 +1,6 @@
+<!-- Show title for source, but only under certain conditions -->
+<% if display_title?(fields, @facets, source, facet_list) %>
+  <div class="detail-heading">
+    <%= source %> Filters
+  </div>
+<% end %>

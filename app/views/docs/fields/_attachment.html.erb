@@ -1,0 +1,22 @@
+<!-- Shows attachments -->
+
+<!-- Handle both string and array lists of attachments -->
+<% text = text.is_a?(Array) ? text : [text] %>
+ 
+<!-- Go through each file attached -->
+<% text.each do |file| %>
+  <% file_type = File.extname(URI.parse(URI.encode(file)).path) %>
+  <!-- Load different file formats, or offer download if can't display -->
+  <% if ['.jpg', '.jpeg', '.gif', '.png', '.bmp', '.tif', '.tiff'].include? file_type %>
+    <img src="<%= asset_path(file) %>">
+  <% elsif file_type == '.pdf' %>
+    <object class="show-document" data="<%= file %>" type="application/pdf">
+      <embed src="<%= asset_path(file) %>" type="application/pdf" />
+    </object>
+  <% else %>
+    <h3>Download Document</h3>
+    <a href="<%= file %>" download><%= file %></a>
+  <% end %>
+
+  <br />
+<% end %>

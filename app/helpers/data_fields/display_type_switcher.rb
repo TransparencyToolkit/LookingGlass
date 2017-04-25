@@ -15,7 +15,13 @@ module DisplayTypeSwitcher
   # Handle show view fields differently than index fields
   def update_type_for_action(action, type)
     if action == "show"
-      type == "Category" ? (return "ShowCategory") : (return "Show")
+      if type == "Category"
+        return "ShowCategory"
+      elsif type == "Attachment"
+        return "Attachment"
+      else
+        return "Show"
+      end
     else
       return type
     end    
@@ -26,7 +32,7 @@ module DisplayTypeSwitcher
     type = update_type_for_action(action, type)
     
     # Get data needed to render fields
-    field_data = get_text(doc, field)
+    field_data = get_text(doc, field, field_details)
     human_readable_name = human_readable_title(field_details)
     icon = icon_name(field_details)
 
@@ -44,6 +50,8 @@ module DisplayTypeSwitcher
       render partial: "docs/fields/long_text", locals: { text: field_data }
     when "Date", "DateTime", "Number"
       render partial: "docs/fields/date", locals: { date: field_data, human_readable: human_readable_name }
+    when "Attachment"
+      render partial: "docs/fields/attachment", locals: { text: field_data }
     when "Show"
       render partial: "docs/fields/show_text", locals: { text: field_data, human_readable: human_readable_name, field: field }
     when "Category"

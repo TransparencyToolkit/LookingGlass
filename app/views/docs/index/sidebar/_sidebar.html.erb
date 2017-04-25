@@ -1,8 +1,15 @@
 <div class="detail-heading">Select Filter Categories</div>
 
-<!-- Render each field in the sidebar -->
-<% get_facet_list_for_sidebar.each do |field| %>
-  <%= render partial: 'docs/index/sidebar/facet_field_tree', locals: {field: field, facets: @facets} %>
+<!-- Render each field in the sidebar if not empty-->
+<% facet_list = get_facet_list_for_sidebar %>
+<% facet_list.each do |source, fields| %>
+  <%= render partial: 'docs/index/sidebar/source_facet_tree_title', locals:
+      {source: source, facets: @facets, fields: fields, facet_list: facet_list} %>
+  <% fields.each do |field| %>
+    <% if !category_empty_for_query?(field, @facets) %>
+      <%= render partial: 'docs/index/sidebar/facet_field_tree', locals: {field:field, facets: @facets} %>
+    <% end %>
+  <% end %>
 <% end %>
   
 <script>

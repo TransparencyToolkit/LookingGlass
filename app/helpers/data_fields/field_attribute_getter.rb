@@ -1,11 +1,21 @@
-# Gets  attribute values for fields, used by many display funcs
+# Gets attribute values for fields, used by many display funcs
 module FieldAttributeGetter
   # Gets text for the field
-  def get_text(doc, field)
+  def get_text(doc, field, field_details)
     if is_highlighted?(doc, field)
       return raw(doc["highlight"][field].first.to_s)
     else
-      return field_value(doc, field)
+      return prepend_prefix(field_value(doc, field), field_details)
+    end
+  end
+
+  # Prepend the prefix (for attachments or images)
+  def prepend_prefix(value, field_details)
+    # Handle prefixes for array and string values
+    if field_details["prefix"]
+      value.is_a?(Array) ? (return value.map{|val| field_details["prefix"]+val}) : (return field_details["prefix"]+value)
+    else # Don't add prefix if none specified
+      return value
     end
   end
 

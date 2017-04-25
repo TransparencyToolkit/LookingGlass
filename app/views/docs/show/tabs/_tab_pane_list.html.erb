@@ -1,3 +1,6 @@
-<div class="tab-content" id="tab-contents">  
-  <%= render partial: 'docs/show/tabs/panes/text', locals: {active: true} %>
+<div class="tab-content" id="tab-contents">
+  <% @dataspec["show_tabs"].each_with_index do |pane, index| %>
+    <% active = index == 0 ? true : false %>
+    <%= render partial: "docs/show/tabs/panes/#{pane.downcase}", locals: {active: active} %>
+  <% end %>
 </div>

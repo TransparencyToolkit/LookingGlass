@@ -1,0 +1,9 @@
+<% if active == true%>
+  <div class="tab-pane active" id="pdf">
+<% else %>
+  <div class="tab-pane" id="pdf">
+<% end %>
+
+<%= show_by_type("Attachment", @doc, @dataspec) %>
+
+</div>

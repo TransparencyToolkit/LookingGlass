@@ -1,3 +1,6 @@
 <ul class="nav nav-pills" style="text-align:center;">
-  <%= render partial: 'docs/show/tabs/tab_buttons/text', locals: {active: true} %>
+  <% @dataspec["show_tabs"].each_with_index do |tab, index| %>
+    <% active = index == 0 ? true : false %>
+    <%= render partial: "docs/show/tabs/tab_buttons/#{tab.downcase}", locals: {active: active} %>
+  <% end %>
 </ul>

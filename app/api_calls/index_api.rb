@@ -16,12 +16,18 @@ module IndexApi
 
   def get_dataspec_for_doc(doc)
     index_name = doc["_index"]
-    http = Curl.get("http://localhost:3000/get_dataspec_for_doc", {:index_name => index_name, :doc => JSON.generate(doc)})
+    doc_type = doc["_type"]
+    http = Curl.get("http://localhost:3000/get_dataspec_for_doc", {:index_name => index_name, :doc_type => doc_type})
     return JSON.parse(http.body_str)
   end
 
   def get_project_spec(index_name)
     http = Curl.get("http://localhost:3000/get_project_spec", {:index_name => index_name})
+    return JSON.parse(http.body_str)
+  end
+
+  def get_facet_list_divided_by_source(index_name)
+    http = Curl.get("http://localhost:3000/get_facet_list_divided_by_source", {:index_name => index_name})
     return JSON.parse(http.body_str)
   end
 
