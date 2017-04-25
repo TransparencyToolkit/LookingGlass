@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
   get 'search', to: 'search#index'
-  get 'docs/makedocview', to: 'docs#makedocview'
-
-  get 'description', to: 'docs#description'
-  get 'advancedsearch', to: 'docs#advanced'
-  get 'otherresources', to: 'docs#otherresources'
-  
+  get 'attachments/*path', to: 'docs#attach'
   root to: 'docs#index'
   resources :docs
 

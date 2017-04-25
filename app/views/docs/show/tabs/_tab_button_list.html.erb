@@ -1,6 +1,13 @@
+<!-- Prints the list of tabs at the top of the show page -->
 <ul class="nav nav-pills" style="text-align:center;">
   <% @dataspec["show_tabs"].each_with_index do |tab, index| %>
-    <% active = index == 0 ? true : false %>
-    <%= render partial: "docs/show/tabs/tab_buttons/#{tab.downcase}", locals: {active: active} %>
+    <% if index == 0 %>
+      <li class="active" id="li<%=tab%>">
+    <% else %>
+      <li id="li<%=tab%>">
+    <% end %>
+      <a href="#<%=tab%>" data-toggle="tab"><i class="icon-<%=tab%>"></i>
+        <%= tab.capitalize %></a>
+    </li>
   <% end %>
 </ul>

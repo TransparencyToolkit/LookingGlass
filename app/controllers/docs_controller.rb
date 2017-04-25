@@ -16,4 +16,13 @@ class DocsController < ApplicationController
     @doc = get_doc(ENV['PROJECT_INDEX'], id)
     @dataspec = get_dataspec_for_doc(@doc)
   end
+
+  # Handle attachments in directories other than the current one
+  def attach
+    path = "/"+params["path"]+"."+params["format"] 
+    send_file(path,
+              :disposition => 'inline',
+              :type => "application/pdf",
+              :x_sendfile => true )
+  end
 end

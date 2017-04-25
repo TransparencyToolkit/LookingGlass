@@ -4,7 +4,8 @@ module DisplayTypeSwitcher
   def show_by_type(type, doc, dataspec, action="index")
     # Get all the fields matching the particular type
     fields_of_type = dataspec["source_fields"].select{|field, details| details["display_type"] == type }
-
+    type = update_type_for_action(action, type)
+    
     # Render all fields of the type
     return fields_of_type.inject("") do |str, field|
       str += type_switcher(type, doc, field[0], field[1], action)
@@ -12,25 +13,14 @@ module DisplayTypeSwitcher
     end
   end
 
-  # Handle show view fields differently than index fields
+  # Handle some show view fields differently than index fields
   def update_type_for_action(action, type)
-    if action == "show"
-      if type == "Category"
-        return "ShowCategory"
-      elsif type == "Attachment"
-        return "Attachment"
-      else
-        return "Show"
-      end
-    else
-      return type
-    end    
+    nonstandard_show_types = ["Category", "Attachment", "Link"]
+    (action == "show") && !nonstandard_show_types.include?(type) ? (return "Show") : (return type)
   end
  
   # Switch between display types
   def type_switcher(type, doc, field, field_details, action)
-    type = update_type_for_action(action, type)
-    
     # Get data needed to render fields
     field_data = get_text(doc, field, field_details)
     human_readable_name = human_readable_title(field_details)
@@ -51,16 +41,43 @@ module DisplayTypeSwitcher
     when "Date", "DateTime", "Number"
       render partial: "docs/fields/date", locals: { date: field_data, human_readable: human_readable_name }
     when "Attachment"
-      render partial: "docs/fields/attachment", locals: { text: field_data }
+      return show_attachments_by_type(field_data)
     when "Show"
       render partial: "docs/fields/show_text", locals: { text: field_data, human_readable: human_readable_name, field: field }
-    when "Category"
+    when "Category" 
       facet_links = facet_links_for_results(doc, field, field_data)
-      render partial: "docs/fields/tiny_text", locals: {icon: icon, text: facet_links, field: field}
-    when "ShowCategory"
-      facet_links = facet_links_for_results(doc, field, field_data)
-      render partial: "docs/fields/show_facets", locals: {icon: icon, text: facet_links,
-                                                          field: field, human_readable: human_readable_name}
+      if action == "index"
+        render partial: "docs/fields/tiny_text", locals: {icon: icon, text: facet_links, field: field}
+      elsif action == "show"
+        render partial: "docs/fields/show_facets", locals: {icon: icon, text: facet_links,
+                                                            field: field, human_readable: human_readable_name}
+      end
+    end
+  end
+
+
+  # Go through files and show
+  def show_attachments_by_type(files)
+    files = files.is_a?(Array) ? files : [files]
+
+    # Go through all files and output display
+    return files.inject("") do |str, file|
+      str += attachment_file_format_switcher(file)
+      raw(str)
+    end
+  end
+  
+  # Switch between different attachment file types
+  def attachment_file_format_switcher(file)
+    file_type = File.extname(URI.parse(URI.encode(file)).path)
+
+    case file_type
+    when ".jpg", ".jpeg", ".gif", ".png", ".bmp", ".tif", ".tiff"
+      render partial: "docs/fields/file_types/image", locals: { file: file }
+    when ".pdf"
+      render partial: "docs/fields/file_types/pdf", locals: { file: file }
+    else
+      render partial: "docs/fields/file_types/download", locals: { file: file }  
     end
   end
 end

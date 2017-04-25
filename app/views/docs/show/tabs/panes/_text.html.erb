@@ -1,11 +1,5 @@
-<% if active == true%>
-  <div class="tab-pane active" id="text">
-<% else %>
-  <div class="tab-pane" id="text">
-<% end %>
-
 <%= show_by_type("Picture", @doc, @dataspec) %>
-<br /><br />
+
 <%= show_by_type("Title", @doc, @dataspec, "show") %>
 
 <%= show_by_type("Short Text", @doc, @dataspec, "show") %>
@@ -19,5 +13,3 @@
 
 <%= show_by_type("Description", @doc, @dataspec, "show") %>
 <%= show_by_type("Long Text", @doc, @dataspec, "show") %>
-
-</div>
