@@ -40,6 +40,8 @@ module DisplayTypeSwitcher
       render partial: "docs/fields/long_text", locals: { text: field_data }
     when "Date", "DateTime", "Number"
       render partial: "docs/fields/date", locals: { date: field_data, human_readable: human_readable_name }
+    when "Link"
+      render partial: "docs/fields/links", locals: { links: field_data }
     when "Attachment"
       return show_attachments_by_type(field_data)
     when "Show"

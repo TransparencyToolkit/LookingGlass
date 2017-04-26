@@ -9,6 +9,16 @@ module FieldAttributeGetter
     end
   end
 
+  # Replaces newlines with br
+  def format_text(text)
+    sanitize_text(raw(text).gsub("\n", "<br />"))
+  end
+
+  # Sanitize the text
+  def sanitize_text(text)
+    return sanitize(text, tags: ['br', 'b', 'li', 'ul', 'ol', 'a', 'strong', 'i', 'p', 'img', 'href'])
+  end
+
   # Prepend the prefix (for attachments or images)
   def prepend_prefix(value, field_details)
     # Handle prefixes for array and string values
