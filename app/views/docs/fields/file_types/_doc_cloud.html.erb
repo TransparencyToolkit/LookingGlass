@@ -1,0 +1,18 @@
+<!-- Loads a document on Document Cloud -->
+<div id="DV-container">
+  <noscript>
+    <div id="DV-noJS">
+      The Document Viewer requires that you enable Javascript.
+    </div>
+  </noscript>
+</div>
+<script src="/js/viewer.js"></script>
+<script src="/js/templates.js"></script>
+<script>
+  DV.load('<%= file+".json" %>', {
+  container: '#DV-container',
+  sidebar: false,
+  search: false,
+  responsive: true
+  });
+</script>

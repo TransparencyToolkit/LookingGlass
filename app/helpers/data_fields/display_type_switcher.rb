@@ -68,16 +68,27 @@ module DisplayTypeSwitcher
       raw(str)
     end
   end
+
+  # Get the type for a file path
+  def get_file_type(file)
+    if file.include?("documentcloud")
+      return "doc_cloud"
+    else
+      return File.extname(URI.parse(URI.encode(file)).path)
+    end
+  end
   
   # Switch between different attachment file types
   def attachment_file_format_switcher(file)
-    file_type = File.extname(URI.parse(URI.encode(file)).path)
+    file_type = get_file_type(file)
 
     case file_type
     when ".jpg", ".jpeg", ".gif", ".png", ".bmp", ".tif", ".tiff"
       render partial: "docs/fields/file_types/image", locals: { file: file }
     when ".pdf"
       render partial: "docs/fields/file_types/pdf", locals: { file: file }
+    when "doc_cloud"
+      render partial: "docs/fields/file_types/doc_cloud", locals: { file: file }
     else
       render partial: "docs/fields/file_types/download", locals: { file: file }  
     end
