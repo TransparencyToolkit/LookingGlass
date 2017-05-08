@@ -6,7 +6,7 @@ class DocsController < ApplicationController
   def index
     # Get the index results/docs to display
     query_index_results(params)
-
+    
     # Save the docs and facets in vars and paginate
     load_result_docs_facets
   end

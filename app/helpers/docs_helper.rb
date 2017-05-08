@@ -11,4 +11,5 @@ module DocsHelper
   include ParamFilters
   include RemoveFacetFilter
   include AddFacetFilter
+  include ThreadDocs
 end

@@ -1,11 +1,9 @@
-<!-- Get results grouped by item field and ordered -->
-<% results = @docs %>
-
-<!-- Show all results -->
-<% results.each do |result| %>
+<!-- Show all results, threaded by thread_id -->
+<% thread_docs_in_results(@docs).each do |result| %>
   <!-- Get the dataspec for the document -->
-  <% dataspec = get_dataspec_for_doc(result) %>
+  <% dataspec = get_dataspec_for_doc(result.first) %>
   
   <!-- Render the document -->
-  <%= render(partial: 'docs/index/results/result_templates/default', locals: { doc: result, dataspec: dataspec }) %>
+  <%= render(partial: "docs/index/results/result_templates/#{dataspec['results_template']}",
+      locals: { doc: result, dataspec: dataspec }) %>
 <% end %>
