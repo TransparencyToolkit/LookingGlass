@@ -14,6 +14,11 @@ module IndexApi
     return JSON.parse(http.body_str)
   end
 
+  def get_thread(index_name, thread_id)
+    http = Curl.get("http://localhost:3000/get_docs_in_thread", {:index_name => index_name, :thread_id => thread_id})
+    return JSON.parse(http.body_str)
+  end
+
   def get_dataspec_for_doc(doc)
     index_name = doc["_index"]
     doc_type = doc["_type"]

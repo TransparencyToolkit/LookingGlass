@@ -1,4 +1,7 @@
 <!-- Print out a list of links -->
 <h3>Links</h3>
-<%= show_by_type("Link", @doc, @dataspec) %>
+<%= show_by_type("Link", @thread_fields, @dataspec) %>
 
+<% @item_fields.each do |doc_item| %>
+  <%= show_by_type("Link", doc_item, @dataspec) %>
+<% end %>

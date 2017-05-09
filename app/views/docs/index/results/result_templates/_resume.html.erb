@@ -2,7 +2,7 @@
 <div class="search-item"  id='<%= doc.first["_id"] %>'>
   
   <div class="hide"><%= doc.first["_score"] %></div>
-    <% thread_fields, item_fields = split_fields_into_thread_and_item_fields(doc) %>
+    <% thread_fields, item_fields = split_fields_into_thread_and_item_fields(doc, dataspec) %>
     
 
     <!-- Load the headers and item fields -->

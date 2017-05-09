@@ -1,15 +1,8 @@
-<%= show_by_type("Picture", @doc, @dataspec) %>
+<!-- Print out the overall thread fields for each doc -->
+<%= render partial: 'docs/show/tabs/panes/text_fields', locals: {doc: @thread_fields } %>
 
-<%= show_by_type("Title", @doc, @dataspec, "show") %>
-
-<%= show_by_type("Short Text", @doc, @dataspec, "show") %>
-
-<%= show_by_type("Date", @doc, @dataspec, "show") %>
-<%= show_by_type("DateTime", @doc, @dataspec, "show") %>
-<%= show_by_type("Number", @doc, @dataspec, "show") %>
-
-<%= show_by_type("Tiny Text", @doc, @dataspec, "show") %>
-<%= show_by_type("Shorter Text", @doc, @dataspec, "show") %>
-
-<%= show_by_type("Description", @doc, @dataspec, "show") %>
-<%= show_by_type("Long Text", @doc, @dataspec, "show") %>
+<!-- Print out the item fields for each doc -->
+<% @item_fields.each do |doc_item| %>
+  <hr>
+  <%= render partial: 'docs/show/tabs/panes/text_fields', locals: {doc: doc_item} %>
+<% end %>
