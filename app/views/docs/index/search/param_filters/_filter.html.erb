@@ -1,0 +1,6 @@
+<div class="search-filter">
+  <span class="filter"><%= strip_tags(query) %></span>
+  <%= raw(remove_from_query_params(query, params[field_searched], field_searched, true)) %>
+  <br />
+  <span class="category"><%= label %></span>
+</div>

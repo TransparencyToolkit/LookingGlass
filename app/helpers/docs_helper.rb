@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
 module DocsHelper
-  include DocFormat
-  include SearchedFormat
-  include GeneralUtils
-  include TableFormat
-  include CategoryFormat
-  include CategoryLink
-  include QueryFormat
-  include DataspecUtils
-  include ResultsOrder
-  include VersionControl
+  include IndexApi
+  include DisplayTypeSwitcher
+  include FacetSidebar
+  include FieldAttributeGetter
+  include HighlightField
+  include FacetLinks
+  include DropdownFormGen
+  include ParamFilters
+  include RemoveFacetFilter
+  include AddFacetFilter
+  include ThreadDocs
+  include VersionTracker
 end

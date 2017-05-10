@@ -1,3 +1,22 @@
+We recently totally wrote LookingGlass and need to update the rest of the README still. For now, some updated info-
+
+Versions Required:
+* elasticsearch 5.2.2
+* ruby 2.4.1
+* rails 5.0.2
+
+Example API call to index:
+
+items = File.read("file.json")
+
+c = Curl::Easy.new("http://localhost:3000/add_items")
+
+c.http_post(Curl::PostField.content("item_type", "TwitterUser"),
+            Curl::PostField.content("index_name", "tweet_people"),
+	    	                Curl::PostField.content("items", items))
+			
+
+
 LookingGlass
 ============
 

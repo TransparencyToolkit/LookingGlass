@@ -1,0 +1,50 @@
+<!-- Template to display fields of various types, used by other templates. -->  
+<% doc_picture = show_by_type("Picture", doc, dataspec) %>
+<% if (doc_picture != nil) && (!doc_picture.empty?) %>
+  <div class="pictures"><%= doc_picture %></div>
+<% end %>
+
+<h4 class="title-sub"><%= show_by_type("Short Text", doc, dataspec) %></h4>
+
+<%= show_by_type("Date", doc, dataspec) %>
+<%= show_by_type("DateTime", doc, dataspec) %>
+<%= show_by_type("Number", doc, dataspec) %>
+  
+<!-- Show shorter text -->
+<div class="row">
+  <div class="col-md-12 facets">
+    <%= show_by_type("Tiny Text", doc, dataspec) %>
+    <%= show_by_type("Shorter Text", doc, dataspec) %>
+  </div>
+</div>
+
+<% doc_description = show_by_type("Description", doc, dataspec) %>
+<% doc_long_text = show_by_type("Long Text", doc, dataspec) %>
+<% if doc_description != "" && doc_long_text != "" %>
+<div class="row">
+  <div class="col-md-6 description">
+    <%= doc_description %>
+  </div>
+  <div class="col-md-6 doc_text">
+    <%= doc_long_text %>
+  </div>
+</div>
+<% elsif doc_description != "" && doc_long_text == "" %>
+<div class="row">
+  <div class="col-md-10 description">
+    <%= doc_description %>
+  </div>
+</div>
+<% elsif doc_description == "" && doc_long_text != "" %>
+<div class="row">
+  <div class="col-md-10 doc_text">
+    <%= doc_long_text %>
+  </div>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12 facets">
+    <%= show_by_type("Category", doc, dataspec) %>
+  </div>
+</div>

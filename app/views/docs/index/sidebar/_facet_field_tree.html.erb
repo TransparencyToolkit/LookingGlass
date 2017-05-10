@@ -1,0 +1,26 @@
+<!-- Partial for showing the list of fields for a single category -->
+<% load_vars_for_facet_tree(field, facets) %>
+<ul class="nav nav-list">
+  <li> <!-- Show header -->
+    <label class="tree-toggler nav-header just-plus" title="<%= @bucket_count %> Filters">
+      <%= render partial: "docs/fields/icon", locals: {icon_name: @icon, icon_text: @hr_name} %>
+    </label> <!-- Show facet tree list -->
+    <ul class="nav nav-list tree collapse">
+      <% @aggregation["buckets"][0..10].each do |bucket| %>
+        <%= render partial: "docs/index/sidebar/bucket_item", locals: {bucket:bucket, field: field} %>
+      <% end %>
+    <% if @aggregation["buckets"].length > 11 %>
+      <li>
+	<label class="tree-toggler nav-header plus"></label>
+        <ul class="nav nav-list tree collapse">
+	  <% @aggregation["buckets"][11..@aggregation["buckets"].length-1].each do |bucket| %>
+	    <%= render partial: "docs/index/sidebar/bucket_item", locals:
+	    {bucket: bucket, field: field} %>
+	  <% end %>
+	</ul>
+      </li>
+    <% end %>
+     </ul>
+   </li>
+  </ul>
+</br>

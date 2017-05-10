@@ -1,0 +1,8 @@
+<!-- Print out the overall thread fields for each doc -->
+<%= show_versioned_doc(@thread_fields) %>
+
+<!-- Print out the item fields for each doc -->
+<% @item_fields.each do |doc_item| %>
+  <hr>
+  <%= show_versioned_doc(doc_item) %>
+<% end %>

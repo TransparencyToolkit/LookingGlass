@@ -1,0 +1,13 @@
+<div id="searchtags" class="col-md-9">
+  <% if params['controller'] == "search" %>
+    <div class="detail-heading">Filtered By</div>
+      <%= raw(render_filters) %>
+    </div>
+  <% else %>
+    <div class="detail-heading">No Filters</div>
+    <div class="search-filter">
+      <span class="filter">Add Filters</span><br>
+      <span class="category">From sidebar or searchbox</span>
+    </div></div>
+  <% end %>
+

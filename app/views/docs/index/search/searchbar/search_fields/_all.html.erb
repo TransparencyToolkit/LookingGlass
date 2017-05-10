@@ -1,0 +1,6 @@
+<!-- Search all fields -->
+<%= form_tag search_path, method: 'get', id: 'form-search-all', class: 'navbar-form navbar-left input-group-addon' do %>
+  <input type="text" name="q" value="<%= params[:q] %>" id="q"
+  autofocus="autofocus" class="form-control searchin" placeholder="Search all fields" />
+  <%= render partial: 'docs/index/search/searchbar/search_fields/search_button', locals: {fieldname: "q"} %>
+<% end %>

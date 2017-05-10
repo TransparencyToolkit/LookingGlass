@@ -6,12 +6,8 @@
       Info<span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
-      <% @instance.url_1.each do |url| %>
-        <li><a href="<%= url['URL']%>" target="_blank"><%= url["Name"] %></a></li>
-      <% end %>
-      <li class="divider"></li>
-      <% @instance.url_2.each do |url| %>
-        <li><a href="<%= url['URL']%>" target="_blank"><%= url["Name"]%></a></li>
+      <% project["info_links"].each do |name, link| %>
+        <li><a href="<%= link %>" target="_blank"><%= name %></a></li>
       <% end %>
     </ul>
   </li>

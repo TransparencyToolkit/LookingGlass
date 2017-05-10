@@ -16,5 +16,7 @@
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require diff_match_patch
+//= require moment
+//= require bootstrap-datetimepicker
 //= require list
 //= require_tree .

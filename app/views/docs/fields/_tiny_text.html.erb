@@ -1,0 +1,6 @@
+<!-- Shows text next to an icon -->
+<% if !text.blank? %>
+  <div class="facet <%= field %>">
+    <%= render partial: "docs/fields/icon", locals: { icon_name: icon, icon_text: raw(text) } %>
+  </div>
+<% end %>

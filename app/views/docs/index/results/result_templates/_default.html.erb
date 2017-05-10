@@ -1,0 +1,16 @@
+<!-- Default display for a single item. Doesn't work with threading -->
+<% doc = doc.first %>
+<div class="search-item"  id='<%= doc["_id"] %>'>
+
+  <div class="hide"><%= doc["_score"] %></div>
+
+  <h3 class="title pull-left"><%= show_by_type("Title", doc, dataspec) %></h3>
+  <div class="dataset-name pull-right">
+    <%= render partial: "docs/fields/source_icon", locals: {dataspec: dataspec} %>
+  </div>
+  <div class="clearfix"></div>
+
+  <!-- Load the rest of the fields -->
+  <%= render partial: 'docs/index/results/result_templates/just_fields',
+      locals: {doc: doc, dataspec: dataspec} %>
+</div>

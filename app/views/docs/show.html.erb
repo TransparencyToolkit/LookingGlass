@@ -1,22 +1,12 @@
 <div id="uniquer">
 	<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
-	  <%= render partial: 'docs/showsidebar' %>
-	  <!-- Theme Partial -->
-	  <%= render partial: '../assets/stylesheets/' + @instance.theme + '/sidebar' rescue nil %>
+	   <%= render partial: 'docs/show/sidebar' %> 
+	   <!-- Theme Partial -->
+	   <% project = get_project_spec(ENV['PROJECT_INDEX']) %>
+	  <%=  render partial: '../assets/stylesheets/' + project['theme']+ '/sidebar' rescue nil %> 
 	</div>
 	<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
-	  <%= render partial: 'docs/showpane' %>
-	  <div class="tab-content" id="tab-contents">    
-		<!-- Show tabs -->
-		<% first = 0 %>
-		<% @dataspec.tab_order.each do |tab| %>
-		  <% if first == 0 %>
-			<%= render partial: 'docs/'+tab, locals: {active: true} %>
-			<% first = 1 %>
-		  <% else %>
-			<%= render partial: 'docs/'+tab, locals: {active: false} %>
-		  <% end %>
-		<% end %>
-	  </div>
+	  <%= render partial: 'docs/show/tabs/tab_button_list' %>
+	  <%= render partial: 'docs/show/tabs/tab_pane_list' %>
 	</div>
 </div>

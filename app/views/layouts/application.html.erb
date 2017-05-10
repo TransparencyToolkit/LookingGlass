@@ -4,18 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title><%= content_for?(:title) ? yield(:title) : @instance.search_title %></title>
+    <% project = get_project_spec(ENV['PROJECT_INDEX']) %>
+    
+    <title><%= content_for?(:title) ? yield(:title) : project["title"] %></title>
 
     <!--  Icons for Mobile Devices, Favicon -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes" />
 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag "/css/" + @instance.theme, :media => "all" %>
+    <%= stylesheet_link_tag "/css/" + project["theme"], :media => "all" %>
 
     <!-- For all other devices (size should be 32x32 px) -->
-    <%= favicon_link_tag "/themes/" + @instance.theme + '/' + @instance.favicon, :rel => 'shortcut icon' %>
+    <%= favicon_link_tag "/themes/" + project["theme"] + '/' + project["favicon"], :rel => 'shortcut icon' %>
 
     <!-- Load vars for use in JS -->
     <%= render partial: 'layouts/javascriptvars' %>
@@ -36,14 +37,14 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <% if @instance.logo != "" %><img src="/themes/<%= @instance.theme %>/<%= @instance.logo %>"><% end %>
-          <span class="title"><%= @instance.search_title %> </span>
+          <% if project["logo"] != "" %><img src="/themes/<%= project['theme'] %>/<%= project['logo'] %>"><% end %>
+          <span class="title"><%= project["title"] %> </span>
         </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-       <%= render partial: 'layouts/searchbar' %> <!-- Render searchbar at top -->
-       <%= render partial: 'layouts/linkmenu' %> <!-- Render info menu with links -->
+	<%= render partial: 'docs/index/search/searchbar/searchbar' %>
+	<%= render partial: 'layouts/linkmenu', locals: { project: project } %>
       </div><!-- /.navbar-collapse -->
       </div>
     </nav>

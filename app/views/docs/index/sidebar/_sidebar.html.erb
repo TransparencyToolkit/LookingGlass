@@ -1,0 +1,33 @@
+<div class="detail-heading">Select Filter Categories</div>
+
+<!-- Render each field in the sidebar if not empty-->
+<% facet_list = get_facet_list_for_sidebar %>
+<% facet_list.each do |source, fields| %>
+  <%= render partial: 'docs/index/sidebar/source_facet_tree_title', locals:
+      {source: source, facets: @facets, fields: fields, facet_list: facet_list} %>
+  <% fields.each do |field| %>
+    <% if !category_empty_for_query?(field, @facets) %>
+      <%= render partial: 'docs/index/sidebar/facet_field_tree', locals: {field:field, facets: @facets} %>
+    <% end %>
+  <% end %>
+<% end %>
+  
+<script>
+  $(document).ready(function () {
+  $('label.tree-toggler').click(function () {
+    if ($(this).hasClass('just-minus')){
+      $(this).addClass('just-plus').removeClass('just-minus');
+    } else if ($(this).hasClass('just-plus')){
+      $(this).addClass('just-minus').removeClass('just-plus');
+    } else if ($(this).hasClass('plus')){
+      $(this).addClass('minus').removeClass('plus');
+    } else {
+      $(this).addClass('plus').removeClass('minus');
+    }
+    $(this).parent().children('ul.tree').toggle(300);
+  });
+  });
+</script>
+<!-- Theme Partial -->
+<% project = get_project_spec(ENV['PROJECT_INDEX']) %>
+<%= render partial: '../assets/stylesheets/' + project["theme"] + '/sidebar' rescue nil %>
