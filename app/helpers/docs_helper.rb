@@ -12,4 +12,5 @@ module DocsHelper
   include RemoveFacetFilter
   include AddFacetFilter
   include ThreadDocs
+  include VersionTracker
 end

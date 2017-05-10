@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12">
+  <div class="alert alert-warning" role="alert">
+    <strong>Alert!</strong> Multiple versions of this data exist
+    <div class="pull-right">
+      Show changes
+    <a href="#" class="alert-link versions-compute" data-doc_id="<%= doc_id %>" data-diffing="Sequentially">
+      sequentially
+    </a> or
+    <a href="#" class="alert-link versions-compute" data-doc_id="<%= doc_id %>" data-diffing="Mixed">
+      mixed
+    </a>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="row versions-container">
+  <div class="col-md-6 version" id="version-oldest-<%= doc_id %>">
+    <small class="version-name">Oldest Version</small>
+    <%= render to_render, doc: oldest_doc %>
+  </div>
+  <div class="col-md-6 version" id="version-newest-<%= doc_id %>">
+    <small class="version-name">Newest Version</small>
+    <%= render to_render, doc: newest_doc %>
+  </div>
+</div>
+<div class="panel panel-default invisible" id="versions-diff-<%= doc_id %>">
+  <div class="panel-heading">
+    <h3 class="panel-title"></h3>
+  </div>
+  <div class="panel-body" id="versions-diff-data-<%= doc_id %>"></div>
+</div>
