@@ -22,7 +22,7 @@ class DocsController < ApplicationController
 
   # Handle attachments in directories other than the current one
   def attach
-    path = "/"+params["path"]+"."+params["format"] 
+    path = "/"+params["path"]+"."+params["format"]
     send_file(path,
               :disposition => 'inline',
               :type => "application/pdf",

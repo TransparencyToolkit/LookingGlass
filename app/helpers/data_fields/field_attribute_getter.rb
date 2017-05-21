@@ -22,8 +22,8 @@ module FieldAttributeGetter
   # Prepend the prefix (for attachments or images)
   def prepend_prefix(value, field_details)
     # Handle prefixes for array and string values
-    if field_details["prefix"]
-      value.is_a?(Array) ? (return value.map{|val| field_details["prefix"]+val}) : (return field_details["prefix"]+value)
+    if field_details["prefix"] && !value.blank?
+      value.is_a?(Array) ? (return value.map{|val| field_details["prefix"]+val}) : (return field_details["prefix"]+value) 
     else # Don't add prefix if none specified
       return value
     end
