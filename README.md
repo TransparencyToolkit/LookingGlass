@@ -1,86 +1,141 @@
-We recently totally wrote LookingGlass and need to update the rest of the README still. For now, some updated info-
-
-Versions Required:
-* elasticsearch 5.2.2
-* ruby 2.4.1
-* rails 5.0.2
-
-Example API call to index:
-
-items = File.read("file.json")
-
-c = Curl::Easy.new("http://localhost:3000/add_items")
-
-c.http_post(Curl::PostField.content("item_type", "TwitterUser"),
-            Curl::PostField.content("index_name", "tweet_people"),
-	    	                Curl::PostField.content("items", items))
-			
-
-
 LookingGlass
 ============
 
-Search, filter, and browse any JSON data. Includes full text, categorical data, and search interface with **elasticsearch** backend.
+Search, filter, and browse any set of documents. LookingGlass includes full
+text search, category filters, and date queries all through a nice search
+interface with an **Elasticsearch** backend. LookingGlass also supports
+customizable
+[themes](https://github.com/TransparencyToolkit/LookingGlass/blob/master/THEMES.md)
+and flexible document view pages for browsing and embedding a variety of
+document types.
 
-LookingGlass can be used in combination with [Harvester](https://github.com/TransparencyToolkit/Harvester) for crawling, parse and load documents.
+LookingGlass requires
+[DocManager](https://github.com/TransparencyToolkit/DocManager) so that it can
+interact with Elasticsearch. LookingGlass can be used in combination with
+[Harvester](https://github.com/TransparencyToolkit/Harvester) for crawling,
+parsing, and loading documents and automatically turning them into a
+searchable archive. However, it also works well as a standalone archiving
+tool.
 
-## Installing
 
-- Make sure you have elasticsearch and rails 4 installed
-	- On Mac OS do the following
-		- Go install [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) using homebrew `brew install elasticsearch`
-		- Install [RubyOnRails](http://rubyonrails.org/download/) by typing `gem install rails`
-	- On Debian / Ubuntu
-		- Install dependencies `sudo apt-get install ruby-full`
-		- Install ElasticSearch using package manager or [1.5.2 docs](https://www.elastic.co/guide/en/elasticsearch/reference/1.5/_installation.html)
-	- On Fedora
-	- 	- Install Elasticsearch via the [Fedora Yum instructions](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)
-	- 	- Install dependencies  `sudo yum install make automake gcc gcc-c++ kernel-devel ruby-devel rubygem-railties`
-- Clone repo `git clone --recursive git@github.com:TransparencyToolkit/LookingGlass.git`
-- Then cd into directory `cd LookingGlass`
-- Install Ruby dependencies `bundle install`
-- Generate simple form data `rails generate simple_form:install --bootstrap`
+# Installation
 
-## Configuring
+## Dependencies
 
-- Browse to the dataspec directory `cd app/dataspec/`
-- Copy the example config file `instances/example-config.json` to `instances/your-config.json`
-- Add any additional dataspec files to `your-config.json` file by adding to `Dataset Config` array
-- Edit `importer.json` attribute `Instance Config` to your config `app/dataspec/instances/your-config.json`
+* [DocManager](https://github.com/TransparencyToolkit/DocManager) and all of
+  its dependencies
+* ruby 2.4.1
+* rails 5
+* (optionally) [Harvester](https://github.com/TransparencyToolkit/Harvester)
 
-You might want do add custom data related things to your instance as well. LookingGlass use [datapackages](https://data.okfn.org) for this goal such as `month-names` for internationalization!
+## Setup Instructions
 
-- Add any additional data packages to the `data_packages` directory
-    - `cd data_packages`
-    - git clone https://github.com/you/datapackage.git
+1. Install the dependencies
 
-## Adding Datasets
+* Download elasticsearch (https://www.elastic.co/downloads/elasticsearch)
+* Download rvm (https://rvm.io/rvm/install)
+* Install Ruby: Run `rvm install 2.4.1` and `rvm use 2.4.1`
+* Install Rails: `gem install rails`
+* Follow the installation instructions for [DocManager](https://github.com/TransparencyToolkit/DocManager)
 
-This search should work for any JSON based dataset. If you want to add a dataset, see the app/dataspec folder for the necessary files. You will need to create your own `dataspec-template` package.
+2. Get LookingGlass
 
-- [ ] Prepare and save your data somewhere on your machine
-- [ ] Either create a dataspec for it based on `dataspec-template` or use existing
-- [ ] Modify your `config.json` file to include additional datasets
+* Clone repo: `git clone --recursive git@github.com:TransparencyToolkit/LookingGlass.git`
+* Go into the LookingGlass directory: `cd LookingGlass`
+* Install the Rubygems LookingGlass uses: `bundle install`
+* Generate simple form data: `rails generate simple_form:install --bootstrap`
+* Precompile assets: `rake assets:precompile`
 
-## Running LookingGlass
+3. Run LookingGlass
 
-- Then start up ElasticSearch
-	- On Mac Os type `elasticsearch`
-	- On Debian / Ubuntu installed via packages type `/etc/init.d/elasticsearch start` o
-	- On Debian installed 1.5.2 go to `elasticsearch-1.5.2/bin/` and type `./elasticsearch`
-	- On Fedora type `sudo systemctl start elasticsearch.service`
-- Then type `rails runner 'IndexManager.import_data(force: true)'` when importing / updating datasets
-- Start up the app `rails server`
-- Then access [http://0.0.0.0:3000](http://0.0.0.0:3000) in your browser
+* Start DocManager: Follow the instructions on the
+  [DocManager](https://github.com/TransparencyToolkit/DocManager) repo
+* Configure Project: Edit the file in `config/initializers/project_config` so
+  that the PROJECT_INDEX value is the name of the index in the
+  [DocManager](https://github.com/TransparencyToolkit/DocManager) project
+  config LookingGlass should use
+* Start LookingGlass: Run `rails server -p 3001`
+* Use LookingGlass: Go to [http://0.0.0.0:3001](http://0.0.0.0:3001) in your
+  browser
+ 
 
-**For Running In Production**
-- Compile your assets `rake assets:precompile`
+# Features
 
----
+LookingGlass is a frontend for searchable document archives. Previously, it
+also included the backend that interacted with Elasticsearch, but this has
+since been split out into
+[DocManager](https://github.com/TransparencyToolkit/DocManager). The key
+features are described below.
 
-## Developing
+## Display of Document Sets
 
-We would love your help and contributions improving upon LookingGlass. You can also customize how LookingGlass looks with a custom theme. To do either, first get a working instance setup on your development machine, then check out the following:
+LookingGlass shows document sets from multiple data sources. It displays a
+list of documents on the main page. The fields displayed for each document on
+the index page and the order the documents are displayed in (sorted by date or
+another numerical field) are customizable in
+[DocManager](https://github.com/TransparencyToolkit/DocManager)'s data source
+config files.
 
-- [Themes](THEMES.md) - documentation for making custom look and feel
-- [Developer Documentation](http://www.rubydoc.info/github/TransparencyToolkit/LookingGlass/master) - references of codebase
+Each individual document set is then displayed on its own page for easy
+reading. The document page includes a sidebar with the document's categorical
+field and a customizable set of tabs that can display the document text, embed
+the document itself (which is stored remotely, locally, or on document cloud),
+offer document downloads, or load links.
+
+## Search
+
+LookingGlass allows full text of document sets using the Elasticsearch
+backend. It can be used to search documents in most languages. LookingGlass
+supports searching all fields or individual fields, and a variety of non-text
+fields like dates. Results are sorted by relevance with text matching the
+query highlighted.
+
+## Categorical Filters
+
+Many document sets have categorical fields that are common across documents,
+either in the original data or that can be extracted with a tool like
+[Catalyst](https://github.com/transparencytoolkit/catalyst). For example,
+countries mentioned in a document, file format, hashtags, and topic-specific
+keywords are common types of categories. LookingGlass allows filtering
+document sets by one or more categories by clicking links on the sidebar to
+get, say, all the documents that are about a particular country.
+
+The category sidebar also displays the number of documents for each value in
+each category that matches the current query. This is great for getting an
+overview of the content in the document set.
+
+## Document View Templates
+
+On both the search results/document index and individual document pages, the
+way the document is displayed is highly customizable. It is possible to add
+new templates to display different types of data sources however you want and
+even thread together multiple documents when needed (in email datasets, for
+example).
+
+These view templates are defined in app/views/docs/show/tabs/panes (for the
+document view page) and app/views/docs/index/results/result_templates (for the
+index/result view). The fields to use as a thread ID and view templates to
+used are specified per-source in the
+[DocManager](https://github.com/TransparencyToolkit/DocManager) data source
+config files.
+
+## Version Tracking
+
+LookingGlass can be used to track which documents change over time and
+how. Documents that are changed are specified in categories on the sidebar and
+the document view page has a tool that allows users to view the exact
+difference between two documents over time.
+
+The fields used to check if a document has changed are specified per-source in
+the [DocManager](https://github.com/TransparencyToolkit/DocManager) data
+source config files.
+
+## Custom Themes
+
+LookingGlass supports custom theming. The color scheme, fonts, logo, text, and
+links are all entirely customizable.
+
+Some of these settings, like the theme used, project title, and logo are defined in the
+[DocManager](https://github.com/TransparencyToolkit/DocManager) project config
+file. The colors and fonts can then be set by [creating a
+theme](https://github.com/TransparencyToolkit/LookingGlass/blob/master/THEMES.md).
