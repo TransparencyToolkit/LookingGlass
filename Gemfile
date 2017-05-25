@@ -9,7 +9,7 @@ gem 'sanitize'
 gem 'curb'
 
 # Frontend
-gem 'twitter-bootstrap-rails', git: 'https://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'twitter-bootstrap-rails'
 gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'jquery-rails'

@@ -12,7 +12,7 @@ module FacetLinks
 
   # Merge with existing params: New search path for facet (to avoid pagination issue)
   def gen_merged_search_path(params, category_field, chosen)
-    search_params = params.symbolize_keys.merge(category_field => chosen, :page => 1)
+    search_params = params.to_h.symbolize_keys.merge(category_field => chosen, :page => 1)
     return search_path(search_params)
   end
 

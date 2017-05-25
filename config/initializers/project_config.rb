@@ -1,1 +1,1 @@
-ENV['PROJECT_INDEX'] = "tweet_people"
+ENV['PROJECT_INDEX'] = "default_config"

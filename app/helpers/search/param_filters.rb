@@ -2,7 +2,7 @@ module ParamFilters
   # Renders the filters for the search params
   def render_filters
     # Go through and add to output
-    return params.except(*@params_to_ignore).select{|k,v| !v.blank?}.inject("") do |out_html, param|
+    return params.to_h.except(*@params_to_ignore).select{|k,v| !v.blank?}.inject("") do |out_html, param|
       field_searched, query = param[0], param[1]
       
       # Generate the labels and parse queries for param

@@ -1,0 +1,46 @@
+version: '3'
+services:
+  lookingglass:
+    image: lookingglass
+    command: bundle exec rails server -p 3001 -b '0.0.0.0'
+    volumes:
+      - ../LookingGlass:/lookingglass
+    ports:
+      - '3001:3001'
+    stdin_open: true
+    tty: true
+    environment:
+      - DOCMANAGER_URL=http://docmanager:3000
+    links:
+      - docmanager
+
+  docmanager:
+    image: transparencytoolkit/docmanager
+    command: bundle exec rails server -p 3000 -b '0.0.0.0'
+    volumes:
+      - ../DocManager/DocManager:/docmanager
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    links:
+      - mongo
+      - elasticsearch
+
+  mongo:
+    image: mongo
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
+    environment:
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+volumes:
+  esdata:
+    driver: local

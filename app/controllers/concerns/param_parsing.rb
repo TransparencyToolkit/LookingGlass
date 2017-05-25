@@ -28,7 +28,7 @@ module ParamParsing
     search_params = params.except(*@params_to_ignore).select{|param| !param.include?("_facet") && !param.include?("range_")}
 
     # Generate a query hash from params
-    return search_params.inject({}) do |query_hash, param|
+    return search_params.to_h.inject({}) do |query_hash, param|
       # Parse search params
       field, doc_source = param[0].split("_source_")
       field, doc_source = "_all", "all_docs" if doc_source.blank?
@@ -44,7 +44,7 @@ module ParamParsing
     range_params = params.select{|k, v| k.include?("range_") && !v.blank?}
 
     # Make an array of items from the range hash
-    return range_params.inject({}) do |range_hash, param|
+    return range_params.to_h.inject({}) do |range_hash, param|
       start_or_end, field = param[0].split("_source_")[0].split("range_")
       gte_or_lte = start_or_end == "start" ? :gte : :lte
       
@@ -60,7 +60,7 @@ module ParamParsing
     facet_params = params.select{|k, v| k.include?("_facet")}
 
     # Remap the params
-    return facet_params.inject([]) do |remapped, facet|
+    return facet_params.to_h.inject([]) do |remapped, facet|
       # Handle all facets as arrays
       value_list = facet[1].is_a?(Array) ? facet[1] : [facet[1]]
       facet_name = facet[0].gsub("_facet", ".keyword")

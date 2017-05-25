@@ -31,7 +31,7 @@ module RemoveFacetFilter
   # Check if any other facets are selected
   def other_queries_in_params?(category_field, vals_chosen)
     ignore_these_params = @params_to_ignore+[category_field]
-    return params.except(*ignore_these_params).length > 0 || vals_chosen.is_a?(Array)
+    return params.to_h.except(*ignore_these_params).length > 0 || vals_chosen.is_a?(Array)
   end
 
   # Case 1 and 2: Remove facet if there are other params
@@ -54,7 +54,7 @@ module RemoveFacetFilter
 
   # Case 2: Remove facet but not the other params
   def remove_facet_but_not_other_params(category_field, link_val)
-    search_params = params.symbolize_keys.except(category_field.to_sym, :page)
+    search_params = params.to_h.symbolize_keys.except(category_field.to_sym, :page)
     return search_path(search_params)
   end
 end 

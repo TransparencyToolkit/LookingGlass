@@ -18,6 +18,7 @@ Bundler.require(*Rails.groups)
 
 module LookingGlass
   class Application < Rails::Application
+    config.action_controller.permit_all_parameters = true
     config.autoload_paths += Dir[Rails.root.join('app', '{*/*}')]
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
