@@ -1,4 +1,5 @@
 <!-- Print a list of links to articles and similar -->
+<% links = links.is_a?(Array) ? links : [links] %>
 <% links.each.with_index do |link, index| %>
   <div class="show-article-item">
     <span class="article"><em>#<%= index + 1 %></em> <%= link %></span>
