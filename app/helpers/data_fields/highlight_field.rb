@@ -24,6 +24,6 @@ module HighlightField
     highlighted_categories = get_highlighted_categories(doc, field)
 
     # Bold text if highlighted
-    highlighted_categories[item_val] ? raw(highlighted_categories[item_val]) : item_val.strip
+    highlighted_categories[item_val] ? raw(highlighted_categories[item_val]) : item_val.to_s.strip
   end
 end

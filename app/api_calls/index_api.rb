@@ -6,7 +6,7 @@ module IndexApi
 
   def get_total_docs(index_name)
     http = Curl.get("#{ENV['DOCMANAGER_URL']}/get_total_docs", {:index_name => index_name})
-    return JSON.parse(http.body_str)
+    return http.body_str
   end
 
   def get_doc(index_name, doc_id)
