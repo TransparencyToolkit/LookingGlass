@@ -13,7 +13,7 @@ class DocsController < ApplicationController
   end
 
   def show
-    id = params["id"]
+    id = handle_legacy_id(params["id"])
     @doc = get_doc(ENV['PROJECT_INDEX'], id)
     @dataspec = get_dataspec_for_doc(@doc)
     @thread_docs = get_docs_in_thread(@doc)
@@ -27,5 +27,16 @@ class DocsController < ApplicationController
               :disposition => 'inline',
               :type => "application/pdf",
               :x_sendfile => true )
+  end
+
+  private
+
+  # Process the ID to handle legacy formats
+  def handle_legacy_id(id)
+    if id.include?("nsadocs") && !id.include?("_nsadocs_snowden_doc")
+      return id.gsub("nsadocs", "_nsadocs_snowden_doc")
+    else
+      return id
+    end
   end
 end

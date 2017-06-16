@@ -7,7 +7,7 @@ module FacetLinks
   
   # Just add facet: Generate search path for link with single facet
   def gen_basic_search_path(field_name, facet_val)
-    search_path(field_name => facet_val)
+    search_path(field_name => sanitize(facet_val, tags: []))
   end
 
   # Merge with existing params: New search path for facet (to avoid pagination issue)
@@ -29,8 +29,8 @@ module FacetLinks
 
   # Generate a single facet link
   def gen_facet_link(link_text, path, emphasize=false, link_class=nil)
-    link = link_to(link_text, path, class: link_class)
-
+    link = link_to(raw(link_text), path, class: link_class)
+    
     # Bold if needed
     emphasize ? (return "<em>#{link}</em>") : (return link)
   end

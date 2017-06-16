@@ -1,1 +1,1 @@
-ENV['PROJECT_INDEX'] = "default_config"
+ENV['PROJECT_INDEX'] = "nsadocs"
