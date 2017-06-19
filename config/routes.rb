@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'attachments/*path', to: 'docs#attach'
 
   get 'description', to: 'pages#description'
+  get 'free_press_legal_description', to: 'pages#free_press_legal_description'
   get 'advancedsearch', to: 'pages#advanced'
   
   root to: 'docs#index'
