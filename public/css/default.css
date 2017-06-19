@@ -5000,7 +5000,7 @@ a.navbar-brand {
   top: -5px;
   font-family: "League Spartan";
   font-size: 24px;
-  line-height: 24px; }
+  line-height: 4px; }
   a.navbar-brand span {
     position: relative;
     top: 3px; }
@@ -5009,8 +5009,38 @@ a.navbar-brand {
     display: inline-block;
     margin-right: 10px; }
 
+.navbar-form .form-control:focus {
+  border-color: #000000;
+  outline: 0;
+  -webkit-box-shadow: inset 0 0px 0px #000000, 0 0 0px #000000;
+  box-shadow: inset 0 0px 0px #000000, 0 0 0px #000000; }
+.navbar-form select {
+  color: #000000;
+  background-color: #FFFFFF;
+  border: 0px; }
 .navbar-form input[type="text"] {
-  color: #000; }
+  color: #000000;
+  background-color: #FFFFFF;
+  border: 0px;
+  margin-right: 15px; }
+.navbar-form input::-webkit-input-placeholder {
+  color: #CFCFCF; }
+.navbar-form input::-moz-placeholder {
+  color: #CFCFCF; }
+.navbar-form input:-moz-placeholder {
+  /* Older versions of Firefox */
+  color: #CFCFCF; }
+.navbar-form input:-ms-input-placeholder {
+  color: #CFCFCF; }
+.navbar-form button[type=submit] {
+  color: #FFFFFF;
+  background-color: #666666;
+  border: 0px; }
+  .navbar-form button[type=submit] i {
+    font-size: 18px;
+    margin: 0 5px; }
+  .navbar-form button[type=submit]:hover {
+    background-color: #525252; }
 
 .nav-tabs > li a {
   background-color: #CCCCCC; }

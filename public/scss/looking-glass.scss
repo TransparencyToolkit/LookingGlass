@@ -80,8 +80,8 @@ body {
     position: relative;
     top: -5px;
     font-family: $lg-navbar-brand-font;
-    font-size: 24px;
-    line-height: 24px;
+    font-size: $lg-navbar-brand-font-size;
+    line-height: ($lg-navbar-brand-font-size - $line-height-computed);
 
     span {
       position: relative;

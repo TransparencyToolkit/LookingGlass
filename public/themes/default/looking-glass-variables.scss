@@ -6,15 +6,16 @@
 @import "bootstrap-variables";
 
 $lg-navbar-brand-font:              'League Spartan';
-$lg-navbar-select-color:            $base-white;
-$lg-navbar-select-background-color: $color-blue-green;
+$lg-navbar-brand-font-size:			24px;
+$lg-navbar-select-color:            $base-black;
+$lg-navbar-select-background-color: $base-white;
 $lg-navbar-select-border:           0px;
 $lg-navbar-input-color:             $base-black;
-$lg-navbar-input-background-color:  $base-tan;
+$lg-navbar-input-background-color:  $base-white;
 $lg-navbar-input-border:            0px;
-$lg-navbar-input-placeholder-color: $color-brown-normal;
+$lg-navbar-input-placeholder-color: $gray-light;
 $lg-navbar-button-color:            $base-white;
-$lg-navbar-button-background-color: $color-brown-normal;
+$lg-navbar-button-background-color: $gray-dark;
 $lg-navbar-button-background-color-hover: darken($lg-navbar-button-background-color, 8%);
 $lg-navbar-button-border:           0px;
 
