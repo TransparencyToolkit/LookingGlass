@@ -5,4 +5,7 @@ class PagesController < ApplicationController
 
   def advancedsearch
   end
+
+  def free_press_legal_description
+  end
 end
