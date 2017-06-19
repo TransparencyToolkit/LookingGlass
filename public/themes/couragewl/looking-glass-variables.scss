@@ -5,13 +5,13 @@
 
 $lg-navbar-brand-font:              "SourceSansPro-Bold", Helvetica, Arial, sans-serif;
 $lg-navbar-brand-font-size:			30px;
-$lg-navbar-select-color:            $base-black;
+$lg-navbar-select-color:            $gray-base;
 $lg-navbar-select-background-color: $gray-lighter;
 $lg-navbar-select-border:           0px;
 $lg-navbar-input-color:             $base-black;
 $lg-navbar-input-background-color:  $gray-lighter;
 $lg-navbar-input-border:            0px;
-$lg-navbar-input-placeholder-color: $gray;
+$lg-navbar-input-placeholder-color: $gray-light;
 $lg-navbar-button-color:            $base-white;
 $lg-navbar-button-background-color: $cwl-red;
 $lg-navbar-button-background-color-hover: darken($lg-navbar-button-background-color, 8%);
@@ -64,16 +64,16 @@ $lg-search-item-title-font:             "Source Sans Pro", Helvetica, Arial, san
 $lg-search-item-title-hover-color:      darken($cwl-turqoise, 10%);
 $lg-search-item-title-size:             24px;
 $lg-search-item-title-weight:           bold;
-$lg-search-item-dataset-color:          #999;
-$lg-search-item-dataset-hover-color:    #000;
+$lg-search-item-dataset-color:          $gray-light;
+$lg-search-item-dataset-hover-color:    $gray;
 $lg-search-item-detail-text-color:      $gray;
 $lg-search-item-text-color:             $gray-base;
 $lg-search-item-highlight-background:   #e6ce95;
 $lg-search-item-highlight-color:        $gray-darker;
-$lg-search-item-facet-color:            #000;
-$lg-search-item-facet-hover-color:      $brand-primary;
+$lg-search-item-facet-color:            $base-black;
+$lg-search-item-facet-hover-color:      $cwl-red;
 
-$lg-search-pagination-hover-bg:   $cwl-blue-on;
+$lg-search-pagination-hover-bg:   $gray-light;
 $lg-search-pagination-font:       $font-family-sans-serif;
 $lg-search-pagination-color:      $lg-search-text-color;
 $lg-search-pagination-on-bg:      $brand-primary;

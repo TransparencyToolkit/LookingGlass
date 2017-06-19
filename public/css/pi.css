@@ -4016,11 +4016,11 @@ button.close {
 
 @font-face {
   font-family: 'tt-icons';
-  src: url("/fonts/tt-icons.eot?o5m3rp");
-  src: url("/fonts/tt-icons.eot?o5m3rp#iefix") format("embedded-opentype"), url("/fonts/tt-icons.ttf?o5m3rp") format("truetype"), url("/fonts/tt-icons.woff?o5m3rp") format("woff"), url("/fonts/tt-icons.svg?o5m3rp#tt-icons") format("svg");
+  src: url("/fonts/tt-icons.eot?gyg92w");
+  src: url("/fonts/tt-icons.eot?gyg92w#iefix") format("embedded-opentype"), url("/fonts/tt-icons.ttf?gyg92w") format("truetype"), url("/fonts/tt-icons.woff?gyg92w") format("woff"), url("/fonts/tt-icons.svg?gyg92w#tt-icons") format("svg");
   font-weight: normal;
   font-style: normal; }
-i {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'tt-icons' !important;
   speak: none;
@@ -4033,7 +4033,6 @@ i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-/*** Normal Mappings ***/
 .icon-addresses:before {
   content: "\e900"; }
 
@@ -4046,210 +4045,224 @@ i {
 .icon-analysis:before {
   content: "\e903"; }
 
-.icon-archive:before {
+.icon-announcement:before {
   content: "\e904"; }
 
-.icon-bookmark:before {
+.icon-archive:before {
   content: "\e905"; }
 
-.icon-briefcase:before {
+.icon-bookmark:before {
   content: "\e906"; }
 
-.icon-building:before {
+.icon-briefcase:before {
   content: "\e907"; }
 
-.icon-calendar:before {
+.icon-building:before {
   content: "\e908"; }
 
-.icon-certificate:before {
+.icon-calendar:before {
   content: "\e909"; }
 
-.icon-checkmark:before {
+.icon-certificate:before {
   content: "\e90a"; }
 
-.icon-classification:before {
+.icon-checkmark:before {
   content: "\e90b"; }
 
-.icon-clock:before {
+.icon-classification:before {
   content: "\e90c"; }
 
-.icon-code:before {
+.icon-clock:before {
   content: "\e90d"; }
 
-.icon-codewords:before {
+.icon-code:before {
   content: "\e90e"; }
 
-.icon-comment:before {
+.icon-codewords:before {
   content: "\e90f"; }
 
-.icon-countries:before {
+.icon-comment:before {
   content: "\e910"; }
 
-.icon-dashboard:before {
+.icon-countries:before {
   content: "\e911"; }
 
-.icon-database:before {
+.icon-dashboard:before {
   content: "\e912"; }
 
-.icon-decentralization:before {
+.icon-database:before {
   content: "\e913"; }
 
-.icon-delivery:before {
+.icon-decentralization:before {
   content: "\e914"; }
 
-.icon-distributed:before {
+.icon-delivery:before {
   content: "\e915"; }
 
-.icon-document:before {
+.icon-distributed:before {
   content: "\e916"; }
 
-.icon-documents:before {
+.icon-document:before {
   content: "\e917"; }
 
 .icon-document-topic:before {
   content: "\e918"; }
 
-.icon-download:before {
+.icon-documents:before {
   content: "\e919"; }
 
-.icon-edit:before {
+.icon-download:before {
   content: "\e91a"; }
 
-.icon-education:before {
+.icon-edit:before {
   content: "\e91b"; }
 
-.icon-email:before {
+.icon-education:before {
   content: "\e91c"; }
 
-.icon-fax:before {
+.icon-email:before {
   content: "\e91d"; }
 
-.icon-folder:before {
+.icon-fax:before {
   content: "\e91e"; }
 
-.icon-geopoint:before {
+.icon-folder:before {
   content: "\e91f"; }
 
-.icon-google:before {
+.icon-geopoint:before {
   content: "\e920"; }
 
-.icon-harvester:before {
+.icon-google:before {
   content: "\e921"; }
 
-.icon-home:before {
+.icon-harvester:before {
   content: "\e922"; }
 
-.icon-indeed:before {
+.icon-hashtag:before {
   content: "\e923"; }
 
-.icon-industry:before {
+.icon-home:before {
   content: "\e924"; }
 
-.icon-link:before {
+.icon-indeed:before {
   content: "\e925"; }
 
-.icon-linkedin:before {
+.icon-industry:before {
   content: "\e926"; }
 
-.icon-logo:before {
+.icon-link:before {
   content: "\e927"; }
 
-.icon-logo-black:before {
+.icon-linkedin:before {
   content: "\e928"; }
 
-.icon-map:before {
+.icon-logo:before {
   content: "\e929"; }
 
-.icon-modified:before {
+.icon-logo-black:before {
   content: "\e92a"; }
 
-.icon-money:before {
+.icon-map:before {
   content: "\e92b"; }
 
-.icon-phone-extension:before {
+.icon-mention:before {
   content: "\e92c"; }
 
-.icon-photos:before {
+.icon-mixer:before {
   content: "\e92d"; }
 
-.icon-plus:before {
+.icon-modified:before {
   content: "\e92e"; }
 
-.icon-progress:before {
+.icon-money:before {
   content: "\e92f"; }
 
-.icon-recrawl:before {
+.icon-phone-extension:before {
   content: "\e930"; }
 
-.icon-research:before {
+.icon-photos:before {
   content: "\e931"; }
 
-.icon-rss:before {
+.icon-plus:before {
   content: "\e932"; }
 
-.icon-search:before {
+.icon-progress:before {
   content: "\e933"; }
 
-.icon-server:before {
+.icon-recrawl:before {
   content: "\e934"; }
 
-.icon-shared-with:before {
+.icon-reply:before {
   content: "\e935"; }
 
-.icon-social:before {
+.icon-research:before {
   content: "\e936"; }
 
-.icon-sources:before {
+.icon-retweet:before {
   content: "\e937"; }
 
-.icon-star:before {
+.icon-rss:before {
   content: "\e938"; }
 
-.icon-store:before {
+.icon-search:before {
   content: "\e939"; }
 
-.icon-survey:before {
+.icon-server:before {
   content: "\e93a"; }
 
-.icon-telephone:before {
+.icon-shared-with:before {
   content: "\e93b"; }
 
-.icon-terms:before {
+.icon-social:before {
   content: "\e93c"; }
 
-.icon-text:before {
+.icon-sources:before {
   content: "\e93d"; }
 
-.icon-trash:before {
+.icon-star:before {
   content: "\e93e"; }
 
-.icon-twiddler:before {
+.icon-store:before {
   content: "\e93f"; }
 
-.icon-twitter:before {
+.icon-survey:before {
   content: "\e940"; }
 
-.icon-upload:before {
+.icon-tag:before {
   content: "\e941"; }
 
-.icon-user:before {
+.icon-telephone:before {
   content: "\e942"; }
 
-.icon-view:before {
+.icon-terms:before {
   content: "\e943"; }
 
-.icon-work:before {
+.icon-text:before {
   content: "\e944"; }
 
-.icon-x:before {
+.icon-trash:before {
   content: "\e945"; }
 
-/*** Duplicated / Hack Mappings ***/
-.icon-company:before {
-  content: "\e907"; }
+.icon-twiddler:before {
+  content: "\e946"; }
 
-.icon-fbi-dhs-hack:before {
-  content: "\e943"; }
+.icon-twitter:before {
+  content: "\e947"; }
+
+.icon-upload:before {
+  content: "\e948"; }
+
+.icon-user:before {
+  content: "\e949"; }
+
+.icon-view:before {
+  content: "\e94a"; }
+
+.icon-work:before {
+  content: "\e94b"; }
+
+.icon-x:before {
+  content: "\e94c"; }
 
 /*!
  * Datepicker for Bootstrap v1.6.0-alpha (https://github.com/eternicode/bootstrap-datepicker)
