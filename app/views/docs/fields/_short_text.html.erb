@@ -1,6 +1,4 @@
-<!-- Display short text fields -->
-<% if text.is_a?(Array) %>
-  <% text = text.join(", ") %>
-<% end %>
-
-<%= text %>
+<% if text.is_a?(Array)
+	text = text.join(", ")
+ end
+puts text %>

@@ -20,7 +20,19 @@
 
 <% doc_description = show_by_type("Description", doc, dataspec) %>
 <% doc_long_text = show_by_type("Long Text", doc, dataspec) %>
-<% if doc_description != "" && doc_long_text != "" %>
+<% if !doc_description.blank? && doc_long_text.blank? %>
+<div class="row">
+  <div class="col-md-10 description">
+    <%= doc_description %>
+  </div>
+</div>
+<% elsif doc_description.blank? && !doc_long_text.blank? %>
+<div class="row">
+  <div class="col-md-10 doc_text">
+    <%= doc_long_text %>
+  </div>
+</div>
+<% elsif !doc_description.blank? && !doc_long_text.blank? %>
 <div class="row">
   <div class="col-md-6 description">
     <%= doc_description %>
@@ -29,16 +41,10 @@
     <%= doc_long_text %>
   </div>
 </div>
-<% elsif doc_description != "" && doc_long_text == "" %>
-<div class="row">
-  <div class="col-md-10 description">
-    <%= doc_description %>
-  </div>
-</div>
-<% elsif doc_description == "" && doc_long_text != "" %>
+<% else %>
 <div class="row">
   <div class="col-md-10 doc_text">
-    <%= doc_long_text %>
+    <em class="info">No description or text</em>
   </div>
 </div>
 <% end %>
