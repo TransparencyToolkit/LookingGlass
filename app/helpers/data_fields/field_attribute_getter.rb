@@ -1,5 +1,12 @@
 # Gets attribute values for fields, used by many display funcs
 module FieldAttributeGetter
+  # Check if there is data in a given field
+  def data_for_field_type?(dataspec, doc, type)
+    fields = dataspec["source_fields"].select{|field, details| details["display_type"] == type }.keys
+    data_for_field = fields.inject([]){|data, field| data.push(doc["_source"][field])}
+    return !data_for_field.compact.empty?
+  end
+  
   # Gets text for the field
   def get_text(doc, field, field_details)
     if is_highlighted?(doc, field)

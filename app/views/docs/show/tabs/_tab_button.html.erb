@@ -1,0 +1,8 @@
+<% if index == 0 %>
+  <li class="active" id="li<%=tab%>">
+<% else %>
+  <li id="li<%=tab%>">
+<% end %>
+<a href="#<%=tab%>" data-toggle="tab"><i class="icon-<%=tab%>"></i>
+   <%= tab.capitalize %></a>
+</li>

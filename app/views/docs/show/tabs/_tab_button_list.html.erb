@@ -1,13 +1,18 @@
 <!-- Prints the list of tabs at the top of the show page -->
 <ul class="nav nav-pills" style="text-align:center;">
   <% @dataspec["show_tabs"].each_with_index do |tab, index| %>
-    <% if index == 0 %>
-      <li class="active" id="li<%=tab%>">
+    <% if tab == "document" %>
+      <% if data_for_field_type?(@dataspec, @doc, "Attachment") %>
+        <%= render partial: "docs/show/tabs/tab_button", locals: {tab: tab, index: index} %>
+      <% end %>
+
+    <% elsif tab == "link" %>
+      <% if data_for_field_type?(@dataspec, @doc, "Link") %>
+        <%= render partial: "docs/show/tabs/tab_button", locals: {tab: tab, index: index} %>
+      <% end %>
+	
     <% else %>
-      <li id="li<%=tab%>">
+      <%= render partial: "docs/show/tabs/tab_button", locals: {tab: tab, index: index} %>
     <% end %>
-      <a href="#<%=tab%>" data-toggle="tab"><i class="icon-<%=tab%>"></i>
-        <%= tab.capitalize %></a>
-    </li>
   <% end %>
 </ul>
