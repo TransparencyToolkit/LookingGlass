@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get 'description', to: 'pages#description'
   get 'free_press_legal_description', to: 'pages#free_press_legal_description'
   get 'advancedsearch', to: 'pages#advanced'
-  
+  get 'document_suggest', to: 'pages#document_suggest'
+  get 'document_sent', to: 'pages#document_sent'
+
   root to: 'docs#index'
   resources :docs
 
