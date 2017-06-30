@@ -1,8 +1,8 @@
 <div class="container">
   <div class="col-md-10 col-md-offset-1 static-page">
     <h1>Suggest Documents</h1>
-    <p>If you are aware of documents that you think should be included in this archive (but are not) please lets us know by filling out this form. For multiple documents submit the form multiple times.</p>
-	<form id="document-suggest-form" action="/document_submit/" accept-charset="UTF-8" method="POST">
+    <p>If you are aware of documents that you think should be included in this archive (but are not) please lets us know by filling out this form. For multiple documents, please submit the form multiple times.</p>
+	<form id="document-suggest-form" action="http://localhost:4000/document_submit" accept-charset="UTF-8" method="POST">
       <div class="form-group">
 	    <label for="url">Document URL (required)</label>
 	    <input name="url" id="url" class="form-control" autofocus="autofocus" placeholder="http://website.com/path-to-document.pdf" type="text">
@@ -16,11 +16,11 @@
 	    <input name="keywords" id="keywords" class="form-control" placeholder="United States, Legal document" type="text">
       </div>
       <div class="form-group">
-	    <label for="email_pgp">Email or PGP fingerprint</label>
+	    <label for="email_pgp">Email or PGP fingerprint (optional)</label>
 	    <input name="email_pgp" id="email_pgp" class="form-control" placeholder="you@email.com" type="text">
       </div>
       <div class="form-group">
-        <label for="captcha">Enter six-digit verification code: <span id="captcha_code"></span></label>
+        <label for="captcha">Enter six-digit verification code (to prevent spam): <span id="captcha_code"></span></label>
 		<input type="text" name="captcha" id="captcha" class="form-control" maxlength="	6" size="8" placeholder="000000">	
       </div> 
 	  <div class="form-group">

@@ -64,9 +64,14 @@ $(function() {
 		}
 
 		// Send POST if valid
-		if ((!url_valid.test(url_text)) && (captcha_code == captcha)) {
-			var form_data = $('#document-suggest-form').serializeArray()
-			$.redirectPost('/document_submit/', form_data)
+	    if ((!url_valid.test(url_text)) && (captcha_code == captcha)) {
+	        var form_data = { url: $("#url").val(),
+		        	  title: $('#title').val(),
+			          keywords: $('#keywords').val(),
+				  email_pgp: $('#email_pgp').val()
+				}
+		$.redirectPost('http://localhost:4000/document_submit/', form_data)
+		window.location = "/document_sent"
 		} else if ((url_valid.test(url_text)) || (captcha_code !== captcha)) {
 			console.log('not valid')
 			return false
