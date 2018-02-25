@@ -1,1 +1,1 @@
-ENV['PROJECT_INDEX'] = "free_press_legal"
+ENV['PROJECT_INDEX'] = "nsadocs"
