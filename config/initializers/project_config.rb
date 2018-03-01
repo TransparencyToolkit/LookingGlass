@@ -1,1 +1,1 @@
-ENV['PROJECT_INDEX'] = "nsadocs"
+ENV['PROJECT_INDEX'] = "archive_test"
