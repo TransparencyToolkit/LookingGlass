@@ -83,7 +83,7 @@ module DisplayTypeSwitcher
     file_type = get_file_type(file)
 
     case file_type
-    when ".jpg", ".jpeg", ".gif", ".png", ".bmp", ".tif", ".tiff"
+    when ".jpg", ".jpeg", ".gif", ".png", ".bmp"
       render partial: "docs/fields/file_types/image", locals: { file: file }
     when ".pdf"
       render partial: "docs/fields/file_types/pdf", locals: { file: file }
