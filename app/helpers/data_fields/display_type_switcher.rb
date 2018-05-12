@@ -89,6 +89,8 @@ module DisplayTypeSwitcher
       render partial: "docs/fields/file_types/pdf", locals: { file: file }
     when "doc_cloud"
       render partial: "docs/fields/file_types/doc_cloud", locals: { file: file }
+    when ".html", ".htm", ".txt", ".svg"
+      render partial: "docs/fields/file_types/iframe", locals: { file: file }
     else
       render partial: "docs/fields/file_types/download", locals: { file: file }  
     end

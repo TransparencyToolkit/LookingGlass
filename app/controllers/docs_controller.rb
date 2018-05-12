@@ -22,14 +22,28 @@ class DocsController < ApplicationController
 
   # Handle attachments in directories other than the current one
   def attach
-    path = "/"+params["path"]+"."+params["format"]
+    # Set the path depending on if there is extension
+    if params["format"]
+      path = "/"+params["path"]+"."+params["format"]
+    else
+      path = "/"+params["path"]
+    end
+    mime_type = get_mime_type(path)
+    
     send_file(path,
               :disposition => 'inline',
-              :type => "application/pdf",
+              :type => mime_type,
               :x_sendfile => true )
   end
 
   private
+
+  # Get the mime type
+  def get_mime_type(path)
+    FileMagic.open(:mime) do |fm|
+      return fm.file(path).split(";")[0]
+    end
+  end
 
   # Process the ID to handle legacy formats
   def handle_legacy_id(id)

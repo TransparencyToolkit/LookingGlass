@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails'
+gem 'rails', '~> 5.2.0'
 gem 'puma'
 
 # Misc
@@ -23,6 +23,7 @@ gem 'will_paginate'
 gem 'font-awesome-rails'
 gem 'simple_form'
 gem 'therubyracer',  platforms: :ruby
+gem 'ruby-filemagic'
 
 # Debugging and testing
 group :development, :test do
