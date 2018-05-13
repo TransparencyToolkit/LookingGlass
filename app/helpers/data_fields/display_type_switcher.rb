@@ -77,22 +77,35 @@ module DisplayTypeSwitcher
       return File.extname(URI.parse(URI.encode(file)).path)
     end
   end
+
+  # Genearate a link to download the file
+  def gen_download_link_name(file)
+    # Get the human readable title for the document
+    dataspec = get_dataspec_for_doc(@doc)
+    title_field = dataspec["source_fields"].select{|field, details| details["display_type"] == "Title" }.keys.first
+    doc_title = @doc["_source"][title_field]
+
+    # Get the file name and combine them
+    file_name = file.split("/").last
+    return "#{doc_title} (#{file_name})"
+  end
   
   # Switch between different attachment file types
   def attachment_file_format_switcher(file)
     file_type = get_file_type(file)
-
+    download_name = gen_download_link_name(file)
+    
     case file_type
     when ".jpg", ".jpeg", ".gif", ".png", ".bmp"
-      render partial: "docs/fields/file_types/image", locals: { file: file }
+      render partial: "docs/fields/file_types/image", locals: { file: file, download_name: download_name }
     when ".pdf"
-      render partial: "docs/fields/file_types/pdf", locals: { file: file }
+      render partial: "docs/fields/file_types/pdf", locals: { file: file, download_name: download_name }
     when "doc_cloud"
       render partial: "docs/fields/file_types/doc_cloud", locals: { file: file }
-    when ".html", ".htm", ".txt", ".svg"
-      render partial: "docs/fields/file_types/iframe", locals: { file: file }
+    when ".html", ".htm", ".txt", ".svg", ".mp4"
+      render partial: "docs/fields/file_types/iframe", locals: { file: file, download_name: download_name }
     else
-      render partial: "docs/fields/file_types/download", locals: { file: file }  
+      render partial: "docs/fields/file_types/download", locals: { file: file, download_name: download_name }  
     end
   end
 end
