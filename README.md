@@ -27,6 +27,7 @@ tool.
 * ruby 2.4.1
 * rails 5
 * (optionally) [Harvester](https://github.com/TransparencyToolkit/Harvester)
+* libmagic-dev
 
 ## Setup Instructions
 
