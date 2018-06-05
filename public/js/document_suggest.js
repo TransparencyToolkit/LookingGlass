@@ -71,7 +71,6 @@ $(function() {
 				  email_pgp: $('#email_pgp').val()
 				}
 		$.redirectPost('/document_submit/', form_data)
-		window.location = "/document_sent"
 		} else if ((url_valid.test(url_text)) || (captcha_code !== captcha)) {
 			console.log('not valid')
 			return false
