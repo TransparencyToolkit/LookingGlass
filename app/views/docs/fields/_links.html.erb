@@ -2,7 +2,7 @@
 <% links = links.is_a?(Array) ? links : [links] %>
 <% links.each.with_index do |link, index| %>
   <div class="show-article-item">
-    <span class="article"><em>#<%= index + 1 %></em> <%= link %></span>
+    <span class="article"><%= link %></span>
     <a href="<%= link %>" data-index="<%= index + 1 %>"
        class="btn btn-default btn-sm show-article-tab" target="_blank">Show in Doc Search</a>
     <a href="<%= link %>" class="btn btn-default btn-sm" target="_blank">Show in New Window</a>
