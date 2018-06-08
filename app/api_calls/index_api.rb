@@ -1,4 +1,11 @@
 module IndexApi
+  def get_child_documents(doc, field)
+    doc_id = doc["_id"]
+    index_name = doc["_index"]
+    http = Curl.get("#{ENV['DOCMANAGER_URL']}/get_child_documents", {:doc_id => doc_id, :field => field, :index_name => index_name})
+    return JSON.parse(http.body_str)
+  end
+  
   def get_docs_on_index_page(start, index_name)
     http = Curl.get("#{ENV['DOCMANAGER_URL']}/get_docs_on_index_page", {:start => start, :index_name => index_name})
     return JSON.parse(http.body_str)

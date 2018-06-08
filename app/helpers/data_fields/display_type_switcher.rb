@@ -15,7 +15,7 @@ module DisplayTypeSwitcher
 
   # Handle some show view fields differently than index fields
   def update_type_for_action(action, type)
-    nonstandard_show_types = ["Category", "Attachment", "Link"]
+    nonstandard_show_types = ["Category", "Attachment", "Link", "Named Link", "Child Document Link"]
     (action == "show") && !nonstandard_show_types.include?(type) ? (return "Show") : (return type)
   end
  
@@ -25,7 +25,7 @@ module DisplayTypeSwitcher
     field_data = get_text(doc, field, field_details)
     human_readable_name = human_readable_title(field_details)
     icon = icon_name(field_details)
-
+    
     # Switch by field type
     case type
     when "Title"
@@ -42,6 +42,12 @@ module DisplayTypeSwitcher
       render partial: "docs/fields/date", locals: { date: field_data, human_readable: human_readable_name }
     when "Link"
       render partial: "docs/fields/links", locals: { links: field_data }
+    when "Named Link"
+      render partial: "docs/fields/named_links", locals: { data: field_data, human_readable: human_readable_name, field: field }
+    when "Child Document Link"
+      children = get_child_documents(doc, field)
+      label = field_details["associated_doc_label"]
+      render partial: "docs/fields/named_links", locals: { data: children, human_readable: label, field: field }
     when "Attachment"
       return show_attachments_by_type(field_data)
     when "Show"
@@ -94,7 +100,7 @@ module DisplayTypeSwitcher
   def attachment_file_format_switcher(file)
     file_type = get_file_type(file)
     download_name = gen_download_link_name(file)
-    
+
     case file_type
     when ".jpg", ".jpeg", ".gif", ".png", ".bmp"
       render partial: "docs/fields/file_types/image", locals: { file: file, download_name: download_name }

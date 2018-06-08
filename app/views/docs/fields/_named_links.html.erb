@@ -1,0 +1,9 @@
+<% if !data.blank? %>
+<p class=<%= field %>>
+      <strong class="label"><%= human_readable %>:</strong>
+      <!-- Print a list of named links -->
+      <% data.each do |link| %>
+      <br /><a href="<%= link[0]%>" target="_blank"><%= link[1] %></a>
+      <% end %>
+</p>
+<% end %>
