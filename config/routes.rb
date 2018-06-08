@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'advancedsearch', to: 'pages#advanced'
   get 'document_suggest', to: 'pages#document_suggest'
   get 'document_sent', to: 'pages#document_sent'
+  get 'datapolitics_description', to: 'pages#datapolitics_description'
+  get 'datapolitics_suggest', to: 'pages#datapolitics_suggest'
 
   root to: 'docs#index'
   resources :docs

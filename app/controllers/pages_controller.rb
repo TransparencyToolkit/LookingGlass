@@ -13,6 +13,12 @@ class PagesController < ApplicationController
   def document_sent
   end
 
+  def datapolitics_description
+  end
+
+  def datapolitics_suggest
+  end
+  
   def free_press_legal_description
   end
 end
