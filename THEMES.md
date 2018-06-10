@@ -3,8 +3,10 @@ Themes
 
 LookingGlass supports creating custom themes of the app. For an examples, look at the following examples:
 
- - [ICWATCH](https://icwatch.transparencytoolkit.org)
- - [Snowden Doc Search](https://search.edwardsnowden.com)
+- [ICWATCH](https://icwatch.transparencytoolkit.org)
+- [Snowden Doc Search](https://search.edwardsnowden.com)
+- [Surveillance Industry Index](https://sii.transparencytoolkit.org)
+- [USA vs. WikiLeaks](https://usavwl.couragefound.org)
 
 Both of these instances are using the LookingGlass application, they look similar but also different. This is achieved using LookingGlass' theming functionality!
 
@@ -27,11 +29,37 @@ The actual files that *style* your instance of LookingGlass and are thus needed 
 
 To make your own theme, follow these steps:
 
-1. Make a copy of directory `default` to name of your theme, e.g. `public/themes/nicetheme/`
+1. Make a copy of directory `default` to name of your theme, e.g. `public/themes/nice-theme/`
 2. Edit variables and oaths from the `default` files you copied in `nice-theme` directory
 5. Add fonts, images, and whatever files you need in your directory to `nice-theme`
 7. Add & edit whatever CSS / SASS properties you desire in your theme files
-8. Edit the value `Theme` in `app/dataspec/instances/your-config.json` to `nice-theme`
+8. Edit the following values in [config
+   files](https://github.com/TransparencyToolkit/DocManager/blob/master/dataspec_files/projects/archive_test_config.json)
+in DocManager repo
+
+```
+{
+  "display_details": {
+    "title": "Hosted Archives Test",
+    "theme": "default",
+    "favicon": "tt-favicon.ico",
+    "logo": "tt-logo.png",
+    ...
+```
+
+To values like:
+
+```
+{
+  "display_details": {
+    "title": "Nice Project",
+    "theme": "nice-theme",
+    "favicon": "nice-favicon.png",
+    "logo": "nice-logo.png",
+    ...
+```
+
+Then restart DocManager
 
 ## Building Your CSS Assets
 
