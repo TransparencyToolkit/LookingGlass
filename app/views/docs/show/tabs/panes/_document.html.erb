@@ -1,10 +1,8 @@
-<% if data_for_field_type?(@dataspec, @doc, "Attachment") %>
-   
-<!-- Print attachments from main fields -->
-<%= show_by_type("Attachment", @thread_fields, @dataspec) %>
+<!-- Print out the overall thread fields for each doc -->
+<%= show_versioned_doc(@thread_fields) %>
 
-<!-- Print attachments from item fields -->
+<!-- Print out the item fields for each doc -->
 <% @item_fields.each do |doc_item| %>
-  <%= show_by_type("Attachment", doc_item, @dataspec) %>
-<% end %>
+  <hr>
+  <%= show_versioned_doc(doc_item) %>
 <% end %>

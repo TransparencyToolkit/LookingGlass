@@ -1,6 +1,6 @@
 <!-- Shows the source name/icon in the upper right corner of results section -->
-
 <% datasource = dataspec["name"] %>
 <% icon_name = datasource.downcase.gsub("/", "-").gsub(" ", "-") %>
-
-<%= render partial: "docs/fields/icon", locals: { icon_name: icon_name, icon_text: datasource } %>
+<a href="/search/?document_type_facet=<%= datasource %>">
+  <%= render partial: "docs/fields/icon", locals: { icon_name: icon_name, icon_text: datasource } %>
+</a>

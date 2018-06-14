@@ -1,15 +1,14 @@
 <!-- Show all the panes for the tabs -->
 <div class="tab-content" id="tab-contents">
-  <% @dataspec["show_tabs"].each_with_index do |pane, index| %>
-    <!-- Set div depending on if pane is active/the first one -->
-    <% if index == 0 %>
-      <div class="tab-pane active" id="<%= pane %>">
-    <% else %>
-      <div class="tab-pane" id="<%= pane %>">
+    <% @dataspec["show_tabs"].each_with_index do |pane, index| %>
+        <!-- Set div depending on if pane is active/the first one -->
+        <% if index == 0 %>
+        <div class="tab-pane active" id="<%= pane %>">
+        <% else %>
+        <div class="tab-pane" id="<%= pane %>">
+        <% end %>
+        <!-- Render the appropriate pane to show the content for the tab -->
+        <%= render partial: "docs/show/tabs/panes/#{pane}"%>
+        </div>
     <% end %>
-
-      <!-- Render the appropriate pane to show the content for the tab -->
-      <%= render partial: "docs/show/tabs/panes/#{pane}"%>
-    </div>
-  <% end %>
 </div>

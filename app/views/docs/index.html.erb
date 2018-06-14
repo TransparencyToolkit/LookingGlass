@@ -4,11 +4,11 @@
 <div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
   <div class="row">
     <%= render partial: 'docs/index/search/param_filters/search_filters' %>
-    
     <div id="search-details" class="col-md-3 text-right">
       <div class="detail-heading">Results</div>
       <div class="detail">
-        <%= @total_count %> Total
+          <span class="count"><%= @total_count %> Items</span><br>
+          <span class="sub">In total</span>
       </div>
     </div>
   </div>
