@@ -1,0 +1,10 @@
+<% if data_for_field_type?(@dataspec, @doc, "Attachment") %>
+   
+<!-- Print attachments from main fields -->
+<%= show_by_type("Attachment", @thread_fields, @dataspec) %>
+
+<!-- Print attachments from item fields -->
+<% @item_fields.each do |doc_item| %>
+  <%= show_by_type("Attachment", doc_item, @dataspec) %>
+<% end %>
+<% end %>
