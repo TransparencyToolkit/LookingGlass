@@ -18,6 +18,16 @@ module DisplayTypeSwitcher
     nonstandard_show_types = ["Category", "Attachment", "Link", "Named Link", "Child Document Link"]
     (action == "show") && !nonstandard_show_types.include?(type) ? (return "Show") : (return type)
   end
+
+  # Check if there is data for a particular type of field
+  def is_data_for_type?(type, doc, dataspec)
+    fields_of_type = dataspec["source_fields"].select{|field, details| details["display_type"] == type }
+    fields_of_type.each do |field|
+      field_data = get_text(doc, field[0], field[1])
+      return true if !field_data.empty?
+    end
+    return false
+  end
  
   # Switch between display types
   def type_switcher(type, doc, field, field_details, action)
