@@ -15,6 +15,22 @@
 <%= show_by_type("Description", doc, @dataspec, "show") %>
 <%= show_by_type("Long Text", doc, @dataspec, "show") %>
 
-<%= show_by_type("Named Link", doc, @dataspec, "show") %>
-
-<%= show_by_type("Child Document Link", doc, @dataspec, "show") %>
+<div class="row mt-5">
+    <% if is_data_for_type?("Related Link", doc, @dataspec) %>
+    <div class="col-md-6">
+        <%= show_by_type("Related Link", doc, @dataspec, "show") %>
+    </div>
+    <% end %>
+    <% if is_data_for_type?("Named Link", doc, @dataspec) %>
+    <div class="col-md-6">
+        <%= show_by_type("Named Link", doc, @dataspec, "show") %>
+    </div>
+    <% end %>
+</div>
+<% if is_data_for_type?("Child Document Link", doc, @dataspec) %>
+<div class="row mt-5">
+    <div class="col-md-12">
+    <%= show_by_type("Child Document Link", doc, @dataspec, "show") %>
+    </div>
+</div>
+<% end %>
