@@ -74,7 +74,7 @@ $lg-search-item-dataset-color:          $gray;
 $lg-search-item-dataset-hover-color:    $gray-dark;
 $lg-search-item-detail-text-color:      $gray;
 $lg-search-item-text-color:             $gray-base;
-$lg-search-item-highlight-background:   #e6ce95;
+$lg-search-item-highlight-background:   red;
 $lg-search-item-highlight-color:        $gray-darker;
 $lg-search-item-facet-icon-color:       $gray-base;
 $lg-search-item-facet-color:            $gray-base;
@@ -106,6 +106,7 @@ $lg-show-embed-border:                  1px solid $gray-light;
 $lg-show-title-size:                    $lg-search-item-title-size;
 $lg-show-link-related-size:             21px;
 $lg-show-link-related-color:            $wf-blue-dark;
+$lg-show-link-related-color-hover:      $brand-danger;
 
 $lg-show-article-color:                 $wf-blue;
 $lg-show-article-text-size:             18px;

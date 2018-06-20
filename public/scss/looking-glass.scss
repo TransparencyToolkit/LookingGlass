@@ -1,11 +1,15 @@
-/*** Icon Re-Mappings ***/
-
+/* Icon Re-Mappings */
 .icon-company:before {
   content: "\e908";
 }
 
+.icon-article:before,
+.icon-news:before {
+  content: "\e932";
+}
+
 .icon-source:before {
-  content: "\e927";
+  content: "\e941";
 }
 
 
@@ -19,6 +23,30 @@ body {
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
+}
+
+.mt-1 {
+  margin-top: 5px;
+}
+
+.mt-3 {
+  margin-top: 10px;
+}
+
+.mt-5 {
+  margin-top: 15px;
+}
+
+.mb-1 {
+  margin-bottom: 5px;
+}
+
+.mb-3 {
+  margin-bottom: 10px;
+}
+
+.mb-5 {
+  margin-bottom: 15px;
 }
 
 /*** Top Navigation ***/
@@ -454,10 +482,11 @@ div.navbar-header {
       font-family: $lg-search-item-title-font;
       font-weight: $lg-search-item-title-weight;
       line-height: 1.25em;
-      margin-top: 0px;
+      margin-iop: 0px;
       margin-bottom: 5px;
       color: $lg-search-item-title-color;
       text-decoration: none;
+      word-wrap: break-word;
 
       &:hover {
         color: $lg-search-item-title-hover-color;
@@ -611,12 +640,23 @@ div.navbar-header {
         }
 
         a.related-item {
+          margin-bottom: 10px;
           display: block;
           font-size: $lg-show-link-related-size;
           color: $lg-show-link-related-color;
-        }
-      }
 
+          &:hover {
+            color: $lg-show-link-related-color-hover;
+          }
+        }
+
+        ul {
+          li {
+            margin-bottom: 10px;
+          }
+        }
+
+      }
     }
 
     object.show-document {

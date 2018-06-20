@@ -4007,8 +4007,8 @@ button.close {
 
 @font-face {
   font-family: 'tt-icons';
-  src: url("/fonts/tt-icons.eot?gyg92w");
-  src: url("/fonts/tt-icons.eot?gyg92w#iefix") format("embedded-opentype"), url("/fonts/tt-icons.ttf?gyg92w") format("truetype"), url("/fonts/tt-icons.woff?gyg92w") format("woff"), url("/fonts/tt-icons.svg?gyg92w#tt-icons") format("svg");
+  src: url("/fonts/tt-icons.eot?gw8j5z");
+  src: url("/fonts/tt-icons.eot?gw8j5z#iefix") format("embedded-opentype"), url("/fonts/tt-icons.ttf?gw8j5z") format("truetype"), url("/fonts/tt-icons.woff?gw8j5z") format("woff"), url("/fonts/tt-icons.svg?gw8j5z#tt-icons") format("svg");
   font-weight: normal;
   font-style: normal; }
 [class^="icon-"], [class*=" icon-"] {
@@ -4060,200 +4060,218 @@ button.close {
 .icon-checkmark:before {
   content: "\e90b"; }
 
-.icon-classification:before {
+.icon-circle-info:before {
   content: "\e90c"; }
 
-.icon-clock:before {
+.icon-circle-x:before {
   content: "\e90d"; }
 
-.icon-code:before {
+.icon-classification:before {
   content: "\e90e"; }
 
-.icon-codewords:before {
+.icon-clock:before {
   content: "\e90f"; }
 
-.icon-comment:before {
+.icon-code:before {
   content: "\e910"; }
 
-.icon-countries:before {
+.icon-codewords:before {
   content: "\e911"; }
 
-.icon-dashboard:before {
+.icon-comment:before {
   content: "\e912"; }
 
-.icon-database:before {
+.icon-countries:before {
   content: "\e913"; }
 
-.icon-decentralization:before {
+.icon-dashboard:before {
   content: "\e914"; }
 
-.icon-delivery:before {
+.icon-database:before {
   content: "\e915"; }
 
-.icon-distributed:before {
+.icon-decentralization:before {
   content: "\e916"; }
 
-.icon-document:before {
+.icon-delivery:before {
   content: "\e917"; }
 
-.icon-document-topic:before {
+.icon-distributed:before {
   content: "\e918"; }
 
-.icon-documents:before {
+.icon-document:before {
   content: "\e919"; }
 
-.icon-download:before {
+.icon-documents:before {
   content: "\e91a"; }
 
-.icon-edit:before {
+.icon-document-topic:before {
   content: "\e91b"; }
 
-.icon-education:before {
+.icon-download:before {
   content: "\e91c"; }
 
-.icon-email:before {
+.icon-edit:before {
   content: "\e91d"; }
 
-.icon-fax:before {
+.icon-education:before {
   content: "\e91e"; }
 
-.icon-folder:before {
+.icon-email:before {
   content: "\e91f"; }
 
-.icon-geopoint:before {
+.icon-fax:before {
   content: "\e920"; }
 
-.icon-google:before {
+.icon-folder:before {
   content: "\e921"; }
 
-.icon-harvester:before {
+.icon-geopoint:before {
   content: "\e922"; }
 
-.icon-hashtag:before {
+.icon-google:before {
   content: "\e923"; }
 
-.icon-home:before {
+.icon-harvester:before {
   content: "\e924"; }
 
-.icon-indeed:before {
+.icon-hashtag:before {
   content: "\e925"; }
 
-.icon-industry:before {
+.icon-home:before {
   content: "\e926"; }
 
-.icon-link:before {
+.icon-indeed:before {
   content: "\e927"; }
 
-.icon-linkedin:before {
+.icon-industry:before {
   content: "\e928"; }
 
-.icon-logo:before {
+.icon-link:before {
   content: "\e929"; }
 
-.icon-logo-black:before {
+.icon-linkedin:before {
   content: "\e92a"; }
 
-.icon-map:before {
+.icon-logo:before {
   content: "\e92b"; }
 
-.icon-mention:before {
+.icon-logo-black:before {
   content: "\e92c"; }
 
-.icon-mixer:before {
+.icon-map:before {
   content: "\e92d"; }
 
-.icon-modified:before {
+.icon-mention:before {
   content: "\e92e"; }
 
-.icon-money:before {
+.icon-mixer:before {
   content: "\e92f"; }
 
-.icon-phone-extension:before {
+.icon-modified:before {
   content: "\e930"; }
 
-.icon-photos:before {
+.icon-money:before {
   content: "\e931"; }
 
-.icon-plus:before {
+.icon-newspaper:before {
   content: "\e932"; }
 
-.icon-progress:before {
+.icon-phone-extension:before {
   content: "\e933"; }
 
-.icon-recrawl:before {
+.icon-photos:before {
   content: "\e934"; }
 
-.icon-reply:before {
+.icon-plus:before {
   content: "\e935"; }
 
-.icon-research:before {
+.icon-progress:before {
   content: "\e936"; }
 
-.icon-retweet:before {
+.icon-recrawl:before {
   content: "\e937"; }
 
-.icon-rss:before {
+.icon-reply:before {
   content: "\e938"; }
 
-.icon-search:before {
+.icon-research:before {
   content: "\e939"; }
 
-.icon-server:before {
+.icon-retweet:before {
   content: "\e93a"; }
 
-.icon-shared-with:before {
+.icon-rss:before {
   content: "\e93b"; }
 
-.icon-social:before {
+.icon-search:before {
   content: "\e93c"; }
 
-.icon-sources:before {
+.icon-server:before {
   content: "\e93d"; }
 
-.icon-star:before {
+.icon-shared-with:before {
   content: "\e93e"; }
 
-.icon-store:before {
+.icon-shippment:before {
   content: "\e93f"; }
 
-.icon-survey:before {
+.icon-social:before {
   content: "\e940"; }
 
-.icon-tag:before {
+.icon-source:before {
   content: "\e941"; }
 
-.icon-telephone:before {
+.icon-sources:before {
   content: "\e942"; }
 
-.icon-terms:before {
+.icon-star:before {
   content: "\e943"; }
 
-.icon-text:before {
+.icon-store:before {
   content: "\e944"; }
 
-.icon-trash:before {
+.icon-survey:before {
   content: "\e945"; }
 
-.icon-twiddler:before {
+.icon-tag:before {
   content: "\e946"; }
 
-.icon-twitter:before {
+.icon-targeting:before {
   content: "\e947"; }
 
-.icon-upload:before {
+.icon-telephone:before {
   content: "\e948"; }
 
-.icon-user:before {
+.icon-terms:before {
   content: "\e949"; }
 
-.icon-view:before {
+.icon-text:before {
   content: "\e94a"; }
 
-.icon-work:before {
+.icon-trash:before {
   content: "\e94b"; }
 
-.icon-x:before {
+.icon-twiddler:before {
   content: "\e94c"; }
+
+.icon-twitter:before {
+  content: "\e94d"; }
+
+.icon-upload:before {
+  content: "\e94e"; }
+
+.icon-user:before {
+  content: "\e94f"; }
+
+.icon-view:before {
+  content: "\e950"; }
+
+.icon-work:before {
+  content: "\e951"; }
+
+.icon-x:before {
+  content: "\e952"; }
 
 /*!
  * Datepicker for Bootstrap v1.6.0-alpha (https://github.com/eternicode/bootstrap-datepicker)
@@ -4936,12 +4954,16 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
   margin-right: -5px; }
 
 /*# sourceMappingURL=bootstrap-datepicker3.css.map */
-/*** Icon Re-Mappings ***/
+/* Icon Re-Mappings */
 .icon-company:before {
   content: "\e908"; }
 
+.icon-article:before,
+.icon-news:before {
+  content: "\e932"; }
+
 .icon-source:before {
-  content: "\e927"; }
+  content: "\e941"; }
 
 /* Move down content because navbar is fixed */
 body {
@@ -4951,6 +4973,24 @@ body {
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee; }
+
+.mt-1 {
+  margin-top: 5px; }
+
+.mt-3 {
+  margin-top: 10px; }
+
+.mt-5 {
+  margin-top: 15px; }
+
+.mb-1 {
+  margin-bottom: 5px; }
+
+.mb-3 {
+  margin-bottom: 10px; }
+
+.mb-5 {
+  margin-bottom: 15px; }
 
 /*** Top Navigation ***/
 nav.navbar-fixed-top {
@@ -5259,10 +5299,11 @@ div.search-item {
     font-family: "SourceSansPro", Helvetica, Arial, sans-serif;
     font-weight: normal;
     line-height: 1.25em;
-    margin-top: 0px;
+    margin-iop: 0px;
     margin-bottom: 5px;
     color: #2a5279;
-    text-decoration: none; }
+    text-decoration: none;
+    word-wrap: break-word; }
     div.search-item h3.title:hover,
     div.search-item h3.title a:hover,
     div.search-item h3.title a:visited:hover {
@@ -5304,7 +5345,7 @@ div.search-item {
   div.search-item h3.title a b,
   div.search-item div.description b,
   div.search-item div.doc_text b {
-    background: #e6ce95;
+    background: red;
     padding: 2px;
     border-radius: 3px;
     color: #555555; }
@@ -5367,9 +5408,14 @@ div.search-item {
     text-transform: uppercase;
     color: #999999; }
   #maincontent div.tab-content div.tab-pane a.related-item {
+    margin-bottom: 10px;
     display: block;
     font-size: 21px;
     color: #2a5279; }
+    #maincontent div.tab-content div.tab-pane a.related-item:hover {
+      color: #7a2828; }
+  #maincontent div.tab-content div.tab-pane ul li {
+    margin-bottom: 10px; }
 #maincontent object.show-document {
   width: 100%;
   min-height: 700px;
