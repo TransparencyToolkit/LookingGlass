@@ -24,7 +24,7 @@ module DisplayTypeSwitcher
     fields_of_type = dataspec["source_fields"].select{|field, details| details["display_type"] == type }
     fields_of_type.each do |field|
       field_data = get_text(doc, field[0], field[1])
-      return true if !field_data.empty?
+      return true if field_data != nil && !field_data.empty?
     end
     return false
   end
