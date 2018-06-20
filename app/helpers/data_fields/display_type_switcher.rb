@@ -5,7 +5,7 @@ module DisplayTypeSwitcher
     # Get all the fields matching the particular type
     fields_of_type = dataspec["source_fields"].select{|field, details| details["display_type"] == type }
     type = update_type_for_action(action, type)
-    
+
     # Render all fields of the type
     return fields_of_type.inject("") do |str, field|
       str += type_switcher(type, doc, field[0], field[1], action)
@@ -15,7 +15,7 @@ module DisplayTypeSwitcher
 
   # Handle some show view fields differently than index fields
   def update_type_for_action(action, type)
-    nonstandard_show_types = ["Category", "Attachment", "Link", "Named Link", "Child Document Link"]
+    nonstandard_show_types = ["Category", "Attachment", "Link", "Named Link", "Child Document Link", "Related Link", "Source Link"]
     (action == "show") && !nonstandard_show_types.include?(type) ? (return "Show") : (return type)
   end
 
@@ -28,14 +28,14 @@ module DisplayTypeSwitcher
     end
     return false
   end
- 
+
   # Switch between display types
   def type_switcher(type, doc, field, field_details, action)
     # Get data needed to render fields
     field_data = get_text(doc, field, field_details)
     human_readable_name = human_readable_title(field_details)
     icon = icon_name(field_details)
-    
+
     # Switch by field type
     case type
     when "Title"
@@ -57,15 +57,19 @@ module DisplayTypeSwitcher
     when "Child Document Link"
       children = get_child_documents(doc, field)
       label = field_details["associated_doc_label"]
-      render partial: "docs/fields/named_links", locals: { data: children, human_readable: label, field: field }
+      render partial: "docs/fields/child_documents", locals: { data: children, human_readable: label, field: field }
+    when "Related Link"
+      render partial: "docs/fields/related_links", locals: { data: field_data, human_readable: human_readable_name, field: field }
+    when "Source Link"
+      render partial: "docs/fields/source_link", locals: { data: field_data, human_readable: human_readable_name, field: field }
     when "Attachment"
       return show_attachments_by_type(field_data)
     when "Show"
       render partial: "docs/fields/show_text", locals: { text: field_data, human_readable: human_readable_name, field: field }
-    when "Category" 
+    when "Category"
       facet_links = facet_links_for_results(doc, field, field_data)
       if action == "index"
-        render partial: "docs/fields/tiny_text", locals: {icon: icon, text: facet_links, field: field}
+        render partial: "docs/fields/tiny_text", locals: { icon: icon, text: facet_links, field: field }
       elsif action == "show"
         render partial: "docs/fields/show_facets", locals: {icon: icon, text: facet_links,
                                                             field: field, human_readable: human_readable_name}
@@ -74,7 +78,6 @@ module DisplayTypeSwitcher
       end
     end
   end
-
 
   # Go through files and show
   def show_attachments_by_type(files)
@@ -107,7 +110,7 @@ module DisplayTypeSwitcher
     file_name = file.split("/").last
     return "#{doc_title} (#{file_name})"
   end
-  
+
   # Switch between different attachment file types
   def attachment_file_format_switcher(file)
     file_type = get_file_type(file)
@@ -123,7 +126,7 @@ module DisplayTypeSwitcher
     when ".html", ".htm", ".txt", ".svg", ".mp4"
       render partial: "docs/fields/file_types/iframe", locals: { file: file, download_name: download_name }
     else
-      render partial: "docs/fields/file_types/download", locals: { file: file, download_name: download_name }  
+      render partial: "docs/fields/file_types/download", locals: { file: file, download_name: download_name }
     end
   end
 end

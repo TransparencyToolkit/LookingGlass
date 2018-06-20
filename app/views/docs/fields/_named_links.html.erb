@@ -1,16 +1,16 @@
 <% if !data.blank? %>
 <div class=<%= field %>>
-    <strong class="label"><%= human_readable %></strong><br>
+    <strong class="label"><%= human_readable %></strong>
     <!-- Print a list of named links -->
-    <% data.each do |link| %>
-        <a href="<%= link[0] %>" class="related-item">
-            <i class="icon-document"></i>
-            <%= link[1] %>
-        </a>
-        <a href="<%= link[0]%>" class="btn btn-default btn-sm"  target="_blank">
-            See Document
-        </a>
-        <hr>
+    <ul class="list-unstyled">
+        <% data.each do |link| %>
+        <li>
+            <%= link[1] %><br>
+            <a href="<%= link[0] %>" target="_blank">
+                <%= link[0] %>
+            </a>
+        </li>
     <% end %>
+    </ul>
 </div>
 <% end %>
