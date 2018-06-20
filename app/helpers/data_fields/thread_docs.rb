@@ -23,7 +23,7 @@ module ThreadDocs
 
   # Sort the item fields by the sort field and order specified in the dataspec
   def sort_thread_items(item_fields, dataspec)
-    sorted = item_fields.sort_by{|doc| doc["_source"][dataspec["sort_field"]]}
+    sorted = item_fields.sort_by{|doc| doc["_source"][dataspec["sort_field"]]}.reverse
     sorted = sorted.reverse if dataspec["sort_order"] == "asc"
     return sorted
   end

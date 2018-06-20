@@ -69,6 +69,8 @@ module DisplayTypeSwitcher
       elsif action == "show"
         render partial: "docs/fields/show_facets", locals: {icon: icon, text: facet_links,
                                                             field: field, human_readable: human_readable_name}
+      elsif action == "show-text"
+        render partial: "docs/fields/show_text", locals: { text: field_data, human_readable: human_readable_name, field: field }
       end
     end
   end

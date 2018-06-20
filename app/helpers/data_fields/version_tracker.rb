@@ -1,7 +1,7 @@
 # Tracks the version of the documents
 module VersionTracker
   # Show the versioned doc, with change tracker if it has been changed
-  def show_versioned_doc(doc)
+  def show_versioned_doc(doc, is_item_field=false)
     # Render in change tracker
     if doc["_source"]["version_changed"] == "Changed"
       newest, oldest = get_newest_and_oldest_versions(doc)
@@ -12,7 +12,7 @@ module VersionTracker
              doc_id: doc["_id"].gsub(/[^0-9a-z ]/i, '-')}
      
     else # Render fields normally
-      render partial: 'docs/show/tabs/panes/text_partials/text_fields', locals: {doc: doc}
+      render partial: 'docs/show/tabs/panes/text_partials/text_fields', locals: {doc: doc, is_item_field: is_item_field}
     end
   end
 

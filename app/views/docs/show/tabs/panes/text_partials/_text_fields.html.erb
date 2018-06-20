@@ -11,6 +11,7 @@
 
 <%= show_by_type("Tiny Text", doc, @dataspec, "show") %>
 <%= show_by_type("Shorter Text", doc, @dataspec, "show") %>
+<%= show_by_type("Category", doc, @dataspec, "show-text") if is_item_field %>
 
 <%= show_by_type("Description", doc, @dataspec, "show") %>
 <%= show_by_type("Long Text", doc, @dataspec, "show") %>
