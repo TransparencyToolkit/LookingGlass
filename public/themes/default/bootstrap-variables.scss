@@ -31,7 +31,7 @@ $brand-danger:       #C61C1C;
 //** Background color for `<body>`.
 $body-bg:            #5B5B5B;
 //** Global text color on `<body>`.
-$text-color:         #FFF;
+$text-color:         #000000;
 
 //** Global textual link color.
 $link-color:            $brand-primary;
@@ -69,7 +69,7 @@ $line-height-computed:    floor(($font-size-base * $line-height-base)) !default;
 
 //** By default, this inherits from the `<body>`.
 $headings-font-family:    inherit !default;
-$headings-font-weight:    500 !default;
+$headings-font-weight:    900 !default;
 $headings-line-height:    1.1 !default;
 $headings-color:          inherit !default;
 
@@ -401,7 +401,7 @@ $navbar-inverse-bg:                         $base-black !default;
 $navbar-inverse-border:                     $navbar-inverse-bg !default;
 
 // Inverted navbar links
-$navbar-inverse-link-color:                 $text-color !default;
+$navbar-inverse-link-color:                 $base-white !default;
 $navbar-inverse-link-hover-color:           $gray-lighter !default;
 $navbar-inverse-link-hover-bg:              transparent !default;
 $navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;

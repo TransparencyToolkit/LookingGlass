@@ -1,59 +1,65 @@
-//== Looking Glass
+//== Looking Glass - Courage Foundation Theme
 //
 // Specific things needed for Looking Glass app that can be customized
 //##
 
-$lg-navbar-brand-font:              "SourceSansPro-Bold", Helvetica, Arial, sans-serif;
-$lg-navbar-brand-font-size:			30px;
-$lg-navbar-select-color:            $gray-base;
-$lg-navbar-select-background-color: $gray-lighter;
-$lg-navbar-select-border:           0px;
-$lg-navbar-input-color:             $base-black;
-$lg-navbar-input-background-color:  $gray-lighter;
-$lg-navbar-input-border:            0px;
-$lg-navbar-input-placeholder-color: $gray-light;
-$lg-navbar-button-color:            $base-white;
-$lg-navbar-button-background-color: $cwl-red;
+$lg-navbar-brand-top:                   -12px;
+$lg-navbar-brand-img-height:            40px;
+$lg-navbar-brand-font:                  "SourceSansPro-Bold", Helvetica, Arial, sans-serif;
+$lg-navbar-brand-font-size:			    30px;
+$lg-navbar-select-color:                $gray-base;
+$lg-navbar-select-background-color:     $gray-lighter;
+$lg-navbar-select-border:               0px;
+$lg-navbar-input-color:                 $base-black;
+$lg-navbar-input-background-color:      $gray-lighter;
+$lg-navbar-input-border:                0px;
+$lg-navbar-input-placeholder-color:     $gray-light;
+$lg-navbar-button-color:                $base-white;
+$lg-navbar-button-background-color:     $cwl-red;
 $lg-navbar-button-background-color-hover: darken($lg-navbar-button-background-color, 8%);
-$lg-navbar-button-border:           0px;
+$lg-navbar-button-border:               0px;
 
-$lg-tiny-heading-font:        		$font-family-sans-serif;
-$lg-tiny-heading-color:       		$gray-light;
-$lg-tiny-heading-size:        		12px;
+$lg-tiny-heading-font:        		    $font-family-sans-serif;
+$lg-tiny-heading-color:       		    $gray-light;
+$lg-tiny-heading-size:        		    12px;
 
-$lg-sidebar-background-color:       $cwl-blue-gray;
-$lg-sidebar-border-right:           1px solid $cwl-blue-dark;
-$lg-sidebar-text-font:              "SourceSansPro-Bold", Helvetica, Arial, sans-serif;
-$lg-sidebar-text-size:              21px;
-$lg-sidebar-text-color:             $base-white;
-$lg-sidebar-text-color-hover:       $gray-lighter;
-$lg-sidebar-text-weight:            bold;
-$lg-sidebar-expand-color:           $gray-light;
-$lg-sidebar-link-color:             $gray-lighter;
-$lg-sidebar-link-color-hover:       $base-black;
-$lg-sidebar-link-font:              $font-family-sans-serif;
-$lg-sidebar-link-size:              14px;
-$lg-sidebar-link-weight:            normal;
-$lg-sidebar-link-spacing:           -1px;
-$lg-sidebar-link-decoration:        none;
-$lg-sidebar-link-decoration-hover:  underline;
-$lg-sidebar-term-on-bg:             $cwl-blue-on;
-$lg-sidebar-term-on-color:          $base-white;
+$lg-sidebar-background-color:           $cwl-blue-gray;
+$lg-sidebar-border-right:               1px solid $cwl-blue-dark;
+$lg-sidebar-icon-color:                 $base-white;
+$lg-sidebar-text-font:                  "SourceSansPro-Bold", Helvetica, Arial, sans-serif;
+$lg-sidebar-text-size:                  21px;
+$lg-sidebar-text-color:                 $base-white;
+$lg-sidebar-text-color-hover:           $gray-lighter;
+$lg-sidebar-text-weight:                bold;
+$lg-sidebar-expand-color:               $gray-light;
+$lg-sidebar-link-color:                 $gray-lighter;
+$lg-sidebar-link-color-hover:           $base-black;
+$lg-sidebar-link-font:                  $font-family-sans-serif;
+$lg-sidebar-link-size:                  14px;
+$lg-sidebar-link-weight:                normal;
+$lg-sidebar-link-spacing:               -1px;
+$lg-sidebar-link-decoration:            none;
+$lg-sidebar-link-decoration-hover:      underline;
+$lg-sidebar-term-on-bg:                 $cwl-blue-on;
+$lg-sidebar-term-on-color:              $base-white;
 
-$lg-search-background-color:  		$base-white;
-$lg-search-text-color:        		#000;
-$lg-search-light-text-color:  		$gray-light;
+$lg-search-background-color:  		    $base-white;
+$lg-search-text-color:        		    #000;
+$lg-search-light-text-color:  		    $gray-light;
 
-$lg-search-filter-background-color: $base-white;
-$lg-search-filter-color:            #000;
-$lg-search-filter-font:             $font-family-sans-serif;
-$lg-search-filter-weight:           bold;
-$lg-search-filter-category-color:   $gray-dark;
-$lg-search-filter-remove-color:     $brand-danger;
+$lg-search-filter-background-color:     $base-white;
+$lg-search-filter-color:                #000;
+$lg-search-filter-font:                 $font-family-sans-serif;
+$lg-search-filter-weight:               bold;
+$lg-search-filter-category-color:       $gray-dark;
+$lg-search-filter-remove-color:         $brand-danger;
 
-$lg-search-details-background-color:$lg-search-background-color;
-$lg-search-details-font:            $font-family-sans-serif;
-$lg-search-details-weight:          bold;
+$lg-search-details-background-color:    $lg-search-background-color;
+$lg-search-details-font:                $font-family-sans-serif;
+$lg-search-details-weight:              bold;
+$lg-search-details-color:               $gray-dark;
+$lg-search-details-sub-font:            $lg-search-details-font;
+$lg-search-details-sub-color:           $gray-dark;
 
 $lg-search-item-border-top:         	0px;
 $lg-search-item-border-right:           1px solid $gray-light;
@@ -70,46 +76,56 @@ $lg-search-item-detail-text-color:      $gray;
 $lg-search-item-text-color:             $gray-base;
 $lg-search-item-highlight-background:   #e6ce95;
 $lg-search-item-highlight-color:        $gray-darker;
+$lg-search-item-facet-icon-color:       $base-black;
 $lg-search-item-facet-color:            $base-black;
 $lg-search-item-facet-hover-color:      $cwl-red;
 
-$lg-search-pagination-hover-bg:   $gray-light;
-$lg-search-pagination-font:       $font-family-sans-serif;
-$lg-search-pagination-color:      $lg-search-text-color;
-$lg-search-pagination-on-bg:      $brand-primary;
-$lg-search-pagination-on-color:   $base-white;
+$lg-search-pagination-hover-bg:         $gray-light;
+$lg-search-pagination-font:             $font-family-sans-serif;
+$lg-search-pagination-color:            $lg-search-text-color;
+$lg-search-pagination-on-bg:            $brand-primary;
+$lg-search-pagination-on-color:         $base-white;
 
-$lg-show-background-color:    $base-white;
-$lg-show-color:               #000;
-$lg-show-link-color:          $brand-danger;
-$lg-show-link-color-hover:    darken($brand-danger, 15%);
+$lg-show-background-color:              $base-white;
+$lg-show-color:                         #000;
+$lg-show-link-weight:                   bold;
+$lg-show-link-color:                    $brand-danger;
+$lg-show-link-color-hover:              darken($brand-danger, 15%);
 
-$lg-show-tab-background-color:        $cwl-turqoise;
-$lg-show-tab-color:                   $base-white;
-$lg-show-tab-active-background-color: $base-white;
-$lg-show-tab-active-color:            $base-black;
-$lg-show-tab-border-top:              0px;
-$lg-show-tab-border-right:            1px solid $gray-light;
-$lg-show-tab-border-bottom:           1px solid $gray-light;
-$lg-search-item-border-left:          0px;
+$lg-show-tab-background-color:          $cwl-turqoise;
+$lg-show-tab-color:                     $base-white;
+$lg-show-tab-active-background-color:   $base-white;
+$lg-show-tab-active-color:              $base-black;
+$lg-show-tab-border-top:                0px;
+$lg-show-tab-border-right:              1px solid $gray-light;
+$lg-show-tab-border-bottom:             1px solid $gray-light;
+$lg-search-item-border-left:            0px;
 
-$lg-show-embed-border:        1px solid $gray-light;	
+$lg-show-label-color:                   $gray;
+$lg-show-label-weight:                  normal;
+$lg-show-embed-border:                  1px solid $gray-light;
+$lg-show-title-size:                    $lg-search-item-title-size;
+$lg-show-title-weight:                  bold;
+$lg-show-link-related-size:             21px;
+$lg-show-link-related-color:            $cwl-blue-dark;
+$lg-show-link-related-color-hover:      $brand-danger;
 
-$lg-show-article-color:       $cwl-blue;
-$lg-show-article-text-size:   18px;
-$lg-show-article-text-weight: bold;
-$lg-show-article-item-border: 1px solid $gray-light;
-$lg-show-article-number:      $gray-light;
+$lg-show-article-color:                 $cwl-blue;
+$lg-show-article-text-size:             18px;
+$lg-show-article-text-weight:           bold;
+$lg-show-article-item-border:           1px solid $gray-light;
+$lg-show-article-number:                $gray-light;
 
-$lg-static-background-color:  #FFF;
-$lg-static-border-top:        0px;
-$lg-static-border-right:      1px solid $gray-light;
-$lg-static-border-bottom:     1px solid $gray-light;
-$lg-static-item-border-left:  0px;
-$lg-static-title-color:       $brand-danger;
+$lg-static-background-color:            #FFF;
+$lg-static-border-top:                  0px;
+$lg-static-border-right:                1px solid $gray-light;
+$lg-static-border-bottom:               1px solid $gray-light;
+$lg-static-item-border-left:            0px;
+$lg-static-title-color:                 $brand-danger;
+$lg-static-color:                       $base-black;
 
-$lg-show-version-border:      0px;
-$lg-show-version-background:  $gray-lighter;
-$lg-show-version-color:       $gray-dark;
-$lg-show-panel-title-font:    $font-family-sans-serif;
-$lg-show-panel-title-size:    18px;
+$lg-show-version-border:                0px;
+$lg-show-version-background:            $gray-lighter;
+$lg-show-version-color:                 $gray-dark;
+$lg-show-panel-title-font:              $font-family-sans-serif;
+$lg-show-panel-title-size:              18px;

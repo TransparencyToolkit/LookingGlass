@@ -1,8 +1,10 @@
-//== Looking Glass
+//== Looking Glass - Web Foundation Theme
 //
 // Specific things needed for Looking Glass app that can be customized
 //##
 
+$lg-navbar-brand-top:                   -5px;
+$lg-navbar-brand-img-height:            30px;
 $lg-navbar-brand-font:                  "SourceSansPro", Helvetica, Arial, sans-serif;
 $lg-navbar-brand-font-size:             30px;
 $lg-navbar-select-color:                $gray-base;
@@ -55,10 +57,8 @@ $lg-search-filter-remove-color:         $brand-danger;
 $lg-search-details-background-color:    $brand-danger;
 $lg-search-details-font:                $font-family-sans-serif;
 $lg-search-details-weight:              bold;
-$lg-search-details-color:               $base-white;
-
+$lg-search-details-color:               $base-black
 $lg-search-details-sub-font:            $lg-search-details-font;
-$lg-search-details-weight:              bold;
 $lg-search-details-sub-color:           darken($brand-danger, 15%);
 
 $lg-search-item-border-top:         	0px;
@@ -104,6 +104,7 @@ $lg-show-label-color:                   $gray;
 $lg-show-label-weight:                  normal;
 $lg-show-embed-border:                  1px solid $gray-light;
 $lg-show-title-size:                    $lg-search-item-title-size;
+$lg-show-title-weight:                  bold;
 $lg-show-link-related-size:             21px;
 $lg-show-link-related-color:            $wf-blue-dark;
 $lg-show-link-related-color-hover:      $brand-danger;

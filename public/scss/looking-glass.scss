@@ -121,7 +121,7 @@ div.navbar-header {
 
   a.navbar-brand {
     position: relative;
-    top: -5px;
+    top: $lg-navbar-brand-top;
     font-family: $lg-navbar-brand-font;
     font-size: $lg-navbar-brand-font-size;
     line-height: ($lg-navbar-brand-font-size - $line-height-computed);
@@ -132,7 +132,7 @@ div.navbar-header {
     }
 
     img {
-      max-height: 30px;
+      max-height: $lg-navbar-brand-img-height;
       display: inline-block;
       margin-right: 10px;
     }
@@ -447,8 +447,7 @@ div.navbar-header {
         color: $lg-search-pagination-on-color;
       }
 
-      a,
-      a:visited {
+      a {
         color: $lg-search-pagination-color;
 
         &:hover {
@@ -482,8 +481,8 @@ div.navbar-header {
       font-family: $lg-search-item-title-font;
       font-weight: $lg-search-item-title-weight;
       line-height: 1.25em;
-      margin-iop: 0px;
-      margin-bottom: 5px;
+      margin-top: 0px !important;
+      margin-bottom: 5px !important;
       color: $lg-search-item-title-color;
       text-decoration: none;
       word-wrap: break-word;
@@ -624,12 +623,14 @@ div.navbar-header {
           }
         }
 
+        // TODO: this is a hack until a 'title' partial exists
         p.name,
         p.title,
         p.story_title,
         p.brochure_title {
           font-size: $lg-show-title-size;
-        }
+          font-weight: $lg-show-title-weight;
+      }
 
         strong.label {
           display: block;
@@ -720,6 +721,7 @@ div.navbar-header {
     border-left: $lg-static-item-border-left;
     padding: 10px 25px;
     margin-top: 30px;
+    color: $lg-static-color;
 
     h1 {
       color: $lg-static-title-color;
