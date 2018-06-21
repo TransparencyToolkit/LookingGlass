@@ -1,6 +1,10 @@
 <!-- Show text -->
 <% if !text.blank? %>
-  <p class=<%= field %>>
+<p class=<%= field %>>
+  <% if text.is_a?(Array) %>
+    <strong class="label"><%= human_readable %></strong> <%= raw(format_text(text.join(", "))) %>
+  <% else %>
     <strong class="label"><%= human_readable %></strong> <%= raw(format_text(text)) %>
+  <% end %>
   </p>
 <% end %>
