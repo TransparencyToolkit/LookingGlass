@@ -16,15 +16,22 @@ module ThreadDocs
       doc
     end.delete_if{|field| field["_source"].blank?}
     overall_thread_fields = docs.first.except("_source").merge("_source" => overall_thread_fields)
-
+    
     # Sort and return
     return overall_thread_fields, sort_thread_items(item_fields, dataspec)
   end
 
   # Sort the item fields by the sort field and order specified in the dataspec
   def sort_thread_items(item_fields, dataspec)
-    sorted = item_fields.sort_by{|doc| doc["_source"][dataspec["sort_field"]]}.reverse
+      sorted = item_fields.sort do |a, b|
+        if a["_source"][dataspec["sort_field"]] &&  b["_source"][dataspec["sort_field"]]
+          a["_source"][dataspec["sort_field"]] <=> b["_source"][dataspec["sort_field"]]
+        else
+          -1
+        end
+      end.reverse
     sorted = sorted.reverse if dataspec["sort_order"] == "asc"
+   
     return sorted
   end
 
