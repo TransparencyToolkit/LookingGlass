@@ -7,7 +7,7 @@ module ParamFilters
       
       # Generate the labels and parse queries for param
       if field_searched == "q"
-        filters = generate_filter_info_hash(query, "All Fields [search]")
+        filters = generate_filter_info_hash(query, "All Fields")
       elsif field_searched.include?("_facet")
         filters = generate_facet_filters(field_searched, query)
       elsif field_searched.include?("startrange_") || field_searched.include?("endrange_")
@@ -30,7 +30,7 @@ module ParamFilters
     human_readable = get_human_readable_name_for_field(field, datasource)
 
     # Generates and returns the label
-    return "#{human_readable}#{later_or_earlier}#{source_name.to_s} [#{filter_or_search}]"
+    return "#{human_readable}#{later_or_earlier}#{source_name.to_s}"
   end
 
   # Filter info hash
@@ -45,11 +45,11 @@ module ParamFilters
                                                               label: label}
   end
 
-  
+
   # Show filters for facet vals
   def generate_facet_filters(field_searched, query)
     query_array = query.is_a?(Array) ? query : [query]
-    
+
     return query_array.inject([]) do |queries, filter_query|
       label = generate_filter_label(field_searched.gsub("_facet", ""), "filter")
       queries.push({query: filter_query, label: label})
