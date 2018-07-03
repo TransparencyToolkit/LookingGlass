@@ -22,7 +22,7 @@ module RemoveFacetFilter
   # Generates a link with the query removed
   def gen_link_with_query_removed(path, link_val, remove_filter)
     if remove_filter
-      return gen_facet_link('X', path, false, "remove-filter")
+      return gen_facet_link('<i class="icon-circle-x"></i>', path, false, "remove-filter")
     else
       return gen_facet_link(gen_facet_link_name(link_val), path, true)
     end

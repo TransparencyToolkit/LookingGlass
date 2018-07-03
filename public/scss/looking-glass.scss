@@ -348,7 +348,7 @@ div.navbar-header {
   }
 
   div.search-filter {
-    padding: 5px 10px 8px 10px;
+    padding: 8px 10px 8px 12px;
     margin: 0px 15px 0px 0px;
     background-color: $lg-search-filter-background-color;
     font-size: 16px;
@@ -373,8 +373,12 @@ div.navbar-header {
       margin-left: 10px;
       color: $lg-search-filter-remove-color;
 
-      &:hover {
-        color: darken($lg-search-filter-remove-color, 15%);
+      i.icon-circle-x {
+        color: $lg-search-filter-remove-color;
+
+        &:hover {
+          color: darken($lg-search-filter-remove-color, 15%);
+        }
       }
     }
   }
@@ -397,16 +401,16 @@ div.navbar-header {
     div.detail {
       display: inline-block;
       background: $lg-search-details-background-color;
-      padding: 10px 15px;
+      padding: 8px 12px 8px 10px;
       border-top: $lg-search-item-border-top;
       border-right: $lg-search-item-border-right;
       border-bottom: $lg-search-item-border-bottom;
       border-left: $lg-search-item-border-left;
+      font-weight: $lg-search-details-weight;
 
       span.count {
         font-family: $lg-search-details-font;
-        font-size: 18px;
-        font-weight: $lg-search-details-weight;
+        font-size: 16px;
         color: $lg-search-details-color;
       }
 
