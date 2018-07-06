@@ -63,10 +63,20 @@ Then restart DocManager
 
 ## Building Your CSS Assets
 
-To generate the actual CSS that LookingGlass uses, you need to install and run the [SASS](http://sass-lang.com) compiler in another terminal by doing the following
+To generate the actual CSS that LookingGlass uses, you need to install and run
+the [SASS](http://sass-lang.com) compiler in another terminal by doing one of
+the following:
+
+To build all LookingGlass themes
 
 ```
-sass --watch public/themes/nice-theme/theme.scss:public/css/nice-theme.css
+./themes.sh -b
+```
+
+To make SASS `--watch` as you develop recompile whenever you change a file
+
+```
+./themes.sh -w theme-name
 ```
 
 Note: how the name `nice-theme` is used when running the `sass` command. The name of the theme is needed (and it needs to match the instance-config.json) for LookingGlass to properly include in. If you do this incorrectly, your CSS won't get loaded by LookingGlass
