@@ -1,0 +1,135 @@
+//== Looking Glass - Web Foundation Theme
+//
+// Specific things needed for Looking Glass app that can be customized
+//##
+
+$lg-navbar-brand-top:                   -5px;
+$lg-navbar-brand-img-height:            30px;
+$lg-navbar-brand-font:                  "SourceSansPro-Bold", Helvetica, Arial, sans-serif;
+$lg-navbar-brand-font-size:             30px;
+$lg-navbar-select-color:                $gray-base;
+$lg-navbar-select-background-color:     $base-white;
+$lg-navbar-select-border:               0px;
+$lg-navbar-input-color:                 $gray-base;
+$lg-navbar-input-background-color:      $base-white;
+$lg-navbar-input-border:                0px;
+$lg-navbar-input-placeholder-color:     $gray-light;
+$lg-navbar-button-color:                $base-white;
+$lg-navbar-button-background-color:     $lg-accent-3;
+$lg-navbar-button-background-color-hover: darken($lg-navbar-button-background-color, 8%);
+$lg-navbar-button-border:               0px;
+
+$lg-tiny-heading-font:                  $font-family-sans-serif;
+$lg-tiny-heading-color:                 $gray;
+$lg-tiny-heading-size:                  12px;
+
+$lg-sidebar-background-color:           $lg-accent-3;
+$lg-sidebar-border-right:               1px solid $gray-light;
+$lg-sidebar-icon-color:                 $base-white;
+$lg-sidebar-text-font:                  "SourceSansPro-SemiBold", Helvetica, Arial, sans-serif;
+$lg-sidebar-text-size:                  21px;
+$lg-sidebar-text-color:                 $base-white;
+$lg-sidebar-text-color-hover:           $gray-light;
+$lg-sidebar-text-weight:                normal;
+$lg-sidebar-expand-color:               $gray-light;
+$lg-sidebar-link-color:                 $gray;
+$lg-sidebar-link-color-hover:           $gray-dark;
+$lg-sidebar-link-font:                  $font-family-sans-serif;
+$lg-sidebar-link-size:                  14px;
+$lg-sidebar-link-weight:                normal;
+$lg-sidebar-link-spacing:               -1px;
+$lg-sidebar-link-decoration:            none;
+$lg-sidebar-link-decoration-hover:      underline;
+$lg-sidebar-term-on-bg:                 $base-white;
+$lg-sidebar-term-on-color:              $lg-accent-3;
+
+$lg-search-background-color:            $base-white;
+$lg-search-text-color:                  $base-black;
+$lg-search-light-text-color:            $gray-base;
+
+$lg-search-filter-background-color:     $lg-accent-2;
+$lg-search-filter-color:                $base-white;
+$lg-search-filter-font:                 $font-family-sans-serif;
+$lg-search-filter-weight:               bold;
+$lg-search-filter-category-color:       darken($lg-accent-2, 20%);
+$lg-search-filter-remove-color:         darken($lg-accent-2, 20%);
+
+$lg-search-details-background-color:    $lg-accent-2;
+$lg-search-details-font:                $font-family-sans-serif;
+$lg-search-details-weight:              bold;
+$lg-search-details-color:               $base-white;
+$lg-search-details-sub-font:            $lg-search-details-font;
+$lg-search-details-sub-color:           darken($lg-accent-2, 20%);
+$lg-search-details-border-top:         	0px;
+$lg-search-details-border-right:        0px;
+$lg-search-details-border-bottom:       0px;
+$lg-search-details-border-left:         0px;
+
+$lg-search-item-padding:                0px 0px 30px 0px;
+$lg-search-item-margin:                 10px 0px 30px 0px;
+$lg-search-item-border-top:         	0px;
+$lg-search-item-border-right:           0px;
+$lg-search-item-border-bottom:          4px solid $gray-lighter;
+$lg-search-item-border-left:            0px;
+$lg-search-item-title-color:            $gray-base;
+$lg-search-item-title-font:             "SourceSansPro-SemiBold", Helvetica, Arial, sans-serif;
+$lg-search-item-title-hover-color:      $base-black;
+$lg-search-item-title-size:             24px;
+$lg-search-item-title-weight:           normal;
+$lg-search-item-dataset-color:          $gray;
+$lg-search-item-detail-text-color:      $gray;
+$lg-search-item-text-color:             $gray-base;
+$lg-search-item-highlight-background:   red;
+$lg-search-item-highlight-color:        $gray-darker;
+$lg-search-item-facet-icon-color:       $lg-accent-1;
+$lg-search-item-facet-color:            $gray;
+$lg-search-item-facet-hover-color:      $lg-accent-3;
+
+$lg-search-pagination-hover-bg:         $gray-light;
+$lg-search-pagination-font:             $font-family-sans-serif;
+$lg-search-pagination-color:            $lg-search-text-color;
+$lg-search-pagination-on-bg:            $brand-primary;
+$lg-search-pagination-on-color:         $base-white;
+
+$lg-show-background-color:              $gray-lighter;
+$lg-show-color:                         #000;
+$lg-show-link-weight:                   bold;
+$lg-show-link-color:                    $brand-danger;
+$lg-show-link-color-hover:              darken($brand-danger, 15%);
+
+$lg-show-tab-background-color:          $lg-accent-2;
+$lg-show-tab-color:                     $base-black;
+$lg-show-tab-active-background-color:   $gray-lighter;
+$lg-show-tab-active-color:              $base-black;
+$lg-show-tab-border-top:                0px;
+$lg-show-tab-border-right:              0px solid;
+$lg-show-tab-border-bottom:             0px;
+
+$lg-show-label-color:                   $gray;
+$lg-show-label-weight:                  normal;
+$lg-show-embed-border:                  1px solid $gray-light;
+$lg-show-title-size:                    $lg-search-item-title-size;
+$lg-show-title-weight:                  bold;
+$lg-show-link-related-size:             21px;
+$lg-show-link-related-color:            $lg-accent-3;
+$lg-show-link-related-color-hover:      $brand-danger;
+
+$lg-show-article-color:                 $lg-accent-2;
+$lg-show-article-text-size:             18px;
+$lg-show-article-text-weight:           bold;
+$lg-show-article-item-border:           1px solid $gray-light;
+$lg-show-article-number:                $gray-light;
+
+$lg-show-version-border:                0px;
+$lg-show-version-background:            $gray-lighter;
+$lg-show-version-color:                 $gray-dark;
+$lg-show-panel-title-font:              $font-family-sans-serif;
+$lg-show-panel-title-size:              18px;
+
+$lg-static-background-color:            #FFF;
+$lg-static-border-top:                  0px;
+$lg-static-border-right:                1px solid $gray-light;
+$lg-static-border-bottom:               1px solid $gray-light;
+$lg-static-color:                       $brand-danger;
+$lg-static-item-border-left:            0px;
+$lg-static-title-color:                 $brand-danger;
