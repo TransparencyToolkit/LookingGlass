@@ -1,7 +1,8 @@
 <!-- Prints the list of tabs at the top of the show page -->
 <ul class="nav nav-pills" style="text-align:center;">
+  <% @default_set = false %>
   <% @dataspec["show_tabs"].each_with_index do |tab, index| %>
-    <% if tab == "document" %>
+    <% if tab == "source" %>
       <% if data_for_field_type?(@dataspec, @doc, "Attachment") %>
         <%= render partial: "docs/show/tabs/tab_button", locals: {tab: tab, index: index} %>
       <% end %>

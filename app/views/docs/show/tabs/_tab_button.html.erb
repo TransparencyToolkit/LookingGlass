@@ -1,4 +1,6 @@
-<% if index == 0 %>
+<% if index == 0 || @default_set == false %>
+  <% @default_set = true %>
+  <% @default_set_pane = index %>
   <li class="active" id="li<%=tab%>">
 <% else %>
   <li id="li<%=tab%>">
