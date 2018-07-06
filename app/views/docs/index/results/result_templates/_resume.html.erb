@@ -1,17 +1,16 @@
 <!-- Template for displaying resume results -->
 <div class="search-item"  id='<%= doc.first["_id"] %>'>
-  
+
   <div class="hide"><%= doc.first["_score"] %></div>
     <% thread_fields, item_fields = split_fields_into_thread_and_item_fields(doc, dataspec) %>
-    
 
     <!-- Load the headers and item fields -->
     <h3 class="title pull-left"><%= show_by_type("Title", thread_fields, dataspec) %></h3>
     <div class="dataset-name pull-right">
-          <%= render partial: "docs/fields/source_icon", locals: {dataspec: dataspec} %>
+        <%= render partial: "docs/fields/source_icon", locals: {dataspec: dataspec} %>
     </div>
     <div class="clearfix"></div>
-    
+
     <%= render partial: 'docs/index/results/result_templates/just_fields',
 	locals: {doc: thread_fields, dataspec: dataspec}%>
 
