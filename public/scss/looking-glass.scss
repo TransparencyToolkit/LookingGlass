@@ -356,10 +356,10 @@ div.navbar-header {
     font-weight: $lg-search-filter-weight;
     color: $lg-search-filter-color;
     display: inline-block;
-    border-top: $lg-search-item-border-top;
-    border-right: $lg-search-item-border-right;
-    border-bottom: $lg-search-item-border-bottom;
-    border-left: $lg-search-item-border-left;
+    border-top: $lg-search-details-border-top;
+    border-right: $lg-search-details-border-right;
+    border-bottom: $lg-search-details-border-bottom;
+    border-left: $lg-search-details-border-left;
 
     span.category {
       font-size: 12px;
@@ -402,10 +402,10 @@ div.navbar-header {
       display: inline-block;
       background: $lg-search-details-background-color;
       padding: 8px 12px 8px 10px;
-      border-top: $lg-search-item-border-top;
-      border-right: $lg-search-item-border-right;
-      border-bottom: $lg-search-item-border-bottom;
-      border-left: $lg-search-item-border-left;
+      border-top: $lg-search-details-border-top;
+      border-right: $lg-search-details-border-right;
+      border-bottom: $lg-search-details-border-bottom;
+      border-left: $lg-search-details-border-left;
       font-weight: $lg-search-details-weight;
 
       span.count {
@@ -473,8 +473,8 @@ div.navbar-header {
     border-right: $lg-search-item-border-right;
     border-bottom: $lg-search-item-border-bottom;
     border-left: $lg-search-item-border-left;
-    padding: 15px 20px;
-    margin-bottom: 20px;
+    padding: $lg-search-item-padding;
+    margin: $lg-search-item-margin;
     color: $lg-search-text-color;
 
     h3.title,
@@ -501,16 +501,8 @@ div.navbar-header {
     div.dataset-name {
       margin-top: 5px;
       margin-right: 5px;
-
-      a {
-        font-size: 14px;
-        color: $lg-search-item-dataset-color;
-
-        &:hover {
-          color: $lg-search-item-dataset-hover-color;
-          text-decoration: none;
-        }
-      }
+      font-size: 14px;
+      color: $lg-search-item-dataset-color;
     }
 
     h4.title-sub {
