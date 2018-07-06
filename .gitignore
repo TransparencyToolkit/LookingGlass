@@ -10,5 +10,5 @@ lib/templates/
 /public/assets/
 app/assets/stylesheets/theme-snowden/
 app/assets/stylesheets/theme-pi/
-public/themes/*
+public/css/*
 .sass-cache/
