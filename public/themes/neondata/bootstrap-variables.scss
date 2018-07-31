@@ -276,8 +276,8 @@ $navbar-inverse-bg:                         $lg-accent-1 !default;
 $navbar-inverse-border:                     $lg-accent-2 !default;
 
 // Inverted navbar links
-$navbar-inverse-link-color:                 $base-black !default;
-$navbar-inverse-link-hover-color:           $gray-darker !default;
+$navbar-inverse-link-color:                 $base-white !default;
+$navbar-inverse-link-hover-color:           $gray-lighter !default;
 $navbar-inverse-link-hover-bg:              transparent !default;
 $navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
 $navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%) !default;
@@ -324,7 +324,7 @@ $pagination-color:                     $link-color !default;
 $pagination-bg:                        #fff !default;
 $pagination-border:                    #ddd !default;
 
-$pagination-hover-color:               $link-hover-color !default;
+$pagination-hover-color:               $lg-accent-3 !default;
 $pagination-hover-bg:                  $gray-lighter !default;
 $pagination-hover-border:              #ddd !default;
 

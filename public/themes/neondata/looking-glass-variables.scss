@@ -15,7 +15,7 @@ $lg-navbar-input-background-color:      $base-white;
 $lg-navbar-input-border:                0px;
 $lg-navbar-input-placeholder-color:     $gray-light;
 $lg-navbar-button-color:                $base-white;
-$lg-navbar-button-background-color:     $lg-accent-3;
+$lg-navbar-button-background-color:     $lg-accent-2;
 $lg-navbar-button-background-color-hover: darken($lg-navbar-button-background-color, 8%);
 $lg-navbar-button-border:               0px;
 
@@ -71,9 +71,9 @@ $lg-search-item-border-top:         	0px;
 $lg-search-item-border-right:           0px;
 $lg-search-item-border-bottom:          4px solid $gray-lighter;
 $lg-search-item-border-left:            0px;
-$lg-search-item-title-color:            $gray-base;
+$lg-search-item-title-color:            $lg-accent-3;
 $lg-search-item-title-font:             "SourceSansPro-SemiBold", Helvetica, Arial, sans-serif;
-$lg-search-item-title-hover-color:      $base-black;
+$lg-search-item-title-hover-color:      $lg-accent-1;
 $lg-search-item-title-size:             24px;
 $lg-search-item-title-weight:           normal;
 $lg-search-item-dataset-color:          $gray;
@@ -87,23 +87,23 @@ $lg-search-item-facet-hover-color:      $lg-accent-3;
 
 $lg-search-pagination-hover-bg:         $gray-light;
 $lg-search-pagination-font:             $font-family-sans-serif;
-$lg-search-pagination-color:            $lg-search-text-color;
+$lg-search-pagination-color:            $lg-accent-3;
 $lg-search-pagination-on-bg:            $brand-primary;
 $lg-search-pagination-on-color:         $base-white;
 
+$lg-show-tab-background-color:          $lg-accent-2;
+$lg-show-tab-color:                     $base-white;
+$lg-show-tab-active-background-color:   $gray-lighter;
+$lg-show-tab-active-color:              $lg-accent-3;
+$lg-show-tab-border-top:                0px;
+$lg-show-tab-border-right:              0px;
+$lg-show-tab-border-bottom:             0px;
+
 $lg-show-background-color:              $gray-lighter;
 $lg-show-color:                         #000;
-$lg-show-link-weight:                   bold;
-$lg-show-link-color:                    $brand-danger;
-$lg-show-link-color-hover:              darken($brand-danger, 15%);
-
-$lg-show-tab-background-color:          $lg-accent-2;
-$lg-show-tab-color:                     $base-black;
-$lg-show-tab-active-background-color:   $gray-lighter;
-$lg-show-tab-active-color:              $base-black;
-$lg-show-tab-border-top:                0px;
-$lg-show-tab-border-right:              0px solid;
-$lg-show-tab-border-bottom:             0px;
+$lg-show-link-weight:                   normal;
+$lg-show-link-color:                    $lg-accent-3;
+$lg-show-link-color-hover:              $lg-accent-1;
 
 $lg-show-label-color:                   $gray;
 $lg-show-label-weight:                  normal;
@@ -112,7 +112,7 @@ $lg-show-title-size:                    $lg-search-item-title-size;
 $lg-show-title-weight:                  bold;
 $lg-show-link-related-size:             21px;
 $lg-show-link-related-color:            $lg-accent-3;
-$lg-show-link-related-color-hover:      $brand-danger;
+$lg-show-link-related-color-hover:      $lg-accent-1;
 
 $lg-show-article-color:                 $lg-accent-2;
 $lg-show-article-text-size:             18px;
