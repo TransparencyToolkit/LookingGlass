@@ -1,0 +1,94 @@
+/* EF Marker */
+
+#efm-button {
+    margin: 0 0 0 0;
+    padding: ($marker-button-font-size / 2) 0 0 ($marker-button-font-size / 2);
+    position: fixed;
+    height: $marker-button-size;
+    width: $marker-button-size;
+    bottom: 0;
+    right: 0;
+    background-color: $gray-lighter;
+    cursor: pointer;
+    z-index: 99999999999;
+
+    &:hover {
+      #efm-menu {
+        margin: 10px;
+        display: block;
+        font-size:smaller;
+        color:#999;
+      }
+    }
+
+    i.icon-edit {
+        font-size: $marker-button-font-size;
+        color: $marker-button-color;
+        margin: 0 auto;
+    }
+
+    #efm-menu {
+        margin: 0 0 $marker-button-size 0;
+        padding: $marker-menu-padding;
+        border: $marker-menu-border !important;
+        display: none;
+        background: $marker-menu-background !important;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 20em;
+        opacity: 1;
+        cursor: auto;
+
+        h3 {
+            margin: 0 0 5px 0;
+            color: $marker-menu-title-color;
+            font: $marker-menu-title-font;
+        }
+
+        p {
+            margin: 10px 0px;
+            padding: 10px 0px;
+        }
+
+        a {
+            margin: 1px;
+            padding: 3px 3px;
+            display: block;
+            font: $marker-menu-link-font;
+            color: $marker-menu-link-color;
+            white-space: nowrap;
+            opacity: inherit;
+            cursor: pointer;
+
+            &:hover {
+                color: $marker-menu-link-hover-color;
+                opacity: 1;
+            }
+
+            > span {
+                color: gray;
+                position: absolute;
+                right: 4px;
+            }
+        }
+
+        #efm-permalink {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: $marker-menu-permalink-background;
+            color: $marker-menu-permalink-color;
+            font-weight: bold;
+        }
+
+        #efm-permalink-note {
+            margin: 10px 0;
+            padding: 0;
+        }
+    }
+}
+
+.efm-hi {
+    background-color: #ff8;
+    font-weight: normal;
+}

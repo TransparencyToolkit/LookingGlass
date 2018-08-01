@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% project = get_project_spec(ENV['PROJECT_INDEX']) %>
-    
+
     <title><%= content_for?(:title) ? yield(:title) : project["title"] %></title>
 
     <!--  Icons for Mobile Devices, Favicon -->
@@ -23,7 +23,6 @@
     <%= javascript_include_tag "application" %>
 
     <link href="/css/viewer-datauri.css" media="screen" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/css/marker.css">
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -55,18 +54,16 @@
       </div>
     </div>
     <script src="/js/mootools-core-and-more.js"></script>
-    <script src="/js/efatmarker.min.js"></script>
-    <script src="/js/efatmarker.inc.js"></script>
+    <script src="/js/efatmarker.js"></script>
     <div id="efm-button">
+      <i class="icon-edit"></i>
       <div id="efm-menu">
-	    <h3 style="margin: 0 0 2px 0">e-Highlighter</h3>
-	    <a id="efm-permalink" class="efm-need-highlight" href=""
-		style="margin-bottom:0;padding-bottom:0"></a>
-		<p style="margin-top:0;padding-top:0" class="efm-need-highlight">
-		  Click to send permalink to address bar, or right-click to copy permalink.
+	    <h3>Highlighter</h3>
+	    <a id="efm-permalink" class="efm-need-highlight" href=""></a>
+		<p id="efm-permalink-note" class="efm-need-highlight">
+		  Go to permalink (right-click to copy)
  		</p>
-		<p style="margin:0.5em 0;padding:0;border-top:1px dotted #ccc;height:1px"></p>
-		<a id="efm-unhighlightall" class="efm-need-highlight">Un-highlight all</a>
+        <a id="efm-unhighlightall" class="efm-need-highlight">Un-highlight all</a>
 		<a id="efm-unhighlight">Un-highlight selection<span>u</span></a>
 		<a id="efm-highlight">Highlight selection<span>h</span></a>
       </div>
