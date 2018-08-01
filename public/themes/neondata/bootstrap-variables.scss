@@ -277,7 +277,7 @@ $navbar-inverse-border:                     $lg-accent-2 !default;
 
 // Inverted navbar links
 $navbar-inverse-link-color:                 $base-white !default;
-$navbar-inverse-link-hover-color:           $gray-lighter !default;
+$navbar-inverse-link-hover-color:           $gray-light !default;
 $navbar-inverse-link-hover-bg:              transparent !default;
 $navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
 $navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%) !default;
