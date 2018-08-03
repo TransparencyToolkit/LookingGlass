@@ -21,7 +21,7 @@
       }
     }
 
-    i.icon-edit {
+    > i.icon-modified {
         font-size: $marker-button-font-size;
         color: $marker-button-color;
         margin: 0 auto;
@@ -41,9 +41,14 @@
         cursor: auto;
 
         h3 {
-            margin: 0 0 5px 0;
+            margin: 0 0 $marker-menu-padding 0;
             color: $marker-menu-title-color;
             font: $marker-menu-title-font;
+
+            > i.icon-modified {
+                font-size: .75em;
+                margin-right: 5px;
+            }
         }
 
         p {
@@ -52,8 +57,8 @@
         }
 
         a {
-            margin: 1px;
-            padding: 3px 3px;
+            margin: 10px 0px 0px 0px;
+            padding: 0px;
             display: block;
             font: $marker-menu-link-font;
             color: $marker-menu-link-color;
@@ -69,7 +74,7 @@
             > span {
                 color: gray;
                 position: absolute;
-                right: 4px;
+                right: $marker-menu-padding;
             }
         }
 
