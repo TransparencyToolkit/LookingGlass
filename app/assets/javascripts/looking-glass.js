@@ -1,5 +1,22 @@
 $(document).ready(function() {
 
+  // Topbar Forms
+  $('[data-behaviour~=datepicker]').datepicker();
+
+  // Sidebar Toggles
+  $('.tree-toggler').on('click', function() {
+      if ($(this).hasClass('just-minus')) {
+          $(this).addClass('just-plus').removeClass('just-minus');
+      } else if ($(this).hasClass('just-plus')) {
+          $(this).addClass('just-minus').removeClass('just-plus');
+      } else if ($(this).hasClass('plus')) {
+          $(this).addClass('minus').removeClass('plus');
+      } else {
+          $(this).addClass('plus').removeClass('minus');
+      }
+      $(this).parent().children('ul.tree').toggle(300);
+  });
+
   // Search Forms
   $('#ftypes').on('change', function() {
 
@@ -7,17 +24,17 @@ $(document).ready(function() {
       var value = chosen.val();
       var type = chosen.data('type').toLowerCase();
       var hr_field_label = chosen.data('labelname');
-   
+
       // Hide Forms
       $('#form-search-all').hide();
       $('#form-search-string').hide();
       $('#form-search-date').hide();
       $('#form-search-datetime').hide();
-      
+
     // Modify Fields
-      if (type === 'date' || type === 'datetime') {
-	$('#search-date-start').attr('name', 'startrange_' + value)
-	$('#search-date-end').attr('name', 'endrange_' + value)
+    if (type === 'date' || type === 'datetime') {
+	    $('#search-date-start').attr('name', 'startrange_' + value)
+	    $('#search-date-end').attr('name', 'endrange_' + value)
     }
     else if (type === 'string') {
 
@@ -212,9 +229,7 @@ $(document).ready(function() {
 
     var position_offset = ($('#versions-diff-' + $(this).data('doc_id')).offset().top - 60)
 
-    $('html, body').animate({
-      scrollTop: position_offset + 'px'
-      }, 'fast')
+    $('html, body').animate({ scrollTop: position_offset + 'px' }, 'fast')
 
   })
 
