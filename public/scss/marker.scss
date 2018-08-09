@@ -1,4 +1,41 @@
-/* EF Marker */
+/*******************************************************************************
+
+EFatMarker:
+    Allows to dynamically highlight specific portion(s) of a document,
+    and to permalink these highlights using HTML anchor.
+
+License (http://opensource.org/licenses/MIT#):
+
+Copyright (C) 2013 Raymond Hill
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+**/
+
+.efm-parent {
+    padding-top: 40px;
+
+    .efm-hi {
+        background-color: $brand-warning;
+        font-weight: normal;
+    }
+}
 
 #efm-button {
     margin: 0 0 0 0;
@@ -9,15 +46,16 @@
     bottom: 0;
     right: 0;
     background-color: $gray-lighter;
+    font: 14px sans-serif;
     cursor: pointer;
-    z-index: 99999999999;
+    cursor: pointer;
+    z-index: 999999999;
 
     &:hover {
       #efm-menu {
         margin: 10px;
         display: block;
-        font-size:smaller;
-        color:#999;
+        color: $gray;
       }
     }
 
@@ -54,7 +92,7 @@
         p {
             margin: 10px 0px;
             padding: 10px 0px;
-        }
+            }
 
         a {
             margin: 10px 0px 0px 0px;
@@ -79,21 +117,20 @@
         }
 
         #efm-permalink {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: $marker-menu-permalink-background;
-            color: $marker-menu-permalink-color;
-            font-weight: bold;
-        }
+            margin: $marker-menu-padding 0px;
+            padding: 10px 0px;
 
-        #efm-permalink-note {
-            margin: 10px 0;
-            padding: 0;
+            span {
+                display: block;
+                margin-bottom: 10px;
+                padding: 0;
+                color: $marker-menu-permalink-color;
+            }
+
+            input[type=text] {
+                width: 100%;
+                font-weight: 500 !important;
+            }
         }
     }
-}
-
-.efm-hi {
-    background-color: #ff8;
-    font-weight: normal;
 }

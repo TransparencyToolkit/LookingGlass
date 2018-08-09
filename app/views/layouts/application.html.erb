@@ -20,7 +20,6 @@
 
     <!-- Load vars for use in JS -->
     <%= render partial: 'layouts/javascriptvars' %>
-    <%= javascript_include_tag "application" %>
 
     <link href="/css/viewer-datauri.css" media="screen" rel="stylesheet" type="text/css">
   </head>
@@ -42,8 +41,8 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	<%= render partial: 'docs/index/search/searchbar/searchbar' %>
-	<%= render partial: 'layouts/linkmenu', locals: { project: project } %>
+	    <%= render partial: 'docs/index/search/searchbar/searchbar' %>
+	    <%= render partial: 'layouts/linkmenu', locals: { project: project } %>
       </div><!-- /.navbar-collapse -->
       </div>
     </nav>
@@ -53,23 +52,26 @@
 	    <%= yield %>
       </div>
     </div>
-    <script src="/js/mootools-core-and-more.js"></script>
-    <script src="/js/efatmarker.js"></script>
     <div id="efm-button">
       <i class="icon-modified"></i>
       <div id="efm-menu">
         <h3>
           <i class="icon-modified"></i>
-          Highlighter
+          Highligther
         </h3>
-	    <a id="efm-permalink" class="efm-need-highlight" href=""></a>
-		<p id="efm-permalink-note" class="efm-need-highlight">
-		  Go to permalink (right-click to copy)
- 		</p>
         <a id="efm-unhighlightall" class="efm-need-highlight">Un-highlight all</a>
-		<a id="efm-unhighlight">Un-highlight selection<span>u</span></a>
-		<a id="efm-highlight">Highlight selection<span>h</span></a>
+        <a id="efm-unhighlight" class="efm-need-highlight" >Un-highlight selection<span>u</span></a>
+        <a id="efm-highlight">Highlight selection<span>h</span></a>
+        <div id="efm-permalink" class="efm-need-highlight">
+          <span>Link to highlights (on this page)</span>
+          <input type="text" readonly="readonly" class="form-control" value="">
+        </div>
+        <!-- TODO: make conditional based on Editor -->
+        <button id="button-save-highlights" class="btn btn-primary btn-small efm-need-highlight">
+          Save Highlights
+        </button>
       </div>
     </div>
+    <%= javascript_include_tag "application" %>
   </body>
 </html>
