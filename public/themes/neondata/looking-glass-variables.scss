@@ -79,7 +79,7 @@ $lg-search-item-title-weight:           normal;
 $lg-search-item-dataset-color:          $gray;
 $lg-search-item-detail-text-color:      $gray;
 $lg-search-item-text-color:             $gray-base;
-$lg-search-item-highlight-background:   red;
+$lg-search-item-highlight-background:   $brand-warning;
 $lg-search-item-highlight-color:        $gray-darker;
 $lg-search-item-facet-icon-color:       $lg-accent-1;
 $lg-search-item-facet-color:            $gray;
@@ -152,5 +152,4 @@ $marker-menu-link-font: 14px sans-serif;
 $marker-menu-link-color: $lg-search-item-title-color;
 $marker-menu-link-hover-color: #000;
 
-$marker-menu-permalink-background: $gray-lighter;
-$marker-menu-permalink-color: $lg-accent-1;
+$marker-menu-permalink-color: $gray;
