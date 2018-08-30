@@ -1,0 +1,139 @@
+//== Looking Glass
+//
+// Specific things needed for Looking Glass app that can be customized
+//##
+
+@import "bootstrap-variables";
+
+$lg-navbar-brand-top:                   -5px;
+$lg-navbar-brand-img-height:            50px;
+$lg-navbar-brand-font:                  'SourceSansPro-Bold';
+$lg-navbar-brand-font-size:			    24px;
+$lg-navbar-select-color:                $base-white;
+$lg-navbar-select-background-color:     $color-blue-green;
+$lg-navbar-select-border:               0px;
+$lg-navbar-input-color:                 $base-black;
+$lg-navbar-input-background-color:      $base-tan;
+$lg-navbar-input-border:                0px;
+$lg-navbar-input-placeholder-color:     $color-brown-normal;
+$lg-navbar-button-color:                $base-white;
+$lg-navbar-button-background-color:     $color-brown-normal;
+$lg-navbar-button-background-color-hover: darken($lg-navbar-button-background-color, 8%);
+$lg-navbar-button-border:               0px;
+
+$lg-tiny-heading-font:                  'SourceSansPro-Bold';
+$lg-tiny-heading-color:                 $base-white;
+$lg-tiny-heading-size:                  13px;
+
+$lg-sidebar-background-color:           $base-tan;
+$lg-sidebar-border-right:               0px;
+$lg-sidebar-icon-color:                 $base-black;
+$lg-sidebar-text-font:                  'SourceSansPro-Bold';
+$lg-sidebar-text-size:                  21px;
+$lg-sidebar-text-color:                 #000;
+$lg-sidebar-text-color-hover:           $gray-dark;
+$lg-sidebar-text-weight:                normal;
+$lg-sidebar-expand-color:               $gray-dark;
+$lg-sidebar-link-color:                 lighten($base-black, 15%);
+$lg-sidebar-link-color-hover:           $base-black;
+$lg-sidebar-link-font:                  $font-family-sans-serif;
+$lg-sidebar-link-size:                  16px;
+$lg-sidebar-link-weight:                normal;
+$lg-sidebar-link-spacing:               0px;
+$lg-sidebar-link-decoration:            underline;
+$lg-sidebar-link-decoration-hover:      underline;
+$lg-sidebar-term-on-bg:                 $gray-light;
+$lg-sidebar-term-on-color:              $lg-sidebar-text-color;
+
+$lg-search-background-color:            $color-blue-green;
+$lg-search-text-color:                  $base-white;
+$lg-search-light-text-color:            #846e60;
+
+$lg-search-filter-background-color:     rgba(255, 255, 255, 0.2);
+$lg-search-filter-color:                $base-white;
+$lg-search-filter-font:                 'SourceSansPro-Bold';
+$lg-search-filter-weight:               normal;
+$lg-search-filter-category-color:       rgba(255, 255, 255, 0.3);
+$lg-search-filter-remove-color:         rgba(255, 255, 255, 0.5);
+
+$lg-search-details-background-color:    rgba(255, 255, 255, 0.2);
+$lg-search-details-font:                'SourceSansPro-Bold';
+$lg-search-details-weight:              normal;
+$lg-search-details-color:               $base-white;
+$lg-search-details-sub-font:            $lg-search-details-font;
+$lg-search-details-sub-color:           $gray-dark;
+$lg-search-details-border-top:         	0px;
+$lg-search-details-border-right:        0px;
+$lg-search-details-border-bottom:       0px;
+$lg-search-details-border-left:         0px;
+
+$lg-search-item-padding:                15px 20px;
+$lg-search-item-margin:                 20px;
+$lg-search-item-border-top:             0px;
+$lg-search-item-border-right:           0px;
+$lg-search-item-border-bottom:          0px;
+$lg-search-item-border-left:            0px;
+$lg-search-item-title-color:            $base-white;
+$lg-search-item-title-font:             'SourceSansPro-Bold';
+$lg-search-item-title-hover-color:      $base-white;
+$lg-search-item-title-size:             24px;
+$lg-search-item-title-weight:           500;
+$lg-search-item-dataset-color:          #FFF;
+$lg-search-item-dataset-hover-color:    #FFF;
+$lg-search-item-detail-text-color:      $gray-lighter;
+$lg-search-item-text-color:             $base-white;
+$lg-search-item-highlight-background:   #e6ce95;
+$lg-search-item-highlight-color:        $base-white;
+$lg-search-item-facet-color:            $base-white;
+$lg-search-item-facet-hover-color:      $base-white;
+$lg-search-item-facet-icon-color:       $base-white;
+
+$lg-search-pagination-hover-bg:         transparent;
+$lg-search-pagination-font:             'SourceSansPro-Bold';
+$lg-search-pagination-color:            rgba(255, 255, 255, 0.7);
+$lg-search-pagination-on-bg:            rgba(255, 255, 255, 0.2);
+$lg-search-pagination-on-color:         $base-white;
+
+$lg-show-background-color:              $color-red-brown;
+$lg-show-color:                         $base-white;
+$lg-show-link-weight:                   bold;
+$lg-show-link-color:                    $color-brown-light;
+$lg-show-link-color-hover:              $gray-light;
+
+$lg-show-tab-background-color:          darken($color-red-brown, 7%);
+$lg-show-tab-color:                     darken($base-white, 20%);
+$lg-show-tab-active-background-color:   $color-red-brown;
+$lg-show-tab-active-color:              $base-white;
+$lg-show-tab-border-top:                0px;
+$lg-show-tab-border-right:              0px;
+$lg-show-tab-border-bottom:             0px;
+$lg-search-item-border-left:            0px;
+
+$lg-show-label-color:                   $gray;
+$lg-show-label-weight:                  bold;
+$lg-show-embed-border:                  1px solid $gray-light;
+$lg-show-title-size:                    $lg-search-item-title-size;
+$lg-show-title-weight:                  bold;
+$lg-show-link-related-size:             21px;
+$lg-show-link-related-color:            $base-black;
+$lg-show-link-related-color-hover:      $brand-danger;
+
+$lg-show-article-color:                 $gray-dark;
+$lg-show-article-text-size:             18px;
+$lg-show-article-text-weight:           bold;
+$lg-show-article-item-border:           0px;
+$lg-show-article-number:                $gray-light;
+
+$lg-show-version-border:                0px;
+$lg-show-version-background:            $gray-lighter;
+$lg-show-version-color:                 $gray-dark;
+$lg-show-panel-title-font:              'SourceSansPro-Bold';
+$lg-show-panel-title-size:              18px;
+
+$lg-static-background-color:            #FFF;
+$lg-static-border-top:                  0px;
+$lg-static-border-right:                1px solid $gray-light;
+$lg-static-border-bottom:               1px solid $gray-light;
+$lg-static-item-border-left:            0px;
+$lg-static-color:                       $brand-danger;
+$lg-static-title-color:                 $brand-danger;
