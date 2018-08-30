@@ -2,6 +2,6 @@
 <% if !data.blank? %>
 <p class=<%= field %>>
     <strong class="label"><%= human_readable %></strong>
-    <a href="<%= data %>" target="_blank"><%= data %></a>
+    <a href="<%= data %>" class="editable source-link" target="_blank"><%= data %></a>
 </p>
 <% end %>
