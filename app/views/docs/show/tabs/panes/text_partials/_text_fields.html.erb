@@ -1,3 +1,18 @@
+<div id="editable-bar" class="row unedited">
+    <div class="col-md-6 title">
+        <i class="icon-logo"></i>
+        Data Editor
+    </div>
+    <div class="col-md-6 text-right">
+        <button class="pull-right btn btn-sm" id="button-editable-action">
+           Start Editing
+        </button>
+        <button class="pull-right btn btn-sm add-right hide" id="button-editable-discard">
+           Discard Changes
+        </button>
+    </div>
+</div>
+
 <!-- Displays fields on the text pane -->
 <%= show_by_type("Picture", doc, @dataspec) %>
 
