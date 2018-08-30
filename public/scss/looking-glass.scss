@@ -536,9 +536,9 @@ form.navbar-form {
       color: $lg-search-item-text-color;
     }
 
-    h3.title a b,
-    div.description b,
-    div.doc_text b {
+    h3.title a b.is_highlighted,
+    div.description b.is_highlighted,
+    div.doc_text b.is_highlighted {
       background: $lg-search-item-highlight-background;
       padding: 2px;
       border-radius: 3px;
@@ -630,7 +630,7 @@ form.navbar-form {
         p.brochure_title {
           font-size: $lg-show-title-size;
           font-weight: $lg-show-title-weight;
-      }
+        }
 
         strong.label {
           display: block;
@@ -641,7 +641,7 @@ form.navbar-form {
         }
 
         a.related-item {
-          margin-bottom: 10px;
+          margin-bottom: $padding-large-vertical;
           display: block;
           font-size: $lg-show-link-related-size;
           color: $lg-show-link-related-color;
@@ -657,7 +657,7 @@ form.navbar-form {
 
         ul {
           li {
-            margin-bottom: 10px;
+            margin-bottom: $padding-large-vertical;
           }
         }
 

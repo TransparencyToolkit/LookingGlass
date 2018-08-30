@@ -11,12 +11,9 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
 //= require underscore
-//= require twitter/bootstrap
-//= require bootstrap-datepicker
-//= require diff_match_patch
-//= require moment
-//= require bootstrap-datetimepicker
-//= require list
+//= require twitter/bootstrap/modal
+//= require twitter/bootstrap/dropdown
+//= require twitter/bootstrap/tab
+//= require bootstrap-datepicker/core
 //= require_tree .
