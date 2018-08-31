@@ -1,16 +1,14 @@
 <!-- Show text -->
-<% if !text.blank? %>
 <p class=<%= field %>>
   <% if text.is_a?(Array) %>
       <strong class="label"><%= human_readable %></strong>
-      <span class="editable type-text">
+      <span class="<%= editclass %> type-text">
           <%= raw(format_text(text.join(", "))) %>
       </span>
   <% else %>
       <strong class="label"><%= human_readable %></strong>
-      <span class="editable type-text">
+      <span class="<%= editclass %> type-text">
           <%= raw(format_text(text)) %>
       </span>
   <% end %>
-  </p>
-<% end %>
+</p>

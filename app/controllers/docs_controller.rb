@@ -3,7 +3,8 @@ class DocsController < ApplicationController
   include IndexApi
   include LoadResults
   include ThreadDocs
-
+  include SaveEditedFields
+  
   def index
     # Get the index results/docs to display
     query_index_results(params)
@@ -38,14 +39,9 @@ class DocsController < ApplicationController
 
   # Update a document that was edited
   def edit_document
-    binding.pry
-
-    # TODO:
-    # Get doc ID
-    # Make version of document with changes
-    # Add API methods for edit on LG
-    # Call API methods to edit
-    # Editable flag check
+    if ENV['WRITEABLE'] == "true"
+      save_changed_fields(params["edited"])
+    end
   end
 
   private
