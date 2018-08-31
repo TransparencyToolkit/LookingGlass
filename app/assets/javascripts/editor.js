@@ -127,6 +127,7 @@ var enableEditableActions = function() {
             console.log('2.0 this field is changed')
             updateEditableUI(item_name, 'changed')
             editable.items[item_name].edited = true
+	    editable.items[item_name].changed_content = item_text
 
             $(event.currentTarget).addClass('item-changed')
             console.log(event.currentTarget)
@@ -209,7 +210,8 @@ $(document).ready(function() {
             $('#editable-bar').removeClass(editable_classes).addClass('saving')
 
             alert('Submitting changes to API')
-
+	    $.post( "/edit_document", { edited: editable} );
+	    
             editable.state = 'saved'
             stopEditingItems('saved')
         }

@@ -36,6 +36,18 @@ class DocsController < ApplicationController
               :x_sendfile => true )
   end
 
+  # Update a document that was edited
+  def edit_document
+    binding.pry
+
+    # TODO:
+    # Get doc ID
+    # Make version of document with changes
+    # Add API methods for edit on LG
+    # Call API methods to edit
+    # Editable flag check
+  end
+
   private
 
   # Get the mime type
