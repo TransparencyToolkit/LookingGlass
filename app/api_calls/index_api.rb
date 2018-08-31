@@ -62,4 +62,12 @@ module IndexApi
                                                         })
     return JSON.parse(http.body_str)
   end
+
+  # Save the data, such as after editing a document
+  def save_data(index_name, dataspec, doc_data)
+    c = Curl::Easy.new("#{ENV['DOCMANAGER_URL']}/add_items")
+    c.http_post(Curl::PostField.content("item_type", dataspec),
+                Curl::PostField.content("index_name", index_name),
+                Curl::PostField.content("items", JSON.pretty_generate(doc_data)))
+  end
 end

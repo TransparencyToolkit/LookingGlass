@@ -29,55 +29,107 @@ module DisplayTypeSwitcher
     return false
   end
 
+  # Check if there is data in field or if an empty field should be displayed (due to being writeable)
+  def display_field?(type, action, field_data)
+    if !field_data.blank?
+      return true
+    elsif is_editable?(action)
+      return true
+    else
+      return false
+    end
+  end
+
+  # Set the css class if it should be editable
+  def set_editable_class(action)
+    is_editable?(action) ? (return "editable ") : (return "")
+  end
+
+  # Return if the field should be editable or not 
+  def is_editable?(action)
+    return (action=="show") && (ENV['WRITEABLE'] == "true")
+  end
+
   # Switch between display types
   def type_switcher(type, doc, field, field_details, action)
     # Get data needed to render fields
     field_data = get_text(doc, field, field_details)
     human_readable_name = human_readable_title(field_details)
     icon = icon_name(field_details)
-
+    editclass = set_editable_class(action)
+    
     # Switch by field type
-    case type
-    when "Title"
-      render partial: "docs/fields/title", locals: { doc_title: field_data, doc: doc }
-    when "Picture"
-      render partial: "docs/fields/picture", locals: { pic_path: field_data }
-    when "Short Text", "Description"
-      render partial: "docs/fields/short_text", locals: { text: field_data }
-    when "Shorter Text", "Tiny Text"
-      render partial: "docs/fields/tiny_text", locals: { icon: icon, text: field_data, field: field }
-    when "Long Text"
-      render partial: "docs/fields/long_text", locals: { text: field_data }
-    when "Date"
-      render partial: "docs/fields/date", locals: { date: field_data, human_readable: human_readable_name }
-    when "DateTime", "Number"
-      render partial: "docs/fields/datetime_number", locals: { date: field_data, human_readable: human_readable_name }
-    when "Link"
-      render partial: "docs/fields/links", locals: { links: field_data }
-    when "Named Link"
-      render partial: "docs/fields/named_links", locals: { data: field_data, human_readable: human_readable_name, field: field }
-    when "Child Document Link"
-      children = get_child_documents(doc, field)
-      label = field_details["associated_doc_label"]
-      render partial: "docs/fields/child_documents", locals: { data: children, human_readable: label, field: field }
-    when "Related Link"
-      render partial: "docs/fields/related_links", locals: { data: field_data, human_readable: human_readable_name, field: field }
-    when "Source Link"
-      render partial: "docs/fields/source_link", locals: { data: field_data, human_readable: human_readable_name, field: field }
-    when "Attachment"
-      return show_attachments_by_type(field_data)
-    when "Show"
-      render partial: "docs/fields/show_text", locals: { text: field_data, human_readable: human_readable_name, field: field }
-    when "Category"
-      facet_links = facet_links_for_results(doc, field, field_data)
-      if action == "index"
-        render partial: "docs/fields/tiny_text", locals: { icon: icon, text: facet_links, field: field }
-      elsif action == "show"
-        render partial: "docs/fields/show_facets", locals: {icon: icon, text: facet_links,
-                                                            field: field, human_readable: human_readable_name}
-      elsif action == "show-text"
-        render partial: "docs/fields/show_text", locals: { text: field_data, human_readable: human_readable_name, field: field }
+    if display_field?(type, action, field_data)
+      case type
+      when "Title"
+        render partial: "docs/fields/title", locals: { doc_title: field_data, doc: doc, editclass: editclass }
+      when "Picture"
+        render partial: "docs/fields/picture", locals: { pic_path: field_data, editclass: editclass }
+      when "Short Text", "Description"
+        render partial: "docs/fields/short_text", locals: { text: field_data, editclass: editclass }
+      when "Shorter Text", "Tiny Text"
+        render partial: "docs/fields/tiny_text", locals: { icon: icon, text: field_data, field: field, editclass: editclass }
+      when "Long Text"
+        render partial: "docs/fields/long_text", locals: { text: field_data, editclass: editclass }
+      when "Date"
+        render partial: "docs/fields/date", locals: { date: field_data, human_readable: human_readable_name, editclass: editclass }
+      when "DateTime", "Number"
+        render partial: "docs/fields/datetime_number", locals: { date: field_data,
+                                                                 human_readable: human_readable_name,
+                                                                 editclass: editclass }
+      when "Link"
+        render partial: "docs/fields/links", locals: { links: field_data, editclass: editclass }
+      when "Named Link"
+        render partial: "docs/fields/named_links", locals: { data: field_data,
+                                                             human_readable: human_readable_name,
+                                                             field: field,
+                                                             editclass: editclass }
+      when "Child Document Link"
+        children = get_child_documents(doc, field)
+        label = field_details["associated_doc_label"]
+        render partial: "docs/fields/child_documents", locals: { data: children,
+                                                                 human_readable: label,
+                                                                 field: field,
+                                                                 editclass: editclass }
+      when "Related Link"
+        render partial: "docs/fields/related_links", locals: { data: field_data,
+                                                               human_readable: human_readable_name,
+                                                               field: field,
+                                                               editclass: editclass }
+      when "Source Link"
+        render partial: "docs/fields/source_link", locals: { data: field_data,
+                                                             human_readable: human_readable_name,
+                                                             field: field,
+                                                             editclass: editclass }
+      when "Attachment"
+        return show_attachments_by_type(field_data)
+      when "Show"
+        render partial: "docs/fields/show_text", locals: { text: field_data,
+                                                           human_readable: human_readable_name,
+                                                           field: field,
+                                                           editclass: editclass }
+      when "Category"
+        facet_links = facet_links_for_results(doc, field, field_data)
+        if action == "index"
+          render partial: "docs/fields/tiny_text", locals: { icon: icon,
+                                                             text: facet_links,
+                                                             field: field,
+                                                             editclass: editclass }
+        elsif action == "show"
+          render partial: "docs/fields/show_facets", locals: {icon: icon,
+                                                              text: facet_links,
+                                                              field: field,
+                                                              human_readable: human_readable_name,
+                                                              editclass: editclass}
+        elsif action == "show-text"
+          render partial: "docs/fields/show_text", locals: { text: field_data,
+                                                             human_readable: human_readable_name,
+                                                             field: field,
+                                                             editclass: editclass }
+        end
       end
+    else
+      return ""
     end
   end
 
