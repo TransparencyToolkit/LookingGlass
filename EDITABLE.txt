@@ -91,7 +91,10 @@ field. Then, when the fields are saved, it posts the whole edited dictionary
 to the edit_document action in the document controller as follows-
 $.post( "/edit_document", { edited: editable} );
 
-This controller does the following-
+The controller loads the SaveEditedFields module from
+app/controllers/concerns/save_edited_fields.rb and passes editable to
+save_changed_fields, which does the following-
+
 1. Gets the original document and associated data (document class, index name,
 etc.)
 
