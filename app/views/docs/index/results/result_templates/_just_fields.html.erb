@@ -1,7 +1,7 @@
 <!-- Template to display fields of various types, used by other templates. -->  
 <% doc_picture = show_by_type("Picture", doc, dataspec) %>
 <% if (doc_picture != nil) && (!doc_picture.empty?) %>
-  <div class="pictures"><%= doc_picture %></div>
+  <%= doc_picture %>
 <% end %>
 
 <h4 class="title-sub"><%= show_by_type("Short Text", doc, dataspec) %></h4>
