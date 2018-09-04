@@ -26,6 +26,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+---
+
+Made into SCSS and modified by Brennan Novak
 **/
 
 .efm-parent {
@@ -33,7 +36,7 @@ SOFTWARE.
 
     .efm-hi {
         background-color: $brand-warning;
-        font-weight: normal;
+        font-weight: inherit;
     }
 }
 
@@ -131,6 +134,10 @@ SOFTWARE.
                 width: 100%;
                 font-weight: 500 !important;
             }
+        }
+
+        .btn.btn-primary {
+            margin-right: 5px;
         }
     }
 }

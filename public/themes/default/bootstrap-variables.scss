@@ -19,7 +19,7 @@ $gray-lighter:       #eeeeee;
 
 $brand-primary:      #3C88D7;
 $brand-success:      #62C947;
-$brand-info:         #FFFFFF;
+$brand-info:         #dfdfdf;
 $brand-warning:      #FFDB75;
 $brand-danger:       #C61C1C;
 
@@ -155,25 +155,25 @@ $btn-default-color:              #333 !default;
 $btn-default-bg:                 #fff !default;
 $btn-default-border:             #ccc !default;
 
-$btn-primary-color:              #fff !default;
+$btn-primary-color:              $base-white !default;
 $btn-primary-bg:                 $brand-primary !default;
-$btn-primary-border:             darken($btn-primary-bg, 5%) !default;
+$btn-primary-border:             $btn-primary-bg !default;
 
-$btn-success-color:              #fff !default;
+$btn-success-color:              $base-white !default;
 $btn-success-bg:                 $brand-success !default;
-$btn-success-border:             darken($btn-success-bg, 5%) !default;
+$btn-success-border:             $btn-success-bg !default;
 
-$btn-info-color:                 #fff !default;
+$btn-info-color:                 $base-black !default;
 $btn-info-bg:                    $brand-info !default;
-$btn-info-border:                darken($btn-info-bg, 5%) !default;
+$btn-info-border:                $btn-info-bg !default;
 
 $btn-warning-color:              #fff !default;
 $btn-warning-bg:                 $brand-warning !default;
-$btn-warning-border:             darken($btn-warning-bg, 5%) !default;
+$btn-warning-border:             $btn-warning-bg !default;
 
 $btn-danger-color:               #fff !default;
 $btn-danger-bg:                  $brand-danger !default;
-$btn-danger-border:              darken($btn-danger-bg, 5%) !default;
+$btn-danger-border:              $btn-danger-bg !default;
 
 $btn-link-disabled-color:        $gray-light !default;
 
