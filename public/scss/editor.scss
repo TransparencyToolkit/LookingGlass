@@ -23,6 +23,10 @@ $editor-error-color: $base-white;
 
 $editor-form-item-border: 1px solid $brand-warning;
 
+/* Import here to inehert vars */
+@import "selectize.bootstrap3";
+
+/* Start Original Classes */
 
 #editable-bar {
     margin: 0px 0px 20px 0px;
