@@ -1,10 +1,8 @@
 <!-- Shows a value on the sidebar -->
-<% if !text.blank? %>
-  <div class="facet <%= field %>">
-      <p>
-      <%= render partial: "docs/fields/icon", locals: { icon_name: icon, icon_text: "" } %>
-      <strong class="label"><%= human_readable %></strong>
-    </p>
-    <p><%= raw(text) %></p>
-  </div>
-<% end %>
+<div class="facet <%= field %>">
+  <p>
+    <%= render partial: "docs/fields/icon", locals: { icon_name: icon, icon_text: "" } %>
+    <strong class="label"><%= human_readable %></strong>
+  </p>
+  <p><%= raw(text) %></p>
+</div>
