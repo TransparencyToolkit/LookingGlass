@@ -1,8 +1,10 @@
 <% field_names = "" %>
 <%= form_tag search_path, method: 'get', id: 'form-search-date', class: 'navbar-form navbar-left input-group-addon hide' do %>
-  <div class="searchin" id="<%= fieldname %>">
-  <input type="text" data-behaviour='datepicker' id="search-date-start" class="form-control" placeholder="Start date" name="<%= field_names[0] %>"> -
-  <input type="text" data-behaviour='datepicker' id="search-date-end" class="form-control" placeholder="End date" name="<%= field_names[1] %>">
-  <%= render partial: 'docs/index/search/searchbar/search_fields/search_button', locals: {fieldname: [field_names[0], field_names[1]]}%>
-</div>
+  <div class="searchin" id="<%= fieldname %>"></div>
+  <div class="input-group">
+    <input type="text" data-behaviour='datepicker' id="search-date-start" class="form-control" placeholder="Start date" name="<%= field_names[0] %>">
+    <span class="input-group-addon">to</span>
+    <input type="text" data-behaviour='datepicker' id="search-date-end" class="form-control" placeholder="End date" name="<%= field_names[1] %>">
+    <%= render partial: 'docs/index/search/searchbar/search_fields/search_button', locals: {fieldname: [field_names[0], field_names[1]]}%>
+  </div>
 <% end %>
