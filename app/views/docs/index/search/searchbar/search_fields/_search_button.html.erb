@@ -1,2 +1,6 @@
-<%= render partial: 'docs/index/search/searchbar/search_fields/save_existing_fields', locals: {fieldname: fieldname} %> 
-<button type="submit" class="btn btn-default" title="Search" alt="Search"><i class="icon-search"></i></button>
+<span class="input-group-btn">
+    <%= render partial: 'docs/index/search/searchbar/search_fields/save_existing_fields', locals: {fieldname: fieldname} %>
+    <button type="submit" class="btn btn-default" title="Search" alt="Search">
+        <i class="icon-search"></i>
+    </button>
+</span>
