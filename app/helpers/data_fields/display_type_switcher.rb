@@ -8,7 +8,7 @@ module DisplayTypeSwitcher
 
     # Render all fields of the type
     return fields_of_type.inject("") do |str, field|
-      str += type_switcher(type, doc, field[0], field[1], action)
+      str += type_switcher(type, doc, field[0], field[1], action).to_s
       raw(str)
     end
   end
@@ -63,7 +63,7 @@ module DisplayTypeSwitcher
     when "Source Link"
       render partial: "docs/fields/source_link", locals: { data: field_data, human_readable: human_readable_name, field: field }
     when "Attachment"
-      return show_attachments_by_type(field_data)
+      return show_attachments_by_type(field_data) if field_data
     when "Show"
       render partial: "docs/fields/show_text", locals: { text: field_data, human_readable: human_readable_name, field: field }
     when "Category"
@@ -115,7 +115,7 @@ module DisplayTypeSwitcher
   def attachment_file_format_switcher(file)
     file_type = get_file_type(file)
     download_name = gen_download_link_name(file)
-
+    
     case file_type
     when ".jpg", ".jpeg", ".gif", ".png", ".bmp"
       render partial: "docs/fields/file_types/image", locals: { file: file, download_name: download_name }

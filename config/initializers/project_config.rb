@@ -1,1 +1,1 @@
-ENV['PROJECT_INDEX'] = "icwatch"
+ENV['PROJECT_INDEX'] = "archive_test"
