@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'datapolitics_description', to: 'pages#datapolitics_description'
   get 'datapolitics_suggest', to: 'pages#datapolitics_suggest'
 
+  get 'api/facets', to: 'api#facets'
+  get 'api/facets_list', to: 'api#facets_list'
+
   root to: 'docs#index'
   resources :docs
 
