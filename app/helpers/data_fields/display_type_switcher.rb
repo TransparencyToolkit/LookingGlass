@@ -8,7 +8,7 @@ module DisplayTypeSwitcher
 
     # Render all fields of the type
     return fields_of_type.inject("") do |str, field|
-      str += type_switcher(type, doc, field[0], field[1], action)
+      str += type_switcher(type, doc, field[0], field[1], action).to_s
       raw(str)
     end
   end
@@ -57,7 +57,7 @@ module DisplayTypeSwitcher
     human_readable_name = human_readable_title(field_details)
     icon = icon_name(field_details)
     editclass = set_editable_class(action)
-    
+
     # Switch by field type
     if display_field?(type, action, field_data)
       case type
