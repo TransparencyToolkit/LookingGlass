@@ -1,12 +1,81 @@
-<div id="uniquer">
-	<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
-	   <%= render partial: 'docs/show/sidebar' %> 
-	   <!-- Theme Partial -->
-	   <% project = get_project_spec(ENV['PROJECT_INDEX']) %>
-	  <%=  render partial: '../assets/stylesheets/' + project['theme']+ '/sidebar' rescue nil %> 
-	</div>
-	<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
-	  <%= render partial: 'docs/show/tabs/tab_button_list' %>
-	  <%= render partial: 'docs/show/tabs/tab_pane_list' %>
-	</div>
+<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
+   <%= render partial: 'docs/show/sidebar' %>
+   <!-- Theme Partial -->
+   <% project = get_project_spec(ENV['PROJECT_INDEX']) %>
+  <%=  render partial: '../assets/stylesheets/' + project['theme']+ '/sidebar' rescue nil %>
+</div>
+<div id="maincontent" class="efm-target col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+  <%= render partial: 'docs/show/tabs/tab_button_list' %>
+  <%= render partial: 'docs/show/tabs/tab_pane_list' %>
+</div>
+
+<div class="modal fade" id="facet-add-modal" tabindex="-1" role="dialog" aria-labelledby="facetAddModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">Add Document Detail</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="">
+                            Detail Type:
+                        </label>
+                        <select id="facet-type-list" class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">
+                            Detail:
+                        </label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+                <div class="text-right">
+                    <button type="button" class="btn btn-default add-right" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        Add Detail
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-add-link" tabindex="-1" role="dialog" aria-labelledby="modalAddLink">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalAddLinkLabel">
+                    Add Link
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div id="inputLinkUrlLabel" class="form-group">
+                        <label for="recipient-name" class="control-label">
+                            Link:
+                        </label>
+                        <input name="link-url"  type="text" class="form-control" id="inputLinkUrl" placeholder="https://example.com/link-to-document">
+                    </div>
+                </form>
+                <div class="text-right">
+                    <button type="button" class="btn btn-default add-right" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" id="buttonAddLink">
+                        Add Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

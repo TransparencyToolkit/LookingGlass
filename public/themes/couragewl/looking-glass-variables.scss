@@ -66,7 +66,7 @@ $lg-search-details-border-bottom:       1px solid $gray-light;
 $lg-search-details-border-left:         0px;
 
 $lg-search-item-padding:                15px 20px;
-$lg-search-item-margin:                 20px;
+$lg-search-item-margin:                 20px 0px;
 $lg-search-item-border-top:         	0px;
 $lg-search-item-border-right:           1px solid $gray-light;
 $lg-search-item-border-bottom:          1px solid $gray-light;
@@ -140,13 +140,14 @@ $lg-show-panel-title-size:              18px;
 
 $marker-button-size: 60px;
 $marker-button-font-size: 30px;
-$marker-button-color: $cwl-blue-gray;
+$marker-button-color: $base-white;
+$marker-button-background-color: $cwl-blue;
 
 $marker-menu-border: 4px solid $gray-lighter;
 $marker-menu-background: $base-white;
 $marker-menu-padding: 15px;
 
-$marker-menu-title-color: $lg-search-item-title-color;
+$marker-menu-title-color: $base-black;
 $marker-menu-title-font: $lg-search-item-title-font;
 
 $marker-menu-link-font: 14px sans-serif;
