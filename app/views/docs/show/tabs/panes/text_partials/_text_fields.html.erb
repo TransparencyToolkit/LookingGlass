@@ -1,18 +1,3 @@
-<div id="editable-bar" class="row unedited">
-    <div class="col-md-6 title">
-        <i class="icon-logo"></i>
-        Data Editor
-    </div>
-    <div class="col-md-6 text-right">
-        <button class="pull-right btn btn-sm" id="button-editable-action">
-           Start Editing
-        </button>
-        <button class="pull-right btn btn-sm add-right hide" id="button-editable-discard">
-           Discard Changes
-        </button>
-    </div>
-</div>
-
 <!-- Displays fields on the text pane -->
 <%= show_by_type("Picture", doc, @dataspec) %>
 
@@ -36,6 +21,14 @@
     <% if is_data_for_type?("Related Link", doc, @dataspec) %>
     <div class="col-md-6">
         <%= show_by_type("Related Link", doc, @dataspec, "show") %>
+
+        <!-- TODO: make editable conditional -->
+        <div class="add-top more-bottom">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-link" data-type="related-link">
+                <i class="icon-plus"></i>
+                Add URL
+            </button>
+        </div>
     </div>
     <% end %>
     <% if is_data_for_type?("Named Link", doc, @dataspec) %>

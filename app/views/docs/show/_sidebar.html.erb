@@ -1,12 +1,12 @@
+<div id="sidebar-details">
+    <div class="detail-heading">Document Filters</div>
+    <%= show_by_type("Category", @thread_fields, @dataspec, "show") %>
+</div>
+
 <!-- TODO: make this conditional based on "editable" session token -->
 <div id="sidebar-editor-menu" class="more-bottom">
-    <div class="detail-heading">Document Editor</div>
-    <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#facet-add-modal">
-        <i class="icon-plus"></i>
-        Add Details To Document
+    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#facet-add-modal">
+        <i class="icon-edit"></i>
+        Edit Document Properties
     </button>
-</div>
-<div id="sidebar-details">
-    <div class="detail-heading">Document Details</div>
-    <%= show_by_type("Category", @thread_fields, @dataspec, "show") %>
 </div>
