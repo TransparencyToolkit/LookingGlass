@@ -3,10 +3,11 @@
     <%= show_by_type("Category", @thread_fields, @dataspec, "show") %>
 </div>
 
-<!-- TODO: make this conditional based on "editable" session token -->
+<% if is_editable?("show") %>
 <div id="sidebar-editor-menu" class="more-bottom">
     <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#facet-add-modal">
         <i class="icon-edit"></i>
         Edit Document Properties
     </button>
 </div>
+<% end %>

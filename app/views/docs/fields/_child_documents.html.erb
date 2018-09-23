@@ -11,11 +11,12 @@
         </a>
         <hr>
     <% end %>
-    <!-- TODO: make editable conditional -->
+    <% if is_editable?("show") %>
     <div class="more-bottom text-right">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-link" data-type="associated-doc">
             <i class="icon-plus"></i>
             Add Associated Documents
         </button>
     </div>
+    <% end %>
 </div>
