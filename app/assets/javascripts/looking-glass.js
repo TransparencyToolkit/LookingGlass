@@ -1,7 +1,16 @@
-$(document).ready(function() {
+var datetimepicker_icons = {
+    time: 'icon-clock',
+    date: 'icon-calendar',
+    up:   'icon-progress',
+    down: 'icon-progress',
+    previous: 'icon-progress',
+    next:  'icon-progress',
+    today: 'icon-camera',
+    clear: 'icon-trash',
+    close: 'icon-circle-x'
+}
 
-  // Topbar Forms
-  $('[data-behaviour~=datepicker]').datepicker();
+$(document).ready(function() {
 
   // Sidebar Toggles
   $('.tree-toggler').on('click', function() {
@@ -32,9 +41,24 @@ $(document).ready(function() {
       $('#form-search-datetime').hide();
 
     // Modify Fields
-    if (type === 'date' || type === 'datetime') {
+    if (type === 'date') {
 	    $('#search-date-start').attr('name', 'startrange_' + value)
 	    $('#search-date-end').attr('name', 'endrange_' + value)
+
+        $('[data-behaviour~=datepicker]').datetimepicker({
+            format: 'MM/DD/YYYY',
+            icons: datetimepicker_icons
+        })
+    }
+    else if (type === 'datetime') {
+        // TODO: make timestamp values convert to readable format & vv
+        $('#search-date-start').attr('name', 'startrange_' + value)
+	    $('#search-date-end').attr('name', 'endrange_' + value)
+
+        $('[data-behaviour~=datetimepicker]').datetimepicker({
+            format: 'YYYY-MM-DD hh:mm',
+            icons: datetimepicker_icons
+        })
     }
     else if (type === 'string') {
 

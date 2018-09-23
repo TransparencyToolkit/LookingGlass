@@ -15,6 +15,7 @@
 //= require twitter/bootstrap/modal
 //= require twitter/bootstrap/dropdown
 //= require twitter/bootstrap/tab
-//= require bootstrap-datepicker/core
+//= require moment
+//= require bootstrap-datetimepicker
 //= require selectize
 //= require_tree .

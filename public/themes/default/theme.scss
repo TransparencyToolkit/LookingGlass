@@ -10,10 +10,7 @@
 @import "../../scss/bootstrap";
 @import "../../scss/extras";
 @import "../../scss/icons";
-@import "../../scss/bootstrap-datepicker3";
+@import "../../scss/bootstrap-datetimepicker";
 @import "../../scss/looking-glass";
 @import "../../scss/marker";
-
-div.alert {
-  border: 0px;
-}
+@import "../../scss/editor";
