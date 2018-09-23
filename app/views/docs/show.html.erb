@@ -5,6 +5,7 @@
     <%=  render partial: '../assets/stylesheets/' + project['theme']+ '/sidebar' rescue nil %>
 </div>
 <div id="maincontent" class="efm-target col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+    <% if is_editable?("show") %>
     <div id="editable-bar" class="row unedited">
         <div class="col-md-6 title">
             <i class="icon-logo"></i>
@@ -19,10 +20,12 @@
             </button>
         </div>
     </div>
+    <% end %>
     <%= render partial: 'docs/show/tabs/tab_button_list' %>
     <%= render partial: 'docs/show/tabs/tab_pane_list' %>
 </div>
 
+<% if is_editable?("show") %>
 <div class="modal fade" id="modal-save-changes" tabindex="-1" role="dialog" aria-labelledby="facetSaveModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -88,6 +91,8 @@
                             <optgroup label="Profiles">
                                 <option value="wikipedia">Wikipedia</option>
                                 <option value="imdb">IMDB</option>
+                                <option value="amazon">Amazon</option>
+                                <option value="ebay">Ebay</option>
                                 <option value="academic">Academic</option>
                                 <option value="author">Author</option>
                                 <option value="journalist">Journalist</option>
@@ -127,3 +132,4 @@
         </div>
     </div>
 </div>
+<% end %>
