@@ -4,12 +4,26 @@
  * Author: Brennan Novak
  */
 
+var datetimepicker_icons = {
+    time: 'icon-clock',
+    date: 'icon-calendar',
+    up:   'icon-arrow-up',
+    down: 'icon-arrow-down',
+    previous: 'icon-arrow-left',
+    next:  'icon-arrow-right',
+    today: 'icon-camera',
+    clear: 'icon-trash',
+    close: 'icon-circle-x'
+}
+
+var global_facets = {}
 var editable_classes = 'unedited editing changed saving saved error'
 
 var editable = {
-    facets: {},
+    facet_groups: [],
     state: 'unedited',
     doc_id: '',
+    doc_properties: ['document_type', 'data_source', 'collection_tag', 'selector_tag', 'version_changed'],
     items: {}
 }
 
@@ -18,6 +32,7 @@ var doc_url = document.createElement('a')
 doc_url.href = window.location.href
 var doc_id = doc_url.pathname.replace('/docs/', '')
 editable.doc_id = doc_id
+var base_url = doc_url.protocol + '//' + doc_url.host
 
 
 var showEditableItems = function($elem) {
@@ -32,14 +47,12 @@ var showEditableItems = function($elem) {
     if ($('#' + editable_id).length <= 0) {
 
         var form_field = ''
-
         // TODO: handle the case where fields are blank / have no data
         // make this show a 'empty' placeholder field when 'unedited' state
         // when user has Editor, when not show nothing
-
         // Determine item input type
         if ($elem.hasClass('list_title')) {
-            form_field = '<input type="text" id="' + editable_id + '" data-name="' + name + '" class="editable-form-item form-control" value="' + original + '">'
+            form_field = '<input type="text" id="' + editable_id + '" data-name="' + name + '" class="editable-form-item form-control" value="' + original + '" placeholder="Item Title">'
             parent.append(form_field)
 
         } else if ($elem.hasClass('type-text') && original.length <= 120) {
@@ -54,21 +67,88 @@ var showEditableItems = function($elem) {
             form_field = '<textarea id="' + editable_id + '" data-name="' + name + '" class="editable-form-item form-control" rows="8">' + original + '</textarea>'
             parent.append(form_field)
 
-        } else if ($elem.hasClass('source-link')) {
-            form_field = '<input type="url" id="' + editable_id + '" data-name="' + name + '" class="editable-form-item form-control" placeholder="http://example.com/link-to-source" value="' + original + '">'
+        } else if ($elem.hasClass('list_date')) {
+            form_field = '\
+                <div class="form-group editable-form-item">\
+                    <div class="input-group date" id="editable-' + name +'">\
+                        <input type="text" data-name="' + name + '" class="form-control" value="' + original + '">\
+                        <span class="input-group-addon">\
+                            <span class="icon-calendar"></span> Picker\
+                        </span>\
+                    </div>\
+                </div>'
+            parent.append(form_field)
+            $('#editable-date').datetimepicker({
+                format: 'YYYY-MM-DD',
+                icons: datetimepicker_icons
+            })
+        } else if ($elem.hasClass('list_datetime')) {
+            // Make non unix so datetimepicker work with the value
+            var converted = moment.unix(original).format('YYYY-MM-DD HH:MM')
+            form_field = '\
+                <div class="form-group editable-form-item">\
+                    <div class="input-group date" id="editable-' + name +'">\
+                        <input type="text" data-name="' + name + '" class="form-control" value="' + converted + '">\
+                        <span class="input-group-addon">\
+                            <span class="icon-clock"></span> Picker\
+                        </span>\
+                    </div>\
+                </div>'
+            parent.append(form_field)
+
+            // TODO: this is not robust enough
+            if (!editable.items.hasOwnProperty('datetime')) {
+                editable.items['datetime'] = {
+                    original: '1970-01-01 00:00',
+                    edited: false
+                }
+            }
+
+            $('#editable-datetime').datetimepicker({
+                format: 'YYYY-MM-DD hh:mm',
+                defaultDate: editable.items['datetime'].original,
+                icons: datetimepicker_icons
+            })
+        } else if ($elem.hasClass('source-link') || $elem.hasClass('link')) {
+            form_field = '<input type="url" id="' + editable_id + '" data-name="' + name + '" class="editable-form-item form-control" placeholder="http://website.com/link-to-source" value="' + original + '">'
             parent.append(form_field)
         } else {
             console.log('Error unknown data type')
+            console.log($elem)
         }
 
         // Global state object
         editable.items[name] = {
-            content: original,
+            original: original,
             edited: false
         }
     } else {
         console.log('Editable field exists: ' + name)
     }
+}
+
+// Update UI
+var updateEditableUI = function(state_class) {
+    editable.state = state_class
+    console.log('updateEditableUI ' + state_class)
+    if (state_class == 'changed') {
+        $('#button-editable-action').html('Save Changes')
+        $('#button-editable-discard').removeClass('hide')
+    } else {
+        $('#button-editable-action').html('Start Editing')
+        $('#button-editable-discard').addClass('hide')
+    }
+    $('#editable-bar').removeClass(editable_classes).addClass(state_class)
+}
+
+// Check all items
+var allEditableStates = function() {
+    var items_states = []
+    var items = _.keys(editable.items)
+    for (item of items) {
+        items_states.push(editable.items[item].edited)
+    }
+    return items_states
 }
 
 var enableEditableActions = function() {
@@ -78,66 +158,58 @@ var enableEditableActions = function() {
         var item_name = event.currentTarget.dataset.name
         var item_text = event.currentTarget.value
 
-        // Update UI
-        var updateEditableUI = function(item_name, state_class) {
-            editable.state = state_class
-
-            if (state_class == 'changed') {
-                $('#button-editable-discard').removeClass('hide')
-            } else {
-                $('#button-editable-discard').addClass('hide')
-                $('#button-editable-action').html('Start Editing')
-            }
-            $('#editable-bar').removeClass(editable_classes).addClass(state_class)
-        }
-
-        // Check other items
-        var checkAllEdited = function() {
-
-            console.log('inside checkAllEdited')
-            var items_states = []
-
-            $('.editable-form-item').each(function(key, val) {
-                var check_item = $(val).data('name')
-                items_states.push(editable.items[check_item].edited)
-            })
-
-            console.log(items_states)
-            return items_states
-        }
-
         // Item is not changed
-        if (item_text == editable.items[item_name].content) {
+        if (item_text == editable.items[item_name].original) {
             console.log('1.0 item is not changed')
             editable.items[item_name].edited = false
             $(event.currentTarget).removeClass('item-changed')
 
-            // Other items are changed
-            items_states = checkAllEdited()
+            // Check all items
+            items_states = allEditableStates()
             if (items_states.indexOf(true) > -1) {
                 console.log('1.2 other fields are changed')
-                updateEditableUI(item_name, 'changed')
+                updateEditableUI('changed')
             } else {
                 console.log('1.3 no other fields changed reverting from chan ged')
-                updateEditableUI(item_name, 'unedited')
+                updateEditableUI('unedited')
             }
-
         }
-        else if (item_text != editable.items[item_name].content) {
+        else if (item_text != editable.items[item_name].original) {
             console.log('2.0 this field is changed')
-            updateEditableUI(item_name, 'changed')
+            updateEditableUI('changed')
             editable.items[item_name].edited = true
-	    editable.items[item_name].changed_content = item_text
-
+	        editable.items[item_name].changed = item_text
             $(event.currentTarget).addClass('item-changed')
-            console.log(event.currentTarget)
         }
         else {
             console.log('3.0 ugh oh, im confused')
-            updateEditableUI(item_name, false, 'editing')
+            updateEditableUI('editing')
         }
     })
 
+    $('#editable-date').on('dp.change', function(e){
+        var new_date = $('#editable-date').data('date')
+        if (new_date != editable.items['date'].original) {
+            editable.items['date'].edited = true
+	        editable.items['date'].changed = new_date
+            updateEditableUI('changed')
+        } else {
+            console.log('Date is confused')
+            updateEditableUI('editing')
+        }
+    })
+
+    $('#editable-datetime').on('dp.change', function(e){
+        var new_datetime = moment($('#editable-datetime').data('date')).unix()
+        if (new_datetime != editable.items['datetime'].original) {
+            editable.items['datetime'].edited = true
+	        editable.items['datetime'].changed = new_datetime
+            updateEditableUI('changed')
+        } else {
+            console.log('Datetime is confused')
+            updateEditableUI('editing')
+        }
+    })
 }
 
 var stopEditingItems = function(new_state) {
@@ -161,59 +233,192 @@ var stopEditingItems = function(new_state) {
     $('#editable-bar').removeClass(editable_classes).addClass(new_state)
 }
 
+var selectizeFacetGroup = function(group, facets) {
 
-var buildFacetAdd = function(modal) {
+    // Hide HTML
+    $($('.facet.' + group).find('p')[1]).hide()
 
-    $facet_type_list = $('#facet-type-list')
-
-    $('#sidebar-details').find('div.facet').each(function() {
-        var facet_type = $(this).find('strong.label').html()
-        editable.facets[facet_type] = []
-
-        var html_option = '<option value="' + facet_type + '">' + facet_type  + '</option>'
-        $facet_type_list.append(html_option)
-
-        var facet_items = $(this).find('a')
-        facet_items.each(function() {
-            var item = $(this).html()
-            editable.facets[facet_type].push(item)
-
+    // Build Selectize
+    var options = []
+    var chosen = []
+    var i = 1
+    for (facet of facets.buckets) {
+        options.push({
+            id: i,
+            title: facet.key
         })
+        // Already in document
+        if (editable.items[group].original.indexOf(facet.key) !== -1) {
+            chosen.push(i)
+        }
+        i++
+    }
+
+    var updateSelectizedInput = function(group, state) {
+        // console.log('updateSelectizedInput ' + group + ' ' + state)
+        if (state == true) {
+           $('.facet.' + group).find('div.selectize-input').addClass('items-changed')
+        } else {
+           $('.facet.' + group).find('div.selectize-input').removeClass('items-changed')
+        }
+    }
+
+    $selectize_group = $('#selectize-' + group)
+    $selectize_group.removeClass('hide')
+
+    var $selectized = $selectize_group.selectize({
+        maxItems: null,
+        create: true,
+        persist: true,
+        valueField: 'id',
+        labelField: 'title',
+        searchField: 'title',
+        options: options,
+        onItemAdd: function(id, item) {
+            var facet = $(item).html()
+
+            if (editable.items[group].original.indexOf(facet) === -1) {
+                var changed_facets = [facet]
+                $('#selectize-' + group).children(':selected').each(function() {
+                    changed_facets.push($(this).html())
+                })
+                editable.items[group].changed = changed_facets
+                editable.items[group].edited = true
+                $('.facet.' + group).find('div.selectize-input').addClass('items-changed')
+                updateSelectizedInput(group, true)
+                updateEditableUI('changed')
+            } else {
+                //console.log('ELSE onItemAdd id: ' + id.toString() + ' facet ' + facet)
+            }
+        },
+        onItemRemove: function(id, item) {
+            var facet = $(item).html()
+            var index = editable.items[group].changed.indexOf(facet)
+            editable.items[group].changed.splice(index, 1)
+
+            // Check items
+            var diff = _.difference(editable.items[group].original, editable.items[group].changed);
+            console.log('onItemRemove ' + facet + ' diff ' + diff.toString())
+            // No facets diff or other items
+            if (diff.length === 0) {
+                editable.items[group].edited = false
+                updateSelectizedInput(group, false)
+
+                var items_states = allEditableStates()
+                console.log('editable_states ' + items_states.indexOf(true).toString())
+                if (items_states.indexOf(true) === -1) {
+                    updateEditableUI('unedited')
+                }  else if (items_states.indexOf(true) > -1) {
+                    updateEditableUI('changed')
+                }
+            // Facets different
+            } else if (diff.lenth > 0) {
+                updateSelectizedInput(group, true)
+                updateEditableUI('changed')
+            } else {
+                console.log('Huh, most interesting')
+            }
+
+        }
     })
+
+    // Add existing items
+    var control = $selectized[0].selectize;
+    for (id of chosen) {
+        control.addItem(id)
+    }
+}
+
+var makeFacetsSelectized = function() {
+    for (group of editable.facet_groups) {
+        if (editable.doc_properties.indexOf(group) == -1) {
+            selectizeFacetGroup(group, global_facets[group])
+        }
+    }
+}
+
+var makeFacetsNormal = function() {
+    console.log('makeFacetsNormal')
+    for (group of editable.facet_groups) {
+        $('#selectize-' + group).removeClass('selectized').addClass('hide')
+        $($('.facet.' + group).find('p')[1]).show()
+    }
+
+    $('.selectize-control.multi').each(function() {
+        $(this).remove()
+    })
+}
+
+var saveChanges = function() {
+    console.log('save changes to document')
+    var ajaxy = $.post( "/edit_document", {
+        edited: editable
+    }, function() {
+        editable.state = 'saved'
+        stopEditingItems('saved')
+    })
+        .done(function(response) {
+            console.log(response)
+            $('#modal-save-changes').modal('hide')
+        })
+        .fail(function(err) {
+            console.log(err)
+            alert('Error: display error in modal');
+        })
+        .always(function() {
+            alert('finished');
+        })
 }
 
 $(document).ready(function() {
 
-    $('#button-editable-action').on('click', function() {
+    $.getJSON("/api/facets", function(response) {
+        global_facets = response
+    })
 
+    $('#sidebar-details').find('div.facet').each(function() {
+        var facets = []
+        var group = $(this).context.className.replace('facet ', '')
+        var select = '<select class="hide" id="selectize-' + group + '" multiple></select>'
+        $(this).append(select)
+        $('.facet.' + group).find('a').each(function() {
+            facets.push($(this).html())
+        })
+
+        editable.facet_groups.push(group)
+        editable.items[group] = {
+            original: facets,
+            changed: [],
+            edited: false
+        }
+    })
+
+    $('#button-editable-action').on('click', function() {
         // Not editing
         if (editable.state == 'unedited') {
+            makeFacetsSelectized()
+
             $('.editable').each(function() {
                 showEditableItems($(this))
             })
+
             $(this).html('Stop Editing')
             editable.state = 'editing'
             $('#editable-bar').removeClass(editable_classes).addClass('editing')
         }
         // Editing but no changes
         else if (editable.state == 'editing') {
-
             editable.state = 'unedited'
             stopEditingItems('unedited')
+            makeFacetsNormal()
         }
-        // Has changes, saved
+        // Has changes, now save
         else if (editable.state == 'changed') {
-
-            $(this).html('Saving Edits ...')
+            $(this).html('Saving Edits')
             editable.state = 'saving'
             $('#editable-cancel').addClass('hide')
             $('#editable-bar').removeClass(editable_classes).addClass('saving')
-
-            alert('Submitting changes to API')
-	    $.post( "/edit_document", { edited: editable} );
-	    
-            editable.state = 'saved'
-            stopEditingItems('saved')
+            $('#modal-save-changes').modal('show')
         }
         else if (editable.state == 'saved') {
 
@@ -235,46 +440,58 @@ $(document).ready(function() {
             stopEditingItems('unedited')
             $(this).addClass('hide')
         }
+
+        makeFacetsNormal()
     })
 
-    $('#facet-add-modal').on('show.bs.modal', function(eve) {
+    // Buttons
+    $('#buttonSaveChanges').on('click', function(e) {
+        saveChanges()
+    })
 
-        // Hide Highligther button
-        $('#efm-button').css('z-index', 10)
-
-        // Button that triggered the modal
-        var button = $(eve.relatedTarget)
-
-        // Extract info from data-* attributes
-        var recipient = button.data('whatever')
-
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use
-        // a data binding library or other methods instead.
+    // Modals
+    $('#modal-save-changes').on('show.bs.modal', function(e) {
+        var button = $(e.relatedTarget)
         var modal = $(this)
-        //modal.find('.modal-body input').val(recipient)
-
-        buildFacetAdd(modal)
+        $('#efm-button').css('z-index', 10)
     })
 
-    $('#facet-add-modal').on('hide.bs.modal', function(eve) {
+    $('#modal-save-changes').on('hide.bs.modal', function(e) {
         $('#efm-button').css('z-index', 9999999999)
     })
 
-
-    $('#modal-add-link').on('show.bs.modal', function(eve) {
-
-        // Hide Highligther button
-        $('#efm-button').css('z-index', 10)
-
-        $('#modalAddLinkLabel').html('Add Link to This Document')
-        $('#inputLinkUrlLabel').html('URL Links to Document')
-        $('#inputLinkUrl').val()
-        $('#buttonAddLink').html('Add Link')
-
-        var button = $(eve.relatedTarget)
-        var recipient = button.data('whatever')
-
+    $('#modal-add-link').on('show.bs.modal', function(e) {
+        var button = $(e.relatedTarget)
         var modal = $(this)
+        var link_type = e.relatedTarget.dataset.type
+        $('#efm-button').css('z-index', 10)
+        $('#form-associated-doc').hide()
+        $('#form-named-link').hide()
+        $('#form-related-link').hide()
+
+        if (link_type == 'associated-doc') {
+            $('#form-associated-doc').show()
+            $('#modalAddLinkLabel').html('Link Associated Document')
+            $('#documentUrl').attr({
+                'placeholder': base_url + '/docs/Some_Related_document',
+                'name': 'associated_document'
+            })
+            $('#buttonAddLink').html('Link Document')
+
+        } else if (link_type == 'named-link') {
+            $('#form-named-link').show()
+            $('#modalAddLinkLabel').html(e.relatedTarget.innerText)
+            $('#buttonAddLink').html('Add URL')
+
+        } else if (link_type == 'related-link') {
+            $('#form-related-link').show()
+            $('#modalAddLinkLabel').html('Add Related URL')
+            $('#buttonAddLink').html('Add URL')
+        }
     })
+
+    $('#modal-add-link').on('hide.bs.modal', function(e) {
+        $('#efm-button').css('z-index', 9999999999)
+    })
+
 })
