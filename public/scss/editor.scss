@@ -3,11 +3,11 @@
 
 $editor-title-color: $base-black;
 
-$editor-normal-background-color: $base-white;
-$editor-normal-color: $base-black;
+$editor-unedited-background-color: $base-white;
+$editor-unedited-color: $base-black;
 
 $editor-editing-background-color: $base-white;
-$editor-editing-color: $gray-darker;
+$editor-editing-color: $base-black;
 
 $editor-changed-background-color: $brand-warning;
 $editor-changed-color: $base-black;
@@ -26,7 +26,17 @@ $editor-form-item-border: 1px solid $brand-warning;
 /* Import here to inehert vars */
 @import "selectize.bootstrap3";
 
+
 /* Start Original Classes */
+#sidebar {
+    div.control-group {
+        margin-bottom: 20px;
+    }
+
+    div.selectize-control {
+        margin-bottom: 20px;
+    }
+}
 
 #editable-bar {
     margin: 0px 0px 20px 0px;
@@ -45,11 +55,11 @@ $editor-form-item-border: 1px solid $brand-warning;
     }
 
     &.unedited {
-        background-color: $editor-normal-background-color;
-        color: $editor-normal-color;
+        background-color: $editor-unedited-background-color;
+        color: $editor-unedited-color;
 
         div.title {
-            color: $editor-normal-color;
+            color: $editor-unedited-color;
         }
 
         #button-editable-action {
@@ -135,7 +145,6 @@ $editor-form-item-border: 1px solid $brand-warning;
         }
     }
 }
-
 
 input.editable-form-item,
 textarea.editable-form-item {
