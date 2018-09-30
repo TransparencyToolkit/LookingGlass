@@ -15,7 +15,8 @@
 	locals: {doc: thread_fields, dataspec: dataspec}%>
 
     <!-- Load the item fields for thread items -->
-    <% item_fields.each do |item_doc| %>
+    <% actual_item_fields = item_fields.select{|i| i["_source"].keys.length > 2} %>
+    <% actual_item_fields.each do |item_doc| %>
       <hr>
       <%= render partial: 'docs/index/results/result_templates/just_fields',
         	locals: {doc: item_doc, dataspec: dataspec}%>

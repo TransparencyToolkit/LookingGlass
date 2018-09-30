@@ -1,0 +1,105 @@
+// Core variables and mixins
+@import "../../scss/bootstrap/mixins";
+
+// Theme Assets for Global Use
+@import "fonts";
+@import "bootstrap-variables";
+@import "looking-glass-variables";
+
+// Core & Looking Glass
+@import "../../scss/bootstrap";
+@import "../../scss/extras";
+@import "../../scss/icons";
+@import "../../scss/bootstrap-datepicker3";
+@import "../../scss/looking-glass";
+
+
+.navbar-inverse {
+
+  .navbar-brand {
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-size: 30px;
+
+	&:hover {
+	  color: $gray-darker;
+	}
+
+  }
+
+  .nav a.dropdown-toggle {
+    font-family: 'SourceSansPro-Bold';
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+
+#sidebar {
+
+  hr {
+    border-top: 6px solid rgba(37, 34, 22, 0.2);
+  }
+
+  div.detail-heading {
+    color: $base-black;
+  }
+
+  img.full {
+    width: 80%;
+  }
+}
+
+div.search-item {
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 60px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+
+  h3.title {
+    margin-top: 0px;
+    margin-bottom: 15px;
+  }
+
+  h3.title:after {
+    background: $base-white;
+    opacity: 0.2;
+    width: 100px;
+    height: 6px;
+    display: block;
+    content: '';
+    margin-top: 10px;
+  }
+
+  h4.title-sub {
+    opacity: 0.7;
+  }
+
+  hr {
+    border-top: 0px;
+    border-size: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  div.dataset-name {
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  div.facets {
+    a {
+      opacity: 0.7;
+      border-bottom: 1px solid #c9bcb4;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+}

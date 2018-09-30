@@ -1,4 +1,7 @@
 <!-- Display picture fields -->
-<img src="<%= pic_path %>" class="picture"></img>
-<br />
-
+<% if !pic_path.blank? %>
+ <div class="pictures">
+   <img src="<%= pic_path %>" class="picture"></img>
+   <br />
+ </div>
+<% end %>

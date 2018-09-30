@@ -57,6 +57,19 @@ class DocsController < ApplicationController
   def handle_legacy_id(id)
     if id.include?("nsadocs") && !id.include?("_nsadocs_snowden_doc")
       return id.gsub("nsadocs", "_nsadocs_snowden_doc")
+    elsif ENV['PROJECT_INDEX'] == "icwatch"
+      # Remap FBIDHS dataset ID
+      if !id.include?("icwatch") && id.include?("fbidhs")
+        return id.gsub("fbidhs", "_icwatch_fbidhs")
+      # Remap LI dataset ID
+      elsif id.include?("icwatch_linkedin") && !id.include?("_icwatch_linkedin")
+        return id.gsub("icwatch_linkedin", "_icwatch_linkedin")
+      # Remap Indeed dataset ID
+      elsif id.include?("icwatch_indeed") && !id.include?("_icwatch_indeed")
+        return id.gsub("icwatch_indeed", "_icwatch_indeed").gsub("?sp=0", "sp=0")
+      else
+        return id
+      end
     else
       return id
     end

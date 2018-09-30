@@ -8,7 +8,7 @@ module DisplayTypeSwitcher
 
     # Render all fields of the type
     return fields_of_type.inject("") do |str, field|
-      str += type_switcher(type, doc, field[0], field[1], action)
+      str += type_switcher(type, doc, field[0], field[1], action).to_s
       raw(str)
     end
   end

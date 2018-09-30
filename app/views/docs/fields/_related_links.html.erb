@@ -1,5 +1,11 @@
 <!-- URLs representing an entity (website, social media, etc...) -->
 <p class=<%= field %>>
-    <strong class="label"><%= human_readable %></strong>
-    <a class="link <%= editclass %>" href="<%= data %>" target="_blank"><%= data %></a>
+  <strong class="label"><%= human_readable %></strong>
+  <% if data.is_a?(Array) %>
+    <% data.each do |link| %>
+      <a href="<%= link %>" target="_blank"><%= link %></a><br />
+    <% end %>
+  <% else %>
+    <a href="<%= data %>" target="_blank"><%= data %></a>
+  <% end %>
 </p>

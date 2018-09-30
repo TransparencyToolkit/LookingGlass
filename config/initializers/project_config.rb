@@ -1,1 +1,1 @@
-ENV['PROJECT_INDEX'] = "datapolitics"
+ENV['PROJECT_INDEX'] = "archive_test"
