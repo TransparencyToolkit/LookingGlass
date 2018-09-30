@@ -10,9 +10,8 @@
 @import "../../scss/bootstrap";
 @import "../../scss/extras";
 @import "../../scss/icons";
-@import "../../scss/bootstrap-datepicker3";
+@import "../../scss/bootstrap-datetimepicker";
 @import "../../scss/looking-glass";
-
 
 .navbar-inverse {
 
@@ -101,5 +100,7 @@ div.search-item {
       }
     }
   }
-
 }
+
+@import "../../scss/marker";
+@import "../../scss/editor";
