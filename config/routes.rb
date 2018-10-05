@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get 'search', to: 'search#index'
   get 'attachments/*path', to: 'docs#attach'
+
+  get 'catalyst/builder', to: 'catalyst#builder'
+  get 'catalyst/jobs', to: 'catalyst#jobs'
   post 'edit_document', to: 'docs#edit_document'
 
   get 'description', to: 'pages#description'
@@ -11,8 +14,8 @@ Rails.application.routes.draw do
   get 'datapolitics_description', to: 'pages#datapolitics_description'
   get 'datapolitics_suggest', to: 'pages#datapolitics_suggest'
 
+  get 'api/annotators', to: 'api#annotators'
   get 'api/facets', to: 'api#facets'
-  get 'api/facets_list', to: 'api#facets_list'
 
   root to: 'docs#index'
   resources :docs
