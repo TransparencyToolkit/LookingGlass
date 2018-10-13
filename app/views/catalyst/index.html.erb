@@ -1,0 +1,15 @@
+<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
+    <%= render partial: 'catalyst/sidebar' %>
+</div>
+<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+    <%= render partial: 'catalyst/tabs' %>
+    <div class="tab-content">
+        <h3>Running Jobs</h3>
+        <%= render partial: 'catalyst/job_running' %>
+        <h3>Completed Jobs</h3>
+        <%= render partial: 'catalyst/job' %>
+        <%= render partial: 'catalyst/job' %>
+        <%= render partial: 'catalyst/job' %>
+        <%= render partial: 'catalyst/job' %>
+    </div>
+</div>

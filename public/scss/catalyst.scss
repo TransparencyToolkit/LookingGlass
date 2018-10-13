@@ -1,0 +1,42 @@
+// catalyst.scss
+
+
+#annotators {
+    clear: both;
+}
+
+.annotator {
+    max-width: 30.75%;
+    display: inline-block;
+    margin: 0 1rem 0 1rem;
+
+    .panel {
+        height: 350px;
+
+        .annotator-icon {
+            width: 100px;
+            margin: 0 auto 1.5rem auto;
+            padding: .5rem 0;
+            background-color: $gray-lighter;
+            text-align: center;
+
+            a {
+                display: block;
+                width: 100%;
+                height: 100%;
+                color: $base-black;
+                &:hover {
+                    text-decoration: none;
+                }
+
+                i {
+                    display: block;
+                    margin-bottom: .5rem;
+                    font-size: 24px;
+                    color: $base-black;
+                }
+            }
+        }
+    }
+}
+
