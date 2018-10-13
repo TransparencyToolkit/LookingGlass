@@ -26,24 +26,24 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">
-          <% if project["logo"] != "" %><img src="/themes/<%= project['theme'] %>/<%= project['logo'] %>"><% end %>
-          <span class="title"><%= project["title"] %> </span>
-        </a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	    <%= render partial: 'docs/index/search/searchbar/searchbar' %>
-	    <%= render partial: 'layouts/linkmenu', locals: { project: project } %>
-      </div><!-- /.navbar-collapse -->
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <% if project["logo"] != "" %><img src="/themes/<%= project['theme'] %>/<%= project['logo'] %>"><% end %>
+            <span class="title"><%= project["title"] %> </span>
+          </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <%= render partial: 'docs/index/search/searchbar/searchbar' %>
+	      <%= render partial: 'layouts/linkmenu', locals: { project: project } %>
+        </div><!-- /.navbar-collapse -->
       </div>
     </nav>
     <%= bootstrap_flash %>
@@ -52,6 +52,7 @@
 	    <%= yield %>
       </div>
     </div>
+    <% if params["controller"] != "catalyst" %>
     <div id="efm-button">
       <i class="icon-modified"></i>
       <div id="efm-menu">
@@ -73,6 +74,7 @@
         <% end %>
       </div>
     </div>
+    <% end %>
     <%= javascript_include_tag "application" %>
   </body>
 </html>
