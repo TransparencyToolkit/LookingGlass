@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'search', to: 'search#index'
   get 'attachments/*path', to: 'docs#attach'
+  post 'edit_document', to: 'docs#edit_document'
 
   get 'catalyst', to: 'catalyst#index'
   get 'catalyst/builder', to: 'catalyst#builder'
