@@ -4,34 +4,98 @@
  * Author: Brennan Novak
  */
 
-console.log('catalyst.js...')
-
 var term_list_custom = "normalized_topics.json"
 var term_list_country_names = "country_names.json"
 var annotators = []
 
-var renderAnnotators = function(annotators) {
-    console.log(annotators)
-    $elmAnnotators = $('#annotators')
+var renderAnnotatorItems = function(annotators) {
+    $elmAnnotators = $('#annotator-items')
     $(annotators).each(function(key, item) {
 
+        var html = '\
+            <div class="annotator-item default" title="' + item.description + '">\
+                <label class="annotator-choose">\
+                    <i class="icon-' + item.default_icon + '"></i>\
+                    ' + item.name + '\
+                    <input type="checkbox" class="" name="' + item.classname + '">\
+                </label>\
+            </div>'
+
+        $elmAnnotators.append(html)
+    })
+
+    $('.annotator-choose').on('click', function(e) {
+        if ($(e.target).is('label')) {
+            if (!$(e.target).find('input[type=checkbox]').prop('checked')) {
+                $(e.target).parent().removeClass('default').addClass('selected')
+            } else {
+                $(e.target).parent().removeClass('selected').addClass('default')
+            }
+        } else if ($(e.target).is('input')) {
+            if (!$(e.target).prop('checked')) {
+                $(e.target).parent().parent().removeClass('selected').addClass('default')
+            } else {
+                $(e.target).parent().parent().removeClass('default').addClass('selected')
+            }
+        }
+    })
+}
+
+var renderAnnotatorConfigs = function() {
+    console.log('renderAnnotatorConfigs')
+
+    // Update Step 2
+    $('#step-2').find('h3').html('Miners Selected')
+    $('#step-2').find('p').addClass('hide')
+    $('.annotator-item.default').addClass('hide')
+    $('#select-miners').addClass('hide')
+
+    // Render Step3
+    $('.annotator-item.selected').each(function(item, key) {
+        var annotator_name = $(key).find('input').attr('name')
+
+        for (item in annotators) {
+            if (annotators[item].classname == annotator_name) {
+                annotator = annotators[item]
+                break;
+            }
+        }
+
+        var annotator_id = 'annotator-config-' + annotator_name
+        var params_id = 'annotator-params-' + annotator_name
+        var fields_id = 'annotator-fields-' + annotator_name
+        var html_fields = $('#template-' + $('#select-dataspec').val()).html()
+        var html_template = $('#template-annotator-config').html()
+        var html_base = html_template.replace('annotator-config-ID', annotator_id)
+        var html_params = html_base.replace('annotator-params-ID', params_id)
+        var html = html_params.replace('annotator-fields-ID', fields_id)
+
+        $('#annotator-configs').append(html)
+        $('#' + annotator_id).find('h4').html(annotator.name)
+        $('#' + annotator_id).find('i').addClass('icon-' + annotator.default_icon)
+        $('#' + annotator_id).find('input[name=name]').val(annotator.default_human_readable_label)
+        $('#' + fields_id).html(html_fields)
+
+        console.log(annotator.input_params)
         var input_params = ''
-        if (item.input_params.output_display_type) {
+        if (annotator.input_params.output_display_type) {
             input_params = '\
             <label>Display Type</label>\
-            <select name="output_display_type">'
-            for (param in item.input_params.output_display_type) {
-                input_params += '<option value="' + item.input_params.output_display_type[param] + '">' + item.input_params.output_display_type[param] + '</option>'
+            <select name="output_display_type" class="form-control">'
+            for (param in annotator.input_params.output_display_type) {
+                input_params += '<option value="' + annotator.input_params.output_display_type[param] + '">' + annotator.input_params.output_display_type[param] + '</option>'
             }
             input_params += '</select>'
-        } else if (item.input_params.term_list) {
+        } else if (annotator.input_params.term_list) {
             input_params = '\
                 <label>Terms List</label>\
-                <button type="button" class="btn btn-sm">Add Terms</a>'
-        } else if (item.input_params.number_of_keywords) {
+                <button type="button" class="annotator-terms-select btn btn-secondary btn-block">\
+                    Select Terms\
+                </button>'
+        } else if (annotator.input_params.number_of_keywords) {
             input_params = '\
             <label>Number of Keywords</label>\
-            <select name="number_of_keywords">\
+            <select name="number_of_keywords" class="form-control">\
                 <option value="1">One</option>\
                 <option value="2">Two</option>\
                 <option value="3">Three</option>\
@@ -45,95 +109,60 @@ var renderAnnotators = function(annotators) {
             </select>'
         }
 
-        var html = '\
-            <div class="annotator text-center">\
-                <div class="panel panel-default">\
-                    <div class="panel-heading">\
-                        <label class="annotator-choose">\
-                            <input type="checkbox" name="' + item.classname + '"> ' + item.name + '\
-                        </label>\
-                    </div>\
-                    <div class="panel-body">\
-                        <div class="annotator-icon">\
-                            <a class="annotator-icon-choose btn btn-small btn-link">\
-                                <i class="icon-' + item.default_icon + '"></i>\
-                                Choose Icon\
-                            </a>\
-                        </div>\
-                        <fieldset>\
-                            <label>Filter Name</label>\
-                            <input type="text" name="name" value="' + item.default_human_readable_label + '">\
-                        </fieldset>\
-                        ' + input_params + '\
-                    </div>\
-                </div>\
-            </div>'
-
-        $elmAnnotators.append(html)
+        $('#' + params_id).html(input_params)
     })
 
+    $('#step-3').removeClass('hide')
 
-    // Miners
-    $('.annotator-choose').on('click', function(e) {
-        e.stopPropagation()
-        if ($(e.target).is('label')) {
-            if (!$(e.target).find('input[type=checkbox]').prop('checked')) {
-                $(e.target).parent().parent().removeClass('panel-default').addClass('panel-success')
-            } else {
-                $(e.target).parent().parent().removeClass('panel-success').addClass('panel-default')
-            }
-        } else if ($(e.target).is('input')) {
-            if (!$(e.target).prop('checked')) {
-                $(e.target).parent().parent().parent().removeClass('panel-success').addClass('panel-default')
-            } else {
-                $(e.target).parent().parent().parent().removeClass('panel-default').addClass('panel-success')
-            }
-        }
+    // Events
+    $('.annotator-terms-select').on('click', function(e) {
+        $('#modal-annotator-terms').modal('show')
     })
-
     $('.annotator-icon-choose').on('click', function(e) {
         $('#modal-annotator-icon').modal('show')
     })
+}
 
+var createRecipe = function() {
+    console.log('running createRecipe ...')
+    var recipe = {
+        run_over: $('select[name=run_over]').val(),
+        field_to_search: $('').val(),
+        filter_query: $('input[name=filter_text]').val(),
+        end_filter_range: $('input').val(),
+    }
+
+    var ajaxy = $.post( "/create_recipe", {
+        recipe: recipe
+    }, function() {
+        alert('Saving Recipe...')
+    })
+        .done(function(response) {
+            alert(response)
+        })
+        .fail(function(err) {
+            console.log(err)
+            alert('Error: display error in modal');
+        })
+        .always(function() {
+            alert('finished');
+        })
 }
 
 
-var runJob = function() {
-    console.log('run catalyst job')
+var createJob = function() {
+    console.log('running createJob ...')
 
-    var recipe = {}
+    var job = $('#form-annotator-config').serialize()
+    console.log(job)
 
-    var annotators_to_run = ''
-
-
-    $('.annotator-choose').each(function(key, item) {
-
-        console.log($(item).val())
-
-    })
-
-
-    var job = {
-        default_dataspec: $('select[name=dataspec]').val(),
-        index: $('input[name=project_index]').val(),
-        docs_to_process: {
-            run_over: $('select[name=run_over]').val(),
-            field_to_search: $('').val(),
-            filter_query: $('input[name=filter_text]').val(),
-            end_filter_range: $('input').val(),
-        },
-        input_params: annotators_to_run
-    }
-
-
-    var ajaxy = $.post( "/run_job", {
+    var ajaxy = $.post( "/create_job", {
         job: job
     }, function() {
         $('#modal-running-job').modal('show')
     })
         .done(function(response) {
-            console.log(response)
-            $('#modal-save-changes').modal('hide')
+            alert(response)
         })
         .fail(function(err) {
             console.log(err)
@@ -149,47 +178,49 @@ $(document).ready(function() {
 
     $.getJSON("/api/annotators", function(response) {
         annotators = response
-        renderAnnotators(response)
+        renderAnnotatorItems(response)
     })
 
-
     $('#select-dataspec').on('change', function(e) {
-        console.log('select dataset: ' + $(this).val())
         $('select[name=field_to_search]').parent().addClass('hide')
-
         $('#document_type_' + $(this).val()).removeClass('hide')
-
     })
 
     $('#select-run-over').on('change', function(e) {
-        console.log('select run_over: ' + $(this).val())
         if ($(this).val() == 'all') {
             $('#narrow-input-date').addClass('hide')
             $('#narrow-input-text').addClass('hide')
-            $('#narrow-submit').addClass('hide')
         } else if ($(this).val() == 'within_date_range') {
             $('#narrow-input-date').removeClass('hide')
-            $('#narrow-submit').removeClass('hide')
             $('#narrow-input-date').find('input').datetimepicker({
                 format: 'YYYY-MM-DD'
             })
             $('#narrow-input-text').addClass('hide')
         } else if ($(this).val() == 'matching_query') {
             $('#narrow-input-text').removeClass('hide')
-            $('#narrow-submit').removeClass('hide')
             $('#narrow-input-date').addClass('hide')
         }
     })
 
+    $('#submit-narrow').on('click', function(e) {
+        e.preventDefault()
+        createRecipe()
+    })
+
+    $('#select-miners').on('click', function(e) {
+        e.preventDefault()
+        renderAnnotatorConfigs()
+    })
+
     $('#run-job').on('click', function(e) {
-        runJob()
+        e.preventDefault()
+        createJob()
     })
 
     // Modals
     $('#modal-annotator-icon').on('show.bs.modal', function(e) {
         var button = $(e.relatedTarget)
         var modal = $(this)
-
     })
 
     $('#modal-annotator-icon').on('hide.bs.modal', function(e) {

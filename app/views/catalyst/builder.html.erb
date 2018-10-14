@@ -5,8 +5,6 @@
     <%= render partial: 'catalyst/tabs' %>
     <div class="tab-content">
 
-        <h3>Create Job</h3>
-
         <div class="alert alert-info" role="alert">
             <h4 class="pull-left">Getting Started</h4>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close">
@@ -19,101 +17,141 @@
             order for Catalyst to do it's magic, you need to give it some guidance
             and help with <em>how</em> and <em>what</em> aspects of your data you
             want Catalyst to analyze.
-            <a href="/docs/catalyst">Read more about Catalyst</a>
             </p>
         </div>
 
-        <h3>Select Dataset</h3>
-        <label>Dataset</label>
-        <select id="select-dataspec" name="dataspec">
-            <% document_type_list.each do |classname, human_name| %>
-            <option value="<%= classname %>"><%= human_name %></option>
-            <% end %>
-        </select>
-
-        <h3>Narrow Your Search</h3>
-        <p>Text miners can run on all documents or a more specific subset. Use these menus to narrow down which documents your job will be run on.</p>
-
-        <div class="form-group">
-            <label for="">Search Name</label>
-            <input type="text" name="filter_name" class="form-control" value="" placeholder="Interesting People">
-        </div>
-
-        <div class="form-group">
-            <label>Search Selection</label>
-            <select id="select-run-over"  name="run_over">
-                <option value="all" selected>All Documents</option>
-                <option value="within_date_range" data-field_type="date">Within Range</option>
-                <option value="matching_query">Matching Query</option>
-            </select>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <% document_type_list.each do |classname, human_name| %>
-                <div id="document_type_<%= classname %>" class="hide">
-                <label><%= human_name %> Fields</label>
-                <select name="field_to_search">
-                    <optgroup label="Date">
-                        <% list_date_fields_by_document_type(classname).each do |date_classname, date_human_name|  %>
-                        <option value="<%= date_classname %>" data-field_type="date">
-                            <%= date_human_name %>
-                        </option>
+        <section id="step-1">
+            <h3>Narrow Your Search</h3>
+            <p>You can run text miners on all documents or a more specific subset by narrowing down which documents your job will run on.</p>
+            <div class="row">
+                <div class="col-md-5 form-group">
+                    <label>Choose Dataset</label>
+                    <select id="select-dataspec" name="dataspec" class="form-control">
+                        <% document_type_list.each do |classname, human_name| %>
+                        <option value="<%= classname %>"><%= human_name %></option>
                         <% end %>
-                    </optgroup>
-                    <optgroup label="Text">
-                        <% list_text_fields_by_document_type(classname).each do |text_classname, text_human_name|  %>
-                        <option value="<%= text_classname %>" data-field_type="text">
-                            <%= text_human_name %>
-                        </option>
-                        <% end %>
-                    </optgroup>
-                </select>
+                    </select>
                 </div>
-                <% end %>
+                <div class="col-md-7 form-group">
+                    <label for="">Search Name</label>
+                    <input type="text" name="filter_name" class="form-control" value="" placeholder="Interesting People">
+                </div>
             </div>
-            <div class="col-md-3">
-                <div id="narrow-input-text" class="hide">
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label>Document Search</label>
+                    <select id="select-run-over" name="run_over" class="form-control">
+                        <option value="all" selected>All Documents</option>
+                        <option value="within_date_range" data-field_type="date">Within Range</option>
+                        <option value="matching_query">Matching Query</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group hide" id="narrow-input-date">
+                    <label>Date Range</label>
+                    <div class="input-group">
+                        <input type="text" name="filter_query" class="form-control" data-behaviour="datetimepicker">
+                        <span class="input-group-addon">to</span>
+                        <input type="text" name="end_filter_range" class="form-control" data-behaviour="datetimepicker">
+                    </div>
+                </div>
+                <div class="col-md-6 form-group hide" id="narrow-input-text">
+                    <label>Text Term</label>
                     <input type="text" name="filter_text" class="form-control">
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div id="narrow-input-date" class="input-group hide">
-                    <input type="text" name="filter_query" class="form-control" data-behaviour="datetimepicker">
-                    <span class="input-group-addon">to</span>
-                    <input type="text" name="end_filter_range" class="form-control" data-behaviour="datetimepicker">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div id="narrow-submit" class="hide">
-                    <button class="btn btn-secondary">
+                <div class="col-md-3 form-group">
+                    <label>Submit</label>
+                    <button id="submit-narrow" class="btn btn-block btn-secondary">
                         <i class="icon-search"></i>
-                        Narrow Search
+                        Run This Search
                     </button>
                 </div>
             </div>
-        </div>
+        </section>
         <div id="narrow-result" class="hide">
-            0 Documents
+            <h4>0 Documents</h4>
         </div>
 
-        <h3>Select Text Miners</h3>
-        <p>Choose what <em>types</em> of entities or text you want Catalyst to look for.</p>
+        <section id="step-2">
+            <h3>Select Text Miners</h3>
+            <p>Choose what <em>types</em> of entities or text you want Catalyst to look for.</p>
+            <div id="annotator-items" class="add-bottom">
+            </div>
+            <div class="clearfix"></div>
+            <button id="select-miners" type="submit" class="btn btn-primary btn-large pull-right">
+                <i class="icon-progress"></i>
+                Select These Miners
+            </button>
+        </section>
 
-        <div id="annotators">
-        </div>
-        <div class="clearfix"></div>
-
-        <input type="hidden" name="project_index" value="<%= ENV['PROJECT_INDEX'] %>">
-
-        <button id="run-job" type="submit" class="btn btn-primary btn-large pull-right">
-            <i class="icon-progress"></i>
-            Run Mining Job
-        </button>
-
-        </div>
+        <section id="step-3" class="hide">
+            <form id="form-annotator-config">
+                <h3>Configure Miners</h3>
+                <p>Select the details of the specific data fields to run your miners on.</p>
+                <div id="annotator-configs">
+                </div>
+                <input type="hidden" name="project_index" value="<%= ENV['PROJECT_INDEX'] %>">
+                <button id="run-job" type="submit" class="btn btn-primary btn-large pull-right">
+                    <i class="icon-progress"></i>
+                    Run Mining Job
+                </button>
+                <div class="clearfix"></div>
+            </form>
+        </section>
+        <div class="more-bottom"></div>
     </div>
 </div>
+
+<% document_type_list.each do |classname, human_name| %>
+<script type="text/template" id="template-<%= classname %>">
+    <select name="field_to_search" class="form-control" size="8" multiple="multiple">
+        <optgroup label="Date">
+            <% list_date_fields_by_document_type(classname).each do |date_classname, date_human_name|  %>
+            <option value="<%= date_classname %>" data-field_type="date">
+                <%= date_human_name %>
+            </option>
+            <% end %>
+        </optgroup>
+        <optgroup label="Text">
+            <% list_text_fields_by_document_type(classname).each do |text_classname, text_human_name|  %>
+            <option value="<%= text_classname %>" data-field_type="text">
+                <%= text_human_name %>
+            </option>
+            <% end %>
+        </optgroup>
+    </select>
+</script>
+<% end %>
+
+<script type="text/template" id="template-annotator-config">
+    <div id="annotator-config-ID" class="annotator-config panel panel-default">
+        <div class="panel-heading">
+            <h4></h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Filter Icon</label>
+                    <a class="annotator-icon-choose">
+                        <i class=""></i>
+                        Choose Icon
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Filter Name</label>
+                        <input type="text" class="form-control" name="name" value="">
+                    </div>
+                    <div class="form-group" id="annotator-params-ID">
+                    </div>
+                </div>
+                <div class="col-md-5 form-group">
+                    <label>Fields To Mine</label>
+                    <div id="annotator-fields-ID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
 
 <div class="modal fade" id="modal-annotator-icon" tabindex="-1" role="dialog" aria-labelledby="annotatorIconModalLabel">
     <div class="modal-dialog" role="document">
@@ -126,6 +164,28 @@
             <div class="modal-body">
                 <p>
                     Will be a nice grid of icons to click on...
+                </p>
+                <div class="text-right">
+                   <button type="button" class="btn btn-default add-right" data-dismiss="modal">
+                       Cancel
+                   </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-annotator-terms" tabindex="-1" role="dialog" aria-labelledby="annotatorIconModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="annotatorIconModalLabel">
+                    Specify Terms List
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Will be an easy way to choose terms...
                 </p>
                 <div class="text-right">
                    <button type="button" class="btn btn-default add-right" data-dismiss="modal">
