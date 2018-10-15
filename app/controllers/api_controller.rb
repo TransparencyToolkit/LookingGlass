@@ -23,7 +23,7 @@ class ApiController < ApplicationController
   def create_job
     recipe = JSON.parse(params["job"])["recipe"]
     annotators = JSON.parse(params["job"])["annotators"]
-    recipe_id = prepare_recipe(job)
+    recipe_id = prepare_recipe(recipe)
     
     # Create the annotators
     annotators.each do |annotator|
