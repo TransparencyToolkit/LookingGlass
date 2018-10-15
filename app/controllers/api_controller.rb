@@ -42,7 +42,10 @@ class ApiController < ApplicationController
       doc_type: job["recipe"]["default_dataspec"],
       index_name: ENV['PROJECT_INDEX'],
       docs_to_process: {
-        run_over: job["recipe"]["run_over"]
+        run_over: job["recipe"]["run_over"],
+        field_to_search: job["recipe"]["field_to_search"],
+        filter_query: job["recipe"]["filter_query"],
+        end_filter_range: job["recipe"]["end_filter_range"]
       }
     }
     return create_recipe(JSON.pretty_generate(recipe))

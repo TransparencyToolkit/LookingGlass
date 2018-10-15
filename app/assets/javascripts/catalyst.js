@@ -237,7 +237,7 @@ $(document).ready(function() {
             $('#narrow-input-text').addClass('hide')
             $('#narrow-selects-field').addClass('hide')
             $('#narrow-submit').find('label').removeClass('invisible').addClass('hide')
-        } else if ($(this).val() == 'within_date_range') {
+        } else if ($(this).val() == 'within_range') {
             $('#narrow-input-date').removeClass('hide')
             $('#narrow-input-date').find('input').datetimepicker({
                 format: 'YYYY-MM-DD'
