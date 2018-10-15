@@ -5,24 +5,21 @@
     <%= render partial: 'catalyst/tabs' %>
     <div class="tab-content">
 
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info alert-dismissible" role="alert">
             <h4 class="pull-left">Getting Started</h4>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="clearfix"></div>
-            <p>Catalyst is an automated way of analysing the large
-            amounts of data in Looking Glass. Catalyst can find and filters to
-            documents based on people, locations, special terms and much more. In
-            order for Catalyst to do it's magic, you need to give it some guidance
-            and help with <em>how</em> and <em>what</em> aspects of your data you
-            want Catalyst to analyze.
+            <p>In order for Catalyst to do its magic analysing your Looking Glass data,
+            you need to give it some guidance and help with <em>how</em> and <em>what</em>
+            aspects of your data you want Catalyst to analyze.
             </p>
         </div>
 
         <section id="step-1">
             <h3>Narrow Your Search</h3>
-            <p>You can run text miners on all documents or a more specific subset by narrowing down which documents your job will run on.</p>
+            <p>You can run Catalyst text miners on all your documents or only a specific subset or narrowed down documents.</p>
             <div class="row">
                 <div class="col-md-5 form-group">
                     <label>Choose Dataset</label>
@@ -52,6 +49,9 @@
                         <input type="text" name="filter_query" class="form-control" data-behaviour="datetimepicker">
                         <span class="input-group-addon">to</span>
                         <input type="text" name="end_filter_range" class="form-control" data-behaviour="datetimepicker">
+                        <span class="input-group-addon">
+                            <i class="icon-calendar"></i>
+                        </span>
                     </div>
                 </div>
                 <div class="col-md-6 form-group hide" id="narrow-input-text">
@@ -59,8 +59,8 @@
                     <input type="text" name="filter_text" class="form-control">
                 </div>
                 <div class="col-md-3 form-group">
-                    <label>Submit</label>
-                    <button id="submit-narrow" class="btn btn-block btn-secondary">
+                    <label class="invisible">Submit</label>
+                    <button id="submit-narrow" class="btn btn-block btn-info">
                         <i class="icon-search"></i>
                         Run This Search
                     </button>
@@ -68,10 +68,11 @@
             </div>
         </section>
         <div id="narrow-result" class="hide">
-            <h4>0 Documents</h4>
+            <h3></h3>
+            <p></p>
         </div>
 
-        <section id="step-2">
+        <section id="step-2" class="hide">
             <h3>Select Text Miners</h3>
             <p>Choose what <em>types</em> of entities or text you want Catalyst to look for.</p>
             <div id="annotator-items" class="add-bottom">
@@ -84,18 +85,19 @@
         </section>
 
         <section id="step-3" class="hide">
-            <form id="form-annotator-config">
-                <h3>Configure Miners</h3>
-                <p>Select the details of the specific data fields to run your miners on.</p>
-                <div id="annotator-configs">
-                </div>
-                <input type="hidden" name="project_index" value="<%= ENV['PROJECT_INDEX'] %>">
-                <button id="run-job" type="submit" class="btn btn-primary btn-large pull-right">
-                    <i class="icon-progress"></i>
-                    Run Mining Job
-                </button>
-                <div class="clearfix"></div>
-            </form>
+            <h3>Configure Miners</h3>
+            <p>Select the details of the specific data fields to run your miners on.</p>
+            <div id="annotator-configs">
+            </div>
+            <input type="hidden" name="project_index" value="<%= ENV['PROJECT_INDEX'] %>">
+            <button id="cancel-job" type="submit" class="btn btn-danger">
+                Cancel Job
+            </button>
+            <button id="run-job" type="submit" class="btn btn-primary pull-right">
+                <i class="icon-progress"></i>
+                Run Mining Job
+            </button>
+            <div class="clearfix"></div>
         </section>
         <div class="more-bottom"></div>
     </div>
@@ -123,7 +125,8 @@
 <% end %>
 
 <script type="text/template" id="template-annotator-config">
-    <div id="annotator-config-ID" class="annotator-config panel panel-default">
+<form id="annotator-config-ID" class="annotator-config">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h4></h4>
         </div>
@@ -151,6 +154,7 @@
             </div>
         </div>
     </div>
+</form>
 </script>
 
 <div class="modal fade" id="modal-annotator-icon" tabindex="-1" role="dialog" aria-labelledby="annotatorIconModalLabel">

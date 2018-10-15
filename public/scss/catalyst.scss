@@ -1,42 +1,82 @@
 // catalyst.scss
 
-
 #annotators {
     clear: both;
 }
 
-.annotator {
-    max-width: 30.75%;
+label.invisible {
+    visibility: hidden;
+}
+
+.annotator-item {
+    width: 31.75%;
     display: inline-block;
-    margin: 0 1rem 0 1rem;
+    margin: 0 1rem 1rem 0;
+    padding: .5rem 1rem;
 
-    .panel {
-        height: 350px;
+    &.default {
+        background-color: $gray-lighter;
+        color: $base-black;
+    }
 
-        .annotator-icon {
-            width: 100px;
-            margin: 0 auto 1.5rem auto;
-            padding: .5rem 0;
-            background-color: $gray-lighter;
-            text-align: center;
+    &.selected {
+        background-color: $brand-success;
+        color: $base-white;
+    }
 
-            a {
-                display: block;
-                width: 100%;
-                height: 100%;
-                color: $base-black;
-                &:hover {
-                    text-decoration: none;
-                }
+    label {
+        width: 100%;
+        height: 24px;
+        display: block;
+        cursor: pointer;
+        position: relative;
+        top: 3px;
+        left: 0px;
 
-                i {
-                    display: block;
-                    margin-bottom: .5rem;
-                    font-size: 24px;
-                    color: $base-black;
-                }
-            }
+        i {
+            margin-right: 5px;
+        }
+
+        input[type=checkbox] {
+            position: absolute;
+            top: 0px;
+            right: 5px;
         }
     }
+}
+
+
+div.annotator-config {
+    min-height: 275px;
+
+    h4 {
+        margin: 0 auto;
+    }
+
+    a.annotator-icon-choose {
+        width: 100px;
+        height: 100px;
+        display: block;
+        cursor: pointer;
+        margin: 0 auto 1.5rem 0;
+        padding: 1rem;
+        background-color: $gray-lighter;
+        text-align: center;
+        color: $base-black;
+        font-size: 12px;
+
+        &:hover {
+            text-decoration: none;
+            background-color: $gray-light;
+        }
+
+        i {
+            display: block;
+            margin: 1rem auto;
+            font-size: 24px;
+            color: $base-black;
+        }
+    }
+
 }
 

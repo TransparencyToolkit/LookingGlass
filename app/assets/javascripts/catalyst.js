@@ -8,6 +8,23 @@ var term_list_custom = "normalized_topics.json"
 var term_list_country_names = "country_names.json"
 var annotators = []
 
+var resetBuilder = function() {
+    console.log('resetBuilder to empty')
+
+    $('select[name=run_over]').val('')
+    $('input[name=filter_text]').val('')
+    $('input[name=filter_query]').val('')
+    $('input[name=end_filter_range]').val('')
+    $('#narrow-search').find('h3').html('')
+    $('#narrow-search').find('p').html('')
+    $('#narrow-search').addClass('hide')
+
+    $('#step-2').addClass('hide')
+    $('#annotator-items').html('')
+    $('#step-3').addClass('hide')
+    $('#annotator-configs').html('')
+}
+
 var renderAnnotatorItems = function(annotators) {
     $elmAnnotators = $('#annotator-items')
     $(annotators).each(function(key, item) {
@@ -53,7 +70,6 @@ var renderAnnotatorConfigs = function() {
     // Render Step3
     $('.annotator-item.selected').each(function(item, key) {
         var annotator_name = $(key).find('input').attr('name')
-
         for (item in annotators) {
             if (annotators[item].classname == annotator_name) {
                 annotator = annotators[item]
@@ -89,7 +105,7 @@ var renderAnnotatorConfigs = function() {
         } else if (annotator.input_params.term_list) {
             input_params = '\
                 <label>Terms List</label>\
-                <button type="button" class="annotator-terms-select btn btn-secondary btn-block">\
+                <button type="button" class="annotator-terms-select btn btn-info btn-block">\
                     Select Terms\
                 </button>'
         } else if (annotator.input_params.number_of_keywords) {
@@ -123,53 +139,70 @@ var renderAnnotatorConfigs = function() {
     })
 }
 
-var createRecipe = function() {
-    console.log('running createRecipe ...')
-    var recipe = {
+var dataGetRecipe = function() {
+    return {
         run_over: $('select[name=run_over]').val(),
-        field_to_search: $('').val(),
-        filter_query: $('input[name=filter_text]').val(),
-        end_filter_range: $('input').val(),
+        field_to_search: $('input[name=filter_text]').val(),
+        filter_query: $('input[name=filter_query]').val(),
+        end_filter_range: $('input[name=end_filter_range]').val(),
     }
+}
 
-    var ajaxy = $.post( "/create_recipe", {
+var recipeSearch = function() {
+    var recipe = dataGetRecipe()
+    console.log('Running recipeSearch ...')
+    console.log(recipe)
+
+    var ajaxy = $.post('/api/recipe_search', {
         recipe: recipe
     }, function() {
-        alert('Saving Recipe...')
+        console.log('Sending recipe_search')
     })
         .done(function(response) {
-            alert(response)
+           $('#narrow-result').find('h3').html('Documents Found')
+           $('#narrow-result').find('p').html(response.message)
+           $('#narrow-result').removeClass('hide')
         })
         .fail(function(err) {
-            console.log(err)
-            alert('Error: display error in modal');
+            $('#modal-error').modal('show')
+            $('#modal-error').find('p').html(err)
         })
         .always(function() {
-            alert('finished');
+            $('#step-2').removeClass('hide')
         })
 }
 
 
 var createJob = function() {
-    console.log('running createJob ...')
+    var recipe = dataGetRecipe()
+    var annotator_configs = []
 
-    var job = $('#form-annotator-config').serialize()
+    $('.annotator-config').each(function(item, key) {
+        annotator_configs.push($(this).serializeArray())
+    })
+
+    var job = {
+        recipe: recipe,
+        annotators: annotator_configs
+    }
+
+    console.log('running createJob ...')
     console.log(job)
 
-    var ajaxy = $.post( "/create_job", {
+    var ajaxy = $.post('/api/create_job', {
         job: job
     }, function() {
-        $('#modal-running-job').modal('show')
+        console.log('Sending create_job')
     })
         .done(function(response) {
-            alert(response)
+            $('#modal-running-job').modal('show')
         })
         .fail(function(err) {
-            console.log(err)
-            alert('Error: display error in modal');
+            $('#modal-error').modal('show')
+            $('#modal-error').find('p').html(err)
         })
         .always(function() {
-            alert('finished');
+            resetBuilder()
         })
 }
 
@@ -204,12 +237,17 @@ $(document).ready(function() {
 
     $('#submit-narrow').on('click', function(e) {
         e.preventDefault()
-        createRecipe()
+        recipeSearch()
     })
 
     $('#select-miners').on('click', function(e) {
         e.preventDefault()
         renderAnnotatorConfigs()
+    })
+
+    $('#cancel-job').on('click', function(e) {
+        e.preventDefault()
+        resetBuilder()
     })
 
     $('#run-job').on('click', function(e) {

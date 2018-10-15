@@ -4,14 +4,12 @@
     </div>
 </div>
 <div id="sidebar-catalyst-menu" class="more-bottom">
-
     <% if params['action'] == "index" %>
     <h4>Text Mining</h4>
     <p>
-        Text mining is the process of deriving high-quality information from large amounts of digital text. High-quality information is typically derived through the devising of patterns and trends through means such as statistical pattern learning
+        Text mining derives high-quality information from large amounts of digital text by finding patterns and trends through statistical learning. Catalyst uses these techniques to create filters for documents based on people, locations, special terms and much more.
     </p>
     <% end %>
-
     <% if params['action'] == "builder" %>
     <h4>Getting Started</h4>
     <p>
@@ -22,15 +20,24 @@
         Catalyst offers a range of text miners that churn through your dataset word by word analyzing each to understand them and create filters.
     </p>
     <% end %>
+</div>
 
-    <h4>Additional Support</h4>
-    <p>
-        Transparency Toolkit is experimenting with offerring live chat support
-        to paying users and research projects we collaborate with.
-    </p>
-    <a class="btn btn-primary btn-block" href="https://chat.transparencytoolkit.org">
-        <i class="icon-comment"></i>
-        Live Chat Support
-    </a>
-
+<div class="modal fade" id="modal-error" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="errorModalLabel">
+                    Error
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>There appears to be an error</p>
+                <div class="text-right">
+                   <button type="button" class="btn btn-default add-right" data-dismiss="modal">
+                       Dismiss
+                   </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
