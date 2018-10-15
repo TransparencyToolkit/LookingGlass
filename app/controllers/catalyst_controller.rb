@@ -7,5 +7,4 @@ class CatalystController < ApplicationController
   def jobs
     render 'catalyst/jobs'
   end
-
 end

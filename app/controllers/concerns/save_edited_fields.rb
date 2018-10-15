@@ -6,7 +6,11 @@ module SaveEditedFields
     # Get the original document details and replace with new
     original_doc, doc_type = get_document_details(edited_fields)
     changed_doc = amend_document_hash(edited_fields, original_doc)
-
+   
+    # Save all documents in a thread
+    thread_id_field = get_dataspec_for_doc(original_doc)["thread_id_field"]
+    docs_for_thread = get_thread(ENV['PROJECT_INDEX'], original_doc["_source"][thread_id_field])
+    
     # Save the edited document
     save_data(ENV['PROJECT_INDEX'], doc_type, [changed_doc])
   end
