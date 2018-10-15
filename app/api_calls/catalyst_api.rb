@@ -58,4 +58,34 @@ module CatalystApi
   def destroy_annotator(annotator_id)
     http = Curl.post("#{ENV['DOCMANAGER_URL']}/destroy_annotator", {:annotator_id => annotator_id})
   end
+
+  # Get count of the documents that have a date after a certain point
+  def get_within_range_count(index_name, field_to_search, start_filter_range, end_filter_range, doc_type)
+    http = Curl.get("#{ENV['DOCMANAGER_URL']}/run_range_query_catalyst_count", {index_name: index_name,
+                                                                          start_filter_range: start_filter_range,
+                                                                          end_filter_range: end_filter_range,
+                                                                          field_to_search: field_to_search,
+                                                                          doc_type: doc_type
+                                                                         })
+    return http.body_str
+  end
+
+  # Get count of the documents that match a query
+  def get_matching_docs_count(index_name, field_to_search, search_query, doc_type)
+    http = Curl.get("#{ENV['DOCMANAGER_URL']}/run_query_catalyst_count", {index_name: index_name,
+                                                                    search_query: search_query,
+                                                                    field_to_search: field_to_search,
+                                                                    doc_type: doc_type
+                                                                   })
+    return http.body_str
+  end
+
+  # Get count of the documents of a certain type
+  def get_total_doc_count_for_type(index_name, doc_type)
+    http = Curl.get("#{ENV['DOCMANAGER_URL']}/get_total_doc_count_for_type", {index_name: index_name,
+                                                                              doc_type: doc_type
+                                                                             })
+    return http.body_str
+  end
+  
 end
