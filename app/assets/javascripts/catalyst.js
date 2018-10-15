@@ -10,7 +10,8 @@ var annotators = []
 
 var resetBuilder = function() {
     console.log('resetBuilder to empty')
-
+ 
+    $('input[name=filter_name]').val('')
     $('select[name=run_over]').val('')
     $('input[name=filter_text]').val('')
     $('input[name=filter_query]').val('')
@@ -82,14 +83,13 @@ var renderAnnotatorConfigs = function() {
         var fields_id = 'annotator-fields-' + annotator_name
         var html_fields = $('#template-' + $('#select-dataspec').val()).html()
         var html_template = $('#template-annotator-config').html()
-        var html_base = html_template.replace('annotator-config-ID', annotator_id)
-        var html_params = html_base.replace('annotator-params-ID', params_id)
-        var html = html_params.replace('annotator-fields-ID', fields_id)
+        var html = html_template.replace(new RegExp('{{AID}}', 'g'), annotator_name)
 
         $('#annotator-configs').append(html)
         $('#' + annotator_id).find('h4').html(annotator.name)
         $('#' + annotator_id).find('i').addClass('icon-' + annotator.default_icon)
-        $('#' + annotator_id).find('input[name=name]').val(annotator.default_human_readable_label)
+        $('#' + annotator_id).find('input[name=filter_icon]').val(annotator.default_icon)
+        $('#' + annotator_id).find('input[name=filter_name]').val(annotator.default_human_readable_label)
         $('#' + fields_id).html(html_fields)
 
         console.log(annotator.input_params)
@@ -97,7 +97,7 @@ var renderAnnotatorConfigs = function() {
         if (annotator.input_params.output_display_type) {
             input_params = '\
             <label>Display Type</label>\
-            <select name="output_display_type" class="form-control">'
+            <select name="input_params[]output_display_type" class="form-control">'
             for (param in annotator.input_params.output_display_type) {
                 input_params += '<option value="' + annotator.input_params.output_display_type[param] + '">' + annotator.input_params.output_display_type[param] + '</option>'
             }
@@ -107,11 +107,17 @@ var renderAnnotatorConfigs = function() {
                 <label>Terms List</label>\
                 <button type="button" class="annotator-terms-select btn btn-info btn-block">\
                     Select Terms\
-                </button>'
+                </button>\
+                <label>Case Sensitive</label>\
+                <select name="input_params[]case_sensitive" class="form-control">\
+                    <option value="false">No</option>\
+                    <option value="true">Yes</option>\
+                </select>\
+                <input type="hidden" name="input_params[]term_list">'
         } else if (annotator.input_params.number_of_keywords) {
             input_params = '\
             <label>Number of Keywords</label>\
-            <select name="number_of_keywords" class="form-control">\
+            <select name="input_params[]number_of_keywords" class="form-control">\
                 <option value="1">One</option>\
                 <option value="2">Two</option>\
                 <option value="3">Three</option>\
@@ -141,6 +147,7 @@ var renderAnnotatorConfigs = function() {
 
 var dataGetRecipe = function() {
     return {
+        filter_name: $('input[name=filter_name]').val(),
         run_over: $('select[name=run_over]').val(),
         field_to_search: $('input[name=filter_text]').val(),
         filter_query: $('input[name=filter_query]').val(),
@@ -190,7 +197,7 @@ var createJob = function() {
     console.log(job)
 
     var ajaxy = $.post('/api/create_job', {
-        job: job
+        job: JSON.stringify(job)
     }, function() {
         console.log('Sending create_job')
     })
