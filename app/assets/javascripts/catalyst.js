@@ -147,16 +147,19 @@ var renderAnnotatorConfigs = function() {
 var dataGetRecipe = function() {
     var dataspec = $('select[name=default_dataspec]').val()
     var run_over = $('select[name=run_over]').val()
-    var field_to_search = $('#field-search-date-' + dataspec).find('select[name=field_to_search]').val()
     var filter_query = ''
     var end_filter_range = ''
+    var field_type = ''
     if (run_over == 'within_range') {
         filter_query = $('input[name=filter_query]').val()
         end_filter_range = $('input[name=end_filter_range]').val()
+        field_type = 'date-' + dataspec
     } else if (run_over == 'matching_query') {
         filter_query = $('input[name=filter_text]').val()
         end_filter_range = ''
+        field_type = 'text-' + dataspec
     }
+    var field_to_search = $('#field-search-' + field_type).find('select[name=field_to_search]').val()
 
     return {
         filter_name: $('input[name=filter_name]').val(),
