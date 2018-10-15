@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-5 form-group">
                     <label>Choose Dataset</label>
-                    <select id="select-dataspec" name="dataspec" class="form-control">
+                    <select id="select-dataspec" name="default_dataspec" class="form-control">
                         <% document_type_list.each do |classname, human_name| %>
                         <option value="<%= classname %>"><%= human_name %></option>
                         <% end %>

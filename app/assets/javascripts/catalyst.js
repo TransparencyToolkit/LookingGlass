@@ -92,7 +92,6 @@ var renderAnnotatorConfigs = function() {
         $('#' + annotator_id).find('input[name=filter_name]').val(annotator.default_human_readable_label)
         $('#' + fields_id).html(html_fields)
 
-        console.log(annotator.input_params)
         var input_params = ''
         if (annotator.input_params.output_display_type) {
             input_params = '\
@@ -148,6 +147,7 @@ var renderAnnotatorConfigs = function() {
 var dataGetRecipe = function() {
     return {
         filter_name: $('input[name=filter_name]').val(),
+        default_dataspec: $('select[name=default_dataspec]').val(),
         run_over: $('select[name=run_over]').val(),
         field_to_search: $('input[name=filter_text]').val(),
         filter_query: $('input[name=filter_query]').val(),
