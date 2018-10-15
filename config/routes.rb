@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'datapolitics_suggest', to: 'pages#datapolitics_suggest'
 
   get 'api/annotators', to: 'api#annotators'
+  post 'api/recipe_search', to: 'api#recipe_search'
+  post 'api/create_job', to: 'api#create_job'
   get 'api/facets', to: 'api#facets'
 
   root to: 'docs#index'
