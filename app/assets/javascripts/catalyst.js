@@ -9,17 +9,19 @@ var term_list_country_names = "country_names.json"
 var annotators = []
 
 var resetBuilder = function() {
-    console.log('resetBuilder to empty')
- 
     $('input[name=filter_name]').val('')
     $('select[name=run_over]').val('')
     $('input[name=filter_text]').val('')
     $('input[name=filter_query]').val('')
     $('input[name=end_filter_range]').val('')
+    $('#narrow-input-date').addClass('hide')
+    $('#narrow-input-text').addClass('hide')
+    $('#narrow-selects-field').addClass('hide')
+    $('#narrow-submit').find('label').removeClass('invisible').addClass('hide')
     $('#narrow-search').find('h3').html('')
     $('#narrow-search').find('p').html('')
     $('#narrow-search').addClass('hide')
-
+    $('#narrow-result').addClass('hide')
     $('#step-2').addClass('hide')
     $('#annotator-items').html('')
     $('#step-3').addClass('hide')
@@ -29,7 +31,6 @@ var resetBuilder = function() {
 var renderAnnotatorItems = function(annotators) {
     $elmAnnotators = $('#annotator-items')
     $(annotators).each(function(key, item) {
-
         var html = '\
             <div class="annotator-item default" title="' + item.description + '">\
                 <label class="annotator-choose">\
@@ -60,8 +61,6 @@ var renderAnnotatorItems = function(annotators) {
 }
 
 var renderAnnotatorConfigs = function() {
-    console.log('renderAnnotatorConfigs')
-
     // Update Step 2
     $('#step-2').find('h3').html('Miners Selected')
     $('#step-2').find('p').addClass('hide')
@@ -173,9 +172,6 @@ var dataGetRecipe = function() {
 
 var recipeSearch = function() {
     var recipe = dataGetRecipe()
-    console.log('Running recipeSearch ...')
-    console.log(recipe)
-
     var ajaxy = $.post('/api/recipe_search', {
         recipe: recipe
     }, function() {
@@ -209,9 +205,6 @@ var createJob = function() {
         annotators: annotator_configs
     }
 
-    console.log('running createJob ...')
-    console.log(job)
-
     var ajaxy = $.post('/api/create_job', {
         job: JSON.stringify(job)
     }, function() {
@@ -238,20 +231,34 @@ $(document).ready(function() {
     })
 
     $('#select-dataspec').on('change', function(e) {
+        var dataspec = $(this).val()
+        var run_over = $('#select-run-over').val()
         $('select[name=field_to_search]').parent().addClass('hide')
-        $('#document_type_' + $(this).val()).removeClass('hide')
+        $('#document_type_' + dataspec).removeClass('hide')
+        if (run_over == 'all') {
+            $('#narrow-selects-field').addClass('hide')
+            $('#narrow-submit').find('label').removeClass('invisible').addClass('hide')
+        } else if (run_over == 'within_range') {
+            $('#narrow-selects-field').removeClass('hide')
+            $('#field-search-date-' + dataspec).removeClass('hide')
+            $('#narrow-submit').find('label').removeClass('hide').addClass('invisible')
+        } else if (run_over == 'matching_query') {
+            $('#narrow-selects-field').removeClass('hide')
+            $('#field-search-text-' + dataspec).removeClass('hide')
+            $('#narrow-submit').find('label').removeClass('hide').addClass('invisible')
+        }
     })
 
     $('#select-run-over').on('change', function(e) {
         var dataspec = $('#select-dataspec').val()
-
+        var run_over = $(this).val()
         $('#narrow-selects-field').find('div').addClass('hide')
-        if ($(this).val() == 'all') {
+        if (run_over == 'all') {
             $('#narrow-input-date').addClass('hide')
             $('#narrow-input-text').addClass('hide')
             $('#narrow-selects-field').addClass('hide')
             $('#narrow-submit').find('label').removeClass('invisible').addClass('hide')
-        } else if ($(this).val() == 'within_range') {
+        } else if (run_over == 'within_range') {
             $('#narrow-input-date').removeClass('hide')
             $('#narrow-input-date').find('input').datetimepicker({
                 format: 'YYYY-MM-DD'
@@ -260,10 +267,9 @@ $(document).ready(function() {
             $('#narrow-selects-field').removeClass('hide')
             $('#field-search-date-' + dataspec).removeClass('hide')
             $('#narrow-submit').find('label').removeClass('hide').addClass('invisible')
-        } else if ($(this).val() == 'matching_query') {
+        } else if (run_over == 'matching_query') {
             $('#narrow-input-text').removeClass('hide')
             $('#narrow-input-date').addClass('hide')
-
             $('#narrow-selects-field').removeClass('hide')
             $('#field-search-text-' + dataspec).removeClass('hide')
             $('#narrow-submit').find('label').removeClass('hide').addClass('invisible')
