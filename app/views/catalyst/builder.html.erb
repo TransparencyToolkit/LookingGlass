@@ -21,7 +21,11 @@
             <h3>Narrow Your Search</h3>
             <p>You can run Catalyst text miners on all your documents or only a specific subset or narrowed down documents.</p>
             <div class="row">
-                <div class="col-md-5 form-group">
+                <div class="col-md-4 form-group">
+                    <label for="">Search Name</label>
+                    <input type="text" name="filter_name" class="form-control" value="" placeholder="Interesting People">
+                </div>
+                <div class="col-md-4 form-group">
                     <label>Choose Dataset</label>
                     <select id="select-dataspec" name="default_dataspec" class="form-control">
                         <% document_type_list.each do |classname, human_name| %>
@@ -29,21 +33,17 @@
                         <% end %>
                     </select>
                 </div>
-                <div class="col-md-7 form-group">
-                    <label for="">Search Name</label>
-                    <input type="text" name="filter_name" class="form-control" value="" placeholder="Interesting People">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     <label>Document Search</label>
                     <select id="select-run-over" name="run_over" class="form-control">
                         <option value="all" selected>All Documents</option>
-                        <option value="within_date_range" data-field_type="date">Within Range</option>
+                        <option value="within_date_range" data-field_type="date">Within Date Range</option>
                         <option value="matching_query">Matching Query</option>
                     </select>
                 </div>
-                <div class="col-md-6 form-group hide" id="narrow-input-date">
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group hide" id="narrow-input-date">
                     <label>Date Range</label>
                     <div class="input-group">
                         <input type="text" name="filter_query" class="form-control" data-behaviour="datetimepicker">
@@ -54,12 +54,36 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-6 form-group hide" id="narrow-input-text">
+                <div class="col-md-4 form-group hide" id="narrow-input-text">
                     <label>Text Term</label>
-                    <input type="text" name="filter_text" class="form-control">
+                    <input type="text" name="filter_text" class="form-control" placeholder="Search Term">
                 </div>
-                <div class="col-md-3 form-group">
-                    <label class="invisible">Submit</label>
+                <div class="col-md-4 form-group hide" id="narrow-selects-field">
+                    <% document_type_list.each do |classname, human_name| %>
+                    <div id="field-search-date-<%= classname %>" class="hide">
+                        <label>On Field</label>
+                        <select name="field_to_search" class="form-control">
+                            <% list_date_fields_by_document_type(classname).each do |date_classname, date_human_name|  %>
+                            <option value="<%= date_classname %>" data-field_type="date">
+                                <%= date_human_name %>
+                            </option>
+                            <% end %>
+                        </select>
+                    </div>
+                    <div id="field-search-text-<%= classname %>" class="hide">
+                        <label>On Field</label>
+                        <select name="field_to_search" class="form-control">
+                            <% list_text_fields_by_document_type(classname).each do |text_classname, text_human_name|  %>
+                            <option value="<%= text_classname %>" data-field_type="text">
+                                <%= text_human_name %>
+                            </option>
+                            <% end %>
+                        </select>
+                    </div>
+                    <% end %>
+                </div>
+                <div class="col-md-3" id="narrow-submit">
+                    <label class="hide">Submit</label>
                     <button id="submit-narrow" class="btn btn-block btn-info">
                         <i class="icon-search"></i>
                         Run This Search

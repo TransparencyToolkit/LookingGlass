@@ -145,13 +145,15 @@ var renderAnnotatorConfigs = function() {
 }
 
 var dataGetRecipe = function() {
+    var dataspec = $('select[name=default_dataspec]').val()
+    var field_to_search = $('#field-search-date-' + dataspec).find('select[name=field_to_search]').val()
     return {
         filter_name: $('input[name=filter_name]').val(),
-        default_dataspec: $('select[name=default_dataspec]').val(),
+        default_dataspec: dataspec,
         run_over: $('select[name=run_over]').val(),
-        field_to_search: $('input[name=filter_text]').val(),
         filter_query: $('input[name=filter_query]').val(),
         end_filter_range: $('input[name=end_filter_range]').val(),
+        field_to_search: field_to_search
     }
 }
 
@@ -227,18 +229,31 @@ $(document).ready(function() {
     })
 
     $('#select-run-over').on('change', function(e) {
+        var dataspec = $('#select-dataspec').val()
+
+        $('#narrow-selects-field').find('div').addClass('hide')
         if ($(this).val() == 'all') {
             $('#narrow-input-date').addClass('hide')
             $('#narrow-input-text').addClass('hide')
+            $('#narrow-selects-field').addClass('hide')
+            $('#narrow-submit').find('label').removeClass('invisible').addClass('hide')
         } else if ($(this).val() == 'within_date_range') {
             $('#narrow-input-date').removeClass('hide')
             $('#narrow-input-date').find('input').datetimepicker({
                 format: 'YYYY-MM-DD'
             })
             $('#narrow-input-text').addClass('hide')
+
+            $('#narrow-selects-field').removeClass('hide')
+            $('#field-search-date-' + dataspec).removeClass('hide')
+            $('#narrow-submit').find('label').removeClass('hide').addClass('invisible')
         } else if ($(this).val() == 'matching_query') {
             $('#narrow-input-text').removeClass('hide')
             $('#narrow-input-date').addClass('hide')
+
+            $('#narrow-selects-field').removeClass('hide')
+            $('#field-search-text-' + dataspec).removeClass('hide')
+            $('#narrow-submit').find('label').removeClass('hide').addClass('invisible')
         }
     })
 
