@@ -25,8 +25,8 @@ module CatalystApi
   end
 
   # Gets all the annotators corresponding to a recipe
-  def get_annotators_for_recipe(recipe_name)
-    http = Curl.get("#{ENV['DOCMANAGER_URL']}/get_annotators_for_recipe", {:recipe_name => recipe_name})
+  def get_annotators_for_recipe(recipe_id)
+    http = Curl.get("#{ENV['DOCMANAGER_URL']}/get_annotators_for_recipe", {:recipe_id => recipe_id})
     return JSON.parse(http.body_str)
   end
 
