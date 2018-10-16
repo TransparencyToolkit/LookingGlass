@@ -2,7 +2,9 @@
 <%= show_versioned_doc(@thread_fields) %>
 
 <!-- Print out the item fields for each doc -->
-<% @item_fields.each do |doc_item| %>
-  <hr>
-  <%= show_versioned_doc(doc_item) %>
+<% if @item_fields.first["_source"].length > 2%>
+  <% @item_fields.each do |doc_item| %>
+    <hr>
+    <%= show_versioned_doc(doc_item) %>
+  <% end %>
 <% end %>
