@@ -1,12 +1,18 @@
 <!-- Menu with additional links/info -->
 <ul class="nav navbar-nav navbar-right">
   <!-- Add horizontal topbar links -->
-  <% project["other_topbar_links"].to_h.each do |name, link| %>
+  <% if ENV['WRITEABLE'] == "true" %>
     <li>
-      <a href="<%= link%>"><%= name %></a>
+      <a href="<%= ENV['DOCUPLOAD_URL']+'/upload/'+ENV['PROJECT_INDEX']%>">Upload Documents</a>
     </li>
+  <% else %>
+    <% project["other_topbar_links"].to_h.each do |name, link| %>
+      <li>
+        <a href="<%= link%>"><%= name %></a>
+      </li>
+    <% end %>
   <% end %>
-
+    
   <!-- Add dropdown menu links -->  
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
