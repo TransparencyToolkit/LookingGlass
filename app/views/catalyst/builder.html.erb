@@ -82,17 +82,17 @@
                     </div>
                     <% end %>
                 </div>
-                <div class="col-md-3" id="narrow-submit">
+                <div class="col-md-4" id="narrow-submit">
                     <label class="hide">Submit</label>
-                    <button id="submit-narrow" class="btn btn-block btn-info">
+                    <button id="submit-narrow" class="btn btn-block btn-info btn-block">
                         <i class="icon-search"></i>
                         Run This Search
                     </button>
                 </div>
             </div>
         </section>
-        <div id="narrow-result" class="hide">
-            <h3></h3>
+        <div id="narrow-result" class="hide alert alert-success" role="alert">
+            <h4></h4>
             <p></p>
         </div>
 
@@ -115,6 +115,7 @@
             </div>
             <input type="hidden" name="project_index" value="<%= ENV['PROJECT_INDEX'] %>">
             <button id="cancel-job" type="submit" class="btn btn-danger">
+                <i class="icon-circle-x"></i>
                 Cancel Job
             </button>
             <button id="run-job" type="submit" class="btn btn-primary pull-right">
@@ -238,10 +239,17 @@
             <div class="modal-body">
                 <p>
                     Your Catalyst job has started running. This may take time for it to finish.
+                    Once your job is complete the results will be immediately available in the
+                    sidebar of your main archive.
                 </p>
                 <div class="text-right">
-                   <button type="button" class="btn btn-default add-right" data-dismiss="modal">
-                       Cancel
+                   <a href="/" class="btn btn-default add-right">
+                       <i class="icon-logo"></i>
+                       Go To Archive
+                   </a>
+                    <button type="button" class="btn btn-primary add-right" data-dismiss="modal">
+                       <i class="icon-plus"></i>
+                       Create Another Job
                    </button>
                 </div>
             </div>
