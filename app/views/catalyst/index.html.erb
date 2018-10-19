@@ -7,15 +7,8 @@
         <p>The following items are a list of mining jobs in various states of
         completed or still running. Once a job is complete the results will be
         immediately available in the sidebar of your <a href="/">main archive</a>.</p>
-
         <% recipes.each_with_index do |recipe, index| %>
-            <%= recipe["id"] %>
-            <%= recipe["index_name"] %>
-            <%= recipe["doc_type"] %>
-            <%= recipe["title"] %>
-            <%= recipe["docs_to_process"] %>
-            <hr>
+            <%= render partial: 'job', :locals => { :recipe => recipe } %>
         <% end %>
-
     </div>
 </div>
