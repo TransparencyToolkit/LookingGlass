@@ -212,7 +212,7 @@ module DisplayTypeSwitcher
 
   # Switch between different attachment file types
   def attachment_file_format_switcher(file)
-    file_type = get_file_type(file)
+    file_type = get_file_type(file).downcase
     download_name = gen_download_link_name(file)
 
     case file_type
