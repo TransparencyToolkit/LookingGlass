@@ -1,4 +1,4 @@
-<% if text.include?("is_highlighted") && text.length <= 500 %>
+<% if text.include?("is_highlighted") %>
     <%= raw(text) %>
 <% else %>
     <%= raw(truncate(text, length: 500)) %>
