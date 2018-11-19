@@ -16,7 +16,7 @@ module DisplayTypeSwitcher
   # Handle some show view fields differently than index fields
   def update_type_for_action(action, type)
     nonstandard_show_types = [
-        "Category", "Attachment", "Date", "DateTime", "Link", "Named Link",
+        "Category", "Attachment", "Email Attachment", "Date", "DateTime", "Link", "Named Link",
         "Child Document Link", "Related Link", "Source Link"]
     (action == "show") && !nonstandard_show_types.include?(type) ? (return "Show") : (return type)
   end
@@ -138,7 +138,7 @@ module DisplayTypeSwitcher
             field: field,
             editclass: editclass
         }
-      when "Attachment"
+      when "Attachment", "Email Attachment"
         return show_attachments_by_type(field_data)
       when "Show"
         render partial: "docs/fields/show_text", locals: {
