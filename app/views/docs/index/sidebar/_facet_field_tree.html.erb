@@ -2,10 +2,10 @@
 <% load_vars_for_facet_tree(field, facets) %>
 <ul class="nav nav-list">
   <li> <!-- Show header -->
-    <label class="tree-toggler nav-header just-plus" title="<%= @bucket_count %> Filters">
+    <label class="nav-header <%= @label_class.to_s %>" title="<%= @bucket_count %> Filters">
       <%= render partial: "docs/fields/icon", locals: {icon_name: @icon, icon_text: @hr_name} %>
     </label> <!-- Show facet tree list -->
-    <ul class="nav nav-list tree collapse">
+    <ul class="nav nav-list tree <%= @list_class.to_s %>">
       <% @aggregation["buckets"][0..10].each do |bucket| %>
         <%= render partial: "docs/index/sidebar/bucket_item", locals: {bucket:bucket, field: field} %>
       <% end %>
