@@ -1,6 +1,7 @@
 <!-- Shows a PDF attachment -->
-<object class="show-document" data="<%= file %>" type="application/pdf">
-  <embed src="<%= asset_path(file) %>" type="application/pdf" />
+<object class="show-document" data="<%= file %>" height="100%" width="100%"
+	style="width: 100%; height: 100%" type="application/pdf">
+  <embed src="<%= asset_path(file) %>" width="100%" height="100%" type="application/pdf" />
 </object>
 
 <br />
