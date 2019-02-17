@@ -350,8 +350,13 @@ var makeFacetsNormal = function() {
 }
 
 var saveChanges = function() {
-    console.log('save changes to document')
-    var ajaxy = $.post( "/edit_document", {
+    var post_uri = '/edit_document'
+    if (editable.doc_id == '/entities/create') {
+        post_uri = '/entities/save'
+        editable.doc_type = $('#class_name').val()
+    }
+
+    var ajaxy = $.post(post_uri, {
         edited: editable
     }, function() {
         editable.state = 'saved'
@@ -394,6 +399,7 @@ $(document).ready(function() {
     })
 
     $('#button-editable-action').on('click', function() {
+        console.log(editable)
         // Not editing
         if (editable.state == 'unedited') {
             makeFacetsSelectized()
@@ -421,7 +427,7 @@ $(document).ready(function() {
             $('#modal-save-changes').modal('show')
         }
         else if (editable.state == 'saved') {
-
+            console.log('Here in saved state')
         }
         else {
             console.log('Unknown editor state')

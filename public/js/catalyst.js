@@ -178,7 +178,7 @@ var recipeSearch = function() {
         console.log('Sending recipe_search')
     })
         .done(function(response) {
-           $('#narrow-result').find('h4').html('Documents Found')
+           $('#narrow-result').find('h3').html('Documents Found')
            $('#narrow-result').find('p').html(response.message)
            $('#narrow-result').removeClass('hide')
         })

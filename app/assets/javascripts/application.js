@@ -18,4 +18,7 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require selectize
+//= require html5shiv
+//= require diff_match_patch
+//= require global
 //= require_tree .

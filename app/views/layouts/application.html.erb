@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% project = get_project_spec(ENV['PROJECT_INDEX']) %>
 
-    <title><%= content_for?(:title) ? yield(:title) : project["title"] %></title>
+    <title><%= project["title"] %></title>
 
     <!--  Icons for Mobile Devices, Favicon -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +52,8 @@
 	    <%= yield %>
       </div>
     </div>
-    <% if params["controller"] != "catalyst" %>
+    <%= javascript_include_tag "application" %>
+    <% if params["controller"] != "catalyst" and params["controller"] != "entities" %>
     <div id="efm-button">
       <i class="icon-modified"></i>
       <div id="efm-menu">
@@ -74,7 +75,15 @@
         <% end %>
       </div>
     </div>
+    <script src="/js/efatmarker.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/show.js"></script>
     <% end %>
-    <%= javascript_include_tag "application" %>
+    <% if params["controller"] == "catalyst" %>
+    <script src="/js/catalyst.js"></script>
+    <% end %>
+    <% if params["controller"] == "entities" %>
+    <script src="/js/entities.js"></script>
+    <% end %>
   </body>
 </html>
