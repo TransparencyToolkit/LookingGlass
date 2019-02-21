@@ -77,7 +77,10 @@
     </div>
     <script src="/js/efatmarker.js"></script>
     <script src="/js/search.js"></script>
+    <% end %>
+    <% if params["controller"] == "docs" %>
     <script src="/js/show.js"></script>
+    <script src="/js/editor.js"></script>
     <% end %>
     <% if params["controller"] == "catalyst" %>
     <script src="/js/catalyst.js"></script>

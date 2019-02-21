@@ -18,9 +18,19 @@ class EntitiesController < ApplicationController
   end
 
   def save
-      if ENV["WRITABLE"] == "true"
-          doc_to_create = [params["edited"]["items"].to_h.to_a.map{|d| [d[0], d[1]["changed"]]}.to_h]
-          save_data(ENV["PROJECT_INDEX"], params["edited"]["doc_type"], doc_to_create)
+      if ENV["WRITEABLE"] == "true"
+          if !params["edited"].nil? and !params["edited"]["doc_type"].nil? and !params["edited"]["items"].nil?
+              doc_saved = save_data(ENV["PROJECT_INDEX"], params["edited"]["doc_type"], [params["edited"]["items"].to_h])
+              if doc_saved
+                  redirect_to controller: 'search', action: 'index'
+              else
+                  puts "Hrm, creating entity failed"
+              end
+          else
+              puts "Oops, form data submitted is not correct"
+          end
+      else
+          puts "LookingGlass is not configured to be writeable"
       end
   end
 

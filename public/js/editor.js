@@ -1,20 +1,8 @@
-/* LookingGlass editor.js
+/* editor.js
  *
  * Transparency Toolkit, 2018
  * Author: Brennan Novak
  */
-
-var datetimepicker_icons = {
-    time: 'icon-clock',
-    date: 'icon-calendar',
-    up:   'icon-arrow-up',
-    down: 'icon-arrow-down',
-    previous: 'icon-arrow-left',
-    next:  'icon-arrow-right',
-    today: 'icon-camera',
-    clear: 'icon-trash',
-    close: 'icon-circle-x'
-}
 
 var global_facets = {}
 var editable_classes = 'unedited editing changed saving saved error'
