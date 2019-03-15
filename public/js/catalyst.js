@@ -8,6 +8,14 @@ var term_list_custom = "normalized_topics.json"
 var term_list_country_names = "country_names.json"
 var annotators = []
 
+var showCatalystAlerts = function() {
+
+    if (!localStorage["alert-catalyst-builder"]) {
+        $('#alert-catalyst-builder').removeClass('hide')
+    }
+
+}
+
 var resetBuilder = function() {
     $('input[name=filter_name]').val('')
     $('select[name=run_over]').val('')
@@ -224,6 +232,8 @@ var createJob = function() {
 
 
 $(document).ready(function() {
+
+    showCatalystAlerts()
 
     $.getJSON("/api/annotators", function(response) {
         annotators = response

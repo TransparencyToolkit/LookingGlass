@@ -11,3 +11,11 @@ var datetimepicker_icons = {
     clear: 'icon-trash',
     close: 'icon-circle-x'
 }
+
+
+// Stick Alerts
+$('.close-alert').on('click', function() {
+    var alert_name = $(this).parent().attr('id')
+    localStorage[alert_name] = true
+})
+

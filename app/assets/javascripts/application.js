@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require underscore
-//= require twitter/bootstrap/modal
+//= require twitter/bootstrap/alert
 //= require twitter/bootstrap/dropdown
+//= require twitter/bootstrap/modal
 //= require twitter/bootstrap/tab
 //= require moment
 //= require bootstrap-datetimepicker
