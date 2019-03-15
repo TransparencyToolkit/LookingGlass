@@ -1,5 +1,5 @@
 <!-- Only show search bar on index action -->
-<% if ['index'].include?(action_name) %>
+<% if params["controller"] == "docs" and params["action"] == "index" %>
   <%= render partial: 'docs/index/search/searchbar/dropdown/dropdown' %>
 
   <!-- Render forms for different types of queries -->
