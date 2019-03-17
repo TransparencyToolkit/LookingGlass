@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   post 'api/create_job', to: 'api#create_job'
   get 'api/facets', to: 'api#facets'
 
+  get '/auth/:provider/callback', to: 'sessions#create'
+  
   root to: 'docs#index'
   resources :docs
 
