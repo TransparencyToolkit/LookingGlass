@@ -76,9 +76,11 @@
       </div>
     </div>
     <script src="/js/efatmarker.js"></script>
+    <% end %>
+    <% if ["docs", "search"].include? params["controller"] %>
     <script src="/js/search.js"></script>
     <% end %>
-    <% if params["controller"] == "docs" %>
+    <% if params["controller"] == "docs" and params["action"] == "show" %>
     <script src="/js/show.js"></script>
     <script src="/js/editor.js"></script>
     <% end %>
