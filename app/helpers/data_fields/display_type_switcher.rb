@@ -194,7 +194,7 @@ module DisplayTypeSwitcher
     if file.include?("documentcloud")
       return "doc_cloud"
     else
-      return File.extname(URI.parse(URI.encode(file)).path)
+      return File.extname(URI.parse(URI.encode(file.gsub("[", "%5B").gsub("]", "%5D"))).path)
     end
   end
 
