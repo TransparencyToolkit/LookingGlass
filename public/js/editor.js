@@ -338,6 +338,7 @@ var makeFacetsNormal = function() {
 }
 
 var saveChanges = function() {
+    console.log('run saveChanges() function')
     var post_uri = '/edit_document'
     if (editable.doc_id == '/entities/create') {
         post_uri = '/entities/save'
@@ -350,16 +351,12 @@ var saveChanges = function() {
         editable.state = 'saved'
         stopEditingItems('saved')
     })
-        .done(function(response) {
-            console.log(response)
-            $('#modal-save-changes').modal('hide')
+        .done(function() {
+            console.log('Done saving edits')
         })
         .fail(function(err) {
+            console.log('Error: display error in modal')
             console.log(err)
-            alert('Error: display error in modal');
-        })
-        .always(function() {
-            alert('finished');
         })
 }
 
@@ -387,11 +384,15 @@ $(document).ready(function() {
     })
 
     $('#button-editable-action').on('click', function() {
-        console.log(editable)
+
         // Not editing
         if (editable.state == 'unedited') {
-            makeFacetsSelectized()
 
+            // Hide Highlighter
+            $('#efm-button').css('z-index', -10)
+
+            // Instantiate facets & form fields
+            makeFacetsSelectized()
             $('.editable').each(function() {
                 showEditableItems($(this))
             })
@@ -412,7 +413,7 @@ $(document).ready(function() {
             editable.state = 'saving'
             $('#editable-cancel').addClass('hide')
             $('#editable-bar').removeClass(editable_classes).addClass('saving')
-            $('#modal-save-changes').modal('show')
+            saveChanges()
         }
         else if (editable.state == 'saved') {
             console.log('Here in saved state')
@@ -438,22 +439,7 @@ $(document).ready(function() {
         makeFacetsNormal()
     })
 
-    // Buttons
-    $('#buttonSaveChanges').on('click', function(e) {
-        saveChanges()
-    })
-
     // Modals
-    $('#modal-save-changes').on('show.bs.modal', function(e) {
-        var button = $(e.relatedTarget)
-        var modal = $(this)
-        $('#efm-button').css('z-index', 10)
-    })
-
-    $('#modal-save-changes').on('hide.bs.modal', function(e) {
-        $('#efm-button').css('z-index', 9999999999)
-    })
-
     $('#modal-add-link').on('show.bs.modal', function(e) {
         var button = $(e.relatedTarget)
         var modal = $(this)
