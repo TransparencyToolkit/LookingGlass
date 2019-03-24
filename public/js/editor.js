@@ -15,6 +15,8 @@ var editable = {
     items: {}
 }
 
+var selectized_items = {}
+
 // Get Doc ID
 var doc_url = document.createElement('a')
 doc_url.href = window.location.href
@@ -148,29 +150,29 @@ var enableEditableActions = function() {
 
         // Item is not changed
         if (item_text == editable.items[item_name].original) {
-            console.log('1.0 item is not changed')
+            //console.log('1.0 item is not changed')
             editable.items[item_name].edited = false
             $(event.currentTarget).removeClass('item-changed')
 
             // Check all items
             items_states = allEditableStates()
             if (items_states.indexOf(true) > -1) {
-                console.log('1.2 other fields are changed')
+                //console.log('1.2 other fields are changed')
                 updateEditableUI('changed')
             } else {
-                console.log('1.3 no other fields changed reverting from chan ged')
+                //console.log('1.3 no other fields changed reverting from chan ged')
                 updateEditableUI('unedited')
             }
         }
         else if (item_text != editable.items[item_name].original) {
-            console.log('2.0 this field is changed')
+            //console.log('2.0 this field is changed')
             updateEditableUI('changed')
             editable.items[item_name].edited = true
 	        editable.items[item_name].changed = item_text
             $(event.currentTarget).addClass('item-changed')
         }
         else {
-            console.log('3.0 ugh oh, im confused')
+            //console.log('3.0 ugh oh, im confused')
             updateEditableUI('editing')
         }
     })
@@ -219,6 +221,9 @@ var stopEditingItems = function(new_state) {
     $('#button-editable-discard').addClass('hide')
     $('#button-editable-action').html(action_text)
     $('#editable-bar').removeClass(editable_classes).addClass(new_state)
+
+    // Facets
+    makeFacetsNormal()
 }
 
 var selectizeFacetGroup = function(group, facets) {
@@ -253,7 +258,6 @@ var selectizeFacetGroup = function(group, facets) {
 
     $selectize_group = $('#selectize-' + group)
     $selectize_group.removeClass('hide')
-
     var $selectized = $selectize_group.selectize({
         maxItems: null,
         create: true,
@@ -276,44 +280,56 @@ var selectizeFacetGroup = function(group, facets) {
                 updateSelectizedInput(group, true)
                 updateEditableUI('changed')
             } else {
-                //console.log('ELSE onItemAdd id: ' + id.toString() + ' facet ' + facet)
+                //console.log('selectize.onItemAdd ELSE id: ' + id.toString() + ' facet: ' + facet)
             }
         },
         onItemRemove: function(id, item) {
             var facet = $(item).html()
-            var index = editable.items[group].changed.indexOf(facet)
-            editable.items[group].changed.splice(index, 1)
 
-            // Check items
-            var diff = _.difference(editable.items[group].original, editable.items[group].changed);
-            console.log('onItemRemove ' + facet + ' diff ' + diff.toString())
+            // Only delete existing facet
+            if (editable.items[group].changed.length === 0) {
+                var changed = editable.items[group].original.filter(e => e !== facet)
+                editable.items[group].changed = changed
+
+            } else {
+                var index = editable.items[group].changed.indexOf(facet)
+                editable.items[group].changed.splice(index, 1)
+            }
+
+            // Check if this facet is edited
+            var diff = _.difference(editable.items[group].original, editable.items[group].changed)
+
             // No facets diff or other items
             if (diff.length === 0) {
                 editable.items[group].edited = false
                 updateSelectizedInput(group, false)
 
+                // Check all other fields
                 var items_states = allEditableStates()
-                console.log('editable_states ' + items_states.indexOf(true).toString())
+                //console.log('editable_states ' + items_states.indexOf(true).toString())
                 if (items_states.indexOf(true) === -1) {
                     updateEditableUI('unedited')
                 }  else if (items_states.indexOf(true) > -1) {
                     updateEditableUI('changed')
                 }
             // Facets different
-            } else if (diff.lenth > 0) {
+            } else if (diff.length > 0) {
+                editable.items[group].edited = true
                 updateSelectizedInput(group, true)
                 updateEditableUI('changed')
             } else {
-                console.log('Huh, most interesting')
+                console.log('Huh, interesting selectize.onItemRemove state')
             }
 
         }
     })
 
     // Add existing items
-    var control = $selectized[0].selectize;
+    //var control = $selectized[0].selectize;
+    selectized_items[group] = $selectized[0].selectize
     for (id of chosen) {
-        control.addItem(id)
+        //control.addItem(id)
+        selectized_items[group].addItem(id)
     }
 }
 
@@ -326,10 +342,12 @@ var makeFacetsSelectized = function() {
 }
 
 var makeFacetsNormal = function() {
-    console.log('makeFacetsNormal')
     for (group of editable.facet_groups) {
-        $('#selectize-' + group).removeClass('selectized').addClass('hide')
-        $($('.facet.' + group).find('p')[1]).show()
+        if (!editable.doc_properties.includes(group)) {
+            selectized_items[group].destroy()
+            $('#selectize-' + group).addClass('hide')
+            $($('.facet.' + group).find('p')[1]).show()
+        }
     }
 
     $('.selectize-control.multi').each(function() {
@@ -338,7 +356,6 @@ var makeFacetsNormal = function() {
 }
 
 var saveChanges = function() {
-    console.log('run saveChanges() function')
     var post_uri = '/edit_document'
     if (editable.doc_id == '/entities/create') {
         post_uri = '/entities/save'
@@ -355,7 +372,7 @@ var saveChanges = function() {
             console.log('Done saving edits')
         })
         .fail(function(err) {
-            console.log('Error: display error in modal')
+            console.log('Error saving edits')
             console.log(err)
         })
 }
