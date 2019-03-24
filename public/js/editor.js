@@ -320,15 +320,12 @@ var selectizeFacetGroup = function(group, facets) {
             } else {
                 console.log('Huh, interesting selectize.onItemRemove state')
             }
-
         }
     })
 
     // Add existing items
-    //var control = $selectized[0].selectize;
     selectized_items[group] = $selectized[0].selectize
     for (id of chosen) {
-        //control.addItem(id)
         selectized_items[group].addItem(id)
     }
 }
@@ -355,6 +352,52 @@ var makeFacetsNormal = function() {
     })
 }
 
+var updateChangedItems = function() {
+    $('.editable').each(function() {
+        let item = $(this).parent().attr('class')
+        if (editable.items[item].edited) {
+            var changed = editable.items[item].changed
+            $(this).html(changed)
+            editable.items[item] = {
+                original: changed,
+                changed: "",
+                edited: false
+            }
+        }
+    })
+
+    $('.facet').each(function() {
+        let item = $(this).attr('class').replace('facet ', '')
+        if (editable.items[item].edited) {
+            let facets = ""
+            let comma = ", "
+            let count = 0
+            for (let x in editable.items[item].changed) {
+                let facet = editable.items[item].changed[x]
+                count++;
+                if (count == editable.items[item].changed.length) {
+                    comma = ""
+                }
+                facets += '<a href="/search?' + item + '_facet=' + facet + '">'
+                facets += facet
+                facets += '</a>' + comma
+            }
+            $('.facet.' + item).find('p:nth-last-child(2)').html(facets)
+            editable.items[item] = {
+                original: editable.items[item].changed,
+                changed: "",
+                edited: false
+            }
+        }
+    })
+}
+
+var resetEditor = function() {
+    editable.state = 'unedited'
+    $('#editable-bar').removeClass(editable_classes).addClass('unedited')
+    $('#button-editable-action').html('Start Editing')
+}
+
 var saveChanges = function() {
     var post_uri = '/edit_document'
     if (editable.doc_id == '/entities/create') {
@@ -368,13 +411,15 @@ var saveChanges = function() {
         editable.state = 'saved'
         stopEditingItems('saved')
     })
-        .done(function() {
-            console.log('Done saving edits')
-        })
-        .fail(function(err) {
-            console.log('Error saving edits')
-            console.log(err)
-        })
+      .done(function(response) {
+          console.log('Done saving edits')
+          updateChangedItems()
+          setTimeout(resetEditor, 1000)
+      })
+      .fail(function(err) {
+          console.log('Error saving edits')
+          console.log(err)
+      })
 }
 
 $(document).ready(function() {
