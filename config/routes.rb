@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post 'api/recipe_search', to: 'api#recipe_search'
   post 'api/create_job', to: 'api#create_job'
   get 'api/facets', to: 'api#facets'
-
+  
   root to: 'docs#index'
   resources :docs
 
