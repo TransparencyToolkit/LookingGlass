@@ -234,7 +234,7 @@ var selectizeFacetGroup = function(group, facets) {
     // Build Selectize
     var options = []
     var chosen = []
-    var i = 1
+    var i = 0
     for (facet of facets.buckets) {
         options.push({
             id: i,
@@ -249,11 +249,21 @@ var selectizeFacetGroup = function(group, facets) {
 
     var updateSelectizedInput = function(group, state) {
         // console.log('updateSelectizedInput ' + group + ' ' + state)
+        editable.items[group].edited = state
         if (state == true) {
            $('.facet.' + group).find('div.selectize-input').addClass('items-changed')
         } else {
            $('.facet.' + group).find('div.selectize-input').removeClass('items-changed')
         }
+    }
+
+    var checkDiff = function(original, current) {
+        let result = false
+        if (current.sort().join('-') === original.sort().join('-')) {
+            result = true
+        }
+
+        return result
     }
 
     $selectize_group = $('#selectize-' + group)
@@ -267,20 +277,59 @@ var selectizeFacetGroup = function(group, facets) {
         searchField: 'title',
         options: options,
         onItemAdd: function(id, item) {
-            var facet = $(item).html()
 
-            if (editable.items[group].original.indexOf(facet) === -1) {
-                var changed_facets = [facet]
-                $('#selectize-' + group).children(':selected').each(function() {
-                    changed_facets.push($(this).html())
+            // Is new facet
+            if (!Number.isInteger(id)) {
+                global_facets[group].buckets.push({
+                    key: facet,
+                    doc_count: 0
                 })
-                editable.items[group].changed = changed_facets
-                editable.items[group].edited = true
-                $('.facet.' + group).find('div.selectize-input').addClass('items-changed')
+
+                id =  (global_facets[group].buckets.length - 1)
+            }
+
+            var id = parseInt(id)
+            var facet = $(item).html()
+            var current_facets = [facet]
+
+            $('#selectize-' + group).children(':selected').each(function() {
+                current_facets.push($(this).html())
+            })
+
+            // Not in original
+            if (!editable.items[group].original.includes(facet)) {
+
+                // Add to selectize instance
+                chosen.push(id)
+
+                // Update editable
+                editable.items[group].changed = current_facets
                 updateSelectizedInput(group, true)
                 updateEditableUI('changed')
-            } else {
-                //console.log('selectize.onItemAdd ELSE id: ' + id.toString() + ' facet: ' + facet)
+
+            // Was original, then removed, then re-added
+            } else if (editable.items[group].original.includes(facet) && editable.items[group].edited) {
+
+                // Add to selectize instance
+                chosen.push(id)
+
+                // Check if matches
+                var diff = checkDiff(editable.items[group].original, current_facets)
+                if (diff) {
+
+                    // Update this item
+                    editable.items[group].changed = []
+                    updateSelectizedInput(group, false)
+
+                    // Check all items (only change global if unedited)
+                    items_states = allEditableStates()
+                    if (items_states.indexOf(true) === -1) {
+                        updateEditableUI('unedited')
+                    }
+                } else {
+                    editable.items[group].changed = current_facets
+                    updateSelectizedInput(group, true)
+                }
             }
         },
         onItemRemove: function(id, item) {
@@ -288,37 +337,34 @@ var selectizeFacetGroup = function(group, facets) {
 
             // Only delete existing facet
             if (editable.items[group].changed.length === 0) {
+                var index = editable.items[group].original.indexOf(facet)
                 var changed = editable.items[group].original.filter(e => e !== facet)
                 editable.items[group].changed = changed
-
             } else {
                 var index = editable.items[group].changed.indexOf(facet)
                 editable.items[group].changed.splice(index, 1)
             }
+            chosen.splice(index, 1)
 
             // Check if this facet is edited
-            var diff = _.difference(editable.items[group].original, editable.items[group].changed)
+            var diff = checkDiff(editable.items[group].original, editable.items[group].changed)
+            if (diff) {
 
-            // No facets diff or other items
-            if (diff.length === 0) {
                 editable.items[group].edited = false
                 updateSelectizedInput(group, false)
 
                 // Check all other fields
                 var items_states = allEditableStates()
-                //console.log('editable_states ' + items_states.indexOf(true).toString())
                 if (items_states.indexOf(true) === -1) {
                     updateEditableUI('unedited')
                 }  else if (items_states.indexOf(true) > -1) {
                     updateEditableUI('changed')
                 }
             // Facets different
-            } else if (diff.length > 0) {
+            } else {
                 editable.items[group].edited = true
                 updateSelectizedInput(group, true)
                 updateEditableUI('changed')
-            } else {
-                console.log('Huh, interesting selectize.onItemRemove state')
             }
         }
     })
