@@ -17,7 +17,7 @@ module SaveEditedFields
 
   # Get the document details
   def get_document_details(edited_fields)
-    id = edited_fields["doc_id"]
+    id = URI.decode(edited_fields["doc_id"])
     original_doc = get_doc(ENV['PROJECT_INDEX'], id)
     doc_type = get_dataspec_for_doc(original_doc)["class_name"]
     return original_doc, doc_type
