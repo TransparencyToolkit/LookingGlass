@@ -43,7 +43,7 @@ module FacetLinks
 
     # Generate list of field links
     return facet_vals.reject(&:blank?).map do |item|
-      link_text = highlighted_facet_text(item, field_name, doc)
+      link_text = highlighted_facet_text(item, doc, field_name)
       gen_facet_link(link_text, gen_basic_search_path(facetize_field(field_name), item))
     end.join(", ")
   end
