@@ -71,4 +71,10 @@ module IndexApi
                 Curl::PostField.content("items", JSON.pretty_generate(doc_data)))
     return JSON.parse(c.body_str)
   end
+
+  # Delete documents from elastic (pass array of documents to delete)
+  def delete_documents(array_of_documents)
+    c = Curl::Easy.new("#{ENV['DOCMANAGER_URL']}/remove_items")
+    c.http_post(Curl::PostField.content("items", JSON.pretty_generate(array_of_documents)))
+  end
 end
