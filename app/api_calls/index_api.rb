@@ -77,4 +77,17 @@ module IndexApi
     c = Curl::Easy.new("#{ENV['DOCMANAGER_URL']}/remove_items")
     c.http_post(Curl::PostField.content("items", JSON.pretty_generate(array_of_documents)))
   end
+
+  # Add a field to dataspec in DocManager
+  # Requires passing dataspec name (camelcase name like ArchiveTestDoc), index name, machine readable param name, and field params of following format:
+  # {display_type: "Category", icon: "document", human_readable: "Human Readable Field Name"}
+  # The human readable name, icon, display type, and dataspec to use should be collected from the user
+  # The dataspec name, index name, machine readable name should be automatically set based on the input (and field_hash reformatted)
+  def add_field(doc_class, project_index, machine_readable_param, field_hash)
+    c = Curl::Easy.new("#{ENV['DOCMANAGER_URL']}/add_field")
+    c.http_post(Curl::PostField.content("doc_class", doc_class),
+                Curl::PostField.content("project_index", project_index),
+                Curl::PostField.content("field_name", machine_readable_param),
+                Curl::PostField.content("field_hash", JSON.pretty_generate(field_hash)))
+  end
 end
