@@ -4,11 +4,11 @@ class DocsController < ApplicationController
   include LoadResults
   include ThreadDocs
   include SaveEditedFields
-  
+
   def index
     # Get the index results/docs to display
     query_index_results(params)
-    
+
     # Save the docs and facets in vars and paginate
     load_result_docs_facets
   end
@@ -30,7 +30,7 @@ class DocsController < ApplicationController
       path = "/"+params["path"]
     end
     mime_type = get_mime_type(path)
-    
+
     send_file(path,
               :disposition => 'inline',
               :type => mime_type,
@@ -41,7 +41,24 @@ class DocsController < ApplicationController
   def edit_document
     if ENV['WRITEABLE'] == "true"
       save_changed_fields(params["edited"])
+      status = "success"
+      message = "Document edited successfully"
+    else
+      status = "error"
+      message = "Not WRITABLE Deleting documents disabled"
     end
+    render :json => { status: status, message: message }
+  end
+
+  def delete_documents
+    if ENV['WRITABLE'] == "true"
+      status = "success"
+      message = "Yay a DELETE request happened :)"
+    else
+      status = "error"
+      message = "Not WRITABLE Deleting documents disabled"
+    end
+    render :json => { status: status, message: message }
   end
 
   private
