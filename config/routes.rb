@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'search', to: 'search#index'
   get 'attachments/*path', to: 'docs#attach'
   post 'edit_document', to: 'docs#edit_document'
+  delete 'delete_documents', to: 'docs#delete_documents'
 
   get 'catalyst', to: 'catalyst#index'
   get 'catalyst/builder', to: 'catalyst#builder'
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
   post 'api/recipe_search', to: 'api#recipe_search'
   post 'api/create_job', to: 'api#create_job'
   get 'api/facets', to: 'api#facets'
-  
+
   root to: 'docs#index'
   resources :docs
 
