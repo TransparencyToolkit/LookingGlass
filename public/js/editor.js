@@ -468,6 +468,23 @@ var saveChanges = function() {
       })
 }
 
+var deleteDocument = function() {
+    console.log('deleteDocument running...')
+
+    
+
+    var documents = []
+
+    $.ajax({
+        url: '/delete_documents',
+        data: documents,
+        type: 'DELETE'
+    }).done(function(response) {
+
+        console.log(response)
+    })
+}
+
 $(document).ready(function() {
 
     $.getJSON("/api/facets", function(response) {
@@ -545,6 +562,10 @@ $(document).ready(function() {
         }
 
         makeFacetsNormal()
+    })
+
+    $('#button-delete-doc').on('click', function() {
+        deleteDocument()
     })
 
     // Modals
