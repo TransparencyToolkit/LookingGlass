@@ -1,26 +1,34 @@
 <!-- Generates the list of dropdown options for a data source -->
 <optgroup label="<%= source['name'] %>">
   <option data-type="all" value="<%= source_param_name %>">
-    All <%= source['name'] %>
+    All <%= source['name'] %> Fields
   </option>
 </optgroup>
 
 <!-- Displays the groups for each field type -->
-<optgroup label="Text">
-  <% text_types = ["Title", "Description", "Short Text", "Medium Text",
-  "Long Text", "Shorter Text", "Tiny Text"] %>
-  <%= raw(load_field_options_for_type(text_types, source, "string")) %>
-</optgroup>
+<% text_types = ["Title", "Description", "Short Text", "Medium Text",
+     "Long Text", "Shorter Text", "Tiny Text"] %>
+<% if !get_matching_fields(text_types, source).empty? %>
+  <optgroup label="Text">
+    <%= raw(load_field_options_for_type(text_types, source, "string")) %>
+  </optgroup>
+<% end %>
 
-<optgroup label="Date">
-  <%= raw(load_field_options_for_type(["Date"], source, "date")) %>
-  <%= raw(load_field_options_for_type(["DateTime"], source, "datetime")) %>
-</optgroup>
+<% if !get_matching_fields(["Date", "DateTime"], source).empty? %>
+  <optgroup label="Date">
+    <%= raw(load_field_options_for_type(["Date"], source, "date")) %>
+    <%= raw(load_field_options_for_type(["DateTime"], source, "datetime")) %>
+   </optgroup>
+<% end %>
 
-<optgroup label="Number">
-  <%= raw(load_field_options_for_type(["Number"], source, "number")) %>
-</optgroup>
+<% if !get_matching_fields(["Number"], source).empty? %>
+  <optgroup label="Number">
+     <%= raw(load_field_options_for_type(["Number"], source, "number")) %>
+  </optgroup>
+<% end %>
 
-<optgroup label="Categories">
-  <%= raw(load_field_options_for_type(["Category"], source, "string")) %>
-</optgroup>
+<% if !get_matching_fields(["Category"], source).empty? %>
+  <optgroup label="Categories">
+    <%= raw(load_field_options_for_type(["Category"], source, "string")) %>
+  </optgroup>
+<% end %>

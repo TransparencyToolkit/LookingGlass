@@ -2,12 +2,17 @@ module DropdownFormGen
   # Get all searchable fields
   def load_field_options_for_type(match_type, source, field_type)
     # Get only fields matching type
-    matching_fields = source["source_fields"].select{|k,v| match_type.include?(v["display_type"])}
-
+    matching_fields = get_matching_fields(match_type, source)
+    
     # Go through matching fields
     return matching_fields.inject("") do |html, field|
       html += render_field_option_html(field, source["class_name"].underscore, field_type)
     end
+  end
+
+  # Get the fields that match a certain display type
+  def get_matching_fields(match_type, source)
+    return source["source_fields"].select{|k,v| match_type.include?(v["display_type"])}
   end
 
   # Generate param name for the source

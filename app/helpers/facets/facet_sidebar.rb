@@ -10,6 +10,12 @@ module FacetSidebar
     @hr_name = human_readable_title(field[1])
     @icon = icon_name(field[1])
     @bucket_count = @aggregation["buckets"].length.to_s
+
+    # Add classes to facet tree
+    if field[1]["expand_by_default"] != "true"
+      @label_class = "tree-toggler just-plus"
+      @list_class = "collapse"
+    end
   end
 
   # Check if the category is empty for the query

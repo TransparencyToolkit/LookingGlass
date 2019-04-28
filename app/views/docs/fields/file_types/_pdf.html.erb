@@ -1,5 +1,5 @@
 <!-- Shows a PDF attachment -->
-<object class="show-document" data="<%= file %>" type="application/pdf">
+<object class="show-document" data="<%= file %>?#zoom=page-width" type="application/pdf">
   <embed src="<%= asset_path(file) %>" type="application/pdf" />
 </object>
 
