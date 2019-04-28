@@ -1,7 +1,6 @@
 <!-- Only show search bar on index action -->
-<% if ['index'].include?(action_name) %>
+<% if ["docs", "search"].include? params["controller"] and params["action"] == "index" %>
   <%= render partial: 'docs/index/search/searchbar/dropdown/dropdown' %>
-
   <!-- Render forms for different types of queries -->
   <%= render partial: 'docs/index/search/searchbar/search_fields/all' %>
   <%= render partial: 'docs/index/search/searchbar/search_fields/string', locals: {fieldname:'stringquery'} %>

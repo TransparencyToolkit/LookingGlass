@@ -1,0 +1,81 @@
+<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
+    <div class="detail-heading">
+        Filter Categories
+    </div>
+    <% category_fields = @entity["source_fields"].select{|k,v| v["display_type"] != "None" && v["display_type"] == "Category"} %>
+    <% category_fields.each do |name, field| %>
+        <p>
+            <%= field["human_readable"] %>
+        </p>
+    <% end %>
+</div>
+<div id="maincontent" class="efm-target col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+    <ul class="nav nav-pills" style="text-align:center;">
+        <li>
+            <a href="/entities">
+                <i class="icon-list"></i>
+                Entity Types
+            </a>
+        </li>
+        <li class="active">
+            <a href="/entities_create/<%= @entity["class_name"] %>">
+                <i class="<%= @entity["icon"] %>"></i>
+                Create <%= @entity["name"] %>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <h3><%= @entity["name"] %></h3>
+        <form name="edited" method="post" action="/entities/save">
+            <div id="fields-<%= @entity["class_name"] %>">
+            <% entity_fields = @entity["source_fields"].select{|k,v| v["display_type"] != "None" && v["display_type"] != "Category"} %>
+            <% entity_fields.each do |name, field| %>
+                <p class="<%= name %>">
+                    <strong class="label">
+                        <%= field["human_readable"] %>
+                    </strong> <%= name %>
+                </p>
+                <% if field["display_type"] == "Title" or field["display_type"] == "Description" %>
+                <input type="text" name="edited[items[<%= field["human_readable"].downcase %>]]" class="form-control add-bottom" value="">
+                <% elsif field["display_type"] == "Short Text" %>
+                <textarea name="edited[items[<%= field["human_readable"].downcase %>]]" class="form-control add-bottom" rows="3"></textarea>
+                <% elsif field["display_type"] == "Long Text" %>
+                <textarea name="edited[items[<%= field["human_readable"].downcase %>]]" class="form-control add-bottom" rows="8"></textarea>
+                <% elsif field["display_type"] =="Date" %>
+                <div class="form-group">
+                    <div class="input-group date" id="datetimepicker-<%= field["human_readable"] %>">
+                        <input type="text" name="edited[items[<%= field["human_readable"].downcase %>]]" class="form-control" value="">
+                        <span class="input-group-addon">
+                            <span class="icon-calendar"></span> Choose Date
+                        </span>
+                    </div>
+                </div>
+                <script>
+                    $('#datetimepicker-<%= field["human_readable"] %>').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        icons: datetimepicker_icons
+                    })
+                </script>
+                <% elsif field["display_type"] == "Related Link" %>
+                <input type="text" name="edited[items[<%= field["human_readable"].downcase %>]]" class="url-validate form-control" value="">
+                <% end %>
+            <% end %>
+            </div>
+            <input type="hidden" id="doc_id" name="edited[doc_id]" value="/entities/create">
+            <input type="hidden" id="class_name" name="edited[doc_type]" value="<%= @entity["class_name"] %>">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 title">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                    <button type="submit" class="pull-right btn btn-primary btn-sm" id="button-editable-action">
+                        Save <%= @entity["name"] %>
+                    </button>
+                    <a href="/entities" class="pull-right btn btn-sm btn-info add-right">
+                       Cancel
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<%= render partial: 'shared/modals_editor' %>

@@ -1,71 +1,10 @@
+/* LookingGlass show.js
+ *
+ * Transparency Toolkit, 2018
+ * Author: Brennan Novak
+ */
+
 $(document).ready(function() {
-
-  // Topbar Forms
-  $('[data-behaviour~=datepicker]').datepicker();
-
-  // Sidebar Toggles
-  $('.tree-toggler').on('click', function() {
-      if ($(this).hasClass('just-minus')) {
-          $(this).addClass('just-plus').removeClass('just-minus');
-      } else if ($(this).hasClass('just-plus')) {
-          $(this).addClass('just-minus').removeClass('just-plus');
-      } else if ($(this).hasClass('plus')) {
-          $(this).addClass('minus').removeClass('plus');
-      } else {
-          $(this).addClass('plus').removeClass('minus');
-      }
-      $(this).parent().children('ul.tree').toggle(300);
-  });
-
-  // Search Forms
-  $('#ftypes').on('change', function() {
-
-      var chosen = $('#ftypes option:selected');
-      var value = chosen.val();
-      var type = chosen.data('type').toLowerCase();
-      var hr_field_label = chosen.data('labelname');
-
-      // Hide Forms
-      $('#form-search-all').hide();
-      $('#form-search-string').hide();
-      $('#form-search-date').hide();
-      $('#form-search-datetime').hide();
-
-    // Modify Fields
-    if (type === 'date' || type === 'datetime') {
-	    $('#search-date-start').attr('name', 'startrange_' + value)
-	    $('#search-date-end').attr('name', 'endrange_' + value)
-    }
-    else if (type === 'string') {
-
-      $('#form-search-' + type)
-        .find('input[type=text]')
-        .attr('name', value)
-        .attr('placeholder', 'Search ' + hr_field_label)
-
-      // Style & Fill Form Field
-      var form_field = $('#form-search-' + type).find('input[type=text]')
-
-      if (search_query[value] !== undefined) {
-        form_field
-          .attr('name', value)
-          .attr('placeholder', 'Search ' + hr_field_label)
-          .val(search_query[value] + ' ')
-      } else {
-        form_field
-          .attr('name', value)
-          .attr('placeholder', 'Search ' + hr_field_label)
-          .val('')
-      }
-
-    }
-
-    // Show Form
-    $('#form-search-' + type)
-      .removeClass('hide')
-      .show();
-  });
-
 
   // Show Article in Tab
   $('.show-article-tab').on('click', function(e) {
@@ -93,9 +32,7 @@ $(document).ready(function() {
 
   // Diffing
   var dmp = new diff_match_patch();
-
   var doDiffing = function(doc_id, diffing, name, item) {
-
     dmp.Diff_Timeout = 4
     dmp.Diff_EditCost = 4
 
@@ -114,7 +51,6 @@ $(document).ready(function() {
 
     $('#versions-diff-data-' + doc_id)
       .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + ds + '</' + item.element_type + '>')
-    //console.log('Diffing Processing Time: ' + (ms_end - ms_start) / 1000 + 's')
     return true
   }
 
@@ -127,11 +63,9 @@ $(document).ready(function() {
   var doNonDiffing = function(doc_id, diffing, name, item) {
 
     if (item.versions.oldest === undefined && item.versions.newest !== undefined) {
-      //console.log(name + ' MISSING ' + item.versions.newest)
       $('#versions-diff-data-' + doc_id)
         .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + item.versions.newest + ' <ins style="background:#e6ffe6;"> (shown in newest)</ins></' + item.element_type + '>')
     } else if (item.versions.newest === undefined && item.versions.oldest !== undefined) {
-      //console.log(name + ' MISSING ' + item.versions.oldest)
       $('#versions-diff-data-' + doc_id)
         .append('<' + item.element_type + ' class="diffed-' + name + '">' + item.label + item.versions.oldest + ' <ins style="background:#ffe6e6;"> (shown in oldest)</ins></' + item.element_type + '>')
     }
@@ -167,7 +101,6 @@ $(document).ready(function() {
         element_pairs[name].versions[version] = text_trim
 
       } else if (element_pairs[name]) {
-        //console.log(name + ' exists')
         element_pairs[name].versions[version] = text_trim
       }
     } else {
@@ -230,7 +163,6 @@ $(document).ready(function() {
     var position_offset = ($('#versions-diff-' + $(this).data('doc_id')).offset().top - 60)
 
     $('html, body').animate({ scrollTop: position_offset + 'px' }, 'fast')
-
   })
 
 })

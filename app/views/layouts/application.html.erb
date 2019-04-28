@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% project = get_project_spec(ENV['PROJECT_INDEX']) %>
 
-    <title><%= content_for?(:title) ? yield(:title) : project["title"] %></title>
+    <title><%= project["title"] %></title>
 
     <!--  Icons for Mobile Devices, Favicon -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,24 +26,24 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">
-          <% if project["logo"] != "" %><img src="/themes/<%= project['theme'] %>/<%= project['logo'] %>"><% end %>
-          <span class="title"><%= project["title"] %> </span>
-        </a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	    <div style="margin: auto; width: 50%;"><%= render partial: 'docs/index/search/searchbar/searchbar' %></div>
-	    <%= render partial: 'layouts/linkmenu', locals: { project: project } %>
-      </div><!-- /.navbar-collapse -->
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <% if project["logo"] != "" %><img src="/themes/<%= project['theme'] %>/<%= project['logo'] %>"><% end %>
+            <span class="title"><%= project["title"] %> </span>
+          </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+	      <%= render partial: 'docs/index/search/searchbar/searchbar' %>
+	      <%= render partial: 'layouts/linkmenu', locals: { project: project } %>
+        </div><!-- /.navbar-collapse -->
       </div>
     </nav>
     <%= bootstrap_flash %>
@@ -52,12 +52,14 @@
 	    <%= yield %>
       </div>
     </div>
+    <%= javascript_include_tag "application" %>
+    <% if params["controller"] != "catalyst" and params["controller"] != "entities" %>
     <div id="efm-button">
       <i class="icon-modified"></i>
       <div id="efm-menu">
         <h3>
           <i class="icon-modified"></i>
-          Highligther
+          Highlighter
         </h3>
         <a id="efm-unhighlightall" class="efm-need-highlight">Un-highlight all</a>
         <a id="efm-unhighlight" class="efm-need-highlight" >Un-highlight selection<span>u</span></a>
@@ -66,12 +68,27 @@
           <span>Link to highlights (on this page)</span>
           <input type="text" readonly="readonly" class="form-control" value="">
         </div>
-        <!-- TODO: make conditional based on Editor -->
+        <% if is_editable?("show") %>
         <button id="button-save-highlights" class="btn btn-primary btn-small efm-need-highlight">
           Save Highlights
         </button>
+        <% end %>
       </div>
     </div>
-    <%= javascript_include_tag "application" %>
+    <script src="/js/efatmarker.js"></script>
+    <% end %>
+    <% if ["docs", "search"].include? params["controller"] %>
+    <script src="/js/search.js"></script>
+    <% end %>
+    <% if params["controller"] == "docs" and params["action"] == "show" %>
+    <script src="/js/show.js"></script>
+    <script src="/js/editor.js"></script>
+    <% end %>
+    <% if params["controller"] == "catalyst" %>
+    <script src="/js/catalyst.js"></script>
+    <% end %>
+    <% if params["controller"] == "entities" %>
+    <script src="/js/entities.js"></script>
+    <% end %>
   </body>
 </html>

@@ -1,0 +1,46 @@
+<div id="sidebar-details" class="more-bottom">
+    <h2 class="remove-top">
+        <i class="icon-analysis"></i>
+    </h2>
+    <h4>
+        <strong>Catalyst Text Miner</strong>
+    </h4>
+</div>
+<div id="sidebar-catalyst-menu" class="more-bottom">
+    <% if params['action'] == "index" %>
+    <h4>Text Mining</h4>
+    <p>
+        Text mining derives high-quality information from large amounts of digital text by finding patterns and trends through statistical learning. Catalyst uses these techniques to create filters for documents based on people, locations, special terms and much more.
+    </p>
+    <% end %>
+    <% if params['action'] == "builder" %>
+    <h4>Getting Started</h4>
+    <p>
+        Use the form to your right to create a text mining job.
+    </p>
+    <h4>Text Miners</h4>
+    <p>
+        Catalyst offers a range of text miners that churn through your dataset word by word analyzing each to understand them and create filters.
+    </p>
+    <% end %>
+</div>
+
+<div class="modal fade" id="modal-error" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="errorModalLabel">
+                    Error
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>There appears to be an error</p>
+                <div class="text-right">
+                   <button type="button" class="btn btn-default add-right" data-dismiss="modal">
+                       Dismiss
+                   </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

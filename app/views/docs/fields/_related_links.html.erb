@@ -1,5 +1,4 @@
 <!-- URLs representing an entity (website, social media, etc...) -->
-<% if !data.blank? %>
 <p class=<%= field %>>
   <strong class="label"><%= human_readable %></strong>
   <% if data.is_a?(Array) %>
@@ -10,4 +9,3 @@
     <a href="<%= data %>" target="_blank"><%= data %></a>
   <% end %>
 </p>
-<% end %>

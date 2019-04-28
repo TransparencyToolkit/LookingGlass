@@ -12,8 +12,14 @@
 //
 //= require jquery
 //= require underscore
-//= require twitter/bootstrap/modal
+//= require twitter/bootstrap/alert
 //= require twitter/bootstrap/dropdown
+//= require twitter/bootstrap/modal
 //= require twitter/bootstrap/tab
-//= require bootstrap-datepicker/core
+//= require moment
+//= require bootstrap-datetimepicker
+//= require selectize
+//= require html5shiv
+//= require diff_match_patch
+//= require global
 //= require_tree .

@@ -135,3 +135,23 @@ $lg-static-border-bottom:               1px solid $gray-light;
 $lg-static-item-border-left:            0px;
 $lg-static-color:                       $base-black;
 $lg-static-title-color:                 $brand-danger;
+
+
+/* EFatmarker CSS */
+$marker-button-size: 60px;
+$marker-button-font-size: 30px;
+$marker-button-color: $base-white;
+$marker-button-background-color: $cs-blue;
+
+$marker-menu-border: 4px solid $gray-lighter;
+$marker-menu-background: $base-white;
+$marker-menu-padding: 15px;
+
+$marker-menu-title-color: $base-black;
+$marker-menu-title-font: $lg-search-item-title-font;
+
+$marker-menu-link-font: 14px sans-serif;
+$marker-menu-link-color: $lg-search-item-title-color;
+$marker-menu-link-hover-color: #000;
+
+$marker-menu-permalink-color: $cs-blue;

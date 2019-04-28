@@ -1,0 +1,22 @@
+<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
+    <%= render partial: 'catalyst/sidebar' %>
+</div>
+<div id="maincontent" class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+    <%= render partial: 'catalyst/tabs' %>
+    <div class="tab-content">
+        <% if !recipes.nil? %>
+        <p>The following items are a list of mining jobs in various states of
+        completed or still running. Once a job is complete the results will be
+        immediately available in the sidebar of your <a href="/">main archive</a>.</p>
+        <% recipes.each_with_index do |recipe, index| %>
+            <%= render partial: 'job', :locals => { :recipe => recipe } %>
+        <% end %>
+        <% else %>
+        <p>Yo, you aint go no mining gigs. Time to make one.
+        </p>
+        <a href="/catalyst/builder" class="btn btn-primary">
+            Get Started
+        </a>
+        <% end %>
+    </div>
+</div>

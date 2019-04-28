@@ -7,6 +7,11 @@
         <%= render partial: "docs/show/tabs/tab_button", locals: {tab: tab, index: index} %>
       <% end %>
 
+    <% elsif tab == "attachments" %>
+      <% if data_for_field_type?(@dataspec, @doc, "Email Attachment") %>
+        <%= render partial: "docs/show/tabs/tab_button", locals: {tab: tab, index: index} %>
+      <% end %>
+	      
     <% elsif tab == "link" %>
       <% if data_for_field_type?(@dataspec, @doc, "Link") %>
         <%= render partial: "docs/show/tabs/tab_button", locals: {tab: tab, index: index} %>

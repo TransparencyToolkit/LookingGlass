@@ -1,0 +1,14 @@
+<ul class="nav nav-pills" style="text-align:center;">
+    <li <% if params["action"] == "index" %> class="active"<% end %>>
+        <a href="/catalyst/">
+            <i class="icon-list"></i>
+            Mining Jobs
+        </a>
+    </li>
+    <li <% if params["action"] == "builder" %> class="active"<% end %>>
+        <a href="/catalyst/builder/">
+            <i class="icon-plus"></i>
+            Create New Job
+        </a>
+    </li>
+</ul>

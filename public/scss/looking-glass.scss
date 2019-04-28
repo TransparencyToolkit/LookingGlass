@@ -5,7 +5,7 @@
 
 .icon-article:before,
 .icon-news:before {
-  content: "\e932";
+  content: "\e93c";
 }
 
 .icon-source:before {
@@ -83,36 +83,40 @@ div.sidebar {
 }
 
 @media (min-width: 768px) {
-  div.sidebar {
-    position: fixed;
-    top: $navbar-height;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: $lg-sidebar-background-color;
+
+    div.navbar-header {
+      min-width: 300px;
+    }
+
+    div.sidebar {
+      position: fixed;
+      top: $navbar-height;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      display: block;
+      padding: 20px;
+      overflow-x: hidden;
+      overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+      background-color: $lg-sidebar-background-color;
   }
-}
 
-/*** Main content ***/
-
-div.main {
-  padding: 20px;
-}
-
-@media (min-width: 768px) {
   div.main {
     padding-right: 30px;
     padding-left: 30px;
   }
 }
 
-div.main .page-header {
-  margin-top: 0;
+/*** Main content ***/
+
+div.main {
+    padding: 20px;
+
+    .page-header {
+        margin-top: 0;
+    }
 }
+
 
 /*** Navbar ***/
 
@@ -137,7 +141,6 @@ div.navbar-header {
       margin-right: 10px;
     }
   }
-
 }
 
 form.navbar-form {
@@ -145,7 +148,6 @@ form.navbar-form {
   .form-control:focus {
     border-color: $lg-navbar-input-color;
     outline: 0;
-    -webkit-box-shadow: inset 0 0px 0px $base-black, 0 0 0px $base-black;
     box-shadow: inset 0 0px 0px $base-black, 0 0 0px $base-black;
   }
 
@@ -159,20 +161,23 @@ form.navbar-form {
     color: $lg-navbar-input-color;
     background-color: $lg-navbar-input-background-color;
     border: $lg-navbar-input-border;
-    margin-right: $form-group-margin-bottom;
+    margin: 0;
+
+    &::placeholder {
+  	  color: $lg-navbar-input-placeholder-color;
+    }
   }
 
-  input::-webkit-input-placeholder {
-  	color: $lg-navbar-input-placeholder-color;
+  div.input-group {
+    margin: 0;
+    width: 90% !important;
+    height: 80% !important;
+    border: 0px;
+    background-color: #CCCCCC;
   }
-  input::-moz-placeholder {
-    color: $lg-navbar-input-placeholder-color;
-  }
-  input:-moz-placeholder { /* Older versions of Firefox */
-    color: $lg-navbar-input-placeholder-color;
-  }
-  input:-ms-input-placeholder {
-    color: $lg-navbar-input-placeholder-color;
+
+  input.form-control-sm {
+    width: 120px;
   }
 
   button[type=submit] {
@@ -383,15 +388,6 @@ form.navbar-form {
         }
       }
     }
-  }
-
-  .input-group {
-    margin-left: 13%;
-    margin-right: 2px;
-    width: 92% !important;
-    height: 80% !important;
-    border: 2px solid #CCCCCC;
-    background-color: #CCCCCC;
   }
 
 

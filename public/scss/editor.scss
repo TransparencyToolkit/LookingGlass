@@ -1,0 +1,159 @@
+/* Editor */
+@import "bootstrap/mixins";
+
+$editor-title-color: $base-black;
+
+$editor-unedited-background-color: $base-white;
+$editor-unedited-color: $base-black;
+
+$editor-editing-background-color: $base-white;
+$editor-editing-color: $base-black;
+
+$editor-changed-background-color: $brand-warning;
+$editor-changed-color: $base-black;
+
+$editor-saving-background-color: $brand-info;
+$editor-saving-color: $base-white;
+
+$editor-saved-background-color: $brand-success;
+$editor-saved-color: $base-white;
+
+$editor-error-background-color: $brand-danger;
+$editor-error-color: $base-white;
+
+$editor-form-item-border: 1px solid $brand-warning;
+
+/* Import here to inehert vars */
+@import "selectize.bootstrap3";
+
+
+/* Start Original Classes */
+#sidebar {
+    div.control-group {
+        margin-bottom: 20px;
+    }
+
+    div.selectize-control {
+        margin-bottom: 20px;
+    }
+}
+
+#editable-bar {
+    margin: 0px 0px 20px 0px;
+    padding: 10px 0px;
+
+    div.title {
+        font-size: 16px;
+        font-weight: normal;
+        padding-top: 4px;
+        color: $editor-title-color;
+
+        i.icon-logo {
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    &.unedited {
+        background-color: $editor-unedited-background-color;
+        color: $editor-unedited-color;
+
+        div.title {
+            color: $editor-unedited-color;
+        }
+
+        #button-editable-action {
+            background-color: $brand-primary;
+            color: $base-white;
+        }
+        #button-editable-discard {
+            background-color: $base-white;
+            color: $gray-dark;
+        }
+    }
+    &.editing {
+        background-color: $editor-editing-background-color;
+        color: $editor-editing-color;
+
+        #button-editable-action {
+            background-color: $brand-danger;
+            color: $base-white;
+        }
+        #button-editable-discard {
+            background-color: $base-white;
+            color: $gray-dark;
+        }
+    }
+    &.changed {
+        background-color: $editor-changed-background-color;
+        color: $editor-changed-color;
+
+        #button-editable-action {
+            background-color: darken($brand-warning, 20%);
+            color: $base-white;
+        }
+        #button-editable-discard {
+            background-color: $base-white;
+            color: $gray-dark;
+        }
+    }
+    &.saving {
+        background-color: $editor-saving-background-color;
+        color: $editor-saving-color;
+
+        div.title {
+            color: $editor-saving-color;
+        }
+
+        #button-editable-action {
+            background-color: darken($editor-saving-background-color, 20%);
+            color: $editor-saving-color;
+        }
+        #button-editable-discard {
+            background-color: $base-white;
+            color: $gray-dark;
+        }
+    }
+    &.saved {
+        background-color: $editor-saved-background-color;
+        color: $editor-saved-color;
+
+        div.title {
+            color: $editor-saved-color;
+        }
+
+        #button-editable-action {
+            background-color: darken($editor-saved-background-color, 20%);
+            color: $editor-saved-color;
+        }
+        #button-editable-discard {
+            background-color: $base-white;
+            color: $gray-dark;
+        }
+    }
+    &.error {
+        background-color: $editor-error-background-color;
+        color: $editor-error-color;
+
+        #button-editable-action {
+            background-color: darken($editor-error-background-color, 20%);
+            color: $editor-error-color;
+        }
+        #button-editable-discard {
+            background-color: $base-white;
+            color: $gray-dark;
+        }
+    }
+}
+
+input.editable-form-item,
+textarea.editable-form-item {
+    margin: $padding-large-vertical 0px;
+    font-weight: normal;
+    color: $base-black;
+
+    &.item-changed {
+        border: $editor-form-item-border;
+        @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(255, 230, 119))
+    }
+}
