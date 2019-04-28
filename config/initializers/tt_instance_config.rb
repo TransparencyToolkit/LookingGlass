@@ -3,6 +3,7 @@ ENV['CATALYST_URL'] = "http://localhost:9004" if ENV['CATALYST_URL'] == nil
 ENV['DOCMANAGER_URL'] = "http://0.0.0.0:3000" if ENV['DOCMANAGER_URL'] == nil
 ENV['DOCUPLOAD_URL'] = "http://localhost:9292" if ENV['DOCUPLOAD_URL'] == nil
 ENV['ARCHIVEADMIN_URL'] = "http://localhost:3002" if ENV['ARCHIVEADMIN_URL'] == nil
+ENV['PUBLIC_ARCHIVEADMIN_URL'] = "http://localhost:3002" if ENV['PUBLIC_ARCHIVEADMIN_URL'] == nil
 
 # For instance / project (default "archive_test")
 ENV['WRITEABLE'] = "true" if ENV['WRITEABLE'] == nil

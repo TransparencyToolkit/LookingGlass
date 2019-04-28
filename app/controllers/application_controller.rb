@@ -17,9 +17,9 @@ class ApplicationController < ActionController::Base
 
       # Redirect if doesn't have access
       if has_access == "unauthenticated"
-        redirect_to "#{ENV['ARCHIVEADMIN_URL']}/unauthenticated"
+        redirect_to "#{ENV['PUBLIC_ARCHIVEADMIN_URL']}/unauthenticated"
       elsif has_access == "no"
-        redirect_to "#{ENV['ARCHIVEADMIN_URL']}/not_allowed"
+        redirect_to "#{ENV['PUBLIC_ARCHIVEADMIN_URL']}/not_allowed"
       end
     end
   end
