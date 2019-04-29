@@ -1,6 +1,6 @@
 <% if is_editable?("show") %>
 <div class="more-bottom">
-    <a href="/catalyst/" class="btn btn-primary btn-block">
+    <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/" class="btn btn-primary btn-block">
         <i class="icon-analysis"></i>
         Catalyst Text Miner
     </a>
