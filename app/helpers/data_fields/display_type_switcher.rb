@@ -184,7 +184,8 @@ module DisplayTypeSwitcher
 
     # Go through all files and output display
     return files.inject("") do |str, file|
-      str += attachment_file_format_switcher(file)
+      full_path = (ENV['RAILS_RELATIVE_URL_ROOT']+file).gsub("//", "/")
+      str += attachment_file_format_switcher(full_path)
       raw(str)
     end
   end
