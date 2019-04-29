@@ -2,7 +2,7 @@
     <%= render partial: 'docs/show/sidebar' %>
     <!-- Theme Partial -->
     <% project = get_project_spec(ENV['PROJECT_INDEX']) %>
-    <%=  render partial: '<%= ENV['RAILS_RELATIVE_URL_ROOT']%>/themes/' + project['theme']+ '/sidebar' rescue nil %>
+    <%=  render partial: ENV['RAILS_RELATIVE_URL_ROOT']+'themes/' + project['theme']+ '/sidebar' rescue nil %>
 </div>
 <div id="maincontent" class="efm-target col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
     <% if is_editable?("show") %>
