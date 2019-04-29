@@ -3,10 +3,12 @@ Themes
 
 LookingGlass supports creating custom themes of the app. For an examples, look at the following examples:
 
-- [ICWATCH](https://icwatch.transparencytoolkit.org)
-- [Snowden Doc Search](https://search.edwardsnowden.com)
-- [Surveillance Industry Index](https://sii.transparencytoolkit.org)
-- [USA vs. WikiLeaks](https://usavwl.couragefound.org)
+- `default` - [ICWATCH](https://icwatch.transparencytoolkit.org)
+- `snowden` - [Snowden Doc Search](https://search.edwardsnowden.com)
+- `pi` - [Surveillance Industry Index](https://sii.transparencytoolkit.org)
+- `couragewl` - [USA vs. WikiLeaks](https://usavwl.couragefound.org)
+- `neondata` - [DataPolitics](https://datapolitics.transparencytoolkit.org)
+- `webfoundation` - matches [webfoundation.org](https://webfoundation.org)
 
 Both of these instances are using the LookingGlass application, they look similar but also different. This is achieved using LookingGlass' theming functionality!
 

@@ -1,3 +1,4 @@
 <script>
-  var search_query = <%= raw(params.to_json) %>;
+    var relative_url_root = "<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>"
+    var search_query = <%= raw(params.to_json) %>;
 </script>

@@ -22,8 +22,7 @@ var doc_url = document.createElement('a')
 doc_url.href = window.location.href
 var doc_id = doc_url.pathname.replace('/docs/', '')
 editable.doc_id = doc_id
-var base_url = doc_url.protocol + '//' + doc_url.host
-
+var base_url = doc_url.protocol + '//' + doc_url.host + relative_url_root
 
 var showEditableItems = function($elem) {
 
@@ -582,7 +581,7 @@ $(document).ready(function() {
             $('#form-associated-doc').show()
             $('#modalAddLinkLabel').html('Link Associated Document')
             $('#documentUrl').attr({
-                'placeholder': base_url + '/docs/Some_Related_document',
+                'placeholder': base_url + 'docs/Some_Related_document',
                 'name': 'associated_document'
             })
             $('#buttonAddLink').html('Link Document')

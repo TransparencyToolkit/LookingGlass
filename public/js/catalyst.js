@@ -4,6 +4,10 @@
  * Author: Brennan Novak
  */
 
+var doc_url = document.createElement('a')
+doc_url.href = window.location.href
+var base_url = doc_url.protocol + '//' + doc_url.host + relative_url_root
+
 var term_list_custom = "normalized_topics.json"
 var term_list_country_names = "country_names.json"
 var annotators = []
@@ -213,7 +217,7 @@ var createJob = function() {
         annotators: annotator_configs
     }
 
-    var ajaxy = $.post('/api/create_job', {
+    var ajaxy = $.post(base_url + 'api/create_job', {
         job: JSON.stringify(job)
     }, function() {
         console.log('Sending create_job')
@@ -235,7 +239,7 @@ $(document).ready(function() {
 
     showCatalystAlerts()
 
-    $.getJSON("/api/annotators", function(response) {
+    $.getJSON(base_url + 'api/annotators', function(response) {
         annotators = response
         renderAnnotatorItems(response)
     })
