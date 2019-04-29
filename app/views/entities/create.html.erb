@@ -26,7 +26,8 @@
     </ul>
     <div class="tab-content">
         <h3><%= @entity["name"] %></h3>
-        <form name="edited" method="post" action="/entities/save">
+        <form name="edited" method="post"
+	      action="<%=ENV['RAILS_RELATIVE_URL_ROOT']%>entities/save">
             <div id="fields-<%= @entity["class_name"] %>">
             <% entity_fields = @entity["source_fields"].select{|k,v| v["display_type"] != "None" && v["display_type"] != "Category"} %>
             <% entity_fields.each do |name, field| %>
