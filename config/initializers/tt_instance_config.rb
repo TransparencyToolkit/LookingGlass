@@ -8,5 +8,5 @@ ENV['RAILS_RELATIVE_URL_ROOT'] = "/" if ENV['RAILS_RELATIVE_URL_ROOT'] == nil
 
 # For instance / project (default "archive_test")
 ENV['WRITEABLE'] = "true" if ENV['WRITEABLE'] == nil
-ENV['PROJECT_INDEX'] = "archive_test_hcfgog" if ENV['PROJECT_INDEX'] == nil
+ENV['PROJECT_INDEX'] = "archive_test" if ENV['PROJECT_INDEX'] == nil
 ENV['ARCHIVE_SECRET_KEY'] = "UWSzDa2mcuRoFmmu3epvYOhcm8GMyLVDYH0cngi5bV3+90tQWUGZpSc2ghMYoiIpIabYit7zIcwg5UE3e2iU5nmLbB2lJfIP8NhTYmOe6PsbfM8VnDHk0cP1IRLgqYybJndiPw==" if ENV['ARCHIVE_SECRET_KEY'] == nil
