@@ -1,7 +1,7 @@
 <ul class="nav navbar-nav navbar-right">
     <% if ENV['WRITEABLE'] == "true" %>
     <li>
-        <a href="/entities">
+        <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>entities">
             Add Entity
         </a>
     </li>
