@@ -6,8 +6,8 @@
     </div>
   </noscript>
 </div>
-<script src="/js/viewer.js"></script>
-<script src="/js/templates.js"></script>
+<script src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>js/viewer.js"></script>
+<script src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>js/templates.js"></script>
 <script>
   DV.load('<%= file+".json" %>', {
   container: '#DV-container',

@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/">
-            <% if project["logo"] != "" %><img src="/themes/<%= project['theme'] %>/<%= project['logo'] %>"><% end %>
+            <% if project["logo"] != "" %><img src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>themes/<%= project['theme'] %>/<%= project['logo'] %>"><% end %>
             <span class="title"><%= project["title"] %> </span>
           </a>
         </div>
@@ -75,20 +75,20 @@
         <% end %>
       </div>
     </div>
-    <script src="/js/efatmarker.js"></script>
+    <script src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>js/efatmarker.js"></script>
     <% end %>
     <% if ["docs", "search"].include? params["controller"] %>
-    <script src="/js/search.js"></script>
+    <script src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>js/search.js"></script>
     <% end %>
     <% if params["controller"] == "docs" and params["action"] == "show" %>
-    <script src="/js/show.js"></script>
-    <script src="/js/editor.js"></script>
+    <script src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>js/show.js"></script>
+    <script src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>js/editor.js"></script>
     <% end %>
     <% if params["controller"] == "catalyst" %>
-    <script src="/js/catalyst.js"></script>
+    <script src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>js/catalyst.js"></script>
     <% end %>
     <% if params["controller"] == "entities" %>
-    <script src="/js/entities.js"></script>
+    <script src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>js/entities.js"></script>
     <% end %>
   </body>
 </html>
