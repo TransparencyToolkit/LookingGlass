@@ -232,17 +232,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="runningJobModalLabel">
-                    Job Running
+                    Catalyst Is Running
                 </h4>
             </div>
             <div class="modal-body">
                 <p>
-                    Your Catalyst job has started running. This may take time for it to finish.
+                    Your Catalyst job has started running. This may take a few seconds or up to a few minutes to finish.
+                    To view your results, go to the search page or refresh one you already have open.
                 </p>
                 <div class="text-right">
                    <button type="button" class="btn btn-default add-right" data-dismiss="modal">
-                       Cancel
+                       Dismiss
                    </button>
+                   <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>" class="btn btn-primary add-right">
+                       Go To Search
+                   </a>
                 </div>
             </div>
         </div>
