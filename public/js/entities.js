@@ -2,5 +2,6 @@
 
 $(document).ready(function() {
 
+    runEntityJS()
 
 })

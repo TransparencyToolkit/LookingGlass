@@ -52,10 +52,12 @@
                     </div>
                 </div>
                 <script>
+                var runEntityJS = function() {
                     $('#datetimepicker-<%= field["human_readable"] %>').datetimepicker({
                         format: 'YYYY-MM-DD',
                         icons: datetimepicker_icons
                     })
+                }
                 </script>
                 <% elsif field["display_type"] == "Related Link" %>
                 <input type="text" name="edited[items[<%= field["human_readable"].downcase %>]]" class="url-validate form-control" value="">
