@@ -20,7 +20,7 @@ var selectized_items = {}
 // Get Doc ID
 var doc_url = document.createElement('a')
 doc_url.href = window.location.href
-var doc_id = doc_url.pathname.replace('/docs/', '')
+var doc_id = doc_url.pathname.replace(relative_url_root + 'docs/', '')
 editable.doc_id = doc_id
 var base_url = doc_url.protocol + '//' + doc_url.host + relative_url_root
 

@@ -184,7 +184,7 @@ var dataGetRecipe = function() {
 
 var recipeSearch = function() {
     var recipe = dataGetRecipe()
-    var ajaxy = $.post('/api/recipe_search', {
+    var ajaxy = $.post(base_url + 'api/recipe_search', {
         recipe: recipe
     }, function() {
         console.log('Sending recipe_search')
