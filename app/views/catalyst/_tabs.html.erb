@@ -1,12 +1,12 @@
 <ul class="nav nav-pills" style="text-align:center;">
     <li <% if params["action"] == "index" %> class="active"<% end %>>
-        <a href="/catalyst/">
+        <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/">
             <i class="icon-list"></i>
             Mining Jobs
         </a>
     </li>
     <li <% if params["action"] == "builder" %> class="active"<% end %>>
-        <a href="/catalyst/builder/">
+        <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/builder/">
             <i class="icon-plus"></i>
             Create New Job
         </a>

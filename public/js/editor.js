@@ -470,12 +470,10 @@ var saveChanges = function() {
 var deleteDocument = function() {
     console.log('deleteDocument running...')
 
-    
-
     var documents = []
 
     $.ajax({
-        url: '/delete_documents',
+        url: base_url + 'delete_documents',
         data: documents,
         type: 'DELETE'
     }).done(function(response) {
@@ -486,7 +484,7 @@ var deleteDocument = function() {
 
 $(document).ready(function() {
 
-    $.getJSON("/api/facets", function(response) {
+    $.getJSON(base_url + 'api/facets', function(response) {
         global_facets = response
     })
 
