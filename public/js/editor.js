@@ -444,13 +444,13 @@ var resetEditor = function() {
 }
 
 var saveChanges = function() {
-    var post_uri = '/edit_document'
-    if (editable.doc_id == '/entities/create') {
-        post_uri = '/entities/save'
+    var post_uri = 'edit_document'
+    if (editable.doc_id == 'entities/create') {
+        post_uri = 'entities/save'
         editable.doc_type = $('#class_name').val()
     }
 
-    var ajaxy = $.post(post_uri, {
+    var ajaxy = $.post(base_url + post_uri, {
         edited: editable
     }, function() {
         editable.state = 'saved'
