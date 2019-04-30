@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   include ParamParsing
   
   before_action :params_to_ignore
-  before_action :authenticate
+#  before_action :authenticate
 
   def authenticate
     if ENV['WRITEABLE'] == "true"
