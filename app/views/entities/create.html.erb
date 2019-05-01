@@ -34,7 +34,7 @@
                 <p class="<%= name %>">
                     <strong class="label">
                         <%= field["human_readable"] %>
-                    </strong> <%= name %>
+                    </strong>
                 </p>
                 <% if field["display_type"] == "Title" or field["display_type"] == "Description" %>
                 <input type="text" name="edited[items[<%= field["human_readable"].downcase %>]]" class="form-control add-bottom" value="">
