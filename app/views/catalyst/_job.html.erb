@@ -19,17 +19,12 @@
     </div>
     <ul class="list-inline add-top">
         <li>
-            <a href="/search?_facet=/builder?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
-                View Results
-            </a>
-        </li>
-        <li>
-            <a href="/catalyst/builder?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
+            <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/builder?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
                 New Job From Recipe
             </a>
         </li>
         <li>
-            <a href="/api/delete_recipe?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
+            <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>api/delete_recipe?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
                 Delete Recipe
             </a>
         </li>
