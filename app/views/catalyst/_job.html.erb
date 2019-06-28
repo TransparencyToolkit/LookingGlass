@@ -1,7 +1,7 @@
 <div class="catalyst-job">
     <h3><%= recipe["title"] %></h3>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <% if recipe["docs_to_process"]["run_over"] == "date_range" %>
                 Date range found and mined <% recipe["total_mined_count"] %> from <%= recipe["total_doc_count"] %> total documents mined
             <% elsif recipe["docs_to_process"]["run_over"] == "matching_query" %>
@@ -10,24 +10,18 @@
                 All <%= recipe["total_doc_count"] %> documents mined
             <% end %>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <%= recipe["annotators"].length %> text miners used:
             <% recipe["annotators"].each_with_index do |annotator, index| %>
                 <%= annotator["human_readable_label"] %>,
             <% end %>
         </div>
+        <div class="col-md-3">
+            <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>api/rerun_recipe?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
+                <i class="icon-refresh"></i>
+                Run Job Again
+            </a>
+        </div>
     </div>
-    <ul class="list-inline add-top">
-        <li>
-            <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/builder?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
-                New Job From Recipe
-            </a>
-        </li>
-        <li>
-            <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>api/delete_recipe?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
-                Delete Recipe
-            </a>
-        </li>
-    </ul>
     <hr>
 </div>
