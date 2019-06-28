@@ -5,10 +5,16 @@
             Mining Jobs
         </a>
     </li>
-    <li <% if params["action"] == "builder" %> class="active"<% end %>>
-        <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/builder/">
+    <li <% if params["action"] == "basic" %> class="active"<% end %>>
+        <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/basic/">
             <i class="icon-plus"></i>
-            Create New Job
+            New Basic Job
+        </a>
+    </li>
+    <li <% if params["action"] == "advanced" %> class="active"<% end %>>
+        <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/advanced/">
+            <i class="icon-plus"></i>
+            New Avanced Job
         </a>
     </li>
 </ul>

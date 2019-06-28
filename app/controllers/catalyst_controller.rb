@@ -1,8 +1,12 @@
 class CatalystController < ApplicationController
   include CatalystApi
 
-  def builder
-    render 'catalyst/builder'
+  def basic
+    render 'catalyst/basic'
+  end
+
+  def advanced
+    render 'catalyst/advanced'
   end
 
   def index

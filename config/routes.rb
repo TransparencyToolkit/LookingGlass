@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   delete 'delete_documents', to: 'docs#delete_documents'
 
   get 'catalyst', to: 'catalyst#index'
-  get 'catalyst/builder', to: 'catalyst#builder'
+  get 'catalyst/basic', to: 'catalyst#basic'
+  get 'catalyst/advanced', to: 'catalyst#advanced'
   get 'entities', to: 'entities#index'
   get 'entities_create/*entity', to: 'entities#create'
   post 'entities/save', to: 'entities#save'
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   post 'api/recipe_search', to: 'api#recipe_search'
   post 'api/create_job', to: 'api#create_job'
   get 'api/facets', to: 'api#facets'
+  get 'api/delete_recipe', to: 'api#delete_recipe'
 
   root to: 'docs#index'
   resources :docs
