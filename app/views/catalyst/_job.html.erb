@@ -17,7 +17,7 @@
             <% end %>
         </div>
         <div class="col-md-3">
-            <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>api/rerun_recipe?recipe_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
+            <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>api/rerun_job?job_id=<%= recipe["id"] %>" class="btn btn-sm btn-default">
                 <i class="icon-refresh"></i>
                 Run Job Again
             </a>
