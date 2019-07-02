@@ -1,20 +1,10 @@
-<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
-    <div class="detail-heading">
-        Filter Categories
-    </div>
-    <% category_fields = @entity_specs.last["source_fields"].select{|k,v| v["display_type"] != "None" && v["display_type"] == "Category"} %>
-    <% category_fields.each do |name, field| %>
-        <p>
-            <%= field["human_readable"] %>
-        </p>
-    <% end %>
-</div>
-<div id="maincontent" class="efm-target col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+<div class="container">
+<div id="maincontent" class="col-sm-12 col-md-12 col-lg-12 main">
     <ul class="nav nav-pills" style="text-align:center;">
         <li class="active">
             <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/">
                 <i class="icon-list"></i>
-                Entity Types
+                Add Entities
             </a>
         </li>
     </ul>
@@ -23,14 +13,14 @@
             <div id="entity-<%= entity["class_name"] %>" class="row">
                 <div class="col-md-10">
                     <h3>
-                        <i class="<%= entity["icon"] %>"></i>
                         <%= entity["name"] %>
                     </h3>
                     <%= entity["description"] %>
                 </div>
                 <div class="col-md-2">
                     <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>entities_create/<%= entity["class_name"] %>" class="btn btn-primary btn-block">
-                        Create <%= entity["name"] %>
+                        <i class="<%= entity["icon"] %>"></i>&nbsp;
+                        Add <%= entity["name"] %>
                     </a>
                 </div>
                 <input type="hidden" id="class_name" value="<%= entity["class_name"] %>">
@@ -39,4 +29,4 @@
         <% end %>
     </div>
 </div>
-<%= render partial: 'shared/modals_editor' %>
+</div>
