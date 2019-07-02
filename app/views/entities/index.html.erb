@@ -1,32 +1,32 @@
 <div class="container">
-<div id="maincontent" class="col-sm-12 col-md-12 col-lg-12 main">
-    <ul class="nav nav-pills" style="text-align:center;">
-        <li class="active">
-            <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/">
-                <i class="icon-list"></i>
-                Add Entities
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <% @entity_specs.each_with_index do |entity, index| %>
-            <div id="entity-<%= entity["class_name"] %>" class="row">
-                <div class="col-md-10">
-                    <h3>
-                        <%= entity["name"] %>
-                    </h3>
-                    <%= entity["description"] %>
+    <div id="maincontent" class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 main">
+        <ul class="nav nav-pills" style="text-align:center;">
+            <li class="active">
+                <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>catalyst/">
+                    <i class="icon-list"></i>
+                    Add Entities
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <% @entity_specs.each_with_index do |entity, index| %>
+                <div id="entity-<%= entity["class_name"] %>" class="row">
+                    <div class="col-md-9">
+                        <h3>
+                            <%= entity["name"] %>
+                        </h3>
+                        <%= entity["description"] %>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>entities_create/<%= entity["class_name"] %>" class="btn btn-primary btn-block">
+                            <i class="<%= entity["icon"] %>"></i>&nbsp;
+                            Add <%= entity["name"] %>
+                        </a>
+                    </div>
+                    <input type="hidden" id="class_name" value="<%= entity["class_name"] %>">
                 </div>
-                <div class="col-md-2">
-                    <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>entities_create/<%= entity["class_name"] %>" class="btn btn-primary btn-block">
-                        <i class="<%= entity["icon"] %>"></i>&nbsp;
-                        Add <%= entity["name"] %>
-                    </a>
-                </div>
-                <input type="hidden" id="class_name" value="<%= entity["class_name"] %>">
-            </div>
-            <hr>
-        <% end %>
+                <hr>
+            <% end %>
+        </div>
     </div>
-</div>
 </div>
