@@ -20,6 +20,12 @@
             </li>
         </ul>
     </li>
+    <li>
+        <a href="<%= ENV['ARCHIVEADMIN_URL'] %>/archives/<%= @project['id'] %>">
+            <i class="icon-settings"></i>
+            Archive Settings
+        </a>
+    </li>
     <% else %>
     <% project["other_topbar_links"].to_h.each do |name, link| %>
     <li>
