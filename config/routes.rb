@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   post 'api/recipe_search', to: 'api#recipe_search'
   post 'api/create_job', to: 'api#create_job'
   get 'api/facets', to: 'api#facets'
-  get 'api/delete_recipe', to: 'api#delete_recipe'
+  get 'api/rerun_job', to: 'api#rerun_job'
 
   root to: 'docs#index'
   resources :docs

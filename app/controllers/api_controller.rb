@@ -24,12 +24,12 @@ class ApiController < ApplicationController
     recipe = JSON.parse(params["job"])["recipe"]
     annotators = JSON.parse(params["job"])["annotators"]
     recipe_id = prepare_recipe(recipe)
-    
+
     # Create the annotators
     annotators.each do |annotator|
       prepare_annotator(annotator, recipe_id)
     end
-    
+
     # Run the recipe
     run_recipe(recipe_id)
     render :json => { status: "success", message: "Catalyst job created" }
@@ -54,7 +54,7 @@ class ApiController < ApplicationController
     elsif docs_to_process[:run_over] == "all"
       return get_total_doc_count_for_type(recipe[:index_name], recipe[:doc_type])
     end
-    
+
   end
 
   # Create and save the recipe and return the ID
@@ -79,6 +79,10 @@ class ApiController < ApplicationController
         end_filter_range: job["end_filter_range"]
       }
     }
+  end
+
+  def rerun_job(job_id)
+    puts "Will eventually re-run job"
   end
 
   # Prepare and save annotator
