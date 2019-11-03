@@ -17,7 +17,7 @@ module DisplayTypeSwitcher
   def update_type_for_action(action, type)
     nonstandard_show_types = [
         "Category", "Attachment", "Email Attachment", "Date", "DateTime", "Link", "Named Link",
-        "Child Document Link", "Related Link", "Source Link"]
+        "Child Document Link", "Related Link", "Source Link", "Alt Attachment View"]
     (action == "show") && !nonstandard_show_types.include?(type) ? (return "Show") : (return type)
   end
 
@@ -211,6 +211,15 @@ module DisplayTypeSwitcher
     return "#{doc_title} (#{file_name})"
   end
 
+  # Get the alternate path to the PDF version of office docs and similar
+  def get_alt_attachment_path
+    if data_for_field_type?(@dataspec, @doc, "Alt Attachment View")
+      return get_text(@doc, "lg_pdf_view", @dataspec["source_fields"]["lg_pdf_view"])
+    else
+      return nil
+    end
+  end
+
   # Switch between different attachment file types
   def attachment_file_format_switcher(file)
     file_type = get_file_type(file).downcase
@@ -225,6 +234,9 @@ module DisplayTypeSwitcher
       render partial: "docs/fields/file_types/doc_cloud", locals: { file: file }
     when ".html", ".htm", ".txt", ".svg", ".mp4"
       render partial: "docs/fields/file_types/iframe", locals: { file: file, download_name: download_name }
+    when ".doc", ".docx", ".odt", ".rtf", ".wbk", ".ppt", ".pptx", ".odp", ".xls", ".xlsx", ".ods"
+      lg_pdf_view = get_alt_attachment_path
+      render partial: "docs/fields/file_types/office_doc", locals: {file: file, download_name: download_name, lg_pdf_view: lg_pdf_view}
     else
       render partial: "docs/fields/file_types/download", locals: { file: file, download_name: download_name }
     end

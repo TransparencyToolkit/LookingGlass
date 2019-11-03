@@ -1,0 +1,12 @@
+<!-- Shows an Office document (including PDF view) -->
+<% if lg_pdf_view %>
+  <object class="show-document" data="<%= lg_pdf_view %>?#zoom=page-width" type="application/pdf">
+    <embed src="<%= asset_path(lg_pdf_view) %>" type="application/pdf" />
+  </object>
+<% end %>
+  
+<br />
+<%= render partial: "docs/fields/file_types/download", locals: {file: file,
+    download_name: download_name} %>
+
+
