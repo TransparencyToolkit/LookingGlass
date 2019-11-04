@@ -1,5 +1,17 @@
 <!-- Template to display fields of various types, used by other templates. -->  
+
+<!-- Image Document -->
+<div class="row">
+    <div class="col-md-6">
+        <img class="img-responsive" src="attachments<%= doc["_source"]["full_path"] %>">
+    </div>
+    <div class="col-md-6">
+        ...other pic metadata here...
+    </div>
+</div>
+
 <% doc_picture = show_by_type("Picture", doc, dataspec) %>
+
 <% if (doc_picture != nil) && (!doc_picture.empty?) %>
   <%= doc_picture %>
 <% end %>
