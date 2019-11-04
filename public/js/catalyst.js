@@ -72,6 +72,82 @@ var renderAnnotatorItems = function(annotators) {
     })
 }
 
+var renderAnnotatorConfigsBasic = function() {
+    $('#step-2').find('h3').html('Miners Selected')
+    $('#step-2').find('p').addClass('hide')
+    $('.annotator-item.default').addClass('hide')
+    $('#select-miners').addClass('hide')
+
+    // Render Step3
+    $('.annotator-item.selected').each(function(item, key) {
+        var annotator_name = $(key).find('input').attr('name')
+        for (item in annotators) {
+            if (annotators[item].classname == annotator_name) {
+                annotator = annotators[item]
+                break;
+            }
+        }
+
+        var annotator_id = 'annotator-config-' + annotator_name
+        var params_id = 'annotator-params-' + annotator_name
+        var fields_id = 'annotator-fields-' + annotator_name
+        var html_fields = $('#template-' + $('#select-dataspec').val()).html()
+        var html_template = $('#template-annotator-config').html()
+        var html = html_template.replace(new RegExp('{{AID}}', 'g'), annotator_name)
+
+        $('#annotator-configs').append(html)
+        $('#' + annotator_id).find('input[name=filter_icon]').val(annotator.default_icon)
+        $('#' + annotator_id).find('input[name=filter_name]').val(annotator.default_human_readable_label)
+        $('#' + fields_id).html(html_fields)
+
+        var input_params = ''
+        if (annotator.input_params.output_display_type) {
+            input_params = '\
+            <label>Display Type</label>\
+            <select name="input_params[]output_display_type" class="form-control">'
+            for (param in annotator.input_params.output_display_type) {
+                input_params += '<option value="' + annotator.input_params.output_display_type[param] + '">' + annotator.input_params.output_display_type[param] + '</option>'
+            }
+            input_params += '</select>'
+        } else if (annotator.input_params.term_list) {
+            input_params = '\
+                <label>Terms List</label>\
+                <button type="button" class="annotator-terms-select btn btn-info btn-block">\
+                    Select Terms\
+                </button>\
+                <label>Case Sensitive</label>\
+                <select name="input_params[]case_sensitive" class="form-control">\
+                    <option value="false">No</option>\
+                    <option value="true">Yes</option>\
+                </select>\
+                <input type="hidden" name="input_params[]term_list">'
+        } else if (annotator.input_params.number_of_keywords) {
+            input_params = '\
+            <label>Number of Keywords</label>\
+            <select name="input_params[]number_of_keywords" class="form-control">\
+                <option value="1">One</option>\
+                <option value="2">Two</option>\
+                <option value="3">Three</option>\
+                <option value="4">Four</option>\
+                <option value="5">Five</option>\
+                <option value="6">Six</option>\
+                <option value="7">Seven</option>\
+                <option value="8">Eight</option>\
+                <option value="9">Nine</option>\
+                <option value="10">Ten</option>\
+            </select>'
+        }
+
+        $('#' + params_id).html(input_params)
+    })
+
+    $('#step-3').removeClass('hide')
+
+    $('.annotator-terms-select').on('click', function(e) {
+        $('#modal-annotator-terms').modal('show')
+    })
+}
+
 var renderAnnotatorConfigs = function() {
     // Update Step 2
     $('#step-2').find('h3').html('Miners Selected')
@@ -293,6 +369,11 @@ $(document).ready(function() {
     $('#submit-narrow').on('click', function(e) {
         e.preventDefault()
         recipeSearch()
+    })
+
+    $('#select-miners-basic').on('click', function(e) {
+        e.preventDefault()
+        renderAnnotatorConfigsBasic()
     })
 
     $('#select-miners').on('click', function(e) {

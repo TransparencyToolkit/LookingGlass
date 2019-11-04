@@ -1,0 +1,197 @@
+<div id="sidebar" class="col-sm-4 col-md-3 sidebar">
+    <%= render partial: 'catalyst/sidebar' %>
+</div>
+<div id="maincontent" class="efm-target col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+    <%= render partial: 'catalyst/tabs' %>
+    <div class="tab-content">
+
+        <div class="alert alert-info alert-dismissible hide" id="alert-catalyst-builder" role="alert">
+            <h4 class="pull-left">Creating Basic Jobs</h4>
+            <button type="button" class="close pull-right close-alert" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="clearfix"></div>
+            <p>In order for Catalyst to do its magic analysing your Looking Glass data,
+            you need to give it some guidance and help with <em>how</em> and <em>what</em>
+            aspects of your data you want Catalyst to analyze.
+            </p>
+            <p>This <strong>Basic Job Builder</strong> hopefully makes it easy. We suggest using this to get an idea of what a "job" is and what it can do before making <strong>Advanced Jobs</strong>.</p>
+        </div>
+
+        <section id="step-1">
+            <h3>Name Your Job</h3>
+            <p>You can run Catalyst text miners on all your documents or only a specific subset of narrowed down documents.</p>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <input type="text" name="filter_name" class="form-control" value="" placeholder="Interesting People">
+                </div>
+                <div class="col-md-4 form-group">
+                    <input id="select-dataspec" name="default_dataspec" type="hidden" value="ArchiveDoc">
+                    <input id="select-run-over" name="run_over" type="hidden" value="all">
+                    <input name="filter_query" type="hidden">
+                    <input name="end_filter_range" type="hidden">
+                    <input name="filter_text" type="hidden">
+                    <% document_type_list.each do |classname, human_name| %>
+                    <% if ['ArchiveDoc'].include? classname %>
+                    <select name="field_to_search" class="hidden" multiple>
+                        <% list_date_fields_by_document_type(classname).each do |date_classname, date_human_name|  %>
+                        <option value="<%= date_classname %>" selected="selected" data-field_type="date">
+                            <%= date_human_name %>
+                        </option>
+                        <% end %>
+                    </select>
+                    <select name="field_to_search" class="hidden" multiple>
+                        <% list_text_fields_by_document_type(classname).each do |text_classname, text_human_name|  %>
+                        <option value="<%= text_classname %>" selected="selected" data-field_type="text">
+                            <%= text_human_name %>
+                        </option>
+                        <% end %>
+                    </select>
+                    <% end %>
+                    <% end %>
+                    <button id="submit-narrow" class="btn btn-block btn-info">
+                        <i class="icon-right-arrow"></i>
+                        Next Step
+                    </button>
+                </div>
+            </div>
+        </section>
+        <div id="narrow-result" class="hide add-top">
+            <h3></h3>
+            <p></p>
+        </div>
+
+        <section id="step-2" class="hide">
+            <h3>Select Text Miners</h3>
+            <p>Choose what <em>types</em> of entities or text you want Catalyst to look for.</p>
+            <div id="annotator-items" class="add-bottom">
+            </div>
+            <div class="clearfix"></div>
+            <button id="select-miners-basic" type="submit" class="btn btn-primary btn-large pull-right">
+                <i class="icon-progress"></i>
+                Select These Miners
+            </button>
+        </section>
+
+        <section id="step-3" class="hide">
+            <div id="annotator-configs">
+            </div>
+            <input type="hidden" name="project_index" value="<%= ENV['PROJECT_INDEX'] %>">
+            <button id="cancel-job" type="submit" class="btn btn-danger">
+                Cancel Job
+            </button>
+            <button id="run-job" type="submit" class="btn btn-primary pull-right">
+                <i class="icon-progress"></i>
+                Run Mining Job
+            </button>
+            <div class="clearfix"></div>
+        </section>
+        <div class="more-bottom"></div>
+    </div>
+</div>
+
+<% document_type_list.each do |classname, human_name| %>
+<script type="text/template" id="template-<%= classname %>">
+    <select name="fields_to_check[]" class="form-control" size="8" multiple="multiple">
+        <optgroup label="Date">
+            <% list_date_fields_by_document_type(classname).each do |date_classname, date_human_name|  %>
+            <option value="<%= date_classname %>" data-field_type="date">
+                <%= date_human_name %>
+            </option>
+            <% end %>
+        </optgroup>
+        <optgroup label="Text">
+            <% list_text_fields_by_document_type(classname).each do |text_classname, text_human_name|  %>
+            <option value="<%= text_classname %>" data-field_type="text">
+                <%= text_human_name %>
+            </option>
+            <% end %>
+        </optgroup>
+    </select>
+</script>
+<% end %>
+
+<script type="text/template" id="template-annotator-config">
+<form id="annotator-config-{{AID}}" class="annotator-config">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <input type="text" class="form-control" name="filter_name" value="">
+            <div class="form-group" id="annotator-params-{{AID}}">
+            </div>
+            <div id="annotator-fields-{{AID}}"></div>
+        </div>
+    </div>
+    <input type="hidden" name="filter_icon" value="">
+    <input type="hidden" name="annotator_name" value="{{AID}}">
+</form>
+</script>
+
+<div class="modal fade" id="modal-annotator-icon" tabindex="-1" role="dialog" aria-labelledby="annotatorIconModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="annotatorIconModalLabel">
+                    Choose Filter Icon
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Will be a nice grid of icons to click on...
+                </p>
+                <div class="text-right">
+                   <button type="button" class="btn btn-default add-right" data-dismiss="modal">
+                       Cancel
+                   </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-annotator-terms" tabindex="-1" role="dialog" aria-labelledby="annotatorIconModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="annotatorIconModalLabel">
+                    Specify Terms List
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Will be an easy way to choose terms...
+                </p>
+                <div class="text-right">
+                   <button type="button" class="btn btn-default add-right" data-dismiss="modal">
+                       Cancel
+                   </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-running-job" tabindex="-1" role="dialog" aria-labelledby="runningJobModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="runningJobModalLabel">
+                    Catalyst Is Running
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Your Catalyst job has started running. This may take a few seconds or up to a few minutes to finish.
+                    To view your results, go to the search page or refresh one you already have open.
+                </p>
+                <div class="text-right">
+                   <button type="button" class="btn btn-default add-right" data-dismiss="modal">
+                       Dismiss
+                   </button>
+                   <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT'] %>" class="btn btn-primary add-right">
+                       Go To Search
+                   </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
