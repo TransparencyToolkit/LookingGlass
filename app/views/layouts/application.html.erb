@@ -13,10 +13,28 @@
     <meta name="mobile-web-app-capable" content="yes" />
 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag "/css/" + project["theme"], :media => "all" %>
+    <%= stylesheet_link_tag "/css/" + project['theme'], :media => "all" %>
 
-    <!-- For all other devices (size should be 32x32 px) -->
-    <%= favicon_link_tag "/themes/" + project["theme"] + '/' + project["favicon"], :rel => 'shortcut icon' %>
+    <!-- Favicon use base if not specified -->
+    <% if project['favicon'] != "" and project['theme'] != "default" %>
+        <% fav_path = ENV['RAILS_RELATIVE_URL_ROOT'] + "themes/" + project['theme'] %>
+    <% else %>
+        <% fav_path = ENV['RAILS_RELATIVE_URL_ROOT'] + "images/" %>
+    <% end %>
+    <link rel="icon" href="<%= fav_path %>favicon-32x32.png" sizes="32x32">
+    <link rel="icon" href="<%= fav_path %>favicon-57x57.png" sizes="57x57">
+    <link rel="icon" href="<%= fav_path %>favicon-76x76.png" sizes="76x76">
+    <link rel="icon" href="<%= fav_path %>favicon-96x96.png" sizes="96x96">
+    <link rel="icon" href="<%= fav_path %>favicon-120x120.png" sizes="120x120">
+    <link rel="icon" href="<%= fav_path %>favicon-128x128.png" sizes="128x128">
+    <link rel="icon" href="<%= fav_path %>favicon-144x144.png" sizes="144x144">
+    <link rel="icon" href="<%= fav_path %>favicon-152x152.png" sizes="152x152">
+    <link rel="icon" href="<%= fav_path %>favicon-167x167.png" sizes="167x167">
+    <link rel="icon" href="<%= fav_path %>favicon-180x180.png" sizes="180x180">
+    <link rel="icon" href="<%= fav_path %>favicon-192x192.png" sizes="192x192">
+    <link rel="icon" href="<%= fav_path %>favicon-195x195.png" sizes="195x195">
+    <link rel="icon" href="<%= fav_path %>favicon-196x196.png" sizes="196x196">
+    <link rel="icon" href="<%= fav_path %>favicon-228x228.png" sizes="228x228">
 
     <!-- Load vars for use in JS -->
     <%= render partial: 'layouts/javascriptvars' %>
@@ -35,15 +53,20 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/">
-            <% if project["logo"] != "" %><img src="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>themes/<%= project['theme'] %>/<%= project['logo'] %>"><% end %>
-            <span class="title"><%= project["title"] %> </span>
+            <% if project['logo'] != "" and project['theme'] != "default" %>
+                <% logo = ENV['RAILS_RELATIVE_URL_ROOT'] + "themes/" + project['theme'] + "/" + project['logo'] %>
+            <% else %>
+                <% logo = ENV['RAILS_RELATIVE_URL_ROOT'] + "images/looking-glass-white.png" %>
+            <% end %>
+            <img src="<%= logo %>">
+            <span class="title"><%= project['title'] %></span>
           </a>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Collect nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 	      <%= render partial: 'docs/index/search/searchbar/searchbar' %>
 	      <%= render partial: 'layouts/linkmenu', locals: { project: project } %>
-        </div><!-- /.navbar-collapse -->
+        </div>
       </div>
     </nav>
     <%= bootstrap_flash %>
