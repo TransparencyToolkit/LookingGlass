@@ -25,7 +25,11 @@ Rails.application.routes.draw do
   post 'api/create_job', to: 'api#create_job'
   get 'api/facets', to: 'api#facets'
   get 'api/rerun_job', to: 'api#rerun_job'
-
+  
+  get 'thumbnail', to: Dragonfly.app.endpoint { |params, app|
+    app.fetch_file("#{params[:file]}").thumb(params[:size])
+  }
+  
   root to: 'docs#index'
   resources :docs
 

@@ -1,0 +1,11 @@
+<!-- Generate a thumbnail for a picture to put in index view -->
+
+<% file_type = get_file_type(doc["_source"]["full_path"]).downcase %>
+<% if [".jpg", ".jpeg", ".gif", ".png", ".bmp"].include?(file_type) %>
+  <div class="row">
+    <div class="col-md-6">
+      <img class="img-responsive" src="data:image;base64,                                              
+                                       <%=generate_thumbnail(doc, dataspec) %>">
+    </div>
+  </div>
+<% end %>

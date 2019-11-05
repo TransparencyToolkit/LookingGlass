@@ -24,6 +24,8 @@ gem 'font-awesome-rails'
 gem 'simple_form'
 gem 'therubyracer',  platforms: :ruby
 gem 'ruby-filemagic'
+gem 'dragonfly'
+gem 'rack-cache', require: 'rack/cache'
 
 # Debugging and testing
 group :development, :test do

@@ -5,8 +5,9 @@ ENV['DOCUPLOAD_URL'] = "http://localhost:9292" if ENV['DOCUPLOAD_URL'] == nil
 ENV['ARCHIVEADMIN_URL'] = "http://localhost:3002" if ENV['ARCHIVEADMIN_URL'] == nil
 ENV['PUBLIC_ARCHIVEADMIN_URL'] = "http://localhost:3002" if ENV['PUBLIC_ARCHIVEADMIN_URL'] == nil
 ENV['RAILS_RELATIVE_URL_ROOT'] = "/" if ENV['RAILS_RELATIVE_URL_ROOT'] == nil
+ENV['LOOKINGGLASS_URL'] = "http://localhost:3001" if ENV['LOOKINGGLASS_URL'] == nil
 
 # For instance / project (default "archive_test")
-ENV['WRITEABLE'] = "true" if ENV['WRITEABLE'] == nil
+ENV['WRITEABLE'] = "false" if ENV['WRITEABLE'] == nil
 ENV['PROJECT_INDEX'] = "archive_test" if ENV['PROJECT_INDEX'] == nil
 ENV['ARCHIVE_SECRET_KEY'] = "UWSzDa2mcuRoFmmu3epvYOhcm8GMyLVDYH0cngi5bV3+90tQWUGZpSc2ghMYoiIpIabYit7zIcwg5UE3e2iU5nmLbB2lJfIP8NhTYmOe6PsbfM8VnDHk0cP1IRLgqYybJndiPw==" if ENV['ARCHIVE_SECRET_KEY'] == nil

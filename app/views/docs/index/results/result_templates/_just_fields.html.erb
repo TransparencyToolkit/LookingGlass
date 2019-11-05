@@ -1,14 +1,6 @@
 <!-- Template to display fields of various types, used by other templates. -->  
 
-<!-- Image Document -->
-<% file_type = get_file_type(doc["_source"]["full_path"]).downcase %>
-<% if [".jpg", ".jpeg", ".gif", ".png", ".bmp"].include?(file_type) %>
-  <div class="row">
-    <div class="col-md-6">
-       <img class="img-responsive" src="<%= get_text(doc, 'full_path', dataspec['source_fields']['full_path']) %>">
-      </div>
-  </div>
-<% end %>
+<%= render partial: "docs/fields/thumbnail", locals: {doc: doc, dataspec: dataspec} %>
 
 <% doc_picture = show_by_type("Picture", doc, dataspec) %>
 

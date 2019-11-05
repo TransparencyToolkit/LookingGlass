@@ -13,4 +13,5 @@ module DocsHelper
   include AddFacetFilter
   include ThreadDocs
   include VersionTracker
+  include GenerateThumbnail
 end
