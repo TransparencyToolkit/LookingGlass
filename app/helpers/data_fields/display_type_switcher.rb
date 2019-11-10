@@ -59,7 +59,7 @@ module DisplayTypeSwitcher
     human_readable_name = human_readable_title(field_details)
     icon = icon_name(field_details)
     editclass = set_editable_class(action)
-
+    
     # Switch by field type
     if display_field?(type, action, field_data)
       case type
@@ -138,8 +138,10 @@ module DisplayTypeSwitcher
             field: field,
             editclass: editclass
         }
-      when "Attachment", "Email Attachment"
+      when "Attachment"
         return show_attachments_by_type(field_data)
+      when "Email Attachment"
+        return show_email_attachments_by_type(field_data)
       when "Show"
         render partial: "docs/fields/show_text", locals: {
             text: field_data,
@@ -186,6 +188,22 @@ module DisplayTypeSwitcher
     return files.inject("") do |str, file|
       full_path = (ENV['RAILS_RELATIVE_URL_ROOT']+file).gsub("//", "/")
       str += attachment_file_format_switcher(full_path)
+      raw(str)
+    end
+  end
+
+  # Go through files and show
+  def show_email_attachments_by_type(files)
+    files = files.is_a?(Array) ? files : [files]
+
+    # Go through all files and output display
+    count = 0
+    return files.inject("") do |str, file|
+      count += 1
+      full_path = (ENV['RAILS_RELATIVE_URL_ROOT']+file).gsub("//", "/")
+      str += (render html: raw("<h3>Attachment: "+file.split("/").last+"</h3>"))
+      str += attachment_file_format_switcher(full_path)
+      str += (render html: raw("<br /><hr>")) if files.length != count
       raw(str)
     end
   end
