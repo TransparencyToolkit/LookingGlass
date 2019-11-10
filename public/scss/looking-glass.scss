@@ -1,15 +1,15 @@
 /* Icon Re-Mappings */
 .icon-company:before {
-  content: "\e908";
+  content: "\e909";
 }
 
 .icon-article:before,
 .icon-news:before {
-  content: "\e93c";
+  content: "\e942";
 }
 
 .icon-source:before {
-  content: "\e941";
+  content: "\e94f";
 }
 
 
@@ -662,7 +662,7 @@ form.navbar-form {
 
     object.show-document {
       width: 100%;
-      min-height: 800px;
+      min-height: 700px;
       border: $lg-show-embed-border;
       background: transparent;
     }
