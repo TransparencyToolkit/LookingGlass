@@ -58,6 +58,10 @@ module ParamFilters
 
   # Show filters for date vals
   def generate_date_filter(field_searched, query)
+    # Handle datetimes
+    query = DateTime.strptime(query, "%s").strftime("%Y-%m-%d %H:%M:%S") if !query.include?("/")
+    
+    # Get details to generate hash
     field, datasource = field_searched.gsub("startrange_", "").gsub("endrange_", "").split("_source_")
     later_or_earlier = field_searched.include?("startrange_") ? " Later Than" : " Earlier Than"
     label = generate_filter_label(field, "search", datasource, later_or_earlier)

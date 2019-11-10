@@ -48,8 +48,15 @@ module ParamParsing
       start_or_end, field = param[0].split("_source_")[0].split("range_")
       gte_or_lte = start_or_end == "start" ? :gte : :lte
       
+      # Handle Date fields
+      if param[1].include?("/")
+        date_formatted = Date.strptime(param[1], "%m/%d/%Y")
+      else # Handle datetime fields
+        date_formatted = DateTime.strptime(param[1], "%s")
+      end
+      
       # Merge into hash
-      (range_hash[field]||= {}).merge!({gte_or_lte => Date.strptime(param[1], "%m/%d/%Y")})
+      (range_hash[field]||= {}).merge!({gte_or_lte => date_formatted})
       range_hash
     end.to_json
   end
@@ -64,7 +71,7 @@ module ParamParsing
       # Handle all facets as arrays
       value_list = facet[1].is_a?(Array) ? facet[1] : [facet[1]]
       facet_name = facet[0].gsub("_facet", ".keyword")
-
+      
       # Save param for each
       value_list.each{|facet_val| remapped.push({facet_name => facet_val})}
       remapped
