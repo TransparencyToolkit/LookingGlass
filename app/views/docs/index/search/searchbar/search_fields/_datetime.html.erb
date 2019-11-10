@@ -4,17 +4,19 @@
   <div class="input-group">
       <input type="text"
              class="form-control"
-             id="search-date-start"
+             id="search-datetime-start"
              name="<%= field_names[0]%>"
+             value=""
              data-behaviour="datetimepicker"
              placeholder="1376321936">
     <span class="input-group-addon">to</span>
     <input type="text"
            class="form-control"
-           id="search-date-end"
+           id="search-datetime-end"
            name="<%= field_names[1] %>"
+           value=""
            data-behaviour="datetimepicker"
-           placeholder="1501231587">
+           placeholder="1539917500">
     <%= render partial: 'docs/index/search/searchbar/search_fields/search_button', locals: {fieldname: [field_names[0], field_names[1]]}%>
   </div>
 </div>
