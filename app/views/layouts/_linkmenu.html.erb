@@ -2,10 +2,11 @@
     <% if ENV['WRITEABLE'] == "true" %>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <i class="icon-plus"></i>
-            Add Content
+            <i class="icon-archive"></i>
+            Archive <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Add Content</li>
             <li>
                 <a href="<%= ENV['DOCUPLOAD_URL']%>">
                     <i class="icon-upload"></i>
@@ -14,17 +15,25 @@
             </li>
             <li>
                 <a href="<%= ENV['RAILS_RELATIVE_URL_ROOT']%>entities">
-                    <i class="icon-list"></i>
+                    <i class="icon-plus"></i>
                     Add Entities
                 </a>
             </li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Admin</li>
+            <li>
+                <a href="<%= ENV['ARCHIVEADMIN_URL'] %>">
+                    <i class="icon-user"></i>
+                    User Access
+                </a>
+            </li>
+            <li>
+                <a href="<%= ENV['ARCHIVEADMIN_URL'] %>">
+                    <i class="icon-settings"></i>
+                    Archive Settings
+                </a>
+            </li>
         </ul>
-    </li>
-    <li>
-        <a href="<%= ENV['ARCHIVEADMIN_URL'] %>">
-            <i class="icon-settings"></i>
-            Archive Settings
-        </a>
     </li>
     <% else %>
     <% project["other_topbar_links"].to_h.each do |name, link| %>
