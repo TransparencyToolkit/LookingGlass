@@ -28,8 +28,11 @@ module FieldAttributeGetter
 
   # Prepend the prefix (for attachments or images)
   def prepend_prefix(value, field_details)
+    # Handle prefixes for alt attachment views
+    if field_details["display_type"] == "Alt Attachment View"
+      return value.map{|i| [i[0], field_details["prefix"]+i[1]]}.to_h
     # Handle prefixes for array and string values
-    if field_details["prefix"] && !value.blank?
+    elsif field_details["prefix"] && !value.blank?
       value.is_a?(Array) ? (return value.map{|val| field_details["prefix"]+val}) : (return field_details["prefix"]+value) 
     else # Don't add prefix if none specified
       return value

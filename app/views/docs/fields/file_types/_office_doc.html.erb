@@ -1,7 +1,8 @@
 <!-- Shows an Office document (including PDF view) -->
-<% if lg_pdf_view %>
-  <object class="show-document" data="<%= lg_pdf_view %>?#zoom=page-width" type="application/pdf">
-    <embed src="<%= asset_path(lg_pdf_view) %>" type="application/pdf" />
+<% if lg_pdf_view[file.split("/").last] %>
+  <% file_view_path = lg_pdf_view[file.split("/").last] %>
+  <object class="show-document" data="<%= file_view_path %>?#zoom=page-width" type="application/pdf">
+    <embed src="<%= asset_path(file_view_path) %>" type="application/pdf" />
   </object>
 <% end %>
   
