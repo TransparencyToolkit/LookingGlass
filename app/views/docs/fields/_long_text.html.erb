@@ -1,5 +1,5 @@
 <% if text.to_s.include?("is_highlighted") %>
-    <%= text %>
+    <%= sanitize(text) %>
 <% else %>
-    <%= truncate(text, length: 500) %>
+    <%= truncate(sanitize(text), length: 500) %>
 <% end %>
