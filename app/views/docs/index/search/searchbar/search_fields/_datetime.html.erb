@@ -2,21 +2,21 @@
 <%= form_tag search_path, method: 'get', id: 'form-search-datetime', class: 'navbar-form navbar-left input-group-addon hide' do %>
   <div class="searchin" id="<%= fieldname %>">
   <div class="input-group">
-      <input type="text"
+    <input type="text"
              class="form-control"
-             id="search-datetime-start"
-             name="<%= field_names[0]%>"
-             value=""
+             id="search-datetime-start-fake"
+             name="<%= field_names[0]%>-fake"
              data-behaviour="datetimepicker"
-             placeholder="1376321936">
+             placeholder="1984-12-31 12:42">
     <span class="input-group-addon">to</span>
     <input type="text"
            class="form-control"
-           id="search-datetime-end"
-           name="<%= field_names[1] %>"
-           value=""
+           id="search-datetime-end-fake"
+           name="<%= field_names[1] %>-fake"
            data-behaviour="datetimepicker"
-           placeholder="1539917500">
+           placeholder="2000-01-01 13:37">
+    <input type="hidden" id="search-datetime-start" name="<%= field_names[0]%>" value="">
+    <input type="hidden" id="search-datetime-end" name="<%= field_names[1] %>" value="">
     <%= render partial: 'docs/index/search/searchbar/search_fields/search_button', locals: {fieldname: [field_names[0], field_names[1]]}%>
   </div>
 </div>

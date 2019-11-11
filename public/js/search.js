@@ -1,14 +1,11 @@
 /* search.js */
 
 var renderSearchFields = function(value, type, hr_field_label) {
-
     // Hide Forms
     $('#form-search-all').hide();
     $('#form-search-string').hide();
     $('#form-search-date').hide();
     $('#form-search-datetime').hide();
-
-    console.log('change #ftypes with: ' + type)
 
     // Modify Fields
     if (type === 'date') {
@@ -21,22 +18,30 @@ var renderSearchFields = function(value, type, hr_field_label) {
         })
     }
     else if (type === 'datetime') {
-        // TODO: make timestamp values convert to readable format & vv
-        console.log($('#search-datetime-start').val() + ' ' + $('#search-datetime-end').val())
+        $('#search-datetime-start-fake')
+            .attr('name', 'startrange_' + value + '-fake')
+        $('#search-datetime-start')
+            .attr('name', 'startrange_' + value)
+	    $('#search-datetime-end-fake')
+            .attr('name', 'endrange_' + value + '-fake')
+        $('#search-datetime-end')
+            .attr('name', 'endrange_' + value)
 
-        // moment.unix(1576321936).format("YYYY-MM-DD hh:mm");
-        $('#search-datetime-start').attr('name', 'startrange_' + value)
-	    $('#search-datetime-end').attr('name', 'endrange_' + value)
-
-        console.log(datetimepicker_icons)
         $('[data-behaviour~=datetimepicker]').datetimepicker({
-            extraFormats: ['X', 'x'],
-            format: 'X',
+            extraFormats: ['X'],
+            format: 'MM/DD/YYYY hh:mm',
             icons: datetimepicker_icons
+        })
+
+        $('[data-behaviour~=datetimepicker]').on("dp.change", function (e) {
+            var changed_item  = $(this).val()
+            var converted = moment(changed_item).format('X')
+            var real = $(this).attr('name').replace('-fake', '')
+
+            $('input[name=' + real + ']').val(converted);
         })
     }
     else if (type === 'string') {
-
       $('#form-search-' + type)
         .find('input[type=text]')
         .attr('name', value)
@@ -56,12 +61,12 @@ var renderSearchFields = function(value, type, hr_field_label) {
           .attr('placeholder', 'Search ' + hr_field_label)
           .val('')
       }
-
     }
-
 }
 
 $(document).ready(function() {
+
+  $('#search-fields').val('all')
 
   // Sidebar Toggles
   $('.tree-toggler').on('click', function() {
@@ -78,9 +83,8 @@ $(document).ready(function() {
   });
 
   // Search Forms
-  $('#ftypes').on('change', function() {
-
-    var chosen = $('#ftypes option:selected')
+  $('#search-fields').on('change', function() {
+    var chosen = $('#search-fields option:selected')
     var value = chosen.val()
     var type = chosen.data('type').toLowerCase()
     var hr_field_label = chosen.data('labelname')
@@ -91,6 +95,11 @@ $(document).ready(function() {
     $('#form-search-' + type)
       .removeClass('hide')
       .show()
+  })
+
+  $('#form-search-datetime').on('submit', function(e) {
+    $('#search-datetime-start-fake').remove();
+    $('#search-datetime-end-fake').remove();
   })
 
 })
