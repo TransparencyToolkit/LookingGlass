@@ -200,8 +200,9 @@ module DisplayTypeSwitcher
     count = 0
     return files.inject("") do |str, file|
       count += 1
+      attach_name = file.split("/").last.split("_", 2).last
       full_path = (ENV['RAILS_RELATIVE_URL_ROOT']+file).gsub("//", "/")
-      str += (render html: raw("<h3>Attachment: "+file.split("/").last+"</h3>"))
+      str += (render html: raw("<h3>Attachment: "+attach_name+"</h3>"))
       str += attachment_file_format_switcher(full_path)
       str += (render html: raw("<br /><hr>")) if files.length != count
       raw(str)
