@@ -1,5 +1,6 @@
 <!-- Only show search bar on index action -->
 <% if ["docs", "search"].include? params["controller"] and params["action"] == "index" %>
+<div class="navbar-left">
   <%= render partial: 'docs/index/search/searchbar/dropdown/dropdown' %>
   <!-- Render forms for different types of queries -->
   <%= render partial: 'docs/index/search/searchbar/search_fields/all' %>
@@ -7,11 +8,10 @@
   <%= render partial: 'docs/index/search/searchbar/search_fields/date', locals: {
       fieldname: 'datequery',
       start_date: 'start_date',
-      end_date: 'end_date' }
-      %>
+      end_date: 'end_date' } %>
   <%= render partial: 'docs/index/search/searchbar/search_fields/datetime', locals: {
       fieldname: 'datequery',
       start_date: 'start_date',
-      end_date: 'end_date' }
-  %>
+      end_date: 'end_date' } %>
+</div>
 <% end %>

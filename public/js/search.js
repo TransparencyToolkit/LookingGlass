@@ -26,10 +26,9 @@ var renderSearchFields = function(value, type, hr_field_label) {
             .attr('name', 'endrange_' + value + '-fake')
         $('#search-datetime-end')
             .attr('name', 'endrange_' + value)
-
         $('[data-behaviour~=datetimepicker]').datetimepicker({
             extraFormats: ['X'],
-            format: 'MM/DD/YYYY hh:mm',
+            format: 'YYYY-MM-DD hh:mm',
             icons: datetimepicker_icons
         })
 
@@ -37,7 +36,6 @@ var renderSearchFields = function(value, type, hr_field_label) {
             var changed_item  = $(this).val()
             var converted = moment(changed_item).format('X')
             var real = $(this).attr('name').replace('-fake', '')
-
             $('input[name=' + real + ']').val(converted);
         })
     }

@@ -67,7 +67,6 @@ $bs-datetimepicker-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !default;
                 border-left: 7px solid transparent;
                 border-right: 7px solid transparent;
                 border-top: 7px solid $bs-datetimepicker-secondary-border-color;
-                border-top-color: $bs-datetimepicker-secondary-border-color-rgba;
                 bottom: -7px;
                 left: 6px;
             }
@@ -246,6 +245,7 @@ $bs-datetimepicker-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !default;
                 height: 20px;
                 line-height: 20px;
                 width: 20px;
+                padding: 5px;
             }
 
             &.day:hover,
@@ -296,13 +296,13 @@ $bs-datetimepicker-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !default;
             }
 
             span {
-                display: inline-block;
                 width: 54px;
                 height: 54px;
                 line-height: 54px;
                 margin: 2px 1.5px;
                 cursor: pointer;
                 border-radius: $bs-datetimepicker-border-radius;
+                float: left;
 
                 &:hover {
                     background: $bs-datetimepicker-btn-hover-bg;

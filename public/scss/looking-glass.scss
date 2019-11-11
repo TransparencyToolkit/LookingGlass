@@ -173,7 +173,7 @@ form.navbar-form {
     width: 90% !important;
     height: 80% !important;
     border: 0px;
-    background-color: #CCCCCC;
+    background-color: $lg-navbar-input-group-background;
   }
 
   input.form-control-sm {
@@ -727,3 +727,7 @@ form.navbar-form {
       color: $lg-static-title-color;
     }
   }
+
+
+/*** datetime-picker ***/
+

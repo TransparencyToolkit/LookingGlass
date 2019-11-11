@@ -1,0 +1,27 @@
+/* handle our layouts that break bootstrap */
+
+// tablet & mobile - hamburger appears
+@media (max-width: $screen-xs-max) {
+  body {
+    padding-top: 50px;
+  }
+  #sidebar {
+    top: 50px;
+  }
+}
+
+// desktop small
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  body {
+    padding-top: 100px;
+  }
+  #sidebar {
+    top: 100px;
+  }
+}
+
+// desktop med
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {}
+
+// desktop big
+@media (min-width: $screen-lg-min) {}
